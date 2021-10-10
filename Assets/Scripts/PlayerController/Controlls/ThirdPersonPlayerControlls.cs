@@ -15,7 +15,7 @@ public class @ThirdPersonPlayerControlls : IInputActionCollection, IDisposable
     ""name"": ""ThirdPersonPlayerControlls"",
     ""maps"": [
         {
-            ""name"": ""KeyboardAndMouse"",
+            ""name"": ""Player"",
             ""id"": ""0e91b768-1146-4757-9b86-ca92c1a01f33"",
             ""actions"": [
                 {
@@ -100,6 +100,61 @@ public class @ThirdPersonPlayerControlls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""Arrows"",
+                    ""id"": ""ce159110-4ff6-4a9d-b5c8-a5e5fec89fff"",
+                    ""path"": ""2DVector(mode=1)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""39f983e4-8949-4a5d-a890-3b726287d62e"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""PlayerMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8f9c74a5-6d8b-4495-b6c8-c096c8bd07d2"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""PlayerMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""cade9528-587b-4ee0-80ea-48be99654046"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""PlayerMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""6ada994c-7acc-4af6-a1a4-bf3b57f3c937"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""PlayerMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""0469fef2-e374-408f-8802-d73b797cf744"",
                     ""path"": ""<Keyboard>/shift"",
@@ -143,11 +198,11 @@ public class @ThirdPersonPlayerControlls : IInputActionCollection, IDisposable
         }
     ]
 }");
-        // KeyboardAndMouse
-        m_KeyboardAndMouse = asset.FindActionMap("KeyboardAndMouse", throwIfNotFound: true);
-        m_KeyboardAndMouse_PlayerMovement = m_KeyboardAndMouse.FindAction("PlayerMovement", throwIfNotFound: true);
-        m_KeyboardAndMouse_Sprint = m_KeyboardAndMouse.FindAction("Sprint", throwIfNotFound: true);
-        m_KeyboardAndMouse_Jump = m_KeyboardAndMouse.FindAction("Jump", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_PlayerMovement = m_Player.FindAction("PlayerMovement", throwIfNotFound: true);
+        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -194,39 +249,39 @@ public class @ThirdPersonPlayerControlls : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // KeyboardAndMouse
-    private readonly InputActionMap m_KeyboardAndMouse;
-    private IKeyboardAndMouseActions m_KeyboardAndMouseActionsCallbackInterface;
-    private readonly InputAction m_KeyboardAndMouse_PlayerMovement;
-    private readonly InputAction m_KeyboardAndMouse_Sprint;
-    private readonly InputAction m_KeyboardAndMouse_Jump;
-    public struct KeyboardAndMouseActions
+    // Player
+    private readonly InputActionMap m_Player;
+    private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_PlayerMovement;
+    private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_Jump;
+    public struct PlayerActions
     {
         private @ThirdPersonPlayerControlls m_Wrapper;
-        public KeyboardAndMouseActions(@ThirdPersonPlayerControlls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @PlayerMovement => m_Wrapper.m_KeyboardAndMouse_PlayerMovement;
-        public InputAction @Sprint => m_Wrapper.m_KeyboardAndMouse_Sprint;
-        public InputAction @Jump => m_Wrapper.m_KeyboardAndMouse_Jump;
-        public InputActionMap Get() { return m_Wrapper.m_KeyboardAndMouse; }
+        public PlayerActions(@ThirdPersonPlayerControlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PlayerMovement => m_Wrapper.m_Player_PlayerMovement;
+        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(KeyboardAndMouseActions set) { return set.Get(); }
-        public void SetCallbacks(IKeyboardAndMouseActions instance)
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerActions instance)
         {
-            if (m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface != null)
+            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @PlayerMovement.started -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnPlayerMovement;
-                @PlayerMovement.performed -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnPlayerMovement;
-                @PlayerMovement.canceled -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnPlayerMovement;
-                @Sprint.started -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnSprint;
-                @Sprint.performed -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnSprint;
-                @Sprint.canceled -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnSprint;
-                @Jump.started -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface.OnJump;
+                @PlayerMovement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerMovement;
+                @PlayerMovement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerMovement;
+                @PlayerMovement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerMovement;
+                @Sprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
             }
-            m_Wrapper.m_KeyboardAndMouseActionsCallbackInterface = instance;
+            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @PlayerMovement.started += instance.OnPlayerMovement;
@@ -241,7 +296,7 @@ public class @ThirdPersonPlayerControlls : IInputActionCollection, IDisposable
             }
         }
     }
-    public KeyboardAndMouseActions @KeyboardAndMouse => new KeyboardAndMouseActions(this);
+    public PlayerActions @Player => new PlayerActions(this);
     private int m_KeyboardAndMouseSchemeIndex = -1;
     public InputControlScheme KeyboardAndMouseScheme
     {
@@ -251,7 +306,7 @@ public class @ThirdPersonPlayerControlls : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_KeyboardAndMouseSchemeIndex];
         }
     }
-    public interface IKeyboardAndMouseActions
+    public interface IPlayerActions
     {
         void OnPlayerMovement(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
