@@ -28,7 +28,7 @@ public class @ThirdPersonPlayerControlls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Sprint"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""53c0fcac-9ad8-4c0f-9dbd-3e594c4d62c9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

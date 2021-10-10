@@ -40,7 +40,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// </summary>
     private void PlayerMovement() {
 
-        float targetSpeed = walkSpeed;  // setting the target speed (walking or running)
+        float targetSpeed = onPlayerInput.isSprinting ? runSpeed : walkSpeed;  // setting the target speed (walking or running)
 
         targetSpeed = onPlayerInput.playerMovement == Vector2.zero ? 0f : targetSpeed; // if the player is not moving set it to 0 otherwise remain
 
