@@ -11,8 +11,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float speedChangeRate = 10f;
 
     private float speed;
-
-
+    private float targetRotation = 0.0f;
     private CharacterController controller;
     private OnPlayerInput onPlayerInput;
 
@@ -48,9 +47,15 @@ public class ThirdPersonPlayerController : MonoBehaviour
             speed = targetSpeed;
         }
 
-        Vector3 targetDirection = Quaternion.Euler(0f, 0f, 0f) * Vector3.forward;
+        Vector3 inputDirection = new Vector3(onPlayerInput.playerMovement.x, 0.0f, onPlayerInput.playerMovement.y).normalized;
+
+        if (onPlayerInput.playerMovement != Vector2.zero) {
+            targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + 0.0f;
+        }
+
+        Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
 
         controller.Move(targetDirection.normalized * (speed * Time.deltaTime));
-
+        
     }
 }

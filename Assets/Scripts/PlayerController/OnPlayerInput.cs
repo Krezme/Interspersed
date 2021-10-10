@@ -8,7 +8,7 @@ public class OnPlayerInput : MonoBehaviour
     public Vector2 playerMovement; //player movement for the X and Z axis
 
     public void OnPlayerMovement (InputValue value) {
-        //PlayerMovementInput(value.Get<Vector2>());
+        PlayerMovementInput(value.Get<Vector2>());
         Debug.Log(value.Get<Vector2>());
     }
 
