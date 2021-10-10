@@ -5,12 +5,21 @@ using UnityEngine.InputSystem;
 
 public class ThirdPersonPlayerController : MonoBehaviour
 {
-
+#region Public Player Vars
     [Header("Player Statistics")]
     public float walkSpeed; // Player walk speed
     public float runSpeed; // player run speed
     public float speedChangeRate = 10f; // acceleration and deceleration of the player
+#endregion
 
+#region Public Player Grounded Vars
+    [Header("Grounded")]
+    public bool isGrounded;
+    public float groundedOffset = -0.14f;
+    public float groundedGizmoRadius = 0.5f;
+    public float playerObjectCenterOffset;
+    public LayerMask groundLayers;
+#endregion
 
     // Current player stats (at the exact moment of the movement)
     private float speed;
@@ -68,4 +77,17 @@ public class ThirdPersonPlayerController : MonoBehaviour
         controller.Move(targetDirection.normalized * (speed * Time.deltaTime)); // moving the character
         
     }
+
+    private void OnDrawGizmosSelected()
+		{
+			Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.3f); // Green colour
+			Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.3f); // Red colour
+
+            //Colouring the sphere
+			if (isGrounded) Gizmos.color = transparentGreen;
+			else Gizmos.color = transparentRed;
+			
+            //Drawing the Gizmo at the feet of the player character
+			Gizmos.DrawSphere(new Vector3(transform.position.x, (transform.position.y - playerObjectCenterOffset) - groundedOffset, transform.position.z), groundedGizmoRadius); 
+		}
 }

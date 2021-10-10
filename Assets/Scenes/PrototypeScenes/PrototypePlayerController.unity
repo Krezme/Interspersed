@@ -241,6 +241,13 @@ MonoBehaviour:
   walkSpeed: 10
   runSpeed: 20
   speedChangeRate: 10
+  isGrounded: 1
+  groundedOffset: -0.14
+  groundedGizmoRadius: 0.5
+  playerObjectCenterOffset: 0
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &790989375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,7 +719,7 @@ GameObject:
   - component: {fileID: 1979732022}
   - component: {fileID: 1979732021}
   - component: {fileID: 1979732020}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
