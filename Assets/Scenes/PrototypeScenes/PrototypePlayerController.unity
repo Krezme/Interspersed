@@ -240,7 +240,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 10
   runSpeed: 20
+  jumpHeight: 4
   speedChangeRate: 10
+  jumpCooldown: 0.1
+  fallCooldown: 0.15
+  gravity: -19.62
+  constGravityWhileGrounded: -2
+  terminalVelocity: 50
   isGrounded: 0
   groundedOffset: -0.14
   groundedGizmoRadius: 0.5
@@ -293,6 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {x: 0, y: 0}
   isSprinting: 0
+  jumped: 0
 --- !u!1 &1022430261
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,30 +9,42 @@ public class ThirdPersonPlayerController : MonoBehaviour
     [Header("Player Statistics")]
     public float walkSpeed; // Player walk speed
     public float runSpeed; // player run speed
+    public float jumpHeight; // the desired player jump height
     public float speedChangeRate = 10f; // acceleration and deceleration of the player
+
+    [Space(10)]
+    public float jumpCooldown; // the cooldown between jumps
+    public float fallCooldown;
+#endregion
+
+#region Phisics Vars
+    [Header("Phisics")]
+    public float gravity; // the vertival force that pulls the player character downwards
+    public float constGravityWhileGrounded = -2f;
+    public float terminalVelocity;
 #endregion
 
 #region Public Player Grounded Vars
     [Header("Grounded")]
-    public bool isGrounded;
-    public float groundedOffset = -0.14f;
-    public float groundedGizmoRadius = 0.5f;
-    public float playerObjectCenterOffset;
-    public LayerMask groundLayers;
+    public bool isGrounded; // if the player is grounded
+    public float groundedOffset = -0.14f; // small offset to make sure the player is prounded even on rough terrain
+    public float groundedGizmoRadius = 0.5f; // the radius of the ground check sphere
+    public float playerObjectCenterOffset; // variable that adjust the Center offset of a not animated character
+    public LayerMask groundLayers; // the layer which the player can stand on and are counted as ground
 
-    Vector3 groundedSpherePosition;
 #endregion
 
     // Current player stats (at the exact moment of the movement)
     private float speed;
     private float targetRotation = 0.0f;
-
+    private float verticalVelocity;
+    private float jumpCooldownCurrent;
+    private float fallCooldownCurrent;    
+    private Vector3 groundedSpherePosition;
 
     // References
     private CharacterController controller;
     private OnPlayerInput onPlayerInput;
-
-
     
     void Start()
     {
@@ -45,6 +57,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     {
         GroundCheckSphere();
         GroundedCheck();
+        PlayerJumpAndGravity();
         PlayerMovement();
     }
 
@@ -78,8 +91,47 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
 
-        controller.Move(targetDirection.normalized * (speed * Time.deltaTime)); // moving the character
+        controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime); // Applying the movement
         
+    }
+
+    /// <summary>
+    /// Handles the player jump and gravity
+    /// </summary>
+    void PlayerJumpAndGravity(){
+        if (isGrounded) {
+            fallCooldownCurrent = fallCooldown;
+
+            // gravity reduction while grounded
+            if (verticalVelocity <= 0.0f) {
+                verticalVelocity = constGravityWhileGrounded;
+            }
+
+            // Calculating the vertical velocuty when the input is pressed and the cooldown is over
+            if (onPlayerInput.jumped && jumpCooldownCurrent <= 0.0f) {
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);   // H * -2 * G to calculate how much velocity is required to reach the desired height
+            }
+            
+            // cooling down the jump
+            if (jumpCooldownCurrent >= 0.0f) {
+                jumpCooldownCurrent -= Time.deltaTime;
+            }
+        }
+        else{
+            jumpCooldownCurrent = jumpCooldown;
+
+            // cooling down the fall
+            if (fallCooldownCurrent >= 0.0f) {
+                fallCooldownCurrent -= Time.deltaTime;
+            }
+
+            onPlayerInput.jumped = false; // when not grounded stop jumping
+        }
+
+        // increases the fall of the player until it reaches terminal velovity
+        if (verticalVelocity < terminalVelocity) {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
     }
 
     /// <summary>

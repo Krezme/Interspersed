@@ -8,6 +8,8 @@ public class OnPlayerInput : MonoBehaviour
     public Vector2 playerMovement; //player movement for the X and Z axis
     public bool isSprinting; // Sprinting state
 
+    public bool jumped;
+
     /// <summary>
     /// Takes the player input and records it
     /// </summary>
@@ -24,6 +26,10 @@ public class OnPlayerInput : MonoBehaviour
         PlayerSprintInput(value.isPressed);
     }
 
+    public void OnJump(InputValue value){
+        PlayerJumpInput(value.isPressed);
+    }
+
     /// <summary>
     /// Setting the playerMovement Vector2 to the input
     /// </summary>
@@ -38,5 +44,9 @@ public class OnPlayerInput : MonoBehaviour
     /// <param name="sprintState">The sprinting state</param>
     private void PlayerSprintInput(bool sprintState) {
         isSprinting = sprintState;
+    }
+
+    private void PlayerJumpInput(bool jumpState) {
+        jumped = jumpState;
     }
 }
