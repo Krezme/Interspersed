@@ -19,6 +19,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float groundedGizmoRadius = 0.5f;
     public float playerObjectCenterOffset;
     public LayerMask groundLayers;
+
+    Vector3 groundedSpherePosition;
 #endregion
 
     // Current player stats (at the exact moment of the movement)
@@ -41,6 +43,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
     
     void Update()
     {
+        GroundCheckSphere();
+        GroundedCheck();
         PlayerMovement();
     }
 
@@ -78,6 +82,28 @@ public class ThirdPersonPlayerController : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Setting the ground check sphere position
+    /// </summary>
+    void GroundCheckSphere() {
+        groundedSpherePosition = new Vector3(transform.position.x, (transform.position.y - playerObjectCenterOffset) - groundedOffset, transform.position.z);
+    }
+
+    /// <summary>
+    /// Checking if the player is toching the ground
+    /// </summary>
+    private void GroundedCheck()
+	{
+		// Checking if player is grounded
+		isGrounded = Physics.CheckSphere(groundedSpherePosition, groundedGizmoRadius, groundLayers, QueryTriggerInteraction.Ignore);
+
+		// update animator if using character
+		/* if (_hasAnimator)
+		{
+			_animator.SetBool(_animIDGrounded, Grounded);
+		} */
+	}
+
     private void OnDrawGizmosSelected()
 		{
 			Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.3f); // Green colour
@@ -88,6 +114,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
 			else Gizmos.color = transparentRed;
 			
             //Drawing the Gizmo at the feet of the player character
-			Gizmos.DrawSphere(new Vector3(transform.position.x, (transform.position.y - playerObjectCenterOffset) - groundedOffset, transform.position.z), groundedGizmoRadius); 
+			Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius); 
 		}
 }
