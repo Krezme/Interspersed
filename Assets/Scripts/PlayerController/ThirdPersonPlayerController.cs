@@ -34,6 +34,21 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
 #endregion
 
+#region Public Cinemachine Vars
+    [Header("Cinemachine")]
+    public GameObject playerCameraRoot;
+    public float sensitivityMultiplier = 1.0f;
+    public float topClamp = 90f;
+    public float bottomClamp = -50f;
+    public bool isCameraLocked;
+#endregion
+
+#region Private Cinemachine Vars
+    private float camTargetYaw;
+    private float camTargetPitch;
+    private float camMoveThreshold;
+#endregion
+
     // Current player stats (at the exact moment of the movement)
     private float speed;
     private float targetRotation = 0.0f;
@@ -45,13 +60,17 @@ public class ThirdPersonPlayerController : MonoBehaviour
     // References
     private CharacterController controller;
     private OnPlayerInput onPlayerInput;
+    private GameObject mainCamera;
     
+    void Awake() {
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+    }
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
         onPlayerInput = GetComponent<OnPlayerInput>();
     }
-
     
     void Update()
     {
@@ -59,6 +78,10 @@ public class ThirdPersonPlayerController : MonoBehaviour
         GroundedCheck();
         PlayerJumpAndGravity();
         PlayerMovement();
+    }
+
+    void LateUpdate() {
+        CameraOrbit();
     }
 
     /// <summary>
@@ -86,7 +109,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         Vector3 inputDirection = new Vector3(onPlayerInput.playerMovement.x, 0.0f, onPlayerInput.playerMovement.y).normalized; // normalized direction
 
         if (onPlayerInput.playerMovement != Vector2.zero) { // if the player is not moving
-            targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
+            targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
+
+            
         }
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
@@ -134,6 +159,18 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
     }
 
+    void CameraOrbit () {
+        if (onPlayerInput.looking.sqrMagnitude >= camMoveThreshold && !isCameraLocked) {
+            camTargetYaw += onPlayerInput.looking.x * Time.deltaTime;
+            camTargetPitch += onPlayerInput.looking.y * Time.deltaTime;
+        }
+
+        camTargetYaw = ClampAngle(camTargetYaw, float.MinValue, float.MaxValue);
+        camTargetPitch = ClampAngle(camTargetPitch, bottomClamp, topClamp);
+
+        playerCameraRoot.transform.rotation = Quaternion.Euler(camTargetPitch, camTargetYaw, 0.0f);
+    }
+
     /// <summary>
     /// Setting the ground check sphere position
     /// </summary>
@@ -154,6 +191,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		{
 			_animator.SetBool(_animIDGrounded, Grounded);
 		} */
+	}
+
+    private static float ClampAngle(float angle, float min, float max)
+	{
+		if (angle < -360f) angle += 360f;
+		if (angle > 360f) angle -= 360f;
+		return Mathf.Clamp(angle, min, max);
 	}
 
     private void OnDrawGizmosSelected()

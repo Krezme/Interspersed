@@ -7,8 +7,8 @@ public class OnPlayerInput : MonoBehaviour
 {
     public Vector2 playerMovement; //player movement for the X and Z axis
     public bool isSprinting; // Sprinting state
-
     public bool jumped;
+    public Vector2 looking;
 
     /// <summary>
     /// Takes the player input and records it
@@ -26,10 +26,20 @@ public class OnPlayerInput : MonoBehaviour
         PlayerSprintInput(value.isPressed);
     }
 
+    /// <summary>
+    /// Takes the player input and records it
+    /// </summary>
+    /// <param name="value">Jump input value</param>
     public void OnJump(InputValue value){
         PlayerJumpInput(value.isPressed);
     }
 
+    public void OnLook(InputValue value) {
+        PlayerLookInput(value.Get<Vector2>());
+    }
+
+
+#region Recording Functions
     /// <summary>
     /// Setting the playerMovement Vector2 to the input
     /// </summary>
@@ -46,7 +56,17 @@ public class OnPlayerInput : MonoBehaviour
         isSprinting = sprintState;
     }
 
+    /// <summary>
+    /// Setting the playerJumpInput to the jump state of the player
+    /// </summary>
+    /// <param name="jumpState">if the player has jumped</param>
     private void PlayerJumpInput(bool jumpState) {
         jumped = jumpState;
     }
+
+    private void PlayerLookInput(Vector2 lookInput) {
+        looking = lookInput;
+    }
+
+#endregion
 }
