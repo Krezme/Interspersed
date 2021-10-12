@@ -110,8 +110,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         if (onPlayerInput.playerMovement != Vector2.zero) { // if the player is not moving
             targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
-
-            
         }
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
@@ -159,6 +157,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculating the rotation of the camera as well as clamping it
+    /// </summary>
     void CameraOrbit () {
         if (onPlayerInput.looking.sqrMagnitude >= camMoveThreshold && !isCameraLocked) {
             camTargetYaw += onPlayerInput.looking.x * Time.deltaTime;

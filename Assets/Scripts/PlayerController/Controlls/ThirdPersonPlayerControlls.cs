@@ -189,7 +189,7 @@ public class @ThirdPersonPlayerControlls : IInputActionCollection, IDisposable
                     ""id"": ""8253cb88-b72f-4ef4-97e6-5806a40021db"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=20,y=20)"",
                     ""groups"": ""KeyboardAndMouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
