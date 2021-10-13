@@ -36,17 +36,16 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
 #region Public Cinemachine Vars
     [Header("Cinemachine")]
-    public GameObject playerCameraRoot;
-    public float sensitivityMultiplier = 1.0f;
-    public float topClamp = 90f;
-    public float bottomClamp = -50f;
-    public bool isCameraLocked;
+    public GameObject playerCameraRoot; // the camera root under the player object
+    public float topClamp = 90f; // The top vertical camera rotation limit
+    public float bottomClamp = -50f; // The bottom vertical camera rotation limit
+    public bool isCameraLocked; // if the camera is locked 
 #endregion
 
 #region Private Cinemachine Vars
-    private float camTargetYaw;
-    private float camTargetPitch;
-    private float camMoveThreshold;
+    private float camTargetYaw; // current target for the camera horizontal rotation
+    private float camTargetPitch; // current target fot the camera vertical rotation
+    private float camMoveThreshold; // threshold for minimum mouse movement required to move the camera
 #endregion
 
     // Current player stats (at the exact moment of the movement)
@@ -158,7 +157,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Calculating the rotation of the camera as well as clamping it
+    /// Calculating the rotation of the camera as well as liting it
     /// </summary>
     void CameraOrbit () {
         if (onPlayerInput.looking.sqrMagnitude >= camMoveThreshold && !isCameraLocked) {
@@ -194,6 +193,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		} */
 	}
 
+    /// <summary>
+    /// Limits the camera movement
+    /// </summary>
+    /// <param name="angle">The angle to limit</param>
+    /// <param name="min">The min angle to limit with</param>
+    /// <param name="max">the max angle to limit with</param>
+    /// <returns>The new produced angle (float)</returns>
     private static float ClampAngle(float angle, float min, float max)
 	{
 		if (angle < -360f) angle += 360f;
