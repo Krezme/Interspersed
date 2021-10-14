@@ -1,5 +1,5 @@
 {
-    "name": "ThirdPersonPlayerControlls",
+    "name": "ThirdPersonPlayerControls",
     "maps": [
         {
             "name": "Player",
@@ -17,6 +17,14 @@
                     "name": "Sprint",
                     "type": "PassThrough",
                     "id": "53c0fcac-9ad8-4c0f-9dbd-3e594c4d62c9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Slide",
+                    "type": "PassThrough",
+                    "id": "c1d47e8e-08df-4be6-9668-85ebc39cbfd8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -179,6 +187,17 @@
                     "processors": "InvertVector2(invertX=false),ScaleVector2(x=10,y=10)",
                     "groups": "KeyboardAndMouse",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "034c342d-d231-4afc-85bb-5757d71927d3",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardAndMouse",
+                    "action": "Slide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
