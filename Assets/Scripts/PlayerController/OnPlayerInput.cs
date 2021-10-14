@@ -6,11 +6,21 @@ using UnityEngine.InputSystem.Interactions;
 
 public class OnPlayerInput : MonoBehaviour
 {
+    [Header("Options")]
+    public bool isSprintToggleable; // if the player wants toggleable sprinting or just hold to sprint
+
+#region Values
+    [HideInInspector]
     public Vector2 playerMovement; //player movement for the X and Z axis
-    public bool isSprintToggleable;
+    [HideInInspector]
     public bool isSprinting; // Sprinting state
+    [HideInInspector]
+    public bool isSliding;
+    [HideInInspector]
     public bool jumped; // if the player jumped
+    [HideInInspector]
     public Vector2 looking; // the position of the player camera
+#endregion
 
     /// <summary>
     /// Takes the player input and records it
@@ -26,6 +36,10 @@ public class OnPlayerInput : MonoBehaviour
     /// <param name="value">Sprint input value from Sprint input action map</param>
     public void OnSprint (InputValue value) {
         PlayerSprintInput(value.isPressed);
+    }
+
+    public void OnSlide (InputValue value) {
+        PlayerSlideInput(value.isPressed);
     }
 
     /// <summary>
@@ -68,6 +82,10 @@ public class OnPlayerInput : MonoBehaviour
         }
     }
 
+    private void PlayerSlideInput (bool slidingState) {
+        isSliding = slidingState;
+    }
+
     /// <summary>
     /// Setting the playerJumpInput to the jump state of the player
     /// </summary>
@@ -83,6 +101,6 @@ public class OnPlayerInput : MonoBehaviour
     private void PlayerLookInput(Vector2 lookInput) {
         looking = lookInput;
     }
-    
+
 #endregion
 }

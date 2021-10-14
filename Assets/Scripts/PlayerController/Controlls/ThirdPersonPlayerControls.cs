@@ -206,7 +206,18 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""034c342d-d231-4afc-85bb-5757d71927d3"",
-                    ""path"": ""<Keyboard>/alt"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8d72c4a-6b00-4396-bf96-b56246bdbd05"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardAndMouse"",

@@ -42,6 +42,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public bool isCameraLocked; // if the camera is locked 
 #endregion
 
+#region 
+    [Header("Other References")]
+    public GameObject playerBody;
+#endregion
+
 #region Private Cinemachine Vars
     private float camTargetYaw; // current target for the camera horizontal rotation
     private float camTargetPitch; // current target fot the camera vertical rotation
@@ -77,6 +82,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         GroundedCheck();
         PlayerJumpAndGravity();
         PlayerMovement();
+        PlayerSliding();
     }
 
     void LateUpdate() {
@@ -153,6 +159,17 @@ public class ThirdPersonPlayerController : MonoBehaviour
         // increases the fall of the player until it reaches terminal velovity
         if (verticalVelocity < terminalVelocity) {
             verticalVelocity += gravity * Time.deltaTime;
+        }
+    }
+
+    void PlayerSliding () {
+        if (onPlayerInput.isSliding && playerBody.transform.rotation != Quaternion.Euler(90f,0f,0f) && onPlayerInput.isSprinting) {
+            playerBody.transform.rotation = Quaternion.Euler(90f,0f,0f);
+            controller.height = controller.height/2;
+        }
+        if (playerBody.transform.rotation == Quaternion.Euler(90f,0f,0f) && !onPlayerInput.isSliding){
+            playerBody.transform.rotation = Quaternion.Euler(0,0,0);
+            controller.height = controller.height * 2;
         }
     }
 
