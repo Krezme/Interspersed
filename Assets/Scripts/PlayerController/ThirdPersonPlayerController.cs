@@ -11,6 +11,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float runSpeed; // player run speed
     public float jumpHeight; // the desired player jump height
     public float speedChangeRate = 10f; // acceleration and deceleration of the player
+    public float slideSpeedChangeRate = 5; // the deceleration of the player when sliding
 
     [Space(10)]
     public float jumpCooldown; // the cooldown between jumps
@@ -22,6 +23,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float gravity; // the vertival force that pulls the player character downwards
     public float constGravityWhileGrounded = -2f;
     public float terminalVelocity;
+
+    [Space(10)]
+    public float surfaceAngle;
+    public float frictionStatic;
+    public float frictionSlide;
+    public float playerCharacterMass;
+
 #endregion
 
 #region Public Player Grounded Vars
@@ -60,6 +68,10 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float jumpCooldownCurrent;
     private float fallCooldownCurrent;    
     private Vector3 groundedSpherePosition;
+    private float initialRequiredForceToMove;
+    private float secondaryRequiredForceToMove;
+    private float currentRequiredForceToMoveBefore = 0.0f;
+    private float currentRequiredForceToMoveAfter = 0.0f;
 
     // References
     private CharacterController controller;
@@ -74,6 +86,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         onPlayerInput = GetComponent<OnPlayerInput>();
+
+        initialRequiredForceToMove = frictionStatic * (playerCharacterMass * -gravity);
+        secondaryRequiredForceToMove = frictionSlide * (playerCharacterMass * -gravity);
     }
     
     void Update()
@@ -83,6 +98,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         PlayerJumpAndGravity();
         PlayerMovement();
         PlayerSliding();
+        //SlidingPhysicsCalculation();
     }
 
     void LateUpdate() {
@@ -99,7 +115,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         targetSpeed = onPlayerInput.playerMovement == Vector2.zero ? 0f : targetSpeed; // if the player is not moving set it to 0 otherwise remain
 
         float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
-
+        //Debug.Log(currentHorizontalSpeed);
         float speedOffset = 0.1f;
 
         if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset) { // if the player is accelerating
@@ -119,8 +135,15 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
 
+        if (onPlayerInput.isSliding && onPlayerInput.isSprinting) {
+            SlidingPhysicsCalculation();
+        }
+        else{
+            currentRequiredForceToMoveBefore = secondaryRequiredForceToMove;
+        }
+
         controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime); // Applying the movement
-        
+        //Debug.Log(Mathf.Log(0.1f, currentHorizontalSpeed));
     }
 
     /// <summary>
@@ -162,6 +185,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This is a temporary finction for prototyping
+    /// </summary>
     void PlayerSliding () {
         if (onPlayerInput.isSliding && playerBody.transform.rotation != Quaternion.Euler(90f,0f,0f) && onPlayerInput.isSprinting) {
             playerBody.transform.rotation = Quaternion.Euler(90f,0f,0f);
@@ -171,6 +197,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
             playerBody.transform.rotation = Quaternion.Euler(0,0,0);
             controller.height = controller.height * 2;
         }
+    }
+
+    void SlidingPhysicsCalculation () {
+        
+        float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
+        speed = Mathf.Lerp(currentHorizontalSpeed, 0f, Mathf.Lerp(currentRequiredForceToMoveBefore, initialRequiredForceToMove, Time.deltaTime * slideSpeedChangeRate) * 0.01f * Time.deltaTime);
     }
 
     /// <summary>
