@@ -11,7 +11,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float runSpeed; // player run speed
     public float jumpHeight; // the desired player jump height
     public float speedChangeRate = 10f; // acceleration and deceleration of the player
-    public float slideSpeedChangeRate = 5; // the deceleration of the player when sliding
+    public float slideSpeedChangeRate = 5f; // the deceleration of the player when sliding
+    public float inAirSpeedChangeRate = 2f;
 
     [Space(10)]
     public float jumpCooldown; // the cooldown between jumps
@@ -29,6 +30,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float frictionStatic;
     public float frictionSlide;
     public float playerCharacterMass;
+    public float slideSpeedToStopSliding; // When the slide speed falls below that number the slide will stop and the player will start walking
 
 #endregion
 
@@ -52,7 +54,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
 #region 
     [Header("Other References")]
-    public GameObject playerBody;
+    public GameObject playerBody; // Needed for prototyping
 #endregion
 
 #region Private Cinemachine Vars
@@ -135,7 +137,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
 
-        if (onPlayerInput.isSliding && onPlayerInput.isSprinting) {
+        if (onPlayerInput.isSliding && onPlayerInput.isSprinting) { // Overwriting the speed of the player with the slidning speed
             SlidingPhysicsCalculation();
         }
         else{
@@ -199,10 +201,17 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculation the sliding Speed of the player when sliding
+    /// </summary>
     void SlidingPhysicsCalculation () {
         
         float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
         speed = Mathf.Lerp(currentHorizontalSpeed, 0f, Mathf.Lerp(currentRequiredForceToMoveBefore, initialRequiredForceToMove, Time.deltaTime * slideSpeedChangeRate) * 0.01f * Time.deltaTime);
+
+        if (currentHorizontalSpeed <= slideSpeedToStopSliding) { // When the speed falls below "slideSpeedToStopSliding" the sliding will stop
+            onPlayerInput.isSliding = false;
+        }
     }
 
     /// <summary>
