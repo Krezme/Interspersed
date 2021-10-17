@@ -218,12 +218,10 @@ public class ThirdPersonPlayerController : MonoBehaviour
         if (onPlayerInput.isSliding && playerBody.transform.rotation != Quaternion.Euler(90f,0f,0f)) {
             playerBody.transform.rotation = Quaternion.Euler(90f,0f,0f);
             controller.height = controller.height/2;
-            Debug.Log("Run");
         }
-        else if (!onPlayerInput.isSliding){
+        else if ((!onPlayerInput.isSliding || !onPlayerInput.isSprinting) && playerBody.transform.rotation != Quaternion.Euler(0,0,0)){
             playerBody.transform.rotation = Quaternion.Euler(0,0,0);
             controller.height = originalHeight;
-            Debug.Log("Back");
         }
     }
 
