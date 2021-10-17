@@ -28,8 +28,8 @@ public class WanderScript : MonoBehaviour
 
         if(timer >= wanderTimer)
         {
-            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-            agent.SetDestination(newPos);
+            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, NavMesh.AllAreas); ///sets a new position to move to within the wznder radius
+            agent.SetDestination(newPos); /// tells the AI to move to the new position
             timer = 0;
         }
     }
