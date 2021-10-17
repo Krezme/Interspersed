@@ -8,6 +8,8 @@ public class OnPlayerInput : MonoBehaviour
 {
     [Header("Options")]
     public bool isSprintToggleable; // if the player wants toggleable sprinting or just hold to sprint
+    [Range(0.1f, 5.0f)]
+    public float mouseSensitivity = 1f;
 
 #region Values
     [HideInInspector]
@@ -20,6 +22,13 @@ public class OnPlayerInput : MonoBehaviour
     public bool jumped; // if the player jumped
     [HideInInspector]
     public Vector2 looking; // the position of the player camera
+
+    private ThirdPersonPlayerController thirdPersonPlayerController;
+
+    void Start () {
+        thirdPersonPlayerController = GetComponent<ThirdPersonPlayerController>();
+    }
+
 #endregion
 
     /// <summary>
@@ -83,7 +92,9 @@ public class OnPlayerInput : MonoBehaviour
     }
 
     private void PlayerSlideInput (bool slidingState) {
-        isSliding = slidingState;
+        if (thirdPersonPlayerController.isGrounded) {
+            isSliding = slidingState;
+        }
     }
 
     /// <summary>
@@ -95,11 +106,11 @@ public class OnPlayerInput : MonoBehaviour
     }
 
     /// <summary>
-    /// Setting the looking var to the provided value
+    /// Setting the looking var to the provided value and applying sensitivity
     /// </summary>
     /// <param name="lookInput">The value to set the looking var</param>
     private void PlayerLookInput(Vector2 lookInput) {
-        looking = lookInput;
+        looking = lookInput * mouseSensitivity;
     }
 
 #endregion

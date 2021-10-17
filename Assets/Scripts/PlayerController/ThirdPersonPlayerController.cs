@@ -10,9 +10,15 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float walkSpeed; // Player walk speed
     public float runSpeed; // player run speed
     public float jumpHeight; // the desired player jump height
+    [Range(0.0f, 0.5f)]
+    public float rotationSmoothness = 0.05f;
+    [Space(10)]
     public float speedChangeRate = 10f; // acceleration and deceleration of the player
     public float slideSpeedChangeRate = 5f; // the deceleration of the player when sliding
     public float inAirSpeedChangeRate = 2f;
+    /* public float directionChangeRate = 10f;
+    public float slideDirectionChangeRate = 5f;
+    public float inAirDirectionChangeRate = 2f; */
 
     [Space(10)]
     public float jumpCooldown; // the cooldown between jumps
@@ -65,7 +71,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     // Current player stats (at the exact moment of the movement)
     private float speed;
+    private float originalHeight;
     private float targetRotation = 0.0f;
+    private float rotationVelocity;
     private float verticalVelocity;
     private float jumpCooldownCurrent;
     private float fallCooldownCurrent;    
@@ -74,6 +82,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float secondaryRequiredForceToMove;
     private float currentRequiredForceToMoveBefore = 0.0f;
     private float currentRequiredForceToMoveAfter = 0.0f;
+    private Vector3 inputDirection = Vector3.zero;
 
     // References
     private CharacterController controller;
@@ -88,6 +97,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         onPlayerInput = GetComponent<OnPlayerInput>();
+        originalHeight = controller.height;
 
         initialRequiredForceToMove = frictionStatic * (playerCharacterMass * -gravity);
         secondaryRequiredForceToMove = frictionSlide * (playerCharacterMass * -gravity);
@@ -100,7 +110,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         PlayerJumpAndGravity();
         PlayerMovement();
         PlayerSliding();
-        //SlidingPhysicsCalculation();
+        GetSurfaceAngleBelowPlayer();
     }
 
     void LateUpdate() {
@@ -113,15 +123,18 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private void PlayerMovement() {
 
         float targetSpeed = onPlayerInput.isSprinting ? runSpeed : walkSpeed;  // setting the target speed (walking or running)
+        
+        float currentSpeedChangeRate = isGrounded ? speedChangeRate : inAirSpeedChangeRate;
 
         targetSpeed = onPlayerInput.playerMovement == Vector2.zero ? 0f : targetSpeed; // if the player is not moving set it to 0 otherwise remain
 
         float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
-        //Debug.Log(currentHorizontalSpeed);
+        Vector3 currentInputDirection = inputDirection;
+
         float speedOffset = 0.1f;
 
         if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset) { // if the player is accelerating
-            speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed, Time.deltaTime * speedChangeRate); // Smooting
+            speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed, Time.deltaTime * currentSpeedChangeRate); // Smooting
 
             speed = Mathf.Round(speed * 1000f) / 1000f; // rounding to 3 decimal places
         }
@@ -129,10 +142,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
             speed = targetSpeed;
         }
 
-        Vector3 inputDirection = new Vector3(onPlayerInput.playerMovement.x, 0.0f, onPlayerInput.playerMovement.y).normalized; // normalized direction
+        Vector3 targetInputDirection = new Vector3(onPlayerInput.playerMovement.x, 0.0f, onPlayerInput.playerMovement.y).normalized; // normalized direction
 
         if (onPlayerInput.playerMovement != Vector2.zero) { // if the player is not moving
-            targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
+            targetRotation = Mathf.Atan2(targetInputDirection.x, targetInputDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
+            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothness); // Smoothing the rotation of the player character
+
+            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f); // appying the rotation
         }
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
@@ -144,8 +160,16 @@ public class ThirdPersonPlayerController : MonoBehaviour
             currentRequiredForceToMoveBefore = secondaryRequiredForceToMove;
         }
 
+        //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering 
+        if (onPlayerInput.jumped) {}
+        else if (surfaceAngle > 0.0f && onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
+            verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
+        }
+        else if (surfaceAngle > 0.0f && !onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
+            verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
+        }
+
         controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime); // Applying the movement
-        //Debug.Log(Mathf.Log(0.1f, currentHorizontalSpeed));
     }
 
     /// <summary>
@@ -191,13 +215,15 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// This is a temporary finction for prototyping
     /// </summary>
     void PlayerSliding () {
-        if (onPlayerInput.isSliding && playerBody.transform.rotation != Quaternion.Euler(90f,0f,0f) && onPlayerInput.isSprinting) {
+        if (onPlayerInput.isSliding && playerBody.transform.rotation != Quaternion.Euler(90f,0f,0f)) {
             playerBody.transform.rotation = Quaternion.Euler(90f,0f,0f);
             controller.height = controller.height/2;
+            Debug.Log("Run");
         }
-        if (playerBody.transform.rotation == Quaternion.Euler(90f,0f,0f) && !onPlayerInput.isSliding){
+        else if (!onPlayerInput.isSliding){
             playerBody.transform.rotation = Quaternion.Euler(0,0,0);
-            controller.height = controller.height * 2;
+            controller.height = originalHeight;
+            Debug.Log("Back");
         }
     }
 
@@ -264,6 +290,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		if (angle > 360f) angle -= 360f;
 		return Mathf.Clamp(angle, min, max);
 	}
+
+    private void GetSurfaceAngleBelowPlayer() {
+        RaycastHit hit;
+        if (isGrounded && Physics.Raycast(transform.position, Vector3.down, out hit, 2f, groundLayers)) {
+            surfaceAngle = Vector3.Angle(hit.normal, Vector3.up);
+        }
+    }
 
     private void OnDrawGizmosSelected()
 		{
