@@ -60,7 +60,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
 #region 
     [Header("Other References")]
-    public GameObject playerBody; // Needed for prototyping
+    //public GameObject playerBody; // Needed for prototyping
 #endregion
 
 #region Private Cinemachine Vars
@@ -83,11 +83,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float currentRequiredForceToMoveBefore = 0.0f;
     private float currentRequiredForceToMoveAfter = 0.0f;
     private Vector3 inputDirection = Vector3.zero;
+    private float animationBlend;
 
     // References
     private CharacterController controller;
     private OnPlayerInput onPlayerInput;
     private GameObject mainCamera;
+    private Animator animator;
     
     void Awake() {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -95,6 +97,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     void Start()
     {
+        TryGetComponent(out animator);
         controller = GetComponent<CharacterController>();
         onPlayerInput = GetComponent<OnPlayerInput>();
         originalHeight = controller.height;
@@ -109,7 +112,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         GroundedCheck();
         PlayerJumpAndGravity();
         PlayerMovement();
-        PlayerSliding();
+        //PlayerSliding();
         GetSurfaceAngleBelowPlayer();
     }
 
@@ -141,6 +144,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         else {
             speed = targetSpeed;
         }
+        animationBlend = Mathf.Lerp(animationBlend, targetSpeed, Time.deltaTime * speedChangeRate);
 
         Vector3 targetInputDirection = new Vector3(onPlayerInput.playerMovement.x, 0.0f, onPlayerInput.playerMovement.y).normalized; // normalized direction
 
@@ -170,6 +174,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
 
         controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime); // Applying the movement
+
+        animator.SetFloat("Speed", animationBlend);
     }
 
     /// <summary>
@@ -214,7 +220,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// <summary>
     /// This is a temporary finction for prototyping
     /// </summary>
-    void PlayerSliding () {
+    /* void PlayerSliding () {
         if (onPlayerInput.isSliding && playerBody.transform.rotation != Quaternion.Euler(90f,0f,0f)) {
             playerBody.transform.rotation = Quaternion.Euler(90f,0f,0f);
             controller.height = controller.height/2;
@@ -223,7 +229,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
             playerBody.transform.rotation = Quaternion.Euler(0,0,0);
             controller.height = originalHeight;
         }
-    }
+    } */
 
     /// <summary>
     /// Calculation the sliding Speed of the player when sliding
