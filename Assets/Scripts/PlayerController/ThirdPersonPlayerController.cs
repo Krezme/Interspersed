@@ -159,10 +159,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         if (onPlayerInput.isSliding && onPlayerInput.isSprinting) { // Overwriting the speed of the player with the slidning speed
             SlidingPhysicsCalculation();
-            
+            animator.SetBool("Slide", true);
         }
         else{
             currentRequiredForceToMoveBefore = secondaryRequiredForceToMove;
+            animator.SetBool("Slide", false);
         }
 
         //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering 
@@ -186,6 +187,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         if (isGrounded) {
             fallCooldownCurrent = fallCooldown;
 
+            animator.SetBool("Jump", false);
+			animator.SetBool("Falling", false);
+
             // gravity reduction while grounded
             if (verticalVelocity <= 0.0f) {
                 verticalVelocity = constGravityWhileGrounded;
@@ -194,6 +198,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
             // Calculating the vertical velocuty when the input is pressed and the cooldown is over
             if (onPlayerInput.jumped && jumpCooldownCurrent <= 0.0f) {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);   // H * -2 * G to calculate how much velocity is required to reach the desired height
+
+                animator.SetBool("Jump", true);
             }
             
             // cooling down the jump
@@ -207,6 +213,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
             // cooling down the fall
             if (fallCooldownCurrent >= 0.0f) {
                 fallCooldownCurrent -= Time.deltaTime;
+            }
+            else {
+                animator.SetBool("Falling", true);
             }
 
             onPlayerInput.jumped = false; // when not grounded stop jumping
@@ -275,11 +284,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		// Checking if player is grounded
 		isGrounded = Physics.CheckSphere(groundedSpherePosition, groundedGizmoRadius, groundLayers, QueryTriggerInteraction.Ignore);
 
-		// update animator if using character
-		/* if (_hasAnimator)
-		{
-			_animator.SetBool(_animIDGrounded, Grounded);
-		} */
+		
+		animator.SetBool("Grounded", isGrounded);
 	}
 
     /// <summary>
