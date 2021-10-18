@@ -159,6 +159,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         if (onPlayerInput.isSliding && onPlayerInput.isSprinting) { // Overwriting the speed of the player with the slidning speed
             SlidingPhysicsCalculation();
+            
         }
         else{
             currentRequiredForceToMoveBefore = secondaryRequiredForceToMove;
