@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class WanderScript : MonoBehaviour
 {
+    /// <summary>
+    /// Variables used for the wander movement
+    /// </summary>
     [SerializeField]
     private float wanderRadius;
     [SerializeField]
@@ -14,11 +17,18 @@ public class WanderScript : MonoBehaviour
     private NavMeshAgent agent;
     private float timer;
 
+    /// <summary>
+    /// Variables used for animation 
+    /// </summary>
+    public Animator animator;
+
     // this function is called when the object is enabled
     void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
         timer = wanderTimer;
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,12 +36,14 @@ public class WanderScript : MonoBehaviour
     {
         timer += Time.deltaTime; /// increases timer every second
 
-        if(timer >= wanderTimer)
+        if (timer >= wanderTimer)
         {
             Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, NavMesh.AllAreas); ///sets a new position to move to within the wznder radius
             agent.SetDestination(newPos); /// tells the AI to move to the new position
             timer = 0;
         }
+
+        
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layerMask)
