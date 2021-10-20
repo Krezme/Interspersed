@@ -109,10 +109,10 @@ public class ThirdPersonPlayerController : MonoBehaviour
     {
         GroundCheckSphere();
         GroundedCheck();
+        GetSurfaceAngleBelowPlayer();
         PlayerJumpAndGravity();
         PlayerMovement();
         //PlayerSliding();
-        GetSurfaceAngleBelowPlayer();
         Attacking();
     }
 
@@ -165,16 +165,17 @@ public class ThirdPersonPlayerController : MonoBehaviour
             currentRequiredForceToMoveBefore = secondaryRequiredForceToMove;
             animator.SetBool("Slide", false);
         }
-
+        
         //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
-        if (onPlayerInput.jumped) {}
+        if (onPlayerInput.jumped || !isGrounded) {}
         else if (surfaceAngle > 0.0f && onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
             verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
         }
         else if (surfaceAngle > 0.0f && !onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
             verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
+            
         }
-        Debug.Log(speed);
+        Debug.Log(surfaceAngle);
         controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime); // Applying the movement
 
         animator.SetFloat("Speed", animationBlend);
@@ -287,6 +288,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		animator.SetBool("Grounded", isGrounded);
 	}
 
+    private void GetSurfaceAngleBelowPlayer() {
+        RaycastHit hit;
+        if (isGrounded && Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerObjectCenterOffset, transform.position.z), Vector3.down, out hit, 2f, groundLayers)) {
+            surfaceAngle = Vector3.Angle(hit.normal, Vector3.up);
+        }
+    }
+
     private void Attacking() {
         if (onPlayerInput.attacking){
             animator.SetTrigger("Attack");
@@ -308,13 +316,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		return Mathf.Clamp(angle, min, max);
 	}
 
-    private void GetSurfaceAngleBelowPlayer() {
-        RaycastHit hit;
-        if (isGrounded && Physics.Raycast(transform.position, Vector3.down, out hit, 2f, groundLayers)) {
-            surfaceAngle = Vector3.Angle(hit.normal, Vector3.up);
-        }
-    }
-
     private void OnDrawGizmosSelected()
     {
         Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.3f); // Green colour
@@ -325,6 +326,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
         else Gizmos.color = transparentRed;
         
         //Drawing the Gizmo at the feet of the player character
-        Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius); 
+        Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius);
     }
 }
