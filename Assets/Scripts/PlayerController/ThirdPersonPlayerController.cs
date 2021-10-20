@@ -47,7 +47,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float groundedGizmoRadius = 0.5f; // the radius of the ground check sphere
     public float playerObjectCenterOffset; // variable that adjust the Center offset of a not animated character
     public LayerMask groundLayers; // the layer which the player can stand on and are counted as ground
-
 #endregion
 
 #region Public Cinemachine Vars
@@ -114,6 +113,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         PlayerMovement();
         //PlayerSliding();
         GetSurfaceAngleBelowPlayer();
+        Attacking();
     }
 
     void LateUpdate() {
@@ -166,7 +166,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
             animator.SetBool("Slide", false);
         }
 
-        //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering 
+        //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
         if (onPlayerInput.jumped) {}
         else if (surfaceAngle > 0.0f && onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
             verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
@@ -284,9 +284,15 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		// Checking if player is grounded
 		isGrounded = Physics.CheckSphere(groundedSpherePosition, groundedGizmoRadius, groundLayers, QueryTriggerInteraction.Ignore);
 
-		
 		animator.SetBool("Grounded", isGrounded);
 	}
+
+    private void Attacking() {
+        if (onPlayerInput.attacking){
+            animator.SetTrigger("Attack");
+        }
+        
+    }
 
     /// <summary>
     /// Limits the camera movement
@@ -310,15 +316,15 @@ public class ThirdPersonPlayerController : MonoBehaviour
     }
 
     private void OnDrawGizmosSelected()
-		{
-			Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.3f); // Green colour
-			Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.3f); // Red colour
+    {
+        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.3f); // Green colour
+        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.3f); // Red colour
 
-            //Colouring the sphere
-			if (isGrounded) Gizmos.color = transparentGreen;
-			else Gizmos.color = transparentRed;
-			
-            //Drawing the Gizmo at the feet of the player character
-			Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius); 
-		}
+        //Colouring the sphere
+        if (isGrounded) Gizmos.color = transparentGreen;
+        else Gizmos.color = transparentRed;
+        
+        //Drawing the Gizmo at the feet of the player character
+        Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius); 
+    }
 }

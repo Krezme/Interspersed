@@ -57,6 +57,14 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Melee"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""1e453b57-8305-4102-b105-abe842db5952"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -224,6 +232,17 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Slide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9843f56e-62b8-4c18-8c32-8ce73a19df9d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Melee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -254,6 +273,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         m_Player_Slide = m_Player.FindAction("Slide", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -308,6 +328,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Slide;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_Melee;
     public struct PlayerActions
     {
         private @ThirdPersonPlayerControls m_Wrapper;
@@ -317,6 +338,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         public InputAction @Slide => m_Wrapper.m_Player_Slide;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @Melee => m_Wrapper.m_Player_Melee;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -341,6 +363,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @Melee.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMelee;
+                @Melee.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMelee;
+                @Melee.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMelee;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -360,6 +385,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @Melee.started += instance.OnMelee;
+                @Melee.performed += instance.OnMelee;
+                @Melee.canceled += instance.OnMelee;
             }
         }
     }
@@ -380,5 +408,6 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         void OnSlide(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnMelee(InputAction.CallbackContext context);
     }
 }

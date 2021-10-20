@@ -22,6 +22,8 @@ public class OnPlayerInput : MonoBehaviour
     public bool jumped; // if the player jumped
     [HideInInspector]
     public Vector2 looking; // the position of the player camera
+    [HideInInspector]
+    public bool attacking;
 
     private ThirdPersonPlayerController thirdPersonPlayerController;
 
@@ -65,6 +67,10 @@ public class OnPlayerInput : MonoBehaviour
     /// <param name="value">Mouse value</param>
     public void OnLook(InputValue value) {
         PlayerLookInput(value.Get<Vector2>());
+    }
+
+    public void OnMelee(InputValue value) {
+        PlayerMeleeInput(value.isPressed);
     }
 
 
@@ -111,6 +117,10 @@ public class OnPlayerInput : MonoBehaviour
     /// <param name="lookInput">The value to set the looking var</param>
     private void PlayerLookInput(Vector2 lookInput) {
         looking = lookInput * mouseSensitivity;
+    }
+
+    private void PlayerMeleeInput(bool attackState) {
+        attacking = attackState;
     }
 
 #endregion
