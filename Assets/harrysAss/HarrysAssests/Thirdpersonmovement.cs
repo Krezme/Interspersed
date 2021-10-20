@@ -28,6 +28,8 @@ public class Thirdpersonmovement : MonoBehaviour {
     public int currentHealth;
     public Healthbar healthbar;
     public Energybar energybar;
+    public AudioClip shootSound;
+    private AudioSource source;
     public float power;
     float maxPower = 5;
     float chargeSpeed = 3;
@@ -39,13 +41,14 @@ public class Thirdpersonmovement : MonoBehaviour {
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         thirdPersonController = GetComponent<ThirdPersonController>();
         animator = GetComponent<Animator>();
+
       
     }
     void Start()
     {
         currentHealth = maxHealth;
         healthbar.SetMaxHealth(maxHealth);
-       
+        source = GetComponent<AudioSource>();
         
     }
    
@@ -83,7 +86,7 @@ public class Thirdpersonmovement : MonoBehaviour {
     {
         currentHealth += heal;
        
-        if (currentHealth >= maxHealth)
+        if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
@@ -94,19 +97,7 @@ public class Thirdpersonmovement : MonoBehaviour {
 
     public void Update()
     {
-        if (shootHeldDown)
-        {
-            power += Time.deltaTime * chargeSpeed;
-        }
-        void HoldShoot()
-        {
-            shootHeldDown = true;
-        }
-        void ReleaseButton()
-        {
-            shootHeldDown = false;
-            power = 0;
-        }
+        
 
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -146,6 +137,7 @@ public class Thirdpersonmovement : MonoBehaviour {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 starterAssetsInputs.shoot = false;
+                source.PlayOneShot(shootSound);
                 
             }
             
