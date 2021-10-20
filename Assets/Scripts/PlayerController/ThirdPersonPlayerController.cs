@@ -174,7 +174,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         else if (surfaceAngle > 0.0f && !onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
             verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
         }
-
+        Debug.Log(speed);
         controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime); // Applying the movement
 
         animator.SetFloat("Speed", animationBlend);
