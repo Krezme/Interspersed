@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using StarterAssets;
+using UnityEngine.InputSystem;
 
 public class Thirdpersonmovement : MonoBehaviour {
 
@@ -12,11 +13,25 @@ public class Thirdpersonmovement : MonoBehaviour {
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private Transform debugTransform;
     [SerializeField] private Transform pfBulletProjectile;
+    [SerializeField] private Transform ChargedpfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
+    
+    
+    
 
     private StarterAssetsInputs starterAssetsInputs;
     private ThirdPersonController thirdPersonController;
     private Animator animator;
+    public int currentEnergy;
+    public int maxEnergy = 5;
+    public int maxHealth = 100;
+    public int currentHealth;
+    public Healthbar healthbar;
+    public Energybar energybar;
+    public float power;
+    float maxPower = 5;
+    float chargeSpeed = 3;
+    bool shootHeldDown;
     
 
     private void Awake()
@@ -24,10 +39,75 @@ public class Thirdpersonmovement : MonoBehaviour {
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         thirdPersonController = GetComponent<ThirdPersonController>();
         animator = GetComponent<Animator>();
+      
     }
-
-    private void Update()
+    void Start()
     {
+        currentHealth = maxHealth;
+        healthbar.SetMaxHealth(maxHealth);
+       
+        
+    }
+   
+    public void HoldShoot()
+    {
+        shootHeldDown = true;
+    }
+    public void ReleaseButton()
+    {
+        shootHeldDown = false;
+        power = 0;
+    }
+    
+
+
+    void AddEnergy(int gain)
+    {
+        currentEnergy += gain;
+
+        if(currentEnergy >= maxEnergy)
+        {
+            currentEnergy = maxEnergy;
+        }
+
+        energybar.SetEnergy(currentEnergy);
+
+    }
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        healthbar.SetHealth(currentHealth);
+    }
+    void Heal(int heal)
+    {
+        currentHealth += heal;
+       
+        if (currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        healthbar.SetHealth(currentHealth);
+       
+    }
+    
+
+    public void Update()
+    {
+        if (shootHeldDown)
+        {
+            power += Time.deltaTime * chargeSpeed;
+        }
+        void HoldShoot()
+        {
+            shootHeldDown = true;
+        }
+        void ReleaseButton()
+        {
+            shootHeldDown = false;
+            power = 0;
+        }
+
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -42,7 +122,7 @@ public class Thirdpersonmovement : MonoBehaviour {
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonController.SetSensitivity(aimSensitivity);
             thirdPersonController.SetRotateOnMove(false);
-            animator.SetLayerWeight(1, 1f);
+            
 
             Vector3 worldAimTarget = mouseWorldPosition;
             worldAimTarget.y = transform.position.y;
@@ -55,19 +135,43 @@ public class Thirdpersonmovement : MonoBehaviour {
             aimVirtualCamera.gameObject.SetActive(false);
             thirdPersonController.SetSensitivity(normalSensitivity);
             thirdPersonController.SetRotateOnMove(true);
-            animator.SetLayerWeight(1, 0f);
+            
         }
 
         if (starterAssetsInputs.aim)
         {
             if (starterAssetsInputs.shoot)
             {
+                
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 starterAssetsInputs.shoot = false;
+                
             }
             
         }
-       
+        
     }
+   
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Energy")
+        {
+            AddEnergy(1);
+        }
+        if (other.gameObject.tag == "EnemyBullet")
+        {
+            TakeDamage(20);
+        }
+        if (other.gameObject.tag == "HealthPickup")
+        {
+            Heal(50);
+
+            
+        }
+    }
+
+   
+
 }

@@ -2,15 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletProjectile : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     private Rigidbody bulletRigidbody;
-    float damage;
-
-    public void SetDamage(float amount)
-    {
-        damage = amount;
-    }
 
     private void Awake()
     {
