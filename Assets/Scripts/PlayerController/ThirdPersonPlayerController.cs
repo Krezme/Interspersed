@@ -131,13 +131,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         targetSpeed = onPlayerInput.playerMovement == Vector2.zero ? 0f : targetSpeed; // if the player is not moving set it to 0 otherwise remain
 
-        float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
+        //float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
         Vector3 currentInputDirection = inputDirection;
 
         float speedOffset = 0.1f;
 
-        if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset) { // if the player is accelerating
-            speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed, Time.deltaTime * currentSpeedChangeRate); // Smooting
+        if (speed < targetSpeed - speedOffset || speed > targetSpeed + speedOffset) { // if the player is accelerating
+            speed = Mathf.Lerp(speed, targetSpeed, Time.deltaTime * currentSpeedChangeRate); // Smooting
 
             speed = Mathf.Round(speed * 1000f) / 1000f; // rounding to 3 decimal places
         }
@@ -169,13 +169,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
         //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
         if (onPlayerInput.jumped || !isGrounded) {}
         else if (surfaceAngle > 0.0f && onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
-            verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
+            //verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
         }
         else if (surfaceAngle > 0.0f && !onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
-            verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
-            
+            //verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
         }
-        Debug.Log(surfaceAngle);
+
         controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime); // Applying the movement
 
         animator.SetFloat("Speed", animationBlend);
