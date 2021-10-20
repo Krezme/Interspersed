@@ -77,12 +77,14 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float jumpCooldownCurrent;
     private float fallCooldownCurrent;    
     private Vector3 groundedSpherePosition;
-    private float initialRequiredForceToMove;
+    /* private float initialRequiredForceToMove;
     private float secondaryRequiredForceToMove;
     private float currentRequiredForceToMoveBefore = 0.0f;
-    private float currentRequiredForceToMoveAfter = 0.0f;
+    private float currentRequiredForceToMoveAfter = 0.0f; */
+    private float currentFricton;
     private Vector3 inputDirection = Vector3.zero;
     private float animationBlend;
+    private float slidingTime;
 
     // References
     private CharacterController controller;
@@ -101,8 +103,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
         onPlayerInput = GetComponent<OnPlayerInput>();
         originalHeight = controller.height;
 
-        initialRequiredForceToMove = frictionStatic * (playerCharacterMass * -gravity);
-        secondaryRequiredForceToMove = frictionSlide * (playerCharacterMass * -gravity);
+        //initialRequiredForceToMove = frictionStatic * (playerCharacterMass * -gravity);
+        //secondaryRequiredForceToMove = frictionSlide * (playerCharacterMass * -gravity);
     }
     
     void Update()
@@ -162,7 +164,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
             animator.SetBool("Slide", true);
         }
         else{
-            currentRequiredForceToMoveBefore = secondaryRequiredForceToMove;
+            //currentRequiredForceToMoveBefore = secondaryRequiredForceToMove;
+            currentFricton = frictionSlide;
+            slidingTime = 0f;
             animator.SetBool("Slide", false);
         }
         
@@ -247,8 +251,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
     void SlidingPhysicsCalculation () {
         
         float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
-        speed = Mathf.Lerp(currentHorizontalSpeed, 0f, Mathf.Lerp(currentRequiredForceToMoveBefore, initialRequiredForceToMove, Time.deltaTime * slideSpeedChangeRate) * 0.01f * Time.deltaTime);
-
+        slidingTime += Time.deltaTime;
+        currentFricton = Mathf.Lerp(currentFricton, frictionStatic, Time.deltaTime * slideSpeedChangeRate);
+        
+        speed = Mathf.Lerp(currentHorizontalSpeed, 0f, currentFricton * slidingTime * Time.deltaTime);
+        Debug.Log(speed);
         if (currentHorizontalSpeed <= slideSpeedToStopSliding) { // When the speed falls below "slideSpeedToStopSliding" the sliding will stop
             onPlayerInput.isSliding = false;
         }
