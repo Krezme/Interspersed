@@ -70,6 +70,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     // Current player stats (at the exact moment of the movement)
     private float speed;
+    private float speedOnSlope;
     private float originalHeight;
     private float targetRotation = 0.0f;
     private float rotationVelocity;
@@ -85,6 +86,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private Vector3 inputDirection = Vector3.zero;
     private float animationBlend;
     private float slidingTime;
+    private Vector3 moveDirection;
+    private bool rotationChangedForThisFrame;
+
+    private Vector3 surfaceHitPointNormal;
+
+    private bool onOverLimitSlope;
 
     // References
     private CharacterController controller;
@@ -155,6 +162,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
             float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothness); // Smoothing the rotation of the player character
 
             transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f); // appying the rotation
+            rotationChangedForThisFrame = true;
         }
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
@@ -171,17 +179,17 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
         
         //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
-        if (onPlayerInput.jumped || !isGrounded) {}
-        else if (surfaceAngle > 0.0f && onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
-            //verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
-        }
-        else if (surfaceAngle > 0.0f && !onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
-            //verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
-        }
+        StickingToSlopes();
 
-        controller.Move(targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime); // Applying the movement
+        moveDirection = targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime;
+
+        SlidingOnAOverTheLimitSurface();
+
+        controller.Move(moveDirection); // Applying the movement
 
         animator.SetFloat("Speed", animationBlend);
+
+        rotationChangedForThisFrame = false;
     }
 
     /// <summary>
@@ -200,10 +208,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
             }
 
             // Calculating the vertical velocuty when the input is pressed and the cooldown is over
-            if (onPlayerInput.jumped && jumpCooldownCurrent <= 0.0f) {
+            if (onPlayerInput.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);   // H * -2 * G to calculate how much velocity is required to reach the desired height
 
                 animator.SetBool("Jump", true);
+            }
+            else {
+                onPlayerInput.jumped = false;
             }
             
             // cooling down the jump
@@ -230,6 +241,36 @@ public class ThirdPersonPlayerController : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;
         }
     }
+    /// <summary>
+    /// If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
+    /// </summary>
+    void StickingToSlopes () {
+        if (onPlayerInput.jumped || !isGrounded) {}
+        else if (surfaceAngle > 0.0f && onPlayerInput.isSprinting && isGrounded) {
+            verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
+        }
+        else if (surfaceAngle > 0.0f && !onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
+            verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
+        }
+    }
+    
+    /// <summary>
+    /// When the player character is on a too steep of an angle they slide down it and face the direction of going down the slope
+    /// </summary>
+    void SlidingOnAOverTheLimitSurface() {
+        if (onOverLimitSlope && isGrounded) {
+            speedOnSlope = Mathf.Lerp(speedOnSlope, 30f, Time.deltaTime * slideSpeedChangeRate);
+            moveDirection = new Vector3(surfaceHitPointNormal.x, -surfaceHitPointNormal.y, surfaceHitPointNormal.z) * speedOnSlope * Time.deltaTime;
+            if (!rotationChangedForThisFrame) {
+                targetRotation = Mathf.Atan2(surfaceHitPointNormal.x, surfaceHitPointNormal.z) * Mathf.Rad2Deg;
+                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothness);
+
+                transform.rotation = Quaternion.Euler(0f, rotation, 0f);
+            }
+        }else {
+            speedOnSlope = 0f;
+        }
+    }
 
     /// <summary>
     /// This is a temporary finction for prototyping
@@ -253,9 +294,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
         slidingTime += Time.deltaTime;
         currentFricton = Mathf.Lerp(currentFricton, frictionStatic, Time.deltaTime * slideSpeedChangeRate);
-        
-        speed = Mathf.Lerp(currentHorizontalSpeed, 0f, currentFricton * slidingTime * Time.deltaTime);
-        Debug.Log(speed);
+
+        speed = Mathf.Lerp(currentHorizontalSpeed, 0f, (currentFricton * slidingTime * Time.deltaTime) * Mathf.Pow(Mathf.Cos(surfaceAngle), 2));
+
         if (currentHorizontalSpeed <= slideSpeedToStopSliding) { // When the speed falls below "slideSpeedToStopSliding" the sliding will stop
             onPlayerInput.isSliding = false;
         }
@@ -297,7 +338,16 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private void GetSurfaceAngleBelowPlayer() {
         RaycastHit hit;
         if (isGrounded && Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerObjectCenterOffset, transform.position.z), Vector3.down, out hit, 2f, groundLayers)) {
-            surfaceAngle = Vector3.Angle(hit.normal, Vector3.up);
+            surfaceHitPointNormal = hit.normal;
+            surfaceAngle = Vector3.Angle(surfaceHitPointNormal, Vector3.up);
+            if (controller.slopeLimit <= surfaceAngle) {
+                onOverLimitSlope = true;
+            }
+            else {
+                onOverLimitSlope = false;
+            }
+        }else {
+            surfaceAngle = 0f;
         }
     }
 
