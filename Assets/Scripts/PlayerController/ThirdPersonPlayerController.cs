@@ -60,6 +60,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 #region 
     [Header("Other References")]
     //public GameObject playerBody; // Needed for prototyping
+    public GameObject heightCheck;
 #endregion
 
 #region Private Cinemachine Vars
@@ -78,20 +79,15 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float jumpCooldownCurrent;
     private float fallCooldownCurrent;    
     private Vector3 groundedSpherePosition;
-    /* private float initialRequiredForceToMove;
-    private float secondaryRequiredForceToMove;
-    private float currentRequiredForceToMoveBefore = 0.0f;
-    private float currentRequiredForceToMoveAfter = 0.0f; */
     private float currentFricton;
     private Vector3 inputDirection = Vector3.zero;
     private float animationBlend;
     private float slidingTime;
     private Vector3 moveDirection;
     private bool rotationChangedForThisFrame;
-
     private Vector3 surfaceHitPointNormal;
-
     private bool onOverLimitSlope;
+    private float heightCheckDistance;
 
     // References
     private CharacterController controller;
@@ -118,6 +114,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     {
         GroundCheckSphere();
         GroundedCheck();
+        CheckingIfGoingUpOrDownASlope();
         GetSurfaceAngleBelowPlayer();
         PlayerJumpAndGravity();
         PlayerMovement();
@@ -183,7 +180,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         moveDirection = targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime;
 
-        SlidingOnAOverTheLimitSurface();
+        SlidingOnOverTheLimitSurface();
 
         controller.Move(moveDirection); // Applying the movement
 
@@ -257,7 +254,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// <summary>
     /// When the player character is on a too steep of an angle they slide down it and face the direction of going down the slope
     /// </summary>
-    void SlidingOnAOverTheLimitSurface() {
+    void SlidingOnOverTheLimitSurface() {
         if (onOverLimitSlope && isGrounded) {
             speedOnSlope = Mathf.Lerp(speedOnSlope, 30f, Time.deltaTime * slideSpeedChangeRate);
             moveDirection = new Vector3(surfaceHitPointNormal.x, -surfaceHitPointNormal.y, surfaceHitPointNormal.z) * speedOnSlope * Time.deltaTime;
@@ -295,10 +292,30 @@ public class ThirdPersonPlayerController : MonoBehaviour
         slidingTime += Time.deltaTime;
         currentFricton = Mathf.Lerp(currentFricton, frictionStatic, Time.deltaTime * slideSpeedChangeRate);
 
-        speed = Mathf.Lerp(currentHorizontalSpeed, 0f, (currentFricton * slidingTime * Time.deltaTime) * Mathf.Pow(Mathf.Cos(surfaceAngle), 2));
+        float targetSlideSpeed = 0f;
+        if (heightCheckDistance > 1f) {
+            targetSlideSpeed = ((Mathf.Sin(surfaceAngle) * -gravity) * (heightCheckDistance - 1f)) * 2; // Calculating the target speed when the player is sliding down
+            Debug.Log(targetSlideSpeed + " " + currentHorizontalSpeed);
+        }
+
+        speed = Mathf.Lerp(currentHorizontalSpeed, targetSlideSpeed, (currentFricton * slidingTime * Time.deltaTime) * Mathf.Pow(Mathf.Cos(surfaceAngle), 2));
 
         if (currentHorizontalSpeed <= slideSpeedToStopSliding) { // When the speed falls below "slideSpeedToStopSliding" the sliding will stop
             onPlayerInput.isSliding = false;
+        }
+    }
+
+    /// <summary>
+    /// Checking if the player is going up or down a slope
+    /// </summary>
+    void CheckingIfGoingUpOrDownASlope(){
+        RaycastHit hit;
+        if (isGrounded && Physics.Raycast(heightCheck.transform.position, Vector3.down, out hit, 3f, groundLayers)) {
+            heightCheckDistance = hit.distance;
+            //Debug.Log(heightCheckDistance);
+        }
+        else{
+            heightCheckDistance = 1f;
         }
     }
 
@@ -337,7 +354,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     private void GetSurfaceAngleBelowPlayer() {
         RaycastHit hit;
-        if (isGrounded && Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerObjectCenterOffset, transform.position.z), Vector3.down, out hit, 2f, groundLayers)) {
+        if (isGrounded && Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerObjectCenterOffset, transform.position.z), Vector3.down, out hit, 10f, groundLayers)) {
             surfaceHitPointNormal = hit.normal;
             surfaceAngle = Vector3.Angle(surfaceHitPointNormal, Vector3.up);
             if (controller.slopeLimit <= surfaceAngle) {
@@ -382,6 +399,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         else Gizmos.color = transparentRed;
         
         //Drawing the Gizmo at the feet of the player character
-        Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius);
+        //Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius);
+        //Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + controller.height, transform.position.z + 1), Vector3.down);
     }
 }
