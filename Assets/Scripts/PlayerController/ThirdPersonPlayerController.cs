@@ -60,7 +60,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
 #region 
     [Header("Other References")]
     //public GameObject playerBody; // Needed for prototyping
-    public GameObject heightCheck;
+    public GameObject heightCheckFront;
+    public GameObject heightCheckBack;
 #endregion
 
 #region Private Cinemachine Vars
@@ -87,7 +88,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private bool rotationChangedForThisFrame;
     private Vector3 surfaceHitPointNormal;
     private bool onOverLimitSlope;
-    private float heightCheckDistance;
+    private float heightCheckDistanceFront;
+    private float heightCheckDistanceFrontLast = 1f;
+    private float heightCheckDistanceBack;
 
     // References
     private CharacterController controller;
@@ -171,6 +174,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         else{
             //currentRequiredForceToMoveBefore = secondaryRequiredForceToMove;
             currentFricton = frictionSlide;
+            heightCheckDistanceFrontLast = 1f;
             slidingTime = 0f;
             animator.SetBool("Slide", false);
         }
@@ -293,16 +297,27 @@ public class ThirdPersonPlayerController : MonoBehaviour
         currentFricton = Mathf.Lerp(currentFricton, frictionStatic, Time.deltaTime * slideSpeedChangeRate);
 
         float targetSlideSpeed = 0f;
-        if (heightCheckDistance > 1f) {
-            targetSlideSpeed = ((Mathf.Sin(surfaceAngle) * -gravity) * (heightCheckDistance - 1f)) * 2; // Calculating the target speed when the player is sliding down
-            Debug.Log(targetSlideSpeed + " " + currentHorizontalSpeed);
+        float slowDownMultiplier = 1f;
+        
+        if (heightCheckDistanceFront - heightCheckDistanceBack !> 0.1f && heightCheckDistanceBack - heightCheckDistanceFront !< 0.1f) {
+            if (heightCheckDistanceFront > 1f) {
+                targetSlideSpeed = ((Mathf.Sin(surfaceAngle) * -gravity) * (heightCheckDistanceFront - 1f)) * 2; // Calculating the target speed when the player is sliding down
+            }else if (heightCheckDistanceFront < 0.95f) {
+                slowDownMultiplier = Mathf.Sqrt(((Mathf.Sin(surfaceAngle) * -gravity) * currentFricton) * (heightCheckDistanceFront + 1f)) * 2;
+            }
+        }
+        
+        if (heightCheckDistanceFrontLast < heightCheckDistanceFront - 0.25f || heightCheckDistanceFrontLast > heightCheckDistanceFront + 0.25f) {
+            slidingTime /= 10f;
+            heightCheckDistanceFrontLast = heightCheckDistanceFront;
         }
 
-        speed = Mathf.Lerp(currentHorizontalSpeed, targetSlideSpeed, (currentFricton * slidingTime * Time.deltaTime) * Mathf.Pow(Mathf.Cos(surfaceAngle), 2));
+        speed = Mathf.Lerp(currentHorizontalSpeed, targetSlideSpeed, ((currentFricton * slidingTime * Time.deltaTime) * Mathf.Pow(Mathf.Cos(surfaceAngle), 2)) * slowDownMultiplier);
 
         if (currentHorizontalSpeed <= slideSpeedToStopSliding) { // When the speed falls below "slideSpeedToStopSliding" the sliding will stop
             onPlayerInput.isSliding = false;
         }
+        
     }
 
     /// <summary>
@@ -310,12 +325,20 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// </summary>
     void CheckingIfGoingUpOrDownASlope(){
         RaycastHit hit;
-        if (isGrounded && Physics.Raycast(heightCheck.transform.position, Vector3.down, out hit, 3f, groundLayers)) {
-            heightCheckDistance = hit.distance;
+        if (isGrounded && Physics.Raycast(heightCheckFront.transform.position, Vector3.down, out hit, 3f, groundLayers)) {
+            heightCheckDistanceFront = hit.distance;
             //Debug.Log(heightCheckDistance);
         }
         else{
-            heightCheckDistance = 1f;
+            heightCheckDistanceFront = 1f;
+        }
+        RaycastHit hit1;
+        if (isGrounded && Physics.Raycast(heightCheckBack.transform.position, Vector3.down, out hit1, 3f, groundLayers)) {
+            heightCheckDistanceBack = hit1.distance;
+            //Debug.Log(heightCheckDistance);
+        }
+        else{
+            heightCheckDistanceBack = 1f;
         }
     }
 
@@ -399,7 +422,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
         else Gizmos.color = transparentRed;
         
         //Drawing the Gizmo at the feet of the player character
-        //Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius);
-        //Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + controller.height, transform.position.z + 1), Vector3.down);
+        Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius);
     }
 }

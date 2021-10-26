@@ -15734,6 +15734,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583807154}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &585440061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 585440062}
+  m_Layer: 7
+  m_Name: heightCheckBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &585440062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585440061}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.01, z: -0.5}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 790989373}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &586254051
 GameObject:
   m_ObjectHideFlags: 0
@@ -20455,6 +20485,7 @@ Transform:
   m_Children:
   - {fileID: 1546085049}
   - {fileID: 1699469602}
+  - {fileID: 585440062}
   - {fileID: 1279419375}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -20499,7 +20530,8 @@ MonoBehaviour:
   topClamp: 85
   bottomClamp: -50
   isCameraLocked: 0
-  heightCheck: {fileID: 1699469601}
+  heightCheckFront: {fileID: 1699469601}
+  heightCheckBack: {fileID: 585440061}
 --- !u!114 &790989375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28916,7 +28948,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 03225ea5a439ccf48a75ac07c6a2ecc3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 03225ea5a439ccf48a75ac07c6a2ecc3,
         type: 3}
@@ -42324,7 +42356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1699469602}
   m_Layer: 7
-  m_Name: heightCheck
+  m_Name: heightCheckFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
