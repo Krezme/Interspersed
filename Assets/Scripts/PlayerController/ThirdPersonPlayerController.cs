@@ -424,4 +424,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
         //Drawing the Gizmo at the feet of the player character
         Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius);
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+ {
+        if (isGrounded && hit.gameObject.layer == groundLayers){
+            transform.SetParent(hit.transform);
+        }
+ }
 }

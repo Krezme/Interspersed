@@ -2340,6 +2340,8 @@ GameObject:
   - component: {fileID: 77707809}
   - component: {fileID: 77707808}
   - component: {fileID: 77707812}
+  - component: {fileID: 77707814}
+  - component: {fileID: 77707813}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -2432,7 +2434,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 77707807}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: da6d4f67e0c6c664b9db57f2866c6087, type: 2}
   m_CullingMode: 0
@@ -2443,6 +2445,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &77707813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77707807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e98b1a071afcd43a25b7f387e15328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 77707812}
+--- !u!54 &77707814
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77707807}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!1 &81387092
 GameObject:
   m_ObjectHideFlags: 0
@@ -20480,7 +20511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790989369}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.97, y: 112, z: 134.75}
+  m_LocalPosition: {x: -0.33, y: 0.192, z: -4.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1546085049}
@@ -21779,6 +21810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b708b3ce92cd448b1fcea20f6b3b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 77707814}
 --- !u!65 &860205456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29004,6 +29036,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CrystalFistPH_MeshJoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 03225ea5a439ccf48a75ac07c6a2ecc3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 03225ea5a439ccf48a75ac07c6a2ecc3, type: 3}
@@ -52058,17 +52095,17 @@ PrefabInstance:
     - target: {fileID: 4268503948897981381, guid: 56944f16578b29045b69bbbe8ea691f8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.37
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 4268503948897981381, guid: 56944f16578b29045b69bbbe8ea691f8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 114.067
+      value: 2.259
       objectReference: {fileID: 0}
     - target: {fileID: 4268503948897981381, guid: 56944f16578b29045b69bbbe8ea691f8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 130.78
+      value: -8.68
       objectReference: {fileID: 0}
     - target: {fileID: 4268503948897981381, guid: 56944f16578b29045b69bbbe8ea691f8,
         type: 3}
@@ -52206,17 +52243,17 @@ PrefabInstance:
     - target: {fileID: 8729140362100351132, guid: 7a161b0c69d73984dbd9c52e60b51e01,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.37
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 8729140362100351132, guid: 7a161b0c69d73984dbd9c52e60b51e01,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 114.067
+      value: 2.259
       objectReference: {fileID: 0}
     - target: {fileID: 8729140362100351132, guid: 7a161b0c69d73984dbd9c52e60b51e01,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 130.78
+      value: -8.68
       objectReference: {fileID: 0}
     - target: {fileID: 8729140362100351132, guid: 7a161b0c69d73984dbd9c52e60b51e01,
         type: 3}
