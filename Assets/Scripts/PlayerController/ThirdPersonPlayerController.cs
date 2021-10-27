@@ -91,6 +91,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float heightCheckDistanceFront;
     private float heightCheckDistanceFrontLast = 1f;
     private float heightCheckDistanceBack;
+    private bool isAiming;
 
     // References
     private CharacterController controller;
@@ -161,7 +162,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
             targetRotation = Mathf.Atan2(targetInputDirection.x, targetInputDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
             float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothness); // Smoothing the rotation of the player character
 
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f); // appying the rotation
+            if (!isAiming) {
+                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f); // appying the rotation
+            }
             rotationChangedForThisFrame = true;
         }
 
@@ -392,7 +395,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     }
 
     private void Attacking() {
-        if (onPlayerInput.attacking){
+        if (onPlayerInput.onFire1){
             animator.SetTrigger("Attack");
         }
         
@@ -423,5 +426,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         
         //Drawing the Gizmo at the feet of the player character
         Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius);
+    }
+
+    public void SetRotateOnMove (bool aimState) {
+        isAiming = aimState;
     }
 }

@@ -10,6 +10,10 @@ public class OnPlayerInput : MonoBehaviour
     public bool isSprintToggleable; // if the player wants toggleable sprinting or just hold to sprint
     [Range(0.1f, 5.0f)]
     public float mouseSensitivity = 1f;
+    [Range(0.1f, 5.0f)]
+    public float mouseSensitivityAim = 0.5f;
+    
+    
 
 #region Values
     [HideInInspector]
@@ -23,12 +27,18 @@ public class OnPlayerInput : MonoBehaviour
     [HideInInspector]
     public Vector2 looking; // the position of the player camera
     [HideInInspector]
-    public bool attacking;
+    public bool onFire1;
+    [HideInInspector]
+    public bool onFire2;
+
+    [HideInInspector]
+    public float mouseSensitivityCurrent;
 
     private ThirdPersonPlayerController thirdPersonPlayerController;
 
     void Start () {
         thirdPersonPlayerController = GetComponent<ThirdPersonPlayerController>();
+        mouseSensitivityCurrent = mouseSensitivity;
     }
 
 #endregion
@@ -69,8 +79,11 @@ public class OnPlayerInput : MonoBehaviour
         PlayerLookInput(value.Get<Vector2>());
     }
 
-    public void OnMelee(InputValue value) {
-        PlayerMeleeInput(value.isPressed);
+    public void OnFire1(InputValue value) {
+        PlayerFire1Input(value.isPressed);
+    }
+    public void OnFire2(InputValue value) {
+        PlayerFire2Input(value.isPressed);
     }
 
 
@@ -116,11 +129,15 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="lookInput">The value to set the looking var</param>
     private void PlayerLookInput(Vector2 lookInput) {
-        looking = lookInput * mouseSensitivity;
+        looking = lookInput * mouseSensitivityCurrent;
     }
 
-    private void PlayerMeleeInput(bool attackState) {
-        attacking = attackState;
+    private void PlayerFire1Input(bool fire1State) {
+        onFire1 = fire1State;
+    }
+
+    private void PlayerFire2Input(bool fire2State) {
+        onFire2 = fire2State;
     }
 
 #endregion
