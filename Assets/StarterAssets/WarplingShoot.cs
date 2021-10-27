@@ -2,15 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Warpling : MonoBehaviour
+public class WarplingShoot : MonoBehaviour
 {
-
-    public int maxHealth = 50;
-    public int currentHealth;
-
-
-    
-
     [SerializeField] private Transform pfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
     WaitForSeconds waitForSeconds = new WaitForSeconds(1f);
@@ -23,5 +16,4 @@ public class Warpling : MonoBehaviour
             yield return waitForSeconds;
         }
     }
-
 }

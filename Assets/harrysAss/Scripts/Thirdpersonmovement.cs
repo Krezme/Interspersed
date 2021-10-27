@@ -22,6 +22,7 @@ public class Thirdpersonmovement : MonoBehaviour {
     private StarterAssetsInputs starterAssetsInputs;
     private ThirdPersonController thirdPersonController;
     private Animator animator;
+    private AudioSource source;
     public int currentEnergy;
     public int maxEnergy = 5;
     public int maxHealth = 100;
@@ -29,11 +30,11 @@ public class Thirdpersonmovement : MonoBehaviour {
     public Healthbar healthbar;
     public Energybar energybar;
     public AudioClip shootSound;
-    private AudioSource source;
+    public GameObject gameover;
     public float power;
     float maxPower = 5;
     float chargeSpeed = 3;
-    bool shootHeldDown;
+    
     
 
     private void Awake()
@@ -52,15 +53,7 @@ public class Thirdpersonmovement : MonoBehaviour {
         
     }
    
-    public void HoldShoot()
-    {
-        shootHeldDown = true;
-    }
-    public void ReleaseButton()
-    {
-        shootHeldDown = false;
-        power = 0;
-    }
+    
     
 
 
@@ -106,6 +99,11 @@ public class Thirdpersonmovement : MonoBehaviour {
         {
             debugTransform.position = raycastHit.point;
             mouseWorldPosition = raycastHit.point;
+        }
+        else
+        {
+            debugTransform.position = ray.direction * 999f;
+            mouseWorldPosition = ray.direction * 999f;
         }
 
         if (starterAssetsInputs.aim)
@@ -155,12 +153,16 @@ public class Thirdpersonmovement : MonoBehaviour {
         if (other.gameObject.tag == "EnemyBullet")
         {
             TakeDamage(20);
+
+            if(currentHealth <= 0)
+            {
+                gameover.SetActive(true);
+                Destroy(gameObject);
+            }
         }
         if (other.gameObject.tag == "HealthPickup")
         {
             Heal(50);
-
-            
         }
     }
 
