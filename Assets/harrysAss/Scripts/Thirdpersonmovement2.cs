@@ -1,8 +1,7 @@
-using System.Collections;
+/* using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using StarterAssets;
 using UnityEngine.InputSystem;
 
 public class Thirdpersonmovement : MonoBehaviour {
@@ -19,8 +18,8 @@ public class Thirdpersonmovement : MonoBehaviour {
     
     
 
-    private StarterAssetsInputs starterAssetsInputs;
-    private ThirdPersonController thirdPersonController;
+    //private StarterAssetsInputs starterAssetsInputs;
+    //private ThirdPersonController thirdPersonController;
     private Animator animator;
     private AudioSource source;
     public int currentEnergy;
@@ -39,8 +38,8 @@ public class Thirdpersonmovement : MonoBehaviour {
 
     private void Awake()
     {
-        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-        thirdPersonController = GetComponent<ThirdPersonController>();
+        //starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+        //thirdPersonController = GetComponent<ThirdPersonController>();
         animator = GetComponent<Animator>();
 
       
@@ -122,8 +121,8 @@ public class Thirdpersonmovement : MonoBehaviour {
         else
         {
             aimVirtualCamera.gameObject.SetActive(false);
-            thirdPersonController.SetSensitivity(normalSensitivity);
-            thirdPersonController.SetRotateOnMove(true);
+            //thirdPersonController.SetSensitivity(normalSensitivity);
+            //thirdPersonController.SetRotateOnMove(true);
             
         }
 
@@ -169,3 +168,4 @@ public class Thirdpersonmovement : MonoBehaviour {
    
 
 }
+ */
