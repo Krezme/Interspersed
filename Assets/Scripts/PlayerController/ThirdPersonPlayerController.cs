@@ -277,20 +277,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// This is a temporary finction for prototyping
-    /// </summary>
-    /* void PlayerSliding () {
-        if (onPlayerInput.isSliding && playerBody.transform.rotation != Quaternion.Euler(90f,0f,0f)) {
-            playerBody.transform.rotation = Quaternion.Euler(90f,0f,0f);
-            controller.height = controller.height/2;
-        }
-        else if ((!onPlayerInput.isSliding || !onPlayerInput.isSprinting) && playerBody.transform.rotation != Quaternion.Euler(0,0,0)){
-            playerBody.transform.rotation = Quaternion.Euler(0,0,0);
-            controller.height = originalHeight;
-        }
-    } */
-
-    /// <summary>
     /// Calculation the sliding Speed of the player when sliding
     /// </summary>
     void SlidingPhysicsCalculation () {
@@ -302,7 +288,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         float targetSlideSpeed = 0f;
         float slowDownMultiplier = 1f;
         
-        if (heightCheckDistanceFront - heightCheckDistanceBack !> 0.1f && heightCheckDistanceBack - heightCheckDistanceFront !< 0.1f) {
+        if ((heightCheckDistanceFront - heightCheckDistanceBack !> 0.1f && heightCheckDistanceBack - heightCheckDistanceFront !< 0.1f) || (heightCheckDistanceFront - heightCheckDistanceBack !< 0.1f && heightCheckDistanceBack - heightCheckDistanceFront !> 0.1f)) {
             if (heightCheckDistanceFront > 1f) {
                 targetSlideSpeed = ((Mathf.Sin(surfaceAngle) * -gravity) * (heightCheckDistanceFront - 1f)) * 2; // Calculating the target speed when the player is sliding down
             }else if (heightCheckDistanceFront < 0.95f) {

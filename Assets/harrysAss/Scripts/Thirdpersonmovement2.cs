@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
 
-public class Thirdpersonmovement : MonoBehaviour {
+public class Thirdpersonmovement2 : MonoBehaviour {
 
     [SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
     [SerializeField] private float aimSensitivity;
@@ -14,9 +14,6 @@ public class Thirdpersonmovement : MonoBehaviour {
     [SerializeField] private Transform pfBulletProjectile;
     [SerializeField] private Transform ChargedpfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
-    
-    
-    
 
     //private StarterAssetsInputs starterAssetsInputs;
     //private ThirdPersonController thirdPersonController;
@@ -33,8 +30,6 @@ public class Thirdpersonmovement : MonoBehaviour {
     public float power;
     float maxPower = 5;
     float chargeSpeed = 3;
-    
-    
 
     private void Awake()
     {
@@ -51,10 +46,6 @@ public class Thirdpersonmovement : MonoBehaviour {
         source = GetComponent<AudioSource>();
         
     }
-   
-    
-    
-
 
     void AddEnergy(int gain)
     {
@@ -141,7 +132,6 @@ public class Thirdpersonmovement : MonoBehaviour {
         }
         
     }
-   
     
     private void OnTriggerEnter(Collider other)
     {
@@ -164,8 +154,5 @@ public class Thirdpersonmovement : MonoBehaviour {
             Heal(50);
         }
     }
-
-   
-
 }
  */

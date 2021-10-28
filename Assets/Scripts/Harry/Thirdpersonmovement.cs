@@ -12,9 +12,6 @@ public class Thirdpersonmovement : MonoBehaviour {
     [SerializeField] private Transform pfBulletProjectile;
     //[SerializeField] private Transform ChargedpfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
-    
-    
-    
 
     private OnPlayerInput onPlayerInput;
     private ThirdPersonPlayerController thirdPersonPlayerController;
@@ -53,8 +50,6 @@ public class Thirdpersonmovement : MonoBehaviour {
         shootHeldDown = false;
         power = 0;
     }
-    
-
 
     void AddEnergy(int gain)
     {
@@ -85,7 +80,6 @@ public class Thirdpersonmovement : MonoBehaviour {
         healthbar.SetHealth(currentHealth);
        
     }
-    
 
     public void Update()
     {
@@ -139,7 +133,6 @@ public class Thirdpersonmovement : MonoBehaviour {
         }
         
     }
-   
     
     private void OnTriggerEnter(Collider other)
     {
@@ -150,6 +143,11 @@ public class Thirdpersonmovement : MonoBehaviour {
         if (other.gameObject.tag == "EnemyBullet")
         {
             TakeDamage(20);
+
+            if(currentHealth <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
         if (other.gameObject.tag == "HealthPickup")
         {
