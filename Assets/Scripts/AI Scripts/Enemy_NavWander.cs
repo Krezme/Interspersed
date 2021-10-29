@@ -34,6 +34,7 @@ public class Enemy_NavWander : MonoBehaviour
             nextCheck = Time.time + checkRate;
             CheckIfIShouldWander();
         }
+        UpdateAnimations();
     }
 
     void SetIntialReferences()
@@ -49,14 +50,10 @@ public class Enemy_NavWander : MonoBehaviour
 
     void CheckIfIShouldWander()
     {
+
         if(RandomWanderTarget(myTransform.position, wanderRange, out wanderTarget))
         {
             agent.SetDestination(wanderTarget);
-            GetComponent<Enemy_Animation>().EnemyWalking();
-        }
-        else
-        {
-            GetComponent<Enemy_Animation>().EnemyIdle();
         }
     }
     bool RandomWanderTarget(Vector3 centre, float range, out Vector3 result) 
@@ -71,6 +68,14 @@ public class Enemy_NavWander : MonoBehaviour
         {
             result = centre; /// the AI wont move until it finds a suitable spot to move to
             return false;
+        }
+    }
+
+    private void UpdateAnimations () {
+        if (agent.remainingDistance >= agent.stoppingDistance) {
+            GetComponent<Enemy_Animation>().EnemyMovement(agent.desiredVelocity.magnitude);
+        }else {
+            GetComponent<Enemy_Animation>().EnemyMovement(0.0f);
         }
     }
     

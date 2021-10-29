@@ -12,13 +12,16 @@ public class Enemy_Animation : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void EnemyWalking()
+    /* public void EnemyWalking(float speed)
     {
-        animator.SetBool("isWalking", true);
-    }
+        Debug.Log(speed);
+        //animator.SetBool("isWalking", true);
+        animator.SetFloat("walking", speed);
+    } */
     
-    public void EnemyIdle()
+    public void EnemyMovement(float speed)
     {
-        animator.SetBool("isWalking", false);
+        //animator.SetBool("isWalking", false);
+        animator.SetFloat("walking", speed, 0.1f, Time.deltaTime);
     }
 }
