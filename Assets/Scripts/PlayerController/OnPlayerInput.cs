@@ -42,7 +42,6 @@ public class OnPlayerInput : MonoBehaviour
     }
 
 #endregion
-
     /// <summary>
     /// Takes the player input and records it
     /// </summary>

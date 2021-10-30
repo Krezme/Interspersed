@@ -245,6 +245,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;
         }
     }
+    
     /// <summary>
     /// If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
     /// </summary>

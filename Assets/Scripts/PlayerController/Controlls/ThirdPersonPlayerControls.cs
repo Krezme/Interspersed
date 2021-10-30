@@ -73,6 +73,14 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Testing"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""da3bd7ef-bd2e-4c97-be1e-df04ef3f141f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -251,6 +259,17 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Fire2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3f7bf1a-7c43-458a-979d-5e964fc14f43"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Testing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -283,6 +302,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire1 = m_Player.FindAction("Fire1", throwIfNotFound: true);
         m_Player_Fire2 = m_Player.FindAction("Fire2", throwIfNotFound: true);
+        m_Player_Testing = m_Player.FindAction("Testing", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -339,6 +359,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire1;
     private readonly InputAction m_Player_Fire2;
+    private readonly InputAction m_Player_Testing;
     public struct PlayerActions
     {
         private @ThirdPersonPlayerControls m_Wrapper;
@@ -350,6 +371,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire1 => m_Wrapper.m_Player_Fire1;
         public InputAction @Fire2 => m_Wrapper.m_Player_Fire2;
+        public InputAction @Testing => m_Wrapper.m_Player_Testing;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -380,6 +402,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @Fire2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire2;
                 @Fire2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire2;
                 @Fire2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire2;
+                @Testing.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTesting;
+                @Testing.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTesting;
+                @Testing.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTesting;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -405,6 +430,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @Fire2.started += instance.OnFire2;
                 @Fire2.performed += instance.OnFire2;
                 @Fire2.canceled += instance.OnFire2;
+                @Testing.started += instance.OnTesting;
+                @Testing.performed += instance.OnTesting;
+                @Testing.canceled += instance.OnTesting;
             }
         }
     }
@@ -427,5 +455,6 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire1(InputAction.CallbackContext context);
         void OnFire2(InputAction.CallbackContext context);
+        void OnTesting(InputAction.CallbackContext context);
     }
 }
