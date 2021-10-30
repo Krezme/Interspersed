@@ -30,6 +30,8 @@ public class OnPlayerInput : MonoBehaviour
     public bool onFire1;
     [HideInInspector]
     public bool onFire2;
+    [HideInInspector]
+    public bool onAbility1;
 
     [HideInInspector]
     public float mouseSensitivityCurrent;
@@ -85,6 +87,10 @@ public class OnPlayerInput : MonoBehaviour
         PlayerFire2Input(value.isPressed);
     }
 
+    public void OnAbility1 (InputValue value)
+    {
+        PlayerAbility1Input(value.isPressed);
+    }
 
 #region Recording Functions
     /// <summary>
@@ -139,5 +145,9 @@ public class OnPlayerInput : MonoBehaviour
         onFire2 = fire2State;
     }
 
+    private void PlayerAbility1Input(bool ability1State)
+    {
+        onAbility1 = ability1State;
+    }
 #endregion
 }
