@@ -62,6 +62,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     //public GameObject playerBody; // Needed for prototyping
     public GameObject heightCheckFront;
     public GameObject heightCheckBack;
+    public Animator animator;
 #endregion
 
 #region Private Cinemachine Vars
@@ -97,7 +98,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private CharacterController controller;
     private OnPlayerInput onPlayerInput;
     private GameObject mainCamera;
-    private Animator animator;
     
     void Awake() {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -105,7 +105,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     void Start()
     {
-        TryGetComponent(out animator);
+        //TryGetComponent(out animator);
         controller = GetComponent<CharacterController>();
         onPlayerInput = GetComponent<OnPlayerInput>();
         originalHeight = controller.height;
