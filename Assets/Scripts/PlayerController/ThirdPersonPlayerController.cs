@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Animations.Rigging;
 
 public class ThirdPersonPlayerController : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public GameObject heightCheckFront;
     public GameObject heightCheckBack;
     public Animator animator;
+    public RigBuilder rigBuilder;
 #endregion
 
 #region Private Cinemachine Vars

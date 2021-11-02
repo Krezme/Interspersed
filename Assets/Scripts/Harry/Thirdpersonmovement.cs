@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using UnityEngine.Animations.Rigging;
 
 public class Thirdpersonmovement : MonoBehaviour {
 
@@ -103,6 +104,7 @@ public class Thirdpersonmovement : MonoBehaviour {
             aimVirtualCamera.gameObject.SetActive(true);
             onPlayerInput.mouseSensitivityCurrent = onPlayerInput.mouseSensitivityAim;
             thirdPersonPlayerController.SetRotateOnMove(true);
+            thirdPersonPlayerController.rigBuilder.layers[0].rig.weight = Mathf.Lerp(thirdPersonPlayerController.rigBuilder.layers[0].rig.weight, 1f, Time.deltaTime * 10f);
             
             Vector3 worldAimTarget = mouseWorldPosition;
             worldAimTarget.y = transform.position.y;
@@ -115,7 +117,7 @@ public class Thirdpersonmovement : MonoBehaviour {
             aimVirtualCamera.gameObject.SetActive(false);
             onPlayerInput.mouseSensitivityCurrent = onPlayerInput.mouseSensitivity;
             thirdPersonPlayerController.SetRotateOnMove(false);
-            
+            thirdPersonPlayerController.rigBuilder.layers[0].rig.weight = Mathf.Lerp(thirdPersonPlayerController.rigBuilder.layers[0].rig.weight, 0f, Time.deltaTime * 10f);
         }
 
         if (onPlayerInput.onFire2)
