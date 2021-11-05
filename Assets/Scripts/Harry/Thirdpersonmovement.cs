@@ -14,7 +14,6 @@ public class Thirdpersonmovement : MonoBehaviour {
     //[SerializeField] private Transform ChargedpfBulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
 
-    private OnPlayerInput onPlayerInput;
     private ThirdPersonPlayerController thirdPersonPlayerController;
     private Animator animator;
     public int currentEnergy;
@@ -29,17 +28,15 @@ public class Thirdpersonmovement : MonoBehaviour {
     float maxPower = 5;
     float chargeSpeed = 3;
     bool shootHeldDown;
-   
+    
     void Start()
     {
-        onPlayerInput = GetComponent<OnPlayerInput>();
         thirdPersonPlayerController = GetComponent<ThirdPersonPlayerController>();
         animator = GetComponent<Animator>();
 
         currentHealth = maxHealth;
         healthbar.SetMaxHealth(maxHealth);
         source = GetComponent<AudioSource>();
-        
     }
    
     public void HoldShoot()
@@ -51,7 +48,7 @@ public class Thirdpersonmovement : MonoBehaviour {
         shootHeldDown = false;
         power = 0;
     }
-
+    
     void AddEnergy(int gain)
     {
         currentEnergy += gain;
@@ -84,8 +81,6 @@ public class Thirdpersonmovement : MonoBehaviour {
 
     public void Update()
     {
-        
-
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -99,12 +94,12 @@ public class Thirdpersonmovement : MonoBehaviour {
             mouseWorldPosition = ray.direction * 999f;
         }
 
-        if (onPlayerInput.onFire2)
+        if (OnPlayerInput.instance.onFire2)
         {
             aimVirtualCamera.gameObject.SetActive(true);
-            onPlayerInput.mouseSensitivityCurrent = onPlayerInput.mouseSensitivityAim;
+            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.instance.mouseSensitivityAim;
             thirdPersonPlayerController.SetRotateOnMove(true);
-            for (int i = 0; thirdPersonPlayerController.rigBuilder.layers.Count > i; i++) {
+            for (int i = 0; thirdPersonPlayerController.rigBuilder.layers.Count > i; i++) { //Setting the weight of the rigs to 1 (Animation Rigging)
                 thirdPersonPlayerController.rigBuilder.layers[i].rig.weight = Mathf.Lerp(thirdPersonPlayerController.rigBuilder.layers[i].rig.weight, 1f, Time.deltaTime * 10f);
             }
             
@@ -117,27 +112,25 @@ public class Thirdpersonmovement : MonoBehaviour {
         else
         {
             aimVirtualCamera.gameObject.SetActive(false);
-            onPlayerInput.mouseSensitivityCurrent = onPlayerInput.mouseSensitivity;
+            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.instance.mouseSensitivity;
             thirdPersonPlayerController.SetRotateOnMove(false);
-            for (int i = 0; thirdPersonPlayerController.rigBuilder.layers.Count > i; i++) {
+            for (int i = 0; thirdPersonPlayerController.rigBuilder.layers.Count > i; i++) { //Setting the weight of the rigs to 0 (Animation Rigging)
                 thirdPersonPlayerController.rigBuilder.layers[i].rig.weight = Mathf.Lerp(thirdPersonPlayerController.rigBuilder.layers[i].rig.weight, 0f, Time.deltaTime * 10f);
             }
         }
 
-        if (onPlayerInput.onFire2)
+        if (OnPlayerInput.instance.onFire2)
         {
-            if (onPlayerInput.onFire1)
+            if (OnPlayerInput.instance.onFire1)
             {
                 
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-                onPlayerInput.onFire1 = false;
+                OnPlayerInput.instance.onFire1 = false;
                 source.PlayOneShot(shootSound);
                 
             }
-            
         }
-        
     }
     
     private void OnTriggerEnter(Collider other)

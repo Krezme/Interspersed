@@ -51258,27 +51258,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121709211}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2125219652 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4433144296201853559, guid: 011ebcb7dac1294429efd96cd3cb5575,
-    type: 3}
-  m_PrefabInstance: {fileID: 4433144295746998350}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2125219653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125219652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa73258c7ec0e4d4e9a6bbe0055a23a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilities:
-  - {fileID: 0}
-  abilityName: 
 --- !u!1 &2133750859
 GameObject:
   m_ObjectHideFlags: 0
@@ -52063,21 +52042,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: aimVirtualCamera
+      value: 
+      objectReference: {fileID: 7407960514269014398}
     - target: {fileID: 3010496270170886426, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 421068374}
-    - target: {fileID: 4433144296201853552, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: runSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4433144296201853552, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: walkSpeed
-      value: 1.1
-      objectReference: {fileID: 0}
     - target: {fileID: 4433144296201853554, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: energybar
@@ -52158,14 +52132,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4433144296201853559, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6973227500262595306, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 421068374}
+    - target: {fileID: 8201306245368969078, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: rayBitch
       value: 
       objectReference: {fileID: 421068374}
     m_RemovedComponents: []

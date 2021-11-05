@@ -6,6 +6,21 @@ using UnityEngine.Animations.Rigging;
 
 public class ThirdPersonPlayerController : MonoBehaviour
 {
+#region Singleton
+
+    public static ThirdPersonPlayerController instance;
+
+    void Awake() {
+        if (instance == null) {
+            instance = this;
+        }
+        else {
+            Debug.LogError("THERE ARE 2 ThirdPersonPlayerController SCRIPTS IN EXISTANCE");
+        }
+    }
+
+#endregion
+
 #region Public Player Vars
     [Header("Player Statistics")]
     public float walkSpeed; // Player walk speed
@@ -98,18 +113,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     // References
     private CharacterController controller;
-    private OnPlayerInput onPlayerInput;
     private GameObject mainCamera;
-    
-    void Awake() {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-    }
 
     void Start()
     {
         //TryGetComponent(out animator);
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         controller = GetComponent<CharacterController>();
-        onPlayerInput = GetComponent<OnPlayerInput>();
         originalHeight = controller.height;
 
         //initialRequiredForceToMove = frictionStatic * (playerCharacterMass * -gravity);
@@ -137,11 +147,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// </summary>
     private void PlayerMovement() {
 
-        float targetSpeed = onPlayerInput.isSprinting ? runSpeed : walkSpeed;  // setting the target speed (walking or running)
+        float targetSpeed = OnPlayerInput.instance.isSprinting ? runSpeed : walkSpeed;  // setting the target speed (walking or running)
         
         float currentSpeedChangeRate = isGrounded ? speedChangeRate : inAirSpeedChangeRate;
 
-        targetSpeed = onPlayerInput.playerMovement == Vector2.zero ? 0f : targetSpeed; // if the player is not moving set it to 0 otherwise remain
+        targetSpeed = OnPlayerInput.instance.playerMovement == Vector2.zero ? 0f : targetSpeed; // if the player is not moving set it to 0 otherwise remain
 
         //float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
         Vector3 currentInputDirection = inputDirection;
@@ -158,9 +168,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
         animationBlend = Mathf.Lerp(animationBlend, targetSpeed, Time.deltaTime * speedChangeRate);
 
-        Vector3 targetInputDirection = new Vector3(onPlayerInput.playerMovement.x, 0.0f, onPlayerInput.playerMovement.y).normalized; // normalized direction
+        Vector3 targetInputDirection = new Vector3(OnPlayerInput.instance.playerMovement.x, 0.0f, OnPlayerInput.instance.playerMovement.y).normalized; // normalized direction
 
-        if (onPlayerInput.playerMovement != Vector2.zero) { // if the player is not moving
+        if (OnPlayerInput.instance.playerMovement != Vector2.zero) { // if the player is not moving
             targetRotation = Mathf.Atan2(targetInputDirection.x, targetInputDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
             float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothness); // Smoothing the rotation of the player character
 
@@ -172,7 +182,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         Vector3 targetDirection = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward;
 
-        if (onPlayerInput.isSliding && onPlayerInput.isSprinting) { // Overwriting the speed of the player with the slidning speed
+        if (OnPlayerInput.instance.isSliding && OnPlayerInput.instance.isSprinting) { // Overwriting the speed of the player with the slidning speed
             SlidingPhysicsCalculation();
             animator.SetBool("Slide", true);
         }
@@ -214,13 +224,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
             }
 
             // Calculating the vertical velocuty when the input is pressed and the cooldown is over
-            if (onPlayerInput.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) {
+            if (OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);   // H * -2 * G to calculate how much velocity is required to reach the desired height
 
                 animator.SetBool("Jump", true);
             }
             else {
-                onPlayerInput.jumped = false;
+                OnPlayerInput.instance.jumped = false;
             }
             
             // cooling down the jump
@@ -239,7 +249,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
                 animator.SetBool("Falling", true);
             }
 
-            onPlayerInput.jumped = false; // when not grounded stop jumping
+            OnPlayerInput.instance.jumped = false; // when not grounded stop jumping
         }
 
         // increases the fall of the player until it reaches terminal velovity
@@ -252,11 +262,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
     /// </summary>
     void StickingToSlopes () {
-        if (onPlayerInput.jumped || !isGrounded) {}
-        else if (surfaceAngle > 0.0f && onPlayerInput.isSprinting && isGrounded) {
+        if (OnPlayerInput.instance.jumped || !isGrounded) {}
+        else if (surfaceAngle > 0.0f && OnPlayerInput.instance.isSprinting && isGrounded) {
             verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
         }
-        else if (surfaceAngle > 0.0f && !onPlayerInput.isSprinting && isGrounded && !onPlayerInput.isSliding) {
+        else if (surfaceAngle > 0.0f && !OnPlayerInput.instance.isSprinting && isGrounded && !OnPlayerInput.instance.isSliding) {
             verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
         }
     }
@@ -307,7 +317,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         speed = Mathf.Lerp(currentHorizontalSpeed, targetSlideSpeed, ((currentFricton * slidingTime * Time.deltaTime) * Mathf.Pow(Mathf.Cos(surfaceAngle), 2)) * slowDownMultiplier);
 
         if (currentHorizontalSpeed <= slideSpeedToStopSliding) { // When the speed falls below "slideSpeedToStopSliding" the sliding will stop
-            onPlayerInput.isSliding = false;
+            OnPlayerInput.instance.isSliding = false;
         }
         
     }
@@ -338,9 +348,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// Calculating the rotation of the camera as well as liting it
     /// </summary>
     void CameraOrbit () {
-        if (onPlayerInput.looking.sqrMagnitude >= camMoveThreshold && !isCameraLocked) {
-            camTargetYaw += onPlayerInput.looking.x * Time.deltaTime;
-            camTargetPitch += onPlayerInput.looking.y * Time.deltaTime;
+        if (OnPlayerInput.instance.looking.sqrMagnitude >= camMoveThreshold && !isCameraLocked) {
+            camTargetYaw += OnPlayerInput.instance.looking.x * Time.deltaTime;
+            camTargetPitch += OnPlayerInput.instance.looking.y * Time.deltaTime;
         }
 
         camTargetYaw = ClampAngle(camTargetYaw, float.MinValue, float.MaxValue);
@@ -384,10 +394,10 @@ public class ThirdPersonPlayerController : MonoBehaviour
     }
 
     private void Attacking() {
-        if (onPlayerInput.onFire1){
+        if (OnPlayerInput.instance.onFire1 && !OnPlayerInput.instance.onFire2){
+            OnPlayerInput.instance.onFire1 = false;
             animator.SetTrigger("Attack");
         }
-        
     }
 
     /// <summary>

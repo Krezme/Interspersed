@@ -6,14 +6,30 @@ using UnityEngine.InputSystem.Interactions;
 
 public class OnPlayerInput : MonoBehaviour
 {
+#region Singleton
+
+    /// <summary>
+    /// This is a singleton to allow this script to be accessed by all other scripts
+    /// </summary>
+    public static OnPlayerInput instance;
+
+    void Awake () {
+        if (instance == null) {
+            instance = this;
+        }
+        else{
+            Debug.LogError("THERE ARE 2 OnPlayerInput SCRIPTS IN EXISTANCE");
+        }
+    }
+
+#endregion 
+
     [Header("Options")]
     public bool isSprintToggleable; // if the player wants toggleable sprinting or just hold to sprint
     [Range(0.1f, 5.0f)]
     public float mouseSensitivity = 1f;
     [Range(0.1f, 5.0f)]
     public float mouseSensitivityAim = 0.5f;
-    
-    
 
 #region Values
     [HideInInspector]
