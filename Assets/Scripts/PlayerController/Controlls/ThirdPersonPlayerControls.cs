@@ -89,6 +89,22 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Arm1"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""0b4da781-dce1-498e-8244-000b47372771"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Arm2"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2737794f-cae7-499a-9a0b-dd61bc092d87"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -289,6 +305,28 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Ability1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b659542-4f67-4a0f-b635-b5b30390e24f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Arm1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76ccf4a1-a2b5-41bc-a4e0-d10051618d17"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Arm2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -323,6 +361,8 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         m_Player_Fire2 = m_Player.FindAction("Fire2", throwIfNotFound: true);
         m_Player_Testing = m_Player.FindAction("Testing", throwIfNotFound: true);
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
+        m_Player_Arm1 = m_Player.FindAction("Arm1", throwIfNotFound: true);
+        m_Player_Arm2 = m_Player.FindAction("Arm2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -381,6 +421,8 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Fire2;
     private readonly InputAction m_Player_Testing;
     private readonly InputAction m_Player_Ability1;
+    private readonly InputAction m_Player_Arm1;
+    private readonly InputAction m_Player_Arm2;
     public struct PlayerActions
     {
         private @ThirdPersonPlayerControls m_Wrapper;
@@ -394,6 +436,8 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         public InputAction @Fire2 => m_Wrapper.m_Player_Fire2;
         public InputAction @Testing => m_Wrapper.m_Player_Testing;
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
+        public InputAction @Arm1 => m_Wrapper.m_Player_Arm1;
+        public InputAction @Arm2 => m_Wrapper.m_Player_Arm2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -430,6 +474,12 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @Ability1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility1;
                 @Ability1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility1;
                 @Ability1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility1;
+                @Arm1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm1;
+                @Arm1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm1;
+                @Arm1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm1;
+                @Arm2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm2;
+                @Arm2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm2;
+                @Arm2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm2;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -461,6 +511,12 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @Ability1.started += instance.OnAbility1;
                 @Ability1.performed += instance.OnAbility1;
                 @Ability1.canceled += instance.OnAbility1;
+                @Arm1.started += instance.OnArm1;
+                @Arm1.performed += instance.OnArm1;
+                @Arm1.canceled += instance.OnArm1;
+                @Arm2.started += instance.OnArm2;
+                @Arm2.performed += instance.OnArm2;
+                @Arm2.canceled += instance.OnArm2;
             }
         }
     }
@@ -485,5 +541,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         void OnFire2(InputAction.CallbackContext context);
         void OnTesting(InputAction.CallbackContext context);
         void OnAbility1(InputAction.CallbackContext context);
+        void OnArm1(InputAction.CallbackContext context);
+        void OnArm2(InputAction.CallbackContext context);
     }
 }

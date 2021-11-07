@@ -415,6 +415,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1008479993094344304, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 945489110}
+    - target: {fileID: 1008479993094344304, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: objectHolder
+      value: 
+      objectReference: {fileID: 2117962698}
+    - target: {fileID: 1008479993094344304, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: aimVirtualCamera
+      value: 
+      objectReference: {fileID: 1488776764}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: aimVirtualCamera
+      value: 
+      objectReference: {fileID: 1488776764}
     - target: {fileID: 4433144296201853553, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: m_Camera
@@ -510,6 +530,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8201306245368969078, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: rayBitch
+      value: 
+      objectReference: {fileID: 1030867792}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 011ebcb7dac1294429efd96cd3cb5575, type: 3}
 --- !u!1 &365344417
@@ -637,12 +662,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433777931}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7c06d2b482108a439e4498d38478109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPlayerInput: {fileID: 0}
   cooldownMaxTime: 1
   cooldownTimer: 0
   cam: {fileID: 945489110}
@@ -1367,7 +1391,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117962697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.263, y: -0.231, z: 2.649}
+  m_LocalPosition: {x: -0.379, y: -0.231, z: 6.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1433847699}

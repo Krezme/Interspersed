@@ -394,7 +394,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     }
 
     private void Attacking() {
-        if (OnPlayerInput.instance.onFire1 && !OnPlayerInput.instance.onFire2){
+        if (OnPlayerInput.instance.onFire1 && !OnPlayerInput.instance.onFire2 && !PlayerAbilitiesController.instance.isAbilityActive){
             OnPlayerInput.instance.onFire1 = false;
             animator.SetTrigger("Attack");
         }

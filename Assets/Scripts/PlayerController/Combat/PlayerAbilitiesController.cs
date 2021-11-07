@@ -34,11 +34,11 @@ public class PlayerAbilitiesController : MonoBehaviour
     public LayerMask aimColliderLayerMask = new LayerMask();
     public Transform rayBitch;
 
+    [HideInInspector]
+    public bool isAbilityActive;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void ChangeArm() {
+        abilities[selectedAbility].MorthToTarget();
     }
 
     // Update is called once per frame

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PickupAbilityScript : MonoBehaviour
 {
-    //PlayerInput
-    public OnPlayerInput onPlayerInput;
 
     //Cooldown variables
     public float cooldownMaxTime = 1;
@@ -17,40 +15,36 @@ public class PickupAbilityScript : MonoBehaviour
     [SerializeField] Transform objectHolder;
 
     Rigidbody grabbedRB;
-
-    void Start()
-    {
-        onPlayerInput = GetComponent<OnPlayerInput>();
-    }
-
     
     void Update()
     {
         if (grabbedRB)
         {
             grabbedRB.MovePosition(objectHolder.transform.position);
-
-            if (onPlayerInput.onFire1)
+            
+            if (OnPlayerInput.instance.onFire1)
             {
                 grabbedRB.isKinematic = false;
                 grabbedRB.AddForce(cam.transform.forward * throwforce, ForceMode.VelocityChange);
                 grabbedRB = null;
+                PlayerAbilitiesController.instance.isAbilityActive = false;
             }
         }
 
 
-        ability1CastFunc();
+        Ability1CastFunc();
     }
 
-    private void ability1CastFunc()
+    private void Ability1CastFunc()
     {
-        if (onPlayerInput.onAbility1 && cooldownTimer == 0)
+        if (OnPlayerInput.instance.onAbility1 && cooldownTimer == 0)
         {
             print("Ability1Cast");
             if (grabbedRB) //if there is a grabbed rigidbody when we press the key, drop it.
             {
                 grabbedRB.isKinematic = false;
                 grabbedRB = null;
+                PlayerAbilitiesController.instance.isAbilityActive = false;
             }
             else //if there is not a grabbed rigid body, raycast for one and 'grab it' (setting grabbedrb to it)
             {
@@ -62,19 +56,20 @@ public class PickupAbilityScript : MonoBehaviour
                     if (grabbedRB)
                     {
                         grabbedRB.isKinematic = true;
+                        PlayerAbilitiesController.instance.isAbilityActive = true;
                     }
                 }
             }
 
             //start the cooldown 
             cooldownTimer = cooldownMaxTime;
-            StartCoroutine(ability1Cooldown());
+            StartCoroutine(Ability1Cooldown());
 
         }
 
     }
 
-    private IEnumerator ability1Cooldown()
+    private IEnumerator Ability1Cooldown()
     {
         //after the cooldown time, set the cooldown timer to 0 allowing the ability to be cast again
         yield return new WaitForSeconds(cooldownMaxTime);

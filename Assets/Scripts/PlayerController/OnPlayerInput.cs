@@ -52,10 +52,7 @@ public class OnPlayerInput : MonoBehaviour
     [HideInInspector]
     public float mouseSensitivityCurrent;
 
-    private ThirdPersonPlayerController thirdPersonPlayerController;
-
     void Start () {
-        thirdPersonPlayerController = GetComponent<ThirdPersonPlayerController>();
         mouseSensitivityCurrent = mouseSensitivity;
     }
 
@@ -108,6 +105,18 @@ public class OnPlayerInput : MonoBehaviour
         PlayerAbility1Input(value.isPressed);
     }
 
+    public void OnArm1 (InputValue value) {
+        if (value.isPressed) { 
+            PlayerArmInput(0);
+        }
+    }
+
+    public void OnArm2 (InputValue value) {
+        if (value.isPressed) { 
+            PlayerArmInput(1);
+        }
+    }
+
 #region Recording Functions
     /// <summary>
     /// Setting the playerMovement Vector2 to the input
@@ -132,7 +141,7 @@ public class OnPlayerInput : MonoBehaviour
     }
 
     private void PlayerSlideInput (bool slidingState) {
-        if (thirdPersonPlayerController.isGrounded) {
+        if (ThirdPersonPlayerController.instance.isGrounded) {
             isSliding = slidingState;
         }
     }
@@ -165,5 +174,10 @@ public class OnPlayerInput : MonoBehaviour
     {
         onAbility1 = ability1State;
     }
+
+    private void PlayerArmInput(int armIndex) {
+        PlayerAbilitiesController.instance.selectedAbility = armIndex;
+    }
+
 #endregion
 }
