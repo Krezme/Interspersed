@@ -48,7 +48,7 @@ public class Enemy_NavWander : MonoBehaviour
         myTransform = transform;
     }
 
-    void CheckIfIShouldWander()
+    public void CheckIfIShouldWander()
     {
 
         if(RandomWanderTarget(myTransform.position, wanderRange, out wanderTarget))
