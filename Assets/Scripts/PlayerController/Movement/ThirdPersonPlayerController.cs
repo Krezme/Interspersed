@@ -202,9 +202,18 @@ public class ThirdPersonPlayerController : MonoBehaviour
         SlidingOnOverTheLimitSurface();
 
         controller.Move(moveDirection); // Applying the movement
-
-        animator.SetFloat("Speed", animationBlend);
-
+        
+        //Animating between animations while aiming and while not
+        if (!isAiming) {  
+            animator.SetFloat("Speed", animationBlend);
+            animator.SetFloat("SideSpeed", 0f);
+        }
+        else { 
+            animator.SetFloat("Speed", targetInputDirection.z * targetSpeed);
+            animator.SetFloat("SideSpeed", targetInputDirection.x * targetSpeed);
+        }
+        
+        // Keep this line at the bottom as it checks if the player is used rotation or not 
         rotationChangedForThisFrame = false;
     }
 
