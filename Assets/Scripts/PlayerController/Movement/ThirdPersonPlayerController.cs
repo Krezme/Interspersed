@@ -24,6 +24,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 #region Public Player Vars
     [Header("Player Statistics")]
     public float walkSpeed; // Player walk speed
+    public float jogSpeed; // Player jogging speed
     public float runSpeed; // player run speed
     public float jumpHeight; // the desired player jump height
     [Range(0.0f, 0.5f)]
@@ -146,13 +147,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// The PlayerMovement controlls the horizontal movement of the player (WASD and the arrow keys)
     /// </summary>
     private void PlayerMovement() {
-
-        float targetSpeed = OnPlayerInput.instance.isSprinting ? runSpeed : walkSpeed;  // setting the target speed (walking or running)
+        float targetSpeed = OnPlayerInput.instance.isWalking ? walkSpeed : OnPlayerInput.instance.isSprinting ? runSpeed : jogSpeed;
         
         float currentSpeedChangeRate = isGrounded ? speedChangeRate : inAirSpeedChangeRate;
 
         targetSpeed = OnPlayerInput.instance.playerMovement == Vector2.zero ? 0f : targetSpeed; // if the player is not moving set it to 0 otherwise remain
-
+        
         //float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
         Vector3 currentInputDirection = inputDirection;
 

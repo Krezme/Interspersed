@@ -25,6 +25,7 @@ public class OnPlayerInput : MonoBehaviour
 #endregion 
 
     [Header("Options")]
+    public bool isWalkingToggleable; // if the player wants toggleable walking or just hold to sprint
     public bool isSprintToggleable; // if the player wants toggleable sprinting or just hold to sprint
     [Range(0.1f, 5.0f)]
     public float mouseSensitivity = 1f;
@@ -36,6 +37,8 @@ public class OnPlayerInput : MonoBehaviour
     public Vector2 playerMovement; //player movement for the X and Z axis
     [HideInInspector]
     public bool isSprinting; // Sprinting state
+    [HideInInspector]
+    public bool isWalking;
     [HideInInspector]
     public bool isSliding;
     [HideInInspector]
@@ -58,7 +61,7 @@ public class OnPlayerInput : MonoBehaviour
 
 #endregion
     /// <summary>
-    /// Takes the player input and records it
+    /// Takes the player move input and records it
     /// </summary>
     /// <param name="value">The input value of PlayerMovement input action map</param>
     public void OnPlayerMovement (InputValue value) {
@@ -66,19 +69,31 @@ public class OnPlayerInput : MonoBehaviour
     }
 
     /// <summary>
-    /// Takes the player jump input
+    /// Takes the player Sprint input
     /// </summary>
     /// <param name="value">Sprint input value from Sprint input action map</param>
     public void OnSprint (InputValue value) {
         PlayerSprintInput(value.isPressed);
     }
 
+    /// <summary>
+    /// Takes the player walk input
+    /// </summary>
+    /// <param name="value">Walk input value</param>
+    public void OnWalk (InputValue value) {
+        PlayerWalkInput(value.isPressed);
+    }
+
+    /// <summary>
+    /// Takes the player Slide input
+    /// </summary>
+    /// <param name="value">Slide input value</param>
     public void OnSlide (InputValue value) {
         PlayerSlideInput(value.isPressed);
     }
 
     /// <summary>
-    /// Takes the player input and records it
+    /// Takes the player jump input and records it
     /// </summary>
     /// <param name="value">Jump input value</param>
     public void OnJump(InputValue value){
@@ -93,24 +108,45 @@ public class OnPlayerInput : MonoBehaviour
         PlayerLookInput(value.Get<Vector2>());
     }
 
+    /// <summary>
+    /// Takes the player left mouse click input
+    /// </summary>
+    /// <param name="value">Fire 1 input value</param>
     public void OnFire1(InputValue value) {
         PlayerFire1Input(value.isPressed);
     }
+    
+    /// <summary>
+    /// Takes the player right mouse click input
+    /// </summary>
+    /// <param name="value">Fire 2 input value</param>
     public void OnFire2(InputValue value) {
         PlayerFire2Input(value.isPressed);
     }
 
+    /// <summary>
+    /// Takes the player Ability1 input
+    /// </summary>
+    /// <param name="value">Ability1 input value</param>
     public void OnAbility1 (InputValue value)
     {
         PlayerAbility1Input(value.isPressed);
     }
 
+    /// <summary>
+    /// Takes the player arm 1 input choise 
+    /// </summary>
+    /// <param name="value">Arm 1 input value</param>
     public void OnArm1 (InputValue value) {
         if (value.isPressed) { 
             PlayerArmInput(0);
         }
     }
 
+    /// <summary>
+    /// Takes the player arm 2 input choise
+    /// </summary>
+    /// <param name="value">Arm 2 input value</param>
     public void OnArm2 (InputValue value) {
         if (value.isPressed) { 
             PlayerArmInput(1);
@@ -140,6 +176,24 @@ public class OnPlayerInput : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Setting the isWalking to the walking state and if it is toggleable it reverses the state
+    /// </summary>
+    /// <param name="sprintState">The walking state</param>
+    private void PlayerWalkInput(bool walkingState) {
+        if (!isWalkingToggleable) {
+            isWalking = walkingState;
+            return;
+        }
+        if (walkingState) {
+            isWalking = !isWalking;
+        }
+    }
+
+    /// <summary>
+    /// Records the slide input if the player is grunded
+    /// </summary>
+    /// <param name="slidingState"></param>
     private void PlayerSlideInput (bool slidingState) {
         if (ThirdPersonPlayerController.instance.isGrounded) {
             isSliding = slidingState;
@@ -161,20 +215,36 @@ public class OnPlayerInput : MonoBehaviour
     private void PlayerLookInput(Vector2 lookInput) {
         looking = lookInput * mouseSensitivityCurrent;
     }
-
+    
+    /// <summary>
+    /// Setting the Fire 1 state
+    /// </summary>
+    /// <param name="fire1State">Fire 1 state</param>
     private void PlayerFire1Input(bool fire1State) {
         onFire1 = fire1State;
     }
 
+    /// <summary>
+    /// Setting the Fire 2 state
+    /// </summary>
+    /// <param name="fire2State">Fire 2 state</param>
     private void PlayerFire2Input(bool fire2State) {
         onFire2 = fire2State;
     }
 
+    /// <summary>
+    /// Setting the Ability 1 state
+    /// </summary>
+    /// <param name="ability1State">Ability 1 state</param>
     private void PlayerAbility1Input(bool ability1State)
     {
         onAbility1 = ability1State;
     }
 
+    /// <summary>
+    /// Switching between arms 
+    /// </summary>
+    /// <param name="armIndex"></param>
     private void PlayerArmInput(int armIndex) {
         PlayerAbilitiesController.instance.selectedAbility = armIndex;
     }

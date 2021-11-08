@@ -411,6 +411,7 @@ MonoBehaviour:
     type: 3}
   audioSource: {fileID: 4433144296201853455}
   abilitySound: {fileID: 8300000, guid: 4f42263d3e610d642b9dabe30fc0556d, type: 3}
+  chargeStages: []
 --- !u!114 &1008479993094344304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,7 +578,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2.1
   m_Radius: 0.32
-  m_SlopeLimit: 91
+  m_SlopeLimit: 45
   m_StepOffset: 0.25
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0.001
@@ -595,6 +596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 1.1
+  jogSpeed: 0
   runSpeed: 8
   jumpHeight: 4
   rotationSmoothness: 0.05
@@ -638,11 +640,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbdc267be640dab4baafb1fdb8cd4a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWalkingToggleable: 1
   isSprintToggleable: 0
   mouseSensitivity: 1
   mouseSensitivityAim: 0.5
   playerMovement: {x: 0, y: 0}
   isSprinting: 0
+  isWalking: 0
   isSliding: 0
   jumped: 0
   looking: {x: 0, y: 0}
