@@ -6,11 +6,12 @@ using UnityEngine.AI;
 public class Enemy_Behaviour : MonoBehaviour
 {
     NavMeshAgent agent;
+    Transform target;
 
     // Start is called before the first frame update
     void Start()
     {
-        NavMeshAgent agent = this.GetComponent<NavMeshAgent>();
+        agent = this.GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -30,11 +31,13 @@ public class Enemy_Behaviour : MonoBehaviour
 
     void ChasePlayer()
     {
-        ////List<Transform> visibleTargets = GetComponent<FieldOfView>().visibleTargets;
-        //Transform target = ;
-        
+        List<Transform> visibleTargets = GetComponent<FieldOfView>().visibleTargets;
+        if (visibleTargets != null && visibleTargets.Count > 0)
+        {
+            int rnd = Random.Range(0, visibleTargets.Count);
+            target = visibleTargets[rnd];
+        }
 
-        //agent.SetDestination(target.position);
-        
+        agent.SetDestination(target.position);
     }
 }
