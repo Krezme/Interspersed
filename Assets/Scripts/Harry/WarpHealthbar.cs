@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class WarpHealthbar : MonoBehaviour
 {
     public Slider warpslider;
+    public int warpmaxHealth = 80;
+    void Start()
+    {
+        warpslider.value = warpmaxHealth;
+    }
 
     public void SetwarpMaxHealth(int warphealth)
     {
