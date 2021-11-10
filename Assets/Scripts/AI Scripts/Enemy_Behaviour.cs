@@ -25,7 +25,7 @@ public class Enemy_Behaviour : MonoBehaviour
         }
         else
         {
-            GetComponent<Enemy_NavWander>().CheckIfIShouldWander();
+            //GetComponent<Enemy_NavWander>().CheckIfIShouldWander();
         }
     }
 
