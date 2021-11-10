@@ -6,9 +6,10 @@ using Cinemachine;
 public class CristalArm : PlayerAbility
 {
     public Transform spawnBulletPosition;
-    public GameObject pfBulletProjectile;
+    public GameObject[] pfBulletProjectile;
     public AudioSource audioSource;
     public AudioClip abilitySound;
+    private GameObject currentBullet;
 
     public float[] chargeStages;
 
@@ -32,6 +33,8 @@ public class CristalArm : PlayerAbility
         for (int i = chargeStages.Length -1; i >= 0; i--) {
             if (chargeStages[i] <= timePassed) {
                 Debug.Log(i + " stage charged");
+                currentBullet = pfBulletProjectile[i];
+                projectileDamage *= i + 1;
                 // finctionality depending on different charge stage
                 return;
             }
@@ -44,12 +47,12 @@ public class CristalArm : PlayerAbility
             
             if (timePassed > 0) {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-                GameObject bullet = Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 bullet.GetComponent<BulletProjectile>().damage = projectileDamage;
                 OnPlayerInput.instance.onFire1 = false;
                 audioSource.PlayOneShot(abilitySound);
             }
-
+            projectileDamage = 10;
             timePassed = 0;
         }
     }
