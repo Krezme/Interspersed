@@ -51,11 +51,19 @@ public class SlimeArm : PlayerAbility
                     Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {
+                        
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                        if (grabbedRB)
+                        if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out RagdollController grabbedRagdoll)) {
+                            grabbedRagdoll.RagdollOn();
+                        }
+                        if (Physics.Raycast(ray, out hit, maxGrabDistance))
                         {
-                            grabbedRB.isKinematic = true;
-                            PlayerAbilitiesController.instance.isAbilityActive = true;
+                            grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                            if (grabbedRB)
+                            {
+                                grabbedRB.isKinematic = true;
+                                PlayerAbilitiesController.instance.isAbilityActive = true;
+                            }
                         }
                     }
                 }

@@ -33,7 +33,9 @@ public class CristalArm : PlayerAbility
     public override void AimingAbility ()
     {
         timePassed += Time.deltaTime;
-        crosshair.value = timePassed / chargeStages.Length;
+        if (crosshair != null) {
+            crosshair.value = timePassed / chargeStages.Length;
+        }
         for (int i = chargeStages.Length -1; i >= 0; i--) {
             if (chargeStages[i] <= timePassed) {
                 Debug.Log(i + " stage charged");
