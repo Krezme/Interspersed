@@ -60,7 +60,9 @@ public class CristalArm : PlayerAbility
                 OnPlayerInput.instance.onFire1 = false;
                 audioSource.PlayOneShot(abilitySound);
             }
-            crosshair.value = 0;
+            if (crosshair != null){
+                crosshair.value = 0;
+            }
             projectileDamage = 10;
             timePassed = 0;
         }
