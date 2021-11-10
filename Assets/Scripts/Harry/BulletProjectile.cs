@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class BulletProjectile : MonoBehaviour
 {
-    private Rigidbody bulletRigidbody;
-   
+    public Rigidbody bulletRigidbody;
 
+    [HideInInspector]
+    public float damage;
 
-
-    private void Awake()
-    {
-        bulletRigidbody = GetComponent<Rigidbody>();
-    }
     private void Start()
     {
         float speed = 20f;
@@ -21,5 +17,10 @@ public class BulletProjectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+
+        if (other.tag == "Enemy") {
+            EnemyStatisticsManager enemyStatisticsManager = other.gameObject.GetComponent<EnemyStatisticsManager>();
+            enemyStatisticsManager.TakeDamage(damage);
+        }
     }
 }

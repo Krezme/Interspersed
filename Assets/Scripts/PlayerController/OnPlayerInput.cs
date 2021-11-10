@@ -138,7 +138,7 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Arm 1 input value</param>
     public void OnArm1 (InputValue value) {
-        if (value.isPressed) { 
+        if (value.isPressed && PlayerAbilitiesController.instance.selectedAbility != 0) { 
             PlayerArmInput(0);
         }
     }
@@ -148,7 +148,7 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Arm 2 input value</param>
     public void OnArm2 (InputValue value) {
-        if (value.isPressed) { 
+        if (value.isPressed && PlayerAbilitiesController.instance.selectedAbility != 1) {
             PlayerArmInput(1);
         }
     }
@@ -247,6 +247,7 @@ public class OnPlayerInput : MonoBehaviour
     /// <param name="armIndex"></param>
     private void PlayerArmInput(int armIndex) {
         PlayerAbilitiesController.instance.selectedAbility = armIndex;
+        PlayerAbilitiesController.instance.ChangeArm();
     }
 
 #endregion

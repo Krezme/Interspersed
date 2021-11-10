@@ -12,6 +12,7 @@ public class PlayerAbility : MonoBehaviour
     public Vector3 mouseWorldPosition;
     public CinemachineVirtualCamera aimVirtualCamera;
     #endregion
+   
     
     
    
@@ -50,6 +51,10 @@ public class PlayerAbility : MonoBehaviour
     public void AimingHold() {
         if (OnPlayerInput.instance.onFire2)
         {
+            
+
+
+
             aimVirtualCamera.gameObject.SetActive(true);
             OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.instance.mouseSensitivityAim;
             ThirdPersonPlayerController.instance.SetRotateOnMove(true);
