@@ -5,9 +5,10 @@ using UnityEngine;
 public class Warpling : MonoBehaviour
 {
 
-    public int warpmaxHealth = 50;
+    public int warpmaxHealth = 80;
     public int warpcurrentHealth;
-    public EnemyHealthbar enemyHealthbar;
+    public WarpHealthbar warpHealthbar;
+    public GameObject warphealthUI;
     
     
     
@@ -16,7 +17,7 @@ public class Warpling : MonoBehaviour
     {
         warpcurrentHealth -= damage;
 
-        enemyHealthbar.SetwarpHealth(warpcurrentHealth);
+        warpHealthbar.SetwarpHealth(warpcurrentHealth);
         
     }
     
@@ -29,6 +30,11 @@ public class Warpling : MonoBehaviour
             
             Destroy(gameObject);
 
+        }
+        if(warpcurrentHealth < warpmaxHealth)
+        {
+            warphealthUI.SetActive(true);
+            warpHealthbar.SetwarpHealth(warpcurrentHealth);
         }
     }
     void Start()

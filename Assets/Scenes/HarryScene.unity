@@ -1851,6 +1851,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3151960565890707559, guid: 92aeacafb1bea894ab84a138f32e23bd,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3151960566178729698, guid: 92aeacafb1bea894ab84a138f32e23bd,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1886,6 +1891,11 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 628983881}
+    - target: {fileID: 3151960566527865537, guid: 92aeacafb1bea894ab84a138f32e23bd,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 3151960566527865538, guid: 92aeacafb1bea894ab84a138f32e23bd,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2384,6 +2394,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375978172}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &388945566 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4433144296201853555, guid: 011ebcb7dac1294429efd96cd3cb5575,
+    type: 3}
+  m_PrefabInstance: {fileID: 871148420}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &398512764 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3228468944379351700, guid: 7280acb253f562642b0c261f64ca188b,
@@ -2967,8 +2983,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warpmaxHealth: 80
   warpcurrentHealth: 0
-  warphealthbar: {fileID: 607381738}
-  warphealthbarUI: {fileID: 1744494223}
+  warpHealthbar: {fileID: 607381738}
+  warphealthUI: {fileID: 1744494223}
 --- !u!1 &448454560
 GameObject:
   m_ObjectHideFlags: 0
@@ -4211,11 +4227,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 607381735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90a49c75861c0554aa23722cccd5a2d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 49aef8775184dda4699f0a849cf69331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   warpslider: {fileID: 607381737}
-  warpmaxHealth: 100
+  warpmaxHealth: 80
 --- !u!4 &607907003 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1015495869848915670, guid: 902f81bb5c6f2cc44a7194fa8b4693b5,
@@ -4827,7 +4843,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 633082051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90a49c75861c0554aa23722cccd5a2d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 49aef8775184dda4699f0a849cf69331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   warpslider: {fileID: 633082053}
@@ -5164,8 +5180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warpmaxHealth: 80
   warpcurrentHealth: 0
-  warphealthbar: {fileID: 1093890673}
-  warphealthbarUI: {fileID: 1656233741}
+  warpHealthbar: {fileID: 0}
+  warphealthUI: {fileID: 0}
 --- !u!1 &709190410
 GameObject:
   m_ObjectHideFlags: 0
@@ -5689,6 +5705,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7280acb253f562642b0c261f64ca188b, type: 3}
+--- !u!1 &817251341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 817251342}
+  m_Layer: 8
+  m_Name: BulletSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &817251342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817251341}
+  m_LocalRotation: {x: 0.04876968, y: -0.11925115, z: 0.007256133, w: 0.9916391}
+  m_LocalPosition: {x: 1.2454, y: 0.475, z: 0.198}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 388945566}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &834104973 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8483327594911063555, guid: 5066c5c9a620f794f82052e8343eaaf1,
@@ -5894,9 +5940,54 @@ PrefabInstance:
       objectReference: {fileID: 775731016}
     - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
+      propertyPath: chargeslider
+      value: 
+      objectReference: {fileID: 1714720983}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: pfFuckOffBullet
+      value: 
+      objectReference: {fileID: 2193090397942746697, guid: e22b14eeeae1956429ac00cedb2246bd,
+        type: 3}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
       propertyPath: aimVirtualCamera
       value: 
       objectReference: {fileID: 775731016}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: projectileDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: pfBulletProjectile
+      value: 
+      objectReference: {fileID: 3704699286943562344, guid: 4e98c69837b0ead4296d961e2f9c7edd,
+        type: 3}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: spawnBulletPosition
+      value: 
+      objectReference: {fileID: 817251342}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: pfBulletProjectile.Array.data[0]
+      value: 
+      objectReference: {fileID: 2193090397942746697, guid: e22b14eeeae1956429ac00cedb2246bd,
+        type: 3}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: pfBulletProjectile.Array.data[1]
+      value: 
+      objectReference: {fileID: 1957454876902729799, guid: ac87e968fe0fe4f46928faa233038f37,
+        type: 3}
+    - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: pfBulletProjectile.Array.data[2]
+      value: 
+      objectReference: {fileID: 3704699286943562344, guid: 4e98c69837b0ead4296d961e2f9c7edd,
+        type: 3}
     - target: {fileID: 4433144296201853552, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: energybar
@@ -7870,8 +7961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a49c75861c0554aa23722cccd5a2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warpslider: {fileID: 1093890674}
-  warpmaxHealth: 80
+  enemySlider: {fileID: 0}
 --- !u!114 &1093890674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10391,8 +10481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warpmaxHealth: 80
   warpcurrentHealth: 0
-  warphealthbar: {fileID: 633082054}
-  warphealthbarUI: {fileID: 1003698395}
+  warpHealthbar: {fileID: 633082054}
+  warphealthUI: {fileID: 1003698395}
 --- !u!82 &1602896874
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10636,8 +10726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a49c75861c0554aa23722cccd5a2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warpslider: {fileID: 1620542556}
-  warpmaxHealth: 100
+  enemySlider: {fileID: 0}
 --- !u!114 &1620542556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10746,8 +10835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a49c75861c0554aa23722cccd5a2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warpslider: {fileID: 1632106523}
-  warpmaxHealth: 100
+  enemySlider: {fileID: 0}
 --- !u!114 &1632106523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11482,6 +11570,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 129597795}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1714720983 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3151960565890707559, guid: 92aeacafb1bea894ab84a138f32e23bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 318585157}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1716597508
 PrefabInstance:
   m_ObjectHideFlags: 0
