@@ -38,7 +38,9 @@ public class PlayerAbilitiesController : MonoBehaviour
     public bool isAbilityActive;
 
     public void ChangeArm() {
-        abilities[selectedAbility].MorthToTarget();
+        for (int i = 0; i < abilities.Count; i++) {
+            abilities[i].MorthToTarget(); // This is PlaceHolder FUNCTIONALITY NEEDS TO BE CHANGED ONLY FOR MID-TERM-REVIEW
+        }
     }
 
     // Update is called once per frame

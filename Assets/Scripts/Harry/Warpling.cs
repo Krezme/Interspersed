@@ -7,7 +7,7 @@ public class Warpling : MonoBehaviour
 
     public int warpmaxHealth = 50;
     public int warpcurrentHealth;
-    public WarpHealthbar warphealthbar;
+    public EnemyHealthbar enemyHealthbar;
     
     
     
@@ -16,7 +16,7 @@ public class Warpling : MonoBehaviour
     {
         warpcurrentHealth -= damage;
 
-        warphealthbar.SetwarpHealth(warpcurrentHealth);
+        enemyHealthbar.SetwarpHealth(warpcurrentHealth);
         
     }
     

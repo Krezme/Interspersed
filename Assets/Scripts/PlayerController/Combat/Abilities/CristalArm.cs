@@ -12,9 +12,19 @@ public class CristalArm : PlayerAbility
 
     public float[] chargeStages;
 
+    public float projectileDamage; // This is a temp variable and will be changed when we decide if we are going with scritable objects or an other method
+
     private float time;
 
     private float timePassed;
+
+    public GameObject changeToArm;
+
+    public override void MorthToTarget()
+    {
+        base.MorthToTarget();
+        changeToArm.SetActive(!changeToArm.activeSelf);
+    }
 
     public override void AimingAbility ()
     {
@@ -34,7 +44,8 @@ public class CristalArm : PlayerAbility
             
             if (timePassed > 0) {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-                Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                GameObject bullet = Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                bullet.GetComponent<BulletProjectile>().damage = projectileDamage;
                 OnPlayerInput.instance.onFire1 = false;
                 audioSource.PlayOneShot(abilitySound);
             }

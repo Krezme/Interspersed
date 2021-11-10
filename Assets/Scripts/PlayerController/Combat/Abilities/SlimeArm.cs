@@ -8,12 +8,20 @@ public class SlimeArm : PlayerAbility
     public float cooldownMaxTime = 1;
     public float cooldownTimer = 0;
 
+    public GameObject changeToArm;
+
     //Functionality Variables
     [SerializeField] Camera cam;
     [SerializeField] float maxGrabDistance = 10f, throwforce = 20f, lerpSpeed = 10f;
     [SerializeField] Transform objectHolder;
     
     Rigidbody grabbedRB;
+
+    public override void MorthToTarget()
+    {
+        base.MorthToTarget();
+        changeToArm.SetActive(!changeToArm.activeSelf);
+    }
 
     public override void AimingAbility()
     {
