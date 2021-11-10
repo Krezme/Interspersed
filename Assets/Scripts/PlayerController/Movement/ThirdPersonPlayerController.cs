@@ -111,6 +111,13 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float heightCheckDistanceFrontLast = 1f;
     private float heightCheckDistanceBack;
     private bool isAiming;
+    
+    public Healthbar healthbar;
+    public Energybar energybar;
+    public int currentEnergy;
+    public int currentHealth;
+    public int maxEnergy = 5;
+    public int maxHealth = 100;
 
     // References
     private CharacterController controller;
@@ -122,6 +129,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         controller = GetComponent<CharacterController>();
         originalHeight = controller.height;
+        currentHealth = maxHealth;
+        healthbar.SetMaxHealth(maxHealth);
+        currentEnergy = 0;
+            
+       
 
         //initialRequiredForceToMove = frictionStatic * (playerCharacterMass * -gravity);
         //secondaryRequiredForceToMove = frictionSlide * (playerCharacterMass * -gravity);
@@ -438,5 +450,55 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     public void SetRotateOnMove (bool aimState) {
         isAiming = aimState;
+    }
+    void AddEnergy(int gain)
+    {
+        currentEnergy += gain;
+
+        if (currentEnergy >= maxEnergy)
+        {
+            currentEnergy = maxEnergy;
+        }
+
+        energybar.SetEnergy(currentEnergy);
+
+    }
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        healthbar.SetHealth(currentHealth);
+    }
+    void Heal(int heal)
+    {
+        currentHealth += heal;
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        healthbar.SetHealth(currentHealth);
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Energy")
+        {
+            AddEnergy(1);
+        }
+        if (other.gameObject.tag == "EnemyBullet")
+        {
+            TakeDamage(20);
+
+            if (currentHealth <= 0)
+            {
+                Destroy(gameObject);
+
+            }
+        }
+        if (other.gameObject.tag == "HealthPickup")
+        {
+            Heal(50);
+        }
     }
 }

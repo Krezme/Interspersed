@@ -11,8 +11,10 @@ public class PlayerAbility : MonoBehaviour
     [HideInInspector]
     public Vector3 mouseWorldPosition;
     public CinemachineVirtualCamera aimVirtualCamera;
-#endregion
+    #endregion
     
+    
+   
 
 
     public virtual void MorthToTarget () {
@@ -32,6 +34,8 @@ public class PlayerAbility : MonoBehaviour
         mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+        
+        
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, PlayerAbilitiesController.instance.aimColliderLayerMask))
         {
             PlayerAbilitiesController.instance.rayBitch.position = raycastHit.point;
