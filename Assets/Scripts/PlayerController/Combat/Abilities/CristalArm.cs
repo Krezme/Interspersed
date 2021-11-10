@@ -19,12 +19,12 @@ public class CristalArm : PlayerAbility
 
     private float timePassed;
 
-    //public GameObject changeToArm;
+    public GameObject changeToArm;
 
     public override void MorthToTarget()
     {
         base.MorthToTarget();
-        //changeToArm.SetActive(!changeToArm.activeSelf);
+        changeToArm.SetActive(!changeToArm.activeSelf);
     }
 
     public override void AimingAbility ()
