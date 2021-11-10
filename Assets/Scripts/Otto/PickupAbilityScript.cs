@@ -15,12 +15,22 @@ public class PickupAbilityScript : MonoBehaviour
     [SerializeField] Transform objectHolder;
 
     Rigidbody grabbedRB;
+
+    //Extras
+    public GameObject AimPoint;
+    public GameObject SphereBound;
+    public Renderer GrabbedMesh;
     
     void Update()
     {
         if (grabbedRB)
         {
             grabbedRB.MovePosition(objectHolder.transform.position);
+
+
+            SphereBound.transform.position = Vector3.MoveTowards(SphereBound.transform.position, grabbedRB.transform.position, 0.1f);
+            //SphereBound.transform.position = grabbedRB.transform.position;
+            
             
             if (OnPlayerInput.instance.onFire1)
             {
@@ -28,6 +38,10 @@ public class PickupAbilityScript : MonoBehaviour
                 grabbedRB.AddForce(cam.transform.forward * throwforce, ForceMode.VelocityChange);
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
+
+                SphereBoundFuncOff();
+                GrabbedMesh = null;
+
             }
         }
 
@@ -45,6 +59,10 @@ public class PickupAbilityScript : MonoBehaviour
                 grabbedRB.isKinematic = false;
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
+
+                SphereBoundFuncOff();
+                GrabbedMesh = null;
+
             }
             else //if there is not a grabbed rigid body, raycast for one and 'grab it' (setting grabbedrb to it)
             {
@@ -57,6 +75,10 @@ public class PickupAbilityScript : MonoBehaviour
                     {
                         grabbedRB.isKinematic = true;
                         PlayerAbilitiesController.instance.isAbilityActive = true;
+
+                        GrabbedMesh = hit.transform.gameObject.GetComponent<Renderer>(); //get the same objects renderer
+                        SphereBoundFuncOn(); //sphere bound on                   
+
                     }
                 }
             }
@@ -75,5 +97,25 @@ public class PickupAbilityScript : MonoBehaviour
         yield return new WaitForSeconds(cooldownMaxTime);
         cooldownTimer = 0;
     }
+
+
+    private void SphereBoundFuncOn()
+    {
+        SphereBound.SetActive(true); //set the spherebound to active
+
+        if (GrabbedMesh.GetComponent<Renderer>()) //if the grabbedmesh has a normal renderer
+        {
+            SphereBound.transform.localScale = GrabbedMesh.GetComponent<Renderer>().bounds.size + new Vector3(0.5f, 0.5f, 0.5f); //scale it to be the same scale + a bit bigger
+        }
+            
+    }
+
+    private void SphereBoundFuncOff() //turns the sphere bounds off
+    {
+        SphereBound.SetActive(false);
+
+    }
+
+
 
 }
