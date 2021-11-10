@@ -49,6 +49,7 @@ public class RagdollController : MonoBehaviour
         if (agent != null) {
             agent.enabled = true;
         }
+        
     }
 
     public void RagdollOn(){

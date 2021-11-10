@@ -53,12 +53,15 @@ public class SlimeArm : PlayerAbility
                     {
                         
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                        Debug.Log(grabbedRB);
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out RagdollController grabbedRagdoll)) {
                             grabbedRagdoll.RagdollOn();
+                            Debug.Log("Works?");
                         }
                         if (Physics.Raycast(ray, out hit, maxGrabDistance))
                         {
                             grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                            Debug.Log(grabbedRB);
                             if (grabbedRB)
                             {
                                 grabbedRB.isKinematic = true;
