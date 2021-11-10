@@ -33,10 +33,12 @@ public class CristalArm : PlayerAbility
         for (int i = chargeStages.Length -1; i >= 0; i--) {
             if (chargeStages[i] <= timePassed) {
                 Debug.Log(i + " stage charged");
-                currentBullet = pfBulletProjectile[i];
+                currentBullet = pfBulletProjectile[i+1];
                 projectileDamage *= i + 1;
                 // finctionality depending on different charge stage
                 return;
+            }else {
+                currentBullet = pfBulletProjectile[0];
             }
         }
         
