@@ -6,6 +6,9 @@ public class BulletProjectile : MonoBehaviour
 {
     public Rigidbody bulletRigidbody;
 
+    public float lifeSpanInSecs;
+    private float currentTimer;
+
     [HideInInspector]
     public float damage;
 
@@ -14,6 +17,14 @@ public class BulletProjectile : MonoBehaviour
         float speed = 20f;
         bulletRigidbody.velocity = transform.forward * speed;
     }
+
+    private void Update () {
+        currentTimer += Time.deltaTime;
+        if (currentTimer >= lifeSpanInSecs) {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
