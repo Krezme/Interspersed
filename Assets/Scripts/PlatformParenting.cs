@@ -9,21 +9,18 @@ public class PlatformParenting : MonoBehaviour
     void OnTriggerEnter (Collider col) {
         if (col.gameObject.tag == "Player") {
             controller = col.GetComponent<CharacterController>();
-            Debug.Log("RUN");
         }
     }
 
     void OnTriggerStay(Collider col) {
         if (col.gameObject.tag == "Player") {
             controller.Move(rigidbody.velocity * Time.deltaTime);
-            Debug.Log("RUN2");
         }
     }
 
     void OnTriggerExit (Collider col) {
         if (col.gameObject.tag == "Player") {
             controller = new CharacterController();
-            Debug.Log("RUN2");
         }
     }
 }
