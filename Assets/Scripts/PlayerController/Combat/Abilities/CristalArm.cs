@@ -45,6 +45,7 @@ public class CristalArm : PlayerAbility
                 return;
             }else {
                 currentBullet = pfBulletProjectile[0];
+                currentChargeStage = 0;
             }
         }
         
@@ -56,7 +57,9 @@ public class CristalArm : PlayerAbility
             if (timePassed > 0) {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-                bullet.GetComponent<BulletProjectile>().damage = projectileDamage * (currentChargeStage +1);
+                BulletProjectile newBulletProjectile = bullet.GetComponent<BulletProjectile>();
+                newBulletProjectile.damage = projectileDamage * (currentChargeStage +1);
+                newBulletProjectile.chargeStage = currentChargeStage + 1;
                 OnPlayerInput.instance.onFire1 = false;
                 audioSource.PlayOneShot(abilitySound);
             }
