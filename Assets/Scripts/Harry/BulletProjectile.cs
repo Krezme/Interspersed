@@ -41,7 +41,7 @@ public class BulletProjectile : MonoBehaviour
             EnemyStatisticsManager enemyStatisticsManager = other.gameObject.GetComponent<EnemyStatisticsManager>();
             enemyStatisticsManager.TakeDamage(damage);
         }
-        else
+        else if (other.gameObject.layer != this.gameObject.layer) 
         {
             bulletRigidbody.velocity = Vector3.zero;
             currentAge = 0;

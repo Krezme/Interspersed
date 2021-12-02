@@ -34,7 +34,7 @@ public class CristalArm : PlayerAbility
     {
         timePassed += Time.deltaTime;
         if (crosshair != null) {
-            crosshair.value = timePassed / chargeStages.Length;
+            crosshair.value = timePassed / chargeStages[chargeStages.Length - 1];
         }
         for (int i = chargeStages.Length -1; i >= 0; i--) {
             if (chargeStages[i] <= timePassed) {
