@@ -32,6 +32,9 @@ public class RagdollController : MonoBehaviour
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
 
+    /// <summary>
+    /// Turn's off the ragdoll by; enableing the agent, animator, collider and disabling the ragdoll colliders 
+    /// </summary>
     public void RagdollOff(){
         for (int i = 0; i < ragdollColliders.Length; i++) {
             ragdollColliders[i].enabled = false;
@@ -52,6 +55,9 @@ public class RagdollController : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Turn's on ragdoll by: disabling the agent, animator, collider and enabling the ragdoll colliders 
+    /// </summary>
     public void RagdollOn(){
         for (int i = 0; i < ragdollColliders.Length; i++) {
             ragdollColliders[i].enabled = true;

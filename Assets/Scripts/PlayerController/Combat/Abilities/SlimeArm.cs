@@ -85,6 +85,9 @@ public class SlimeArm : PlayerAbility
         }
     }
 
+    /// <summary>
+    /// It launches the currently grabbed item with the slime arm ability
+    /// </summary>
     private void LaunchGrabbed() {
         if (grabbedRB)
         {

@@ -25,7 +25,7 @@ public class BulletProjectile : MonoBehaviour
 
     private void Update()
     {
-        currentAge += Time.deltaTime;
+        currentAge += Time.deltaTime; // Adds age to the bullet 
 
         if (currentAge >= thisLifespan)
         {
@@ -36,12 +36,12 @@ public class BulletProjectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Vector3 hitPos = transform.position;
-        if (other.tag == "Enemy") {
+        if (other.tag == "Enemy") { 
             Destroy(gameObject);
             EnemyStatisticsManager enemyStatisticsManager = other.gameObject.GetComponent<EnemyStatisticsManager>();
             enemyStatisticsManager.TakeDamage(damage);
         }
-        else if (other.gameObject.layer != this.gameObject.layer) 
+        else if (other.gameObject.layer != this.gameObject.layer) // Resterts the age and lets it sit in the colided spot for a short time 
         {
             bulletRigidbody.velocity = Vector3.zero;
             currentAge = 0;
