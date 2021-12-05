@@ -37,26 +37,16 @@ public class SlimeArm : PlayerAbility
 
     private void PickUpAbility() {
         if (OnPlayerInput.instance.onFire2) {
-            if (OnPlayerInput.instance.onAbility1 && cooldownTimer == 0) {
-                print("Ability1Cast");
-                if (grabbedRB) //if there is a grabbed rigidbody when we press the key, drop it.
-                {
-                    grabbedRB.isKinematic = false;
-                    grabbedRB = null;
-                    PlayerAbilitiesController.instance.isAbilityActive = false;
-                }
-                else //if there is not a grabbed rigid body, raycast for one and 'grab it' (setting grabbedrb to it)
-                {
+            if (OnPlayerInput.instance.onFire1 && cooldownTimer == 0) {
+                if (!grabbedRB) {
                     RaycastHit hit;
                     Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {
-                        
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                         Debug.Log(grabbedRB);
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out RagdollController grabbedRagdoll)) {
                             grabbedRagdoll.RagdollOn();
-                            Debug.Log("Works?");
                         }
                         if (Physics.Raycast(ray, out hit, maxGrabDistance))
                         {
@@ -69,6 +59,7 @@ public class SlimeArm : PlayerAbility
                             }
                         }
                     }
+                    OnPlayerInput.instance.onFire1 = false; // Sets the onFire1 button to false to require for another press
                 }
 
                 //start the cooldown 
@@ -99,6 +90,7 @@ public class SlimeArm : PlayerAbility
                 grabbedRB.AddForce(cam.transform.forward * throwforce, ForceMode.VelocityChange);
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
+                OnPlayerInput.instance.onFire1 = false;
             }
         }
     }
