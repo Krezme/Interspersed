@@ -5,7 +5,7 @@ using Cinemachine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class Statistics
+public class CrystalArmStatistics
 {
     public float maxElectricShots;
     public float currentElectricShots;
@@ -16,7 +16,7 @@ public class Statistics
 
 public class CristalArm : PlayerAbility
 {
-    public Statistics statistics;
+    public CrystalArmStatistics statistics;
 
     public Transform spawnBulletPosition;
 
