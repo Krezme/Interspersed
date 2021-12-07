@@ -95,9 +95,9 @@ public class CristalArm : PlayerAbility
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 BulletProjectile newBulletProjectile = bullet.GetComponent<BulletProjectile>();
-                newBulletProjectile.damage = projectileDamage * (currentChargeStage +1);
-                newBulletProjectile.chargeStage = currentChargeStage + 1;
-                newBulletProjectile.isElectric = statistics.isElectric; // setting the projectile to electric 
+                newBulletProjectile.statistics.damage = projectileDamage * (currentChargeStage +1);
+                newBulletProjectile.statistics.chargeStage = currentChargeStage + 1;
+                newBulletProjectile.statistics.isElectric = statistics.isElectric; // setting the projectile to electric 
                 if (statistics.isElectric) { // Decreasing charged shots
                     statistics.currentElectricShots--;
                 }
