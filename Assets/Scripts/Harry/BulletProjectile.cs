@@ -13,6 +13,8 @@ public class BulletProjectile : MonoBehaviour
 
     public float thisLifespan = 5f;
 
+    public bool isElectric; // If the bullet is electric
+
     private float currentAge;
 
     public float speed = 10f;

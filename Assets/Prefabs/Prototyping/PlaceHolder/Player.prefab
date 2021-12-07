@@ -969,21 +969,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseWorldPosition: {x: 0, y: 0, z: 0}
   aimVirtualCamera: {fileID: 0}
+  aimingRotationSpeed: 20
+  statistics:
+    maxElectricShots: 3
+    currentElectricShots: 3
+    rechargeTime: 10
+    currentRechrge: 0
+    isElectric: 0
   spawnBulletPosition: {fileID: 1343784572}
   pfBulletProjectile:
-  - {fileID: 2193090397942746697, guid: e22b14eeeae1956429ac00cedb2246bd, type: 3}
-  - {fileID: 1957454876902729799, guid: ac87e968fe0fe4f46928faa233038f37, type: 3}
-  - {fileID: 3704699286943562344, guid: 4e98c69837b0ead4296d961e2f9c7edd, type: 3}
-  - {fileID: 3704699286943562344, guid: 41bc42654a159bc469c5567d421208aa, type: 3}
+  - {fileID: 3470485994608312727, guid: 49a641e1d5cff7e4b933572161e3d98f, type: 3}
+  - {fileID: 3470485994608312727, guid: 5ee0d808ec0e7ac4ba7829275eb8821c, type: 3}
+  - {fileID: 3470485994608312727, guid: 62e00a0cdf1099d42aa3e6efc7eff235, type: 3}
+  - {fileID: 3470485994608312727, guid: 5333ce00db1dc15459949529a56b08c7, type: 3}
   audioSource: {fileID: 4433144296201853455}
   abilitySound: {fileID: 8300000, guid: 4f42263d3e610d642b9dabe30fc0556d, type: 3}
+  changeToArm: {fileID: 8745843780549627091}
+  crosshair: {fileID: 0}
   chargeStages:
   - 0.2
   - 0.35
   - 0.5
   projectileDamage: 10
-  changeToArm: {fileID: 8745843780549627091}
-  crosshair: {fileID: 0}
 --- !u!114 &1008479993094344304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,6 +1005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseWorldPosition: {x: 0, y: 0, z: 0}
   aimVirtualCamera: {fileID: 0}
+  aimingRotationSpeed: 20
   cooldownMaxTime: 1
   cooldownTimer: 0
   changeToArm: {fileID: 4028415373917518356}
