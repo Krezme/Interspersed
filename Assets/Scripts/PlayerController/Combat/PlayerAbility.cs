@@ -11,13 +11,10 @@ public class PlayerAbility : MonoBehaviour
     [HideInInspector]
     public Vector3 mouseWorldPosition;
     public CinemachineVirtualCamera aimVirtualCamera;
-    #endregion
-   
-    
-    
-   
+#endregion
 
-
+    public float aimingRotationSpeed = 20f;
+   
     public virtual void MorthToTarget () {
         //functionality for morthing to correct arm
     }
@@ -25,7 +22,7 @@ public class PlayerAbility : MonoBehaviour
     public void Ability () {
         AimingAt();
         AimingHold();
-        AbilitiesAssemply();
+        AbilitiesAssembly();
     }
 
     /// <summary>
@@ -48,25 +45,26 @@ public class PlayerAbility : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Switching between aiming and not. Camera pos is changed, sensitivity, arm position.
+    /// </summary>
     public void AimingHold() {
         if (OnPlayerInput.instance.onFire2)
         {
-            
-
-
-
             aimVirtualCamera.gameObject.SetActive(true);
             OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.instance.mouseSensitivityAim;
             ThirdPersonPlayerController.instance.SetRotateOnMove(true);
-            for (int i = 0; ThirdPersonPlayerController.instance.rigBuilder.layers.Count > i; i++) { //Setting the weight of the rigs to 1 (Animation Rigging)
+            for (int i = 0; ThirdPersonPlayerController.instance.rigBuilder.layers.Count > i; i++) { //Setting the weight of the rigs to 1 (Animation Rigging) "pointing the arm forwards"
                 ThirdPersonPlayerController.instance.rigBuilder.layers[i].rig.weight = Mathf.Lerp(ThirdPersonPlayerController.instance.rigBuilder.layers[i].rig.weight, 1f, Time.deltaTime * 10f);
             }
             
+            //Calculates where the player needs to aim depending on where the raycast (in the AimingAt function) hit
             Vector3 worldAimTarget = mouseWorldPosition;
             worldAimTarget.y = transform.position.y;
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
 
-            ThirdPersonPlayerController.instance.transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+            //Rotates the player character so it is pointing in the aim direction
+            ThirdPersonPlayerController.instance.transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * aimingRotationSpeed);
         }
         else
         {
@@ -79,7 +77,10 @@ public class PlayerAbility : MonoBehaviour
         }
     }
 
-    private void AbilitiesAssemply() {
+    /// <summary>
+    /// Single function that can call all of the abilities
+    /// </summary>
+    private void AbilitiesAssembly() {
         if (OnPlayerInput.instance.onFire2)
         {
             if (OnPlayerInput.instance.onFire1)
@@ -90,6 +91,15 @@ public class PlayerAbility : MonoBehaviour
         AditionalAbilities();
     }
 
+    /// <summary>
+    /// This is an overridable function for custom functionality
+    /// 
+    /// This function is intended for any functionality that requires the player to be aiming (with right click) and shooting (with left click)
+    /// </summary>
     public virtual void AimingAbility() {}
+
+    /// <summary>
+    /// This function is for any abilities apart from the once that require aiming and shooting
+    /// </summary>
     public virtual void AditionalAbilities() {}
 }

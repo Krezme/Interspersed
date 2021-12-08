@@ -284,10 +284,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// </summary>
     void StickingToSlopes () {
         if (OnPlayerInput.instance.jumped || !isGrounded) {}
-        else if (surfaceAngle > 0.0f && OnPlayerInput.instance.isSprinting && isGrounded) {
+        else if (surfaceAngle > 0.0f && OnPlayerInput.instance.isSprinting && isGrounded) { // Applying a lot of downward force when the player is running 
             verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f) * 2;
         }
-        else if (surfaceAngle > 0.0f && !OnPlayerInput.instance.isSprinting && isGrounded && !OnPlayerInput.instance.isSliding) {
+        // Applying a lot of downward force (half of the force applied when running) to the player when walking on a slope
+        else if (surfaceAngle > 0.0f && !OnPlayerInput.instance.isSprinting && isGrounded && !OnPlayerInput.instance.isSliding) { 
             verticalVelocity = (Vector3.down.y * Time.deltaTime * surfaceAngle * 1500f);
         }
     }
@@ -398,6 +399,10 @@ public class ThirdPersonPlayerController : MonoBehaviour
 		animator.SetBool("Grounded", isGrounded);
 	}
 
+    /// <summary>
+    /// Raycasting from the middle of the player (downwards) to calculate the current angle slope
+    /// This also checks if the player is on a too steep of a slope
+    /// </summary>
     private void GetSurfaceAngleBelowPlayer() {
         RaycastHit hit;
         if (isGrounded && Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerObjectCenterOffset, transform.position.z), Vector3.down, out hit, 10f, groundLayers)) {
@@ -415,8 +420,11 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
     }
 
-    private void Attacking() {
-        if (OnPlayerInput.instance.onFire1 && !OnPlayerInput.instance.onFire2 && !PlayerAbilitiesController.instance.isAbilityActive){
+    /// <summary>
+    /// This is the function for attacking (Melee) 
+    /// </summary>
+     private void Attacking() {
+        if (OnPlayerInput.instance.onFire1 && !OnPlayerInput.instance.onFire2 && !PlayerAbilitiesController.instance.isAbilityActive){ // Only attacks if the fire 1 button is pressed without any other
             OnPlayerInput.instance.onFire1 = false;
             animator.SetTrigger("Attack");
         }
@@ -449,9 +457,14 @@ public class ThirdPersonPlayerController : MonoBehaviour
         Gizmos.DrawSphere(groundedSpherePosition, groundedGizmoRadius);
     }
 
+    /// <summary>
+    /// Toggles the aiming state to mainly stop the player character form rotating when aiming
+    /// </summary>
+    /// <param name="aimState"></param>
     public void SetRotateOnMove (bool aimState) {
         isAiming = aimState;
     }
+
     void AddEnergy(int gain)
     {
         currentEnergy += gain;

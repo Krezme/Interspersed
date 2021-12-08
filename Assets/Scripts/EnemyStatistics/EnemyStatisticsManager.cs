@@ -15,6 +15,7 @@ public class EnemyStatisticsManager : MonoBehaviour
     public CurrentStats currentStats;
 
     public GameObject healthBarCanvas;
+    
     public EnemyHealthbar enemyHealthbar;
 
     // Start is called before the first frame update
@@ -39,7 +40,7 @@ public class EnemyStatisticsManager : MonoBehaviour
         {
             healthBarCanvas.SetActive(true);
         }
-        enemyHealthbar.SetwarpHealth(currentStats.health / statisticsSO.health);
+        enemyHealthbar.SetEnemyHealth(currentStats.health / statisticsSO.health);
         if (currentStats.health <= 0) {
             Death();
         }

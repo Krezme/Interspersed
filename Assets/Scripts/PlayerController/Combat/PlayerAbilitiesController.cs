@@ -46,6 +46,6 @@ public class PlayerAbilitiesController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        abilities[selectedAbility].Ability();
+        abilities[selectedAbility].Ability(); // Uses the ability depending on selected arm
     }
 }
