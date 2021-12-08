@@ -11,6 +11,8 @@ public class WaterProperties
     
     public float numberOfProjectiles; // how many projectiles are currenlty stuck in the puddle and charging it
 
+    public float tickDamageTime;
+
 }
 
 public class WaterController : MonoBehaviour
@@ -34,14 +36,13 @@ public class WaterController : MonoBehaviour
         if (currentlyAffectedEnemies.Count > 0 && waterProperties.numberOfProjectiles > 0) {
             tickTimer += Time.deltaTime;
 
-            if (tickTimer >= 0.25f) {
+            if (tickTimer >= waterProperties.tickDamageTime) {
                 tickTimer = 0;
                 for (int i = 0; i < currentlyAffectedEnemies.Count; i++) {
-                    currentlyAffectedEnemies[i].GetComponent<EnemyStatisticsManager>().TakeDamage(waterProperties.damage);
+                    currentlyAffectedEnemies[i].GetComponent<EnemyStatisticsManager>().TakeDamage(waterProperties.damage * waterProperties.tickDamageTime);
                 }
             }
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)
