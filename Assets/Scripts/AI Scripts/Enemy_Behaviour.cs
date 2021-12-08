@@ -38,6 +38,7 @@ public class Enemy_Behaviour : MonoBehaviour
             target = visibleTargets[rnd];
         }
 
+        agent.transform.LookAt(target);
         agent.SetDestination(target.position);
     }
 }
