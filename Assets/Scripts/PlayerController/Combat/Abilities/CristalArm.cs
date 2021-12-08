@@ -54,6 +54,17 @@ public class CristalArm : PlayerAbility
                 statistics.currentElectricShots++;
                 statistics.currentRechrge = 0;
             }
+            for (int i = CrosshairReferences.instance.chargesUI.Length -1; i >= 0 ; i--) {
+                if (i > statistics.currentElectricShots) {
+                    CrosshairReferences.instance.chargesUI[i].value = 0;
+                }
+                else if (i == statistics.currentElectricShots) {
+                    CrosshairReferences.instance.chargesUI[i].value = statistics.currentRechrge / statistics.rechargeTime;
+                }
+                else if (i < statistics.currentElectricShots) {
+                    CrosshairReferences.instance.chargesUI[i].value = 1;
+                }
+            }
         }
     }
 
