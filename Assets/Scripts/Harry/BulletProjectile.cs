@@ -25,12 +25,16 @@ public class BulletProjectile : MonoBehaviour
 
     public Rigidbody bulletRigidbody;
 
+    public GameObject electricSparks;
+
     private bool hasCollided;
 
     private void Start()
     {
-        Debug.Log(statistics.chargeStage * statistics.speed);
         bulletRigidbody.velocity = transform.forward * (statistics.speed * statistics.chargeStage);
+        if (statistics.isElectric) {
+            electricSparks.SetActive(true);
+        }
     }
 
     private void Update()

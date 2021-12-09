@@ -22,6 +22,8 @@ public class WaterController : MonoBehaviour
 
     public List<GameObject> currentlyAffectedEnemies = new List<GameObject>();
 
+    public GameObject electricSparks;
+
     private float tickTimer;
 
     // Start is called before the first frame update

@@ -55,6 +55,7 @@ MonoBehaviour:
     currentAge: 0
     speed: 10
   bulletRigidbody: {fileID: 1701073143}
+  electricSparks: {fileID: 1567067672780851295}
 --- !u!54 &1701073143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -181,6 +182,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightningParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 3457998327483079213, guid: bee87666959e8404a9af5c5b76b635ed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4977913848857044170, guid: bee87666959e8404a9af5c5b76b635ed,
         type: 3}
       propertyPath: m_RootOrder
@@ -253,6 +259,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bee87666959e8404a9af5c5b76b635ed, type: 3}
+--- !u!1 &1567067672780851295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3457998327483079213, guid: bee87666959e8404a9af5c5b76b635ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 4197936042057126514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9175814670550890168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4977913848857044170, guid: bee87666959e8404a9af5c5b76b635ed,
