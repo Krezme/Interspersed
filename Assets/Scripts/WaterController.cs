@@ -43,6 +43,9 @@ public class WaterController : MonoBehaviour
                 }
             }
         }
+        if (waterProperties.numberOfProjectiles <= 0) {
+            waterProperties.isCharged = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
