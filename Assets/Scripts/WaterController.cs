@@ -47,6 +47,7 @@ public class WaterController : MonoBehaviour
         }
         if (waterProperties.numberOfProjectiles <= 0) {
             waterProperties.isCharged = false;
+            electricSparks.SetActive(false);
         }
     }
 
@@ -54,7 +55,11 @@ public class WaterController : MonoBehaviour
     {
         if (other.tag == "PlayerBullet" && other.GetComponent<BulletProjectile>().statistics.isElectric) {
             waterProperties.numberOfProjectiles++;
+            Debug.Log("Enter");
             waterProperties.damage += other.GetComponent<BulletProjectile>().statistics.damage / 2;
+            if (waterProperties.numberOfProjectiles == 1){
+                electricSparks.SetActive(true);
+            }
         }
         if (other.tag == "Enemy") {
             currentlyAffectedEnemies.Add(other.gameObject);
@@ -68,11 +73,6 @@ public class WaterController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "PlayerBullet" && other.GetComponent<BulletProjectile>().statistics.isElectric)
-        {
-            waterProperties.numberOfProjectiles--;
-            waterProperties.damage -= other.GetComponent<BulletProjectile>().statistics.damage / 2;
-        } 
         if (other.tag == "Enemy") {
             currentlyAffectedEnemies.Remove(other.gameObject);
         }

@@ -408,7 +408,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
         if (isGrounded && Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerObjectCenterOffset, transform.position.z), Vector3.down, out hit, 10f, groundLayers)) {
             surfaceHitPointNormal = hit.normal;
             surfaceAngle = Vector3.Angle(surfaceHitPointNormal, Vector3.up);
-            Debug.Log(surfaceAngle);
             if (controller.slopeLimit <= surfaceAngle) {
                 onOverLimitSlope = true;
             }
