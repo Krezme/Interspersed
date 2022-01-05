@@ -104,6 +104,7 @@ public class CristalArm : PlayerAbility
             
             if (timePassed > 0) {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+                Debug.Log(aimDir);
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 BulletProjectile newBulletProjectile = bullet.GetComponent<BulletProjectile>();
                 newBulletProjectile.statistics.damage = projectileDamage * (currentChargeStage +1);

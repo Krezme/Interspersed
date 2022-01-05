@@ -33,15 +33,13 @@ public class PlayerAbility : MonoBehaviour
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         
-        
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, PlayerAbilitiesController.instance.aimColliderLayerMask))
-        {
-            PlayerAbilitiesController.instance.rayBitch.position = raycastHit.point;
-            mouseWorldPosition = raycastHit.point;
+        if (Physics.Raycast(ray, out RaycastHit hit, 999f, PlayerAbilitiesController.instance.aimColliderLayerMask)) {
+            PlayerAbilitiesController.instance.rayBitch.position = hit.point;
+            mouseWorldPosition = hit.point;
         }
         else {
-            PlayerAbilitiesController.instance.rayBitch.position = ray.direction * 999f;
-            mouseWorldPosition = ray.direction * 999f;
+            PlayerAbilitiesController.instance.rayBitch.position = Camera.main.ScreenToWorldPoint(screenCenterPoint) + ray.direction * 999f;
+            mouseWorldPosition = Camera.main.ScreenToWorldPoint(screenCenterPoint) + ray.direction * 999f;
         }
     }
 
