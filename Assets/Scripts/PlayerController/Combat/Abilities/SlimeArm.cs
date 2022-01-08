@@ -16,6 +16,7 @@ public class SlimeArm : PlayerAbility
     [SerializeField] Transform objectHolder;
     
     Rigidbody grabbedRB;
+    RagdollController grabbedRagdoll;
 
     public override void MorthToTarget()
     {
@@ -45,7 +46,8 @@ public class SlimeArm : PlayerAbility
                     {
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                         Debug.Log(grabbedRB);
-                        if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out RagdollController grabbedRagdoll)) {
+                        if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
+                            grabbedRagdoll.pickedUpByPlayer = true;
                             grabbedRagdoll.RagdollOn();
                         }
                         if (Physics.Raycast(ray, out hit, maxGrabDistance))
@@ -70,6 +72,10 @@ public class SlimeArm : PlayerAbility
         else {
             if (PlayerAbilitiesController.instance.isAbilityActive) {
                 grabbedRB.isKinematic = false;
+                if (grabbedRagdoll != null) { 
+                    grabbedRagdoll.pickedUpByPlayer = false;
+                    grabbedRagdoll = null;
+                }
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
             }
@@ -88,6 +94,10 @@ public class SlimeArm : PlayerAbility
             {
                 grabbedRB.isKinematic = false;
                 grabbedRB.AddForce(cam.transform.forward * throwforce, ForceMode.VelocityChange);
+                if (grabbedRagdoll != null) { 
+                    grabbedRagdoll.pickedUpByPlayer = false;
+                    grabbedRagdoll = null;
+                }
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
                 OnPlayerInput.instance.onFire1 = false;
