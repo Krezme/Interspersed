@@ -15,6 +15,8 @@ public class RagdollController : MonoBehaviour
     public GameObject mesh;
     public bool pickedUpByPlayer;
     public bool ragdolling;
+    public EnemyStatisticsManager enemyStatisticsManager;
+    public MonoBehaviour[] monoBehaviourToggle;
 
     void Start()
     {
@@ -46,6 +48,9 @@ public class RagdollController : MonoBehaviour
             ragdollRigidbodies[i].useGravity = false;
             ragdollRigidbodies[i].isKinematic = true;
         }
+        for (int i = 0; i < monoBehaviourToggle.Length; i++) {
+            monoBehaviourToggle[i].enabled = true;
+        }
         if (thisCollider != null) {
             thisCollider.enabled = true;
         }
@@ -73,6 +78,9 @@ public class RagdollController : MonoBehaviour
             ragdollRigidbodies[i].useGravity = true;
             ragdollRigidbodies[i].isKinematic = false;
         }
+        for (int i = 0; i < monoBehaviourToggle.Length; i++) {
+            monoBehaviourToggle[i].enabled = false;
+        }
         if (thisCollider != null) {
             thisCollider.enabled = false;
         }
@@ -93,6 +101,9 @@ public class RagdollController : MonoBehaviour
     IEnumerator PauseBeforeRagdollOff() {
         while (true) {
             yield return new WaitForSeconds(0.1f);
+            if (enemyStatisticsManager.currentStats.health <= 0) {
+                break;
+            }
             if (!pickedUpByPlayer) { 
                 yield return new WaitForSeconds(1f);
             }

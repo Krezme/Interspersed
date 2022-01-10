@@ -42,6 +42,7 @@ public class EnemyStatisticsManager : MonoBehaviour
         }
         enemyHealthbar.SetEnemyHealth(currentStats.health / statisticsSO.health);
         if (currentStats.health <= 0) {
+            healthBarCanvas.SetActive(false);
             Death();
         }
         
