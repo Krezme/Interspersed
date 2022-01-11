@@ -69,6 +69,9 @@ public class BulletProjectile : MonoBehaviour
                 EnemyStatisticsManager enemyStatisticsManager = other.gameObject.GetComponent<EnemyStatisticsManager>();
                 enemyStatisticsManager.TakeDamage(statistics.damage);
             }
+            else if (other.tag == "Chargeable" && statistics.isElectric) {
+                other.gameObject.GetComponent<ChargableManager>().OnCharged();
+            }
             else if (other.tag == "WaterPuddle") {
                 if (statistics.isElectric){
                     inPuddle = true;
