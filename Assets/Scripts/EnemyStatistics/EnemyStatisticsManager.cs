@@ -51,6 +51,7 @@ public class EnemyStatisticsManager : MonoBehaviour
     void Death() {
         RagdollController ragdollController;
         TryGetComponent<RagdollController>(out ragdollController);
+        healthBarCanvas.SetActive(false);
         if (ragdollController != null) {
             ragdollController.RagdollOn();
         }

@@ -27,6 +27,10 @@ public class BulletProjectile : MonoBehaviour
 
     public GameObject electricSparks;
 
+    private WaterController inWaterController; 
+
+    private bool inPuddle;
+
     private bool hasCollided;
 
     private void Start()
@@ -43,6 +47,13 @@ public class BulletProjectile : MonoBehaviour
 
         if (statistics.currentAge >= statistics.thisLifespan)
         {
+            if (inPuddle) {
+                inWaterController.waterProperties.numberOfProjectiles--;
+                inWaterController.waterProperties.damage -= statistics.damage / 2;
+                if (inWaterController.waterProperties.numberOfProjectiles <= 0) {
+                    inWaterController.waterProperties.isCharged = false;
+                }
+            }
             Destroy(this.gameObject);
         }
     }
@@ -58,15 +69,19 @@ public class BulletProjectile : MonoBehaviour
                 EnemyStatisticsManager enemyStatisticsManager = other.gameObject.GetComponent<EnemyStatisticsManager>();
                 enemyStatisticsManager.TakeDamage(statistics.damage);
             }
-            else if (other.tag == "WaterPuddle" && statistics.isElectric) {
-                other.gameObject.GetComponent<WaterController>().waterProperties.isCharged = statistics.isElectric;
+            else if (other.tag == "WaterPuddle") {
+                if (statistics.isElectric){
+                    inPuddle = true;
+                    inWaterController = other.gameObject.GetComponent<WaterController>();
+                    inWaterController.waterProperties.isCharged = statistics.isElectric;
+                }
             }
             else if (other.gameObject.layer != this.gameObject.layer) // Resterts the age and lets it sit in the colided spot for a short time 
             {
                 hasCollided = true; // Effectively dissables the OnTriggerEnter
                 bulletRigidbody.velocity = Vector3.zero;
                 statistics.currentAge = 0;
-                bulletRigidbody.isKinematic = true;
+                //bulletRigidbody.isKinematic = true;
                 transform.position = hitPos;
             }
         }
