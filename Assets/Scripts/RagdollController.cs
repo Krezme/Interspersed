@@ -105,7 +105,7 @@ public class RagdollController : MonoBehaviour
                 break;
             }
             if (!pickedUpByPlayer) { 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(5f);
             }
             if (!pickedUpByPlayer && ragdolling) {
                 RagdollOff();
