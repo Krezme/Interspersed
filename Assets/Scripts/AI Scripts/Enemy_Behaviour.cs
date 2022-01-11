@@ -37,8 +37,8 @@ public class Enemy_Behaviour : MonoBehaviour
             int rnd = Random.Range(0, visibleTargets.Count);
             target = visibleTargets[rnd];
         }
-
-        agent.transform.LookAt(target);
+        
+        agent.updateRotation = true;
         agent.SetDestination(target.position);
     }
 }
