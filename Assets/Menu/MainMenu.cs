@@ -28,6 +28,9 @@ public class MainMenu : MonoBehaviour
     public void LoadCutScene6() {
         SceneManager.LoadScene("CutScene6");
     }
+    public void LoadDemo() {
+        SceneManager.LoadScene("Dev_Island");
+    }
 
     public void ExitGame()
     {
