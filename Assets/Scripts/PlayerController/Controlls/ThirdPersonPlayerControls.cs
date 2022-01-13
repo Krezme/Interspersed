@@ -113,6 +113,14 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ESC"",
+                    ""type"": ""Button"",
+                    ""id"": ""e91fc528-26c3-4851-ad91-d503dfe28fbe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -346,6 +354,17 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""020ddfae-37a1-42bb-918f-4fa3a50e3c6e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ESC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -383,6 +402,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
         m_Player_Arm1 = m_Player.FindAction("Arm1", throwIfNotFound: true);
         m_Player_Arm2 = m_Player.FindAction("Arm2", throwIfNotFound: true);
+        m_Player_ESC = m_Player.FindAction("ESC", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -444,6 +464,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Ability1;
     private readonly InputAction m_Player_Arm1;
     private readonly InputAction m_Player_Arm2;
+    private readonly InputAction m_Player_ESC;
     public struct PlayerActions
     {
         private @ThirdPersonPlayerControls m_Wrapper;
@@ -460,6 +481,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
         public InputAction @Arm1 => m_Wrapper.m_Player_Arm1;
         public InputAction @Arm2 => m_Wrapper.m_Player_Arm2;
+        public InputAction @ESC => m_Wrapper.m_Player_ESC;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -505,6 +527,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @Arm2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm2;
                 @Arm2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm2;
                 @Arm2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArm2;
+                @ESC.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
+                @ESC.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
+                @ESC.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -545,6 +570,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @Arm2.started += instance.OnArm2;
                 @Arm2.performed += instance.OnArm2;
                 @Arm2.canceled += instance.OnArm2;
+                @ESC.started += instance.OnESC;
+                @ESC.performed += instance.OnESC;
+                @ESC.canceled += instance.OnESC;
             }
         }
     }
@@ -572,5 +600,6 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         void OnAbility1(InputAction.CallbackContext context);
         void OnArm1(InputAction.CallbackContext context);
         void OnArm2(InputAction.CallbackContext context);
+        void OnESC(InputAction.CallbackContext context);
     }
 }

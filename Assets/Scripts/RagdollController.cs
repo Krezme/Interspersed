@@ -12,6 +12,12 @@ public class RagdollController : MonoBehaviour
     private Collider[] ragdollColliders;
     private Rigidbody[] ragdollRigidbodies;
 
+    public GameObject mesh;
+    public bool pickedUpByPlayer;
+    public bool ragdolling;
+    public EnemyStatisticsManager enemyStatisticsManager;
+    public MonoBehaviour[] monoBehaviourToggle;
+
     void Start()
     {
         TryGetComponent<Collider>(out thisCollider);
@@ -24,7 +30,7 @@ public class RagdollController : MonoBehaviour
 
     void Update()
     {
-        
+        thisRigidbody.isKinematic = true;
     }
 
     private void GatherRagdollColliders () {
@@ -32,16 +38,25 @@ public class RagdollController : MonoBehaviour
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
 
+    /// <summary>
+    /// Turn's off the ragdoll by; enableing the agent, animator, collider and disabling the ragdoll colliders 
+    /// </summary>
+    [ContextMenu("RagdollOff")]
     public void RagdollOff(){
         for (int i = 0; i < ragdollColliders.Length; i++) {
             ragdollColliders[i].enabled = false;
+            ragdollRigidbodies[i].useGravity = false;
             ragdollRigidbodies[i].isKinematic = true;
+        }
+        for (int i = 0; i < monoBehaviourToggle.Length; i++) {
+            monoBehaviourToggle[i].enabled = true;
         }
         if (thisCollider != null) {
             thisCollider.enabled = true;
         }
         if (thisRigidbody != null) {
-            thisRigidbody.isKinematic = false;
+            thisRigidbody.useGravity = false;
+            thisRigidbody.isKinematic = true;
         }
         if (thisAnimatior != null) {
             thisAnimatior.enabled = true;
@@ -49,18 +64,28 @@ public class RagdollController : MonoBehaviour
         if (agent != null) {
             agent.enabled = true;
         }
-        
+        ragdolling = false;
+        transform.position = mesh.transform.position;
     }
 
+    /// <summary>
+    /// Turn's on ragdoll by: disabling the agent, animator, collider and enabling the ragdoll colliders 
+    /// </summary>
+    [ContextMenu("RagdollOn")]
     public void RagdollOn(){
         for (int i = 0; i < ragdollColliders.Length; i++) {
             ragdollColliders[i].enabled = true;
+            ragdollRigidbodies[i].useGravity = true;
             ragdollRigidbodies[i].isKinematic = false;
+        }
+        for (int i = 0; i < monoBehaviourToggle.Length; i++) {
+            monoBehaviourToggle[i].enabled = false;
         }
         if (thisCollider != null) {
             thisCollider.enabled = false;
         }
         if (thisRigidbody != null) {
+            thisRigidbody.useGravity = false;
             thisRigidbody.isKinematic = true;
         }
         if (thisAnimatior != null) {
@@ -69,5 +94,31 @@ public class RagdollController : MonoBehaviour
         if (agent != null) {
             agent.enabled = false;
         }
+        ragdolling = true;
+        StartCoroutine(PauseBeforeRagdollOff());
     }
+
+    IEnumerator PauseBeforeRagdollOff() {
+        while (true) {
+            yield return new WaitForSeconds(0.1f);
+            if (enemyStatisticsManager.currentStats.health <= 0) {
+                break;
+            }
+            if (!pickedUpByPlayer) { 
+                yield return new WaitForSeconds(5f);
+            }
+            if (!pickedUpByPlayer && ragdolling) {
+                RagdollOff();
+                break;
+            }
+            else if (!ragdolling) {
+                break;
+            }
+            if (ragdolling && pickedUpByPlayer && !PlayerAbilitiesController.instance.isAbilityActive) {
+                pickedUpByPlayer = false;
+                RagdollOff();
+                break;
+            }
+        }
+    } 
 }

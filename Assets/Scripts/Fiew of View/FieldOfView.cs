@@ -38,7 +38,7 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
             Transform target = targetsInViewRadius[i].transform; /// gets the transform for any target the enemy is looking at
-            Vector2 dirToTarget = (target.position - transform.position).normalized;
+            Vector3 dirToTarget = (target.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle/2)
             {

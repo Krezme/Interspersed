@@ -5,16 +5,21 @@ using UnityEngine.UI;
 
 public class EnemyHealthbar : MonoBehaviour
 {
-    public Slider enemySlider;
+    // The enemy HP bar slide UI object
+    public Slider enemyHealthBar;
 
-    public void SetwarpMaxHealth(int warphealth)
+    public void SetEnemyMaxHealth(int warphealth)
     {
-        enemySlider.maxValue = warphealth;
-        enemySlider.value = warphealth;
+        enemyHealthBar.maxValue = warphealth;
+        enemyHealthBar.value = warphealth;
     }
 
-    public void SetwarpHealth(float warphealth)
+    /// <summary>
+    /// Updates the enemy HP bar
+    /// </summary>
+    /// <param name="health">enemy's health</param>
+    public void SetEnemyHealth(float health)
     {
-        enemySlider.value = warphealth;
+        enemyHealthBar.value = health;
     }
 }

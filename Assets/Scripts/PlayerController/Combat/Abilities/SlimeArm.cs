@@ -16,6 +16,7 @@ public class SlimeArm : PlayerAbility
     [SerializeField] Transform objectHolder;
     
     Rigidbody grabbedRB;
+    RagdollController grabbedRagdoll;
 
     public override void MorthToTarget()
     {
@@ -37,26 +38,17 @@ public class SlimeArm : PlayerAbility
 
     private void PickUpAbility() {
         if (OnPlayerInput.instance.onFire2) {
-            if (OnPlayerInput.instance.onAbility1 && cooldownTimer == 0) {
-                print("Ability1Cast");
-                if (grabbedRB) //if there is a grabbed rigidbody when we press the key, drop it.
-                {
-                    grabbedRB.isKinematic = false;
-                    grabbedRB = null;
-                    PlayerAbilitiesController.instance.isAbilityActive = false;
-                }
-                else //if there is not a grabbed rigid body, raycast for one and 'grab it' (setting grabbedrb to it)
-                {
+            if (OnPlayerInput.instance.onFire1 && cooldownTimer == 0) {
+                if (!grabbedRB) {
                     RaycastHit hit;
                     Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {
-                        
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                         Debug.Log(grabbedRB);
-                        if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out RagdollController grabbedRagdoll)) {
+                        if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
+                            grabbedRagdoll.pickedUpByPlayer = true;
                             grabbedRagdoll.RagdollOn();
-                            Debug.Log("Works?");
                         }
                         if (Physics.Raycast(ray, out hit, maxGrabDistance))
                         {
@@ -69,6 +61,7 @@ public class SlimeArm : PlayerAbility
                             }
                         }
                     }
+                    OnPlayerInput.instance.onFire1 = false; // Sets the onFire1 button to false to require for another press
                 }
 
                 //start the cooldown 
@@ -79,12 +72,19 @@ public class SlimeArm : PlayerAbility
         else {
             if (PlayerAbilitiesController.instance.isAbilityActive) {
                 grabbedRB.isKinematic = false;
+                if (grabbedRagdoll != null) { 
+                    grabbedRagdoll.pickedUpByPlayer = false;
+                    grabbedRagdoll = null;
+                }
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
             }
         }
     }
 
+    /// <summary>
+    /// It launches the currently grabbed item with the slime arm ability
+    /// </summary>
     private void LaunchGrabbed() {
         if (grabbedRB)
         {
@@ -94,8 +94,13 @@ public class SlimeArm : PlayerAbility
             {
                 grabbedRB.isKinematic = false;
                 grabbedRB.AddForce(cam.transform.forward * throwforce, ForceMode.VelocityChange);
+                if (grabbedRagdoll != null) { 
+                    grabbedRagdoll.pickedUpByPlayer = false;
+                    grabbedRagdoll = null;
+                }
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
+                OnPlayerInput.instance.onFire1 = false;
             }
         }
     }

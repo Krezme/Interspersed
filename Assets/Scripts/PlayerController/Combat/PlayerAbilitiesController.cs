@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrentAbilityStats {
-
+[System.Serializable]
+public class MeleeStats {
+    public float damage;
 }
 
 public class PlayerAbilitiesController : MonoBehaviour
@@ -27,12 +28,15 @@ public class PlayerAbilitiesController : MonoBehaviour
 
 #endregion
 
+
     public int selectedAbility;
     public List<PlayerAbility> abilities;
 
     [Header("Aiming")]
     public LayerMask aimColliderLayerMask = new LayerMask();
     public Transform rayBitch;
+
+    public MeleeStats meleeStats;
 
     [HideInInspector]
     public bool isAbilityActive;
@@ -46,6 +50,6 @@ public class PlayerAbilitiesController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        abilities[selectedAbility].Ability();
+        abilities[selectedAbility].Ability(); // Uses the ability depending on selected arm
     }
 }

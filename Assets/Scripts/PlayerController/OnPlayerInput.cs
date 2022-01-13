@@ -51,6 +51,8 @@ public class OnPlayerInput : MonoBehaviour
     public bool onFire2;
     [HideInInspector]
     public bool onAbility1;
+    [HideInInspector]
+    public bool isESC;
 
     [HideInInspector]
     public float mouseSensitivityCurrent;
@@ -153,6 +155,10 @@ public class OnPlayerInput : MonoBehaviour
         }
     }
 
+    public void OnESC(InputValue value) {
+        ESCInput(value.isPressed);
+    }
+
 #region Recording Functions
     /// <summary>
     /// Setting the playerMovement Vector2 to the input
@@ -248,6 +254,10 @@ public class OnPlayerInput : MonoBehaviour
     private void PlayerArmInput(int armIndex) {
         PlayerAbilitiesController.instance.selectedAbility = armIndex;
         PlayerAbilitiesController.instance.ChangeArm();
+    }
+
+    private void ESCInput(bool escState) {
+        isESC = escState;
     }
 
 #endregion
