@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 1.1
-  jogSpeed: 2.5
+  jogSpeed: 4
   runSpeed: 6
   jumpHeight: 4
   rotationSmoothness: 0.05
@@ -1265,7 +1265,8 @@ AudioSource:
   m_GameObject: {fileID: 4433144296201853559}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -295161819648473511, guid: 31aebf588b2608e4d89ebdb64b43369f,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.2
@@ -1275,7 +1276,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -1718,6 +1719,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.235
       objectReference: {fileID: 0}
+    - target: {fileID: -5890774174329702605, guid: 03225ea5a439ccf48a75ac07c6a2ecc3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a3b6ba7fb703374dad7a41bf6b994b5, type: 2}
     - target: {fileID: -48083238199098202, guid: 03225ea5a439ccf48a75ac07c6a2ecc3,
         type: 3}
       propertyPath: m_LocalRotation.w
