@@ -45,7 +45,7 @@ public class SlimeArm : PlayerAbility
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                        Debug.Log(grabbedRB);
+                        objectHolder.transform.position = grabbedRB.transform.position;
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                             grabbedRagdoll.pickedUpByPlayer = true;
                             grabbedRagdoll.RagdollOn();
@@ -93,7 +93,7 @@ public class SlimeArm : PlayerAbility
             if (OnPlayerInput.instance.onFire1)
             {
                 grabbedRB.isKinematic = false;
-                grabbedRB.AddForce(cam.transform.forward * throwforce, ForceMode.VelocityChange);
+                grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
                     grabbedRagdoll = null;

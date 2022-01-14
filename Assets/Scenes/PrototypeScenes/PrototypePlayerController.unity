@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 10010.873, g: 8896.529, b: 6647.703, a: 1}
+  m_IndirectSpecularColor: {r: 10002.547, g: 8888.515, b: 6641.2705, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23957,6 +23957,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946648432}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &953426038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 953426039}
+  m_Layer: 0
+  m_Name: Object Holder Destination
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &953426039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953426038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.393, y: 0, z: 3.236}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1071172813}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &954852123
 GameObject:
   m_ObjectHideFlags: 0
@@ -27029,6 +27059,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068449283}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1071172813 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 583863329720348994, guid: a1a2146019df5da44b21266e5d167653,
+    type: 3}
+  m_PrefabInstance: {fileID: 583863328532349299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1075124306
 GameObject:
   m_ObjectHideFlags: 0
@@ -30773,7 +30809,7 @@ PrefabInstance:
     - target: {fileID: 3196181303216717934, guid: 69175ee3ebb350a40a3fa24bf167997d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69175ee3ebb350a40a3fa24bf167997d, type: 3}
@@ -49281,6 +49317,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982913632}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1989297120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1929312505, guid: a1a2146019df5da44b21266e5d167653,
+    type: 3}
+  m_PrefabInstance: {fileID: 583863328532349299}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1989297121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989297120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 911462559c08dbe4ab91de604557f132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectHolderDestination: {fileID: 953426038}
+  followSpeed: 5
 --- !u!1 &1989451172
 GameObject:
   m_ObjectHideFlags: 0
@@ -53270,6 +53326,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1929312506, guid: a1a2146019df5da44b21266e5d167653, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.393
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929312506, guid: a1a2146019df5da44b21266e5d167653, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.236
+      objectReference: {fileID: 0}
     - target: {fileID: 583863329720348994, guid: a1a2146019df5da44b21266e5d167653,
         type: 3}
       propertyPath: m_RootOrder
@@ -53909,6 +53973,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 875961489}
+    - target: {fileID: 1008479993094344304, guid: 011ebcb7dac1294429efd96cd3cb5575,
+        type: 3}
+      propertyPath: throwforce
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1008479993094344304, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: objectHolder
