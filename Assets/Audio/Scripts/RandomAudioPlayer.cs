@@ -55,14 +55,6 @@ namespace Gamekit3D
         }
 
         /// <summary>
-        /// Will pick a random clip to play in the assigned list.
-        /// </summary>
-        public void PlayRandomClip()
-        {
-            clip = InternalPlayRandomClip(null, bankId: 0);
-        }
-
-        /// <summary>
         /// Will pick a random clip to play in the assigned list. If you pass a material, it will try to find an
         /// override for that materials or play the default clip if none can ben found.
         /// </summary>
@@ -77,7 +69,13 @@ namespace Gamekit3D
             return InternalPlayRandomClip(overrideMaterial, bankId);
         }
 
-        
+        /// <summary>
+        /// Will pick a random clip to play in the assigned list.
+        /// </summary>
+        public void PlayRandomClip()
+        {
+            clip = InternalPlayRandomClip(null, bankId: 0);
+        }
 
         AudioClip InternalPlayRandomClip(Material overrideMaterial, int bankId)
         {
