@@ -45,7 +45,6 @@ public class SlimeArm : PlayerAbility
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                        objectHolder.transform.position = grabbedRB.transform.position;
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                             grabbedRagdoll.pickedUpByPlayer = true;
                             grabbedRagdoll.RagdollOn();
@@ -54,12 +53,12 @@ public class SlimeArm : PlayerAbility
                         {
                             grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                             Debug.Log(grabbedRB);
-                            if (grabbedRB)
-                            {
-                                grabbedRB.isKinematic = true;
-                                PlayerAbilitiesController.instance.isAbilityActive = true;
-                            }
                         }
+                        if (grabbedRB)
+                        {
+                            grabbedRB.useGravity = false;
+                            PlayerAbilitiesController.instance.isAbilityActive = true;
+                        } 
                     }
                     OnPlayerInput.instance.onFire1 = false; // Sets the onFire1 button to false to require for another press
                 }
@@ -72,6 +71,7 @@ public class SlimeArm : PlayerAbility
         else {
             if (PlayerAbilitiesController.instance.isAbilityActive) {
                 grabbedRB.isKinematic = false;
+                grabbedRB.useGravity = true;
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
                     grabbedRagdoll = null;
@@ -88,11 +88,12 @@ public class SlimeArm : PlayerAbility
     private void LaunchGrabbed() {
         if (grabbedRB)
         {
-            grabbedRB.MovePosition(objectHolder.transform.position);
+            grabbedRB.velocity = (objectHolder.transform.position - grabbedRB.transform.position).normalized * Vector3.Distance(objectHolder.transform.position, grabbedRB.transform.position) * 20f;
             
             if (OnPlayerInput.instance.onFire1)
             {
                 grabbedRB.isKinematic = false;
+                grabbedRB.useGravity = true;
                 grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
