@@ -12,11 +12,17 @@ public class SlimeArm : PlayerAbility
 
     //Functionality Variables
     [SerializeField] Camera cam;
-    [SerializeField] float maxGrabDistance = 10f, throwforce = 20f, lerpSpeed = 10f;
+    [SerializeField] float maxGrabDistance = 10f, throwforce = 20f;
     [SerializeField] Transform objectHolder;
     
     Rigidbody grabbedRB;
     RagdollController grabbedRagdoll;
+
+    public float grabbedFollowForce = 20f; // The force that is applied to pull the grabbed to the object holder.
+
+    public float grabbedNewAngularFriction = 0.8f; //The amount of angular friction of a grabbled object
+
+    private float currentGRBDefaultAngularFriction; //The current Grabbed Rigidbody Default Angular friction amount
 
     public override void MorthToTarget()
     {
@@ -45,14 +51,22 @@ public class SlimeArm : PlayerAbility
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                        
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                             grabbedRagdoll.pickedUpByPlayer = true;
                             grabbedRagdoll.RagdollOn();
+                            if (Physics.Raycast(ray, out hit, maxGrabDistance))
+                            {
+                                grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                                Debug.Log(grabbedRB);
+                            }
                         }
-                        if (Physics.Raycast(ray, out hit, maxGrabDistance))
-                        {
-                            grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                            Debug.Log(grabbedRB);
+                        else {
+                            if (grabbedRB.collisionDetectionMode == CollisionDetectionMode.Discrete) {
+                                grabbedRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                            }
+                            currentGRBDefaultAngularFriction = grabbedRB.angularDrag;
+                            grabbedRB.angularDrag = grabbedNewAngularFriction;
                         }
                         if (grabbedRB)
                         {
@@ -72,6 +86,8 @@ public class SlimeArm : PlayerAbility
             if (PlayerAbilitiesController.instance.isAbilityActive) {
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
+                grabbedRB.angularDrag = currentGRBDefaultAngularFriction;
+                currentGRBDefaultAngularFriction = 0;
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
                     grabbedRagdoll = null;
@@ -88,12 +104,15 @@ public class SlimeArm : PlayerAbility
     private void LaunchGrabbed() {
         if (grabbedRB)
         {
-            grabbedRB.velocity = (objectHolder.transform.position - grabbedRB.transform.position).normalized * Vector3.Distance(objectHolder.transform.position, grabbedRB.transform.position) * 20f;
+            grabbedRB.velocity = (objectHolder.transform.position - grabbedRB.transform.position).normalized * Vector3.Distance(objectHolder.transform.position, grabbedRB.transform.position) * grabbedFollowForce;
             
             if (OnPlayerInput.instance.onFire1)
             {
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
+                grabbedRB.angularDrag = currentGRBDefaultAngularFriction;
+                currentGRBDefaultAngularFriction = 0;
+                grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>();
                 grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;

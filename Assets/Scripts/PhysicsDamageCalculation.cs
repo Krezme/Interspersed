@@ -21,13 +21,18 @@ public class PhysicsDamageCalculation : MonoBehaviour
         if (!other.gameObject.GetComponent<Rigidbody>()){}
         else
         {
-            incomingForceVector3 = other.gameObject.GetComponent<Rigidbody>().mass * other.gameObject.GetComponent<Rigidbody>().velocity;
-            incomingForceFloat = Mathf.Abs(incomingForceVector3.x + incomingForceVector3.y + incomingForceVector3.z);
+            other.gameObject.GetComponent<PhysicsDamageableObject>().ShowAvrageOfVelocities();
+            Vector3 velocity = other.gameObject.GetComponent<Rigidbody>().velocity.normalized;
+
+            incomingForceVector3 = other.gameObject.GetComponent<Rigidbody>().mass * velocity;
+            
+            incomingForceFloat = Mathf.Abs(Mathf.Abs(incomingForceVector3.x) + Mathf.Abs(incomingForceVector3.y) + Mathf.Abs(incomingForceVector3.z));
+            Debug.Log(velocity + " " + Mathf.Abs(velocity.x) + ", " + Mathf.Abs(velocity.y) + ", " + Mathf.Abs(velocity.z));
             if(incomingForceFloat < minimumForceRequired){}
             else
             {
                 enemyStatisticsManager.TakeDamage(Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier));
-                Debug.Log("Damage taken = " + (Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier)));
+                //Debug.Log("Damage taken = " + (Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier)));
             }
         }
     }

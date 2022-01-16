@@ -1025,9 +1025,11 @@ MonoBehaviour:
   changeToArm: {fileID: 4028415373917518356}
   cam: {fileID: 0}
   maxGrabDistance: 10
-  throwforce: 20
+  throwforce: 100
   lerpSpeed: 10
   objectHolder: {fileID: 0}
+  grabbedFollowForce: 20
+  grabbedNewAngularFriction: 0.8
 --- !u!1 &4433144294876639990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,6 +1226,7 @@ MonoBehaviour:
   onFire1: 0
   onFire2: 0
   onAbility1: 0
+  isESC: 0
   mouseSensitivityCurrent: 0
 --- !u!114 &4433144296201853553
 MonoBehaviour:
