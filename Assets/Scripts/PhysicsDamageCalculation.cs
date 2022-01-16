@@ -18,21 +18,21 @@ public class PhysicsDamageCalculation : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (!other.gameObject.GetComponent<Rigidbody>()){}
-        else
-        {
-            other.gameObject.GetComponent<PhysicsDamageableObject>().ShowAvrageOfVelocities();
-            Vector3 velocity = other.gameObject.GetComponent<Rigidbody>().velocity.normalized;
+        if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody otherRB)){
+            float testTemp = Mathf.Abs(otherRB.velocity.x) + Mathf.Abs(otherRB.velocity.y) + Mathf.Abs(otherRB.velocity.z);
+            //Debug.Log(testTemp);
+            if (Mathf.Abs(otherRB.velocity.x) + Mathf.Abs(otherRB.velocity.y) + Mathf.Abs(otherRB.velocity.z) >= minimumForceRequired) {
+                PhysicsDamageableObject physicsDamageableObject;
+                if (other.gameObject.TryGetComponent<PhysicsDamageableObject>(out physicsDamageableObject)) {
 
-            incomingForceVector3 = other.gameObject.GetComponent<Rigidbody>().mass * velocity;
-            
-            incomingForceFloat = Mathf.Abs(Mathf.Abs(incomingForceVector3.x) + Mathf.Abs(incomingForceVector3.y) + Mathf.Abs(incomingForceVector3.z));
-            Debug.Log(velocity + " " + Mathf.Abs(velocity.x) + ", " + Mathf.Abs(velocity.y) + ", " + Mathf.Abs(velocity.z));
-            if(incomingForceFloat < minimumForceRequired){}
-            else
-            {
-                enemyStatisticsManager.TakeDamage(Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier));
-                //Debug.Log("Damage taken = " + (Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier)));
+                    Vector3 averageVelocity = physicsDamageableObject.AverageOfVelocities();
+
+                    incomingForceVector3 = otherRB.mass * averageVelocity;
+                    
+                    incomingForceFloat = Mathf.Abs(Mathf.Abs(incomingForceVector3.x) + Mathf.Abs(incomingForceVector3.y) + Mathf.Abs(incomingForceVector3.z));
+                    enemyStatisticsManager.TakeDamage(Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier));
+                    Debug.Log("Damage taken = " + (Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier)));
+                }
             }
         }
     }

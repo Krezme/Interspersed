@@ -26,9 +26,13 @@ public class PhysicsDamageableObject : MonoBehaviour
         velocityX.Add(Mathf.Abs(currentNormalizedVelocity.x));
         velocityY.Add(Mathf.Abs(currentNormalizedVelocity.y));
         velocityZ.Add(Mathf.Abs(currentNormalizedVelocity.z));
+
+        if (rb.IsSleeping()) {
+            Destroy(this);
+        }
     }
 
-    public void ShowAvrageOfVelocities() {
-        Debug.Log(Mathf.Abs(Queryable.Average(velocityX.AsQueryable())) + ", " + Mathf.Abs(Queryable.Average(velocityY.AsQueryable())) + ", " + Mathf.Abs(Queryable.Average(velocityZ.AsQueryable())));
+    public Vector3 AverageOfVelocities() {
+        return new Vector3(Mathf.Abs(Queryable.Average(velocityX.AsQueryable())), Mathf.Abs(Queryable.Average(velocityY.AsQueryable())), Mathf.Abs(Queryable.Average(velocityZ.AsQueryable())));
     }
 }
