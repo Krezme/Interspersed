@@ -18,6 +18,8 @@ public class CristalArm : PlayerAbility
 {
     public CrystalArmStatistics statistics;
 
+    public CrystalArmModes crystalArmModes;
+
     public Transform spawnBulletPosition;
 
     public GameObject[] pfBulletProjectile;
@@ -78,10 +80,10 @@ public class CristalArm : PlayerAbility
     {
         timePassed += Time.deltaTime;
         if (crosshair != null) {
-            crosshair.value = timePassed / chargeStages[chargeStages.Length - 1];
+            crosshair.value = timePassed / chargeStages[chargeStages.Length - 1]; //Calculates the crosshair fill depending on the charges. It is chargeStages.Length - 1, because the first charge is default
         }
         for (int i = chargeStages.Length -1; i >= 0; i--) {
-            if (chargeStages[i] <= timePassed) {
+            if (chargeStages[i] <= timePassed) { //checking for the time and then setting the correct bullet prefab 
                 currentBullet = pfBulletProjectile[i+1];
                 currentChargeStage = i;
                 // finctionality depending on different charge stage
@@ -95,15 +97,28 @@ public class CristalArm : PlayerAbility
     }
 
     public override void AditionalAbilities() {
+        if (crystalArmModes == CrystalArmModes.Default) {
+            ChargeShot();
+            FiringTheProjectile();
+        }
+        else if (crystalArmModes == CrystalArmModes.Shotgun) {
+            ShotgunMode();
+        }
+    }
+
+    void ChargeShot() {
         if (OnPlayerInput.instance.onAbility1 && statistics.currentElectricShots > 0) { // Toggle the electric ability
             statistics.isElectric = !statistics.isElectric;
             OnPlayerInput.instance.onAbility1 = false;
         } 
+    }
+
+    void FiringTheProjectile() {
+        //When the button is realiced ...
         if (!OnPlayerInput.instance.onFire1) {
-            
+            // ... but it has been pressed for some amount of time. Fire the according projectile
             if (timePassed > 0) {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-                Debug.Log(aimDir);
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 BulletProjectile newBulletProjectile = bullet.GetComponent<BulletProjectile>();
                 newBulletProjectile.statistics.damage = projectileDamage * (currentChargeStage +1);
@@ -123,4 +138,13 @@ public class CristalArm : PlayerAbility
             timePassed = 0;
         }
     }
+
+    void ShotgunMode() {
+
+    }
+}
+
+public enum CrystalArmModes {
+    Default,
+    Shotgun
 }
