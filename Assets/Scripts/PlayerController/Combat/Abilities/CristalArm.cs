@@ -1,19 +1,28 @@
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
-using System;
-using System.Linq;
 
 [System.Serializable]
 public class CrystalArmStatistics
 {
+    public float damage;
     public float maxElectricShots;
     public float currentElectricShots;
     public float rechargeTime;
     public float currentRechrge;
     public bool isElectric;
+}
+
+[System.Serializable]
+public class CrystalArmShotgunStatistics{
+    public float damagePerPellet;
+    public int projectileCount;
+    public Vector2 projectileSpawnOffset; //The spawning radius of hte progectiles
+    public Vector2 projectileDispersion; //The spread of the projectiles
     public float shotgunCooldown;
 }
 
@@ -21,11 +30,15 @@ public class CristalArm : PlayerAbility
 {
     public CrystalArmStatistics statistics;
 
+    public CrystalArmShotgunStatistics shotgunStatistics;
+
     public CrystalArmModes crystalArmModes;
 
     public Transform spawnBulletPosition;
 
-    public GameObject[] pfBulletProjectile;
+    public GameObject[] pfBulletProjectileDef; //The prefabs for the single shot
+
+    public GameObject pfPelletProjectileShotgun; //The prefab for the shotgun projectile
 
     public AudioSource audioSource;
 
@@ -98,28 +111,45 @@ public class CristalArm : PlayerAbility
         }
         for (int i = chargeStages.Length -1; i >= 0; i--) {
             if (chargeStages[i] <= timePassed) { //checking for the time and then setting the correct bullet prefab 
-                currentBullet = pfBulletProjectile[i+1];
+                currentBullet = pfBulletProjectileDef[i+1];
                 currentChargeStage = i;
                 // finctionality depending on different charge stage
                 return;
             }else {
-                currentBullet = pfBulletProjectile[0];
+                currentBullet = pfBulletProjectileDef[0];
                 currentChargeStage = 0;
             }
         }
     }
 
     void ShotgunShotAimingAbility() {
-        Debug.Log(Time.deltaTime);
-        /* if (cooldownBetweenShots <= 0) {
-            
-        }
-        if (cooldownBetweenShots > 0) {
-            cooldownBetweenShots -= Time.deltaTime;
-            if (cooldownBetweenShots < 0) {
-                cooldownBetweenShots = 0;
+        if (cooldownBetweenShots <= 0) {
+            for (int i = 0; i < shotgunStatistics.projectileCount; i++) {
+                Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+                //* Generating spawn offset for one projectlile  
+                Vector2 rndSpawnOffset = new Vector2(UnityEngine.Random.Range(-shotgunStatistics.projectileSpawnOffset.x, shotgunStatistics.projectileSpawnOffset.x), 
+                    UnityEngine.Random.Range(-shotgunStatistics.projectileSpawnOffset.y, shotgunStatistics.projectileSpawnOffset.y));
+
+                //* Generationg the dispersion of one projectile. (The slight deviation of the projectile) projectile spread
+                Vector2 rndDispersion = new Vector2(UnityEngine.Random.Range(-shotgunStatistics.projectileDispersion.x, shotgunStatistics.projectileDispersion.x), 
+                    UnityEngine.Random.Range(-shotgunStatistics.projectileDispersion.y, shotgunStatistics.projectileDispersion.y));
+
+                Vector3 newSpawnPos = new Vector3(spawnBulletPosition.position.x + rndSpawnOffset.x, spawnBulletPosition.position.y + rndSpawnOffset.y, spawnBulletPosition.position.z + rndSpawnOffset.x);
+
+                Vector3 newPelletDir = new Vector3(aimDir.x + rndDispersion.x, aimDir.y + rndDispersion.y, aimDir.z);
+
+                GameObject pellet = Instantiate(pfPelletProjectileShotgun, newSpawnPos, Quaternion.LookRotation(aimDir, Vector3.up));
+
+                BulletProjectile newPelletProjectile = pellet.GetComponent<BulletProjectile>();
+                newPelletProjectile.statistics.damage = shotgunStatistics.damagePerPellet;
+                newPelletProjectile.statistics.chargeStage = 1;
             }
-        } */
+            
+            audioSource.PlayOneShot(abilitySound);
+            // Restarting the fire sequence
+            OnPlayerInput.instance.onFire1 = false;
+            cooldownBetweenShots = shotgunStatistics.shotgunCooldown;
+        }
     }
 
     public override void AditionalAbilities() {
@@ -127,6 +157,9 @@ public class CristalArm : PlayerAbility
         if (crystalArmModes == CrystalArmModes.Default) {
             ChargeShot();
             FiringTheProjectile();
+        }
+        if (crystalArmModes == CrystalArmModes.Shotgun) {
+            ShotCooldown();
         }
     }
 
@@ -136,7 +169,7 @@ public class CristalArm : PlayerAbility
                 crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min(); //set it to first item
             }
             else {
-                crystalArmModes = (CrystalArmModes)((int)crystalArmModes+1); // set it to the next item. -----------IT DOES NOT WORK IF WE ASSIGN RANDOM IDs TO THE ENUM ITEMS-----------
+                crystalArmModes = (CrystalArmModes)((int)crystalArmModes+1); /* set it to the next item. */ // ! -----------IT DOES NOT WORK IF WE ASSIGN RANDOM IDs TO THE ENUM ITEMS-----------
             }
             OnPlayerInput.instance.onArmMode = false; //stop the button from being pressed and trigger the statement on the same press
         }
@@ -170,13 +203,22 @@ public class CristalArm : PlayerAbility
             if (crosshair != null){
                 crosshair.value = 0;
             }
-            projectileDamage = 10;
+            projectileDamage = statistics.damage;
             timePassed = 0;
+        }
+    }
+
+    void ShotCooldown () {
+        if (cooldownBetweenShots > 0) {
+            cooldownBetweenShots -= Time.deltaTime;
+            if (cooldownBetweenShots < 0) {
+                cooldownBetweenShots = 0;
+            }
         }
     }
 }
 
-public enum CrystalArmModes {
+public enum CrystalArmModes { // ! Dont assign random ID to this enum it will break the code. The IDs needs to be in order
     Default,
     Shotgun
 }

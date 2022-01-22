@@ -985,17 +985,27 @@ MonoBehaviour:
   aimVirtualCamera: {fileID: 0}
   aimingRotationSpeed: 20
   statistics:
+    damage: 10
     maxElectricShots: 3
     currentElectricShots: 3
     rechargeTime: 10
     currentRechrge: 0
     isElectric: 0
+  shotgunStatistics:
+    damagePerPellet: 3
+    projectileCount: 25
+    projectileSpawnOffset: {x: 0.1, y: 0.1}
+    projectileDispersion: {x: 0.08, y: 0.08}
+    shotgunCooldown: 1
+  crystalArmModes: 0
   spawnBulletPosition: {fileID: 1343784572}
-  pfBulletProjectile:
+  pfBulletProjectileDef:
   - {fileID: 3470485994608312727, guid: 49a641e1d5cff7e4b933572161e3d98f, type: 3}
   - {fileID: 3470485994608312727, guid: 5ee0d808ec0e7ac4ba7829275eb8821c, type: 3}
   - {fileID: 3470485994608312727, guid: 62e00a0cdf1099d42aa3e6efc7eff235, type: 3}
   - {fileID: 3470485994608312727, guid: 5333ce00db1dc15459949529a56b08c7, type: 3}
+  pfPelletProjectileShotgun: {fileID: 3470485994608312727, guid: 68c7a475e1fbf0b48a8b65097277e998,
+    type: 3}
   audioSource: {fileID: 4433144296201853455}
   abilitySound: {fileID: 8300000, guid: 4f42263d3e610d642b9dabe30fc0556d, type: 3}
   changeToArm: {fileID: 8745843780549627091}
@@ -1225,6 +1235,7 @@ MonoBehaviour:
   onFire1: 0
   onFire2: 0
   onAbility1: 0
+  onArmMode: 0
   isESC: 0
   mouseSensitivityCurrent: 0
 --- !u!114 &4433144296201853553
