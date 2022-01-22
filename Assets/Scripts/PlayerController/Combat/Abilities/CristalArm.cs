@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
+using System;
+using System.Linq;
 
 [System.Serializable]
 public class CrystalArmStatistics
@@ -12,6 +14,7 @@ public class CrystalArmStatistics
     public float rechargeTime;
     public float currentRechrge;
     public bool isElectric;
+    public float shotgunCooldown;
 }
 
 public class CristalArm : PlayerAbility
@@ -37,6 +40,8 @@ public class CristalArm : PlayerAbility
     public float projectileDamage; // This is a temp variable and will be changed when we decide if we are going with scritable objects or an other method
 
     private float timePassed;
+
+    private float cooldownBetweenShots;
 
     private float currentChargeStage;
 
@@ -78,6 +83,15 @@ public class CristalArm : PlayerAbility
 
     public override void AimingAbility ()
     {
+        if (crystalArmModes == CrystalArmModes.Default) { 
+            ChargeSingleShotAimingAbility();
+        }
+        else if (crystalArmModes == CrystalArmModes.Shotgun) { 
+            ShotgunShotAimingAbility();
+        }
+    }
+
+    void ChargeSingleShotAimingAbility() {
         timePassed += Time.deltaTime;
         if (crosshair != null) {
             crosshair.value = timePassed / chargeStages[chargeStages.Length - 1]; //Calculates the crosshair fill depending on the charges. It is chargeStages.Length - 1, because the first charge is default
@@ -93,16 +107,38 @@ public class CristalArm : PlayerAbility
                 currentChargeStage = 0;
             }
         }
-        
+    }
+
+    void ShotgunShotAimingAbility() {
+        Debug.Log(Time.deltaTime);
+        /* if (cooldownBetweenShots <= 0) {
+            
+        }
+        if (cooldownBetweenShots > 0) {
+            cooldownBetweenShots -= Time.deltaTime;
+            if (cooldownBetweenShots < 0) {
+                cooldownBetweenShots = 0;
+            }
+        } */
     }
 
     public override void AditionalAbilities() {
+        ChangeMode();
         if (crystalArmModes == CrystalArmModes.Default) {
             ChargeShot();
             FiringTheProjectile();
         }
-        else if (crystalArmModes == CrystalArmModes.Shotgun) {
-            ShotgunMode();
+    }
+
+    void ChangeMode() {
+        if (OnPlayerInput.instance.onArmMode) {
+            if ((int)crystalArmModes == Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Max()){ // if the current item is the last item possible
+                crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min(); //set it to first item
+            }
+            else {
+                crystalArmModes = (CrystalArmModes)((int)crystalArmModes+1); // set it to the next item. -----------IT DOES NOT WORK IF WE ASSIGN RANDOM IDs TO THE ENUM ITEMS-----------
+            }
+            OnPlayerInput.instance.onArmMode = false; //stop the button from being pressed and trigger the statement on the same press
         }
     }
 
@@ -137,10 +173,6 @@ public class CristalArm : PlayerAbility
             projectileDamage = 10;
             timePassed = 0;
         }
-    }
-
-    void ShotgunMode() {
-
     }
 }
 

@@ -51,6 +51,7 @@ public class OnPlayerInput : MonoBehaviour
     public bool onFire2;
     [HideInInspector]
     public bool onAbility1;
+    public bool onArmMode;
     [HideInInspector]
     public bool isESC;
 
@@ -155,6 +156,10 @@ public class OnPlayerInput : MonoBehaviour
         }
     }
 
+    public void OnArmMode(InputValue value) {
+        ArmModeInput(value.isPressed);
+    }
+
     public void OnESC(InputValue value) {
         ESCInput(value.isPressed);
     }
@@ -254,6 +259,10 @@ public class OnPlayerInput : MonoBehaviour
     private void PlayerArmInput(int armIndex) {
         PlayerAbilitiesController.instance.selectedAbility = armIndex;
         PlayerAbilitiesController.instance.ChangeArm();
+    }
+
+    private void ArmModeInput(bool modeState) {
+        onArmMode = modeState;
     }
 
     private void ESCInput(bool escState) {
