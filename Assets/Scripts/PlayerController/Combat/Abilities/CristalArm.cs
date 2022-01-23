@@ -125,7 +125,7 @@ public class CristalArm : PlayerAbility
     void ShotgunShotAimingAbility() {
         if (cooldownBetweenShots <= 0) {
             for (int i = 0; i < shotgunStatistics.projectileCount; i++) {
-                Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+                Vector3 aimDir = (centerScreenToWorldPosition - spawnBulletPosition.position).normalized;
                 //* Generating spawn offset for one projectlile  
                 Vector2 rndSpawnOffset = new Vector2(UnityEngine.Random.Range(-shotgunStatistics.projectileSpawnOffset.x, shotgunStatistics.projectileSpawnOffset.x), 
                     UnityEngine.Random.Range(-shotgunStatistics.projectileSpawnOffset.y, shotgunStatistics.projectileSpawnOffset.y));
@@ -134,11 +134,18 @@ public class CristalArm : PlayerAbility
                 Vector2 rndDispersion = new Vector2(UnityEngine.Random.Range(-shotgunStatistics.projectileDispersion.x, shotgunStatistics.projectileDispersion.x), 
                     UnityEngine.Random.Range(-shotgunStatistics.projectileDispersion.y, shotgunStatistics.projectileDispersion.y));
 
-                Vector3 newSpawnPos = new Vector3(spawnBulletPosition.position.x + rndSpawnOffset.x, spawnBulletPosition.position.y + rndSpawnOffset.y, spawnBulletPosition.position.z + rndSpawnOffset.x);
+                Vector3 newSpawnPos = new Vector3(0, rndSpawnOffset.y, rndSpawnOffset.x);
 
-                Vector3 newPelletDir = new Vector3(aimDir.x + rndDispersion.x, aimDir.y + rndDispersion.y, aimDir.z);
 
-                GameObject pellet = Instantiate(pfPelletProjectileShotgun, newSpawnPos, Quaternion.LookRotation(aimDir, Vector3.up));
+
+                Vector3 newPelletDir = new Vector3(aimDir.x + rndDispersion.x, aimDir.y + rndDispersion.y, aimDir.z + rndDispersion.x);
+
+                GameObject pellet = Instantiate(pfPelletProjectileShotgun, spawnBulletPosition.position, Quaternion.LookRotation(newPelletDir, Vector3.up));
+                pellet.transform.parent = spawnBulletPosition.transform;
+                //pellet.transform.localPosition = newSpawnPos;
+                pellet.transform.parent = null;
+
+
 
                 BulletProjectile newPelletProjectile = pellet.GetComponent<BulletProjectile>();
                 newPelletProjectile.statistics.damage = shotgunStatistics.damagePerPellet;
@@ -187,7 +194,7 @@ public class CristalArm : PlayerAbility
         if (!OnPlayerInput.instance.onFire1) {
             // ... but it has been pressed for some amount of time. Fire the according projectile
             if (timePassed > 0) {
-                Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+                Vector3 aimDir = (centerScreenToWorldPosition - spawnBulletPosition.position).normalized;
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 BulletProjectile newBulletProjectile = bullet.GetComponent<BulletProjectile>();
                 newBulletProjectile.statistics.damage = projectileDamage * (currentChargeStage +1);
