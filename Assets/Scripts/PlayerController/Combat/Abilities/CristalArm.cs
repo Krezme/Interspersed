@@ -21,7 +21,6 @@ public class CrystalArmStatistics
 public class CrystalArmShotgunStatistics{
     public float damagePerPellet;
     public int projectileCount;
-    public Vector2 projectileSpawnOffset; //The spawning radius of hte progectiles
     public Vector2 projectileDispersion; //The spread of the projectiles
     public float shotgunCooldown;
 }
@@ -126,30 +125,20 @@ public class CristalArm : PlayerAbility
         if (cooldownBetweenShots <= 0) {
             for (int i = 0; i < shotgunStatistics.projectileCount; i++) {
                 Vector3 aimDir = (centerScreenToWorldPosition - spawnBulletPosition.position).normalized;
-                //* Generating spawn offset for one projectlile  
-                Vector2 rndSpawnOffset = new Vector2(UnityEngine.Random.Range(-shotgunStatistics.projectileSpawnOffset.x, shotgunStatistics.projectileSpawnOffset.x), 
-                    UnityEngine.Random.Range(-shotgunStatistics.projectileSpawnOffset.y, shotgunStatistics.projectileSpawnOffset.y));
 
-                //* Generationg the dispersion of one projectile. (The slight deviation of the projectile) projectile spread
-                Vector2 rndDispersion = new Vector2(UnityEngine.Random.Range(-shotgunStatistics.projectileDispersion.x, shotgunStatistics.projectileDispersion.x), 
-                    UnityEngine.Random.Range(-shotgunStatistics.projectileDispersion.y, shotgunStatistics.projectileDispersion.y));
+                Vector3 newSpawnPos = new Vector3(UnityEngine.Random.Range(-1.0f * shotgunStatistics.projectileDispersion.x, 1.0f * shotgunStatistics.projectileDispersion.x), 
+                    UnityEngine.Random.Range(-1.0f * shotgunStatistics.projectileDispersion.y, 1.0f * shotgunStatistics.projectileDispersion.y), 0);
 
-                Vector3 newSpawnPos = new Vector3(0, rndSpawnOffset.y, rndSpawnOffset.x);
-
-
-
-                Vector3 newPelletDir = new Vector3(aimDir.x + rndDispersion.x, aimDir.y + rndDispersion.y, aimDir.z + rndDispersion.x);
-
-                GameObject pellet = Instantiate(pfPelletProjectileShotgun, spawnBulletPosition.position, Quaternion.LookRotation(newPelletDir, Vector3.up));
-                pellet.transform.parent = spawnBulletPosition.transform;
-                //pellet.transform.localPosition = newSpawnPos;
-                pellet.transform.parent = null;
-
-
-
+                GameObject dispersionPoint = Instantiate(new GameObject(), spawnBulletPosition);
+                dispersionPoint.transform.localPosition = newSpawnPos;
+                dispersionPoint.transform.position += spawnBulletPosition.transform.forward*2;
+                Vector3 newSpreadPoint = (dispersionPoint.transform.position - spawnBulletPosition.transform.position).normalized;
+                Destroy(dispersionPoint);
+                GameObject pellet = Instantiate(pfPelletProjectileShotgun, spawnBulletPosition.position, Quaternion.LookRotation(newSpreadPoint, Vector3.up));
+                
                 BulletProjectile newPelletProjectile = pellet.GetComponent<BulletProjectile>();
                 newPelletProjectile.statistics.damage = shotgunStatistics.damagePerPellet;
-                newPelletProjectile.statistics.chargeStage = 1;
+                newPelletProjectile.statistics.chargeStage = 1; 
             }
             
             audioSource.PlayOneShot(abilitySound);
