@@ -126,16 +126,18 @@ public class CristalArm : PlayerAbility
             for (int i = 0; i < shotgunStatistics.projectileCount; i++) {
                 Vector3 aimDir = (centerScreenToWorldPosition - spawnBulletPosition.position).normalized;
 
+                // The new Spawn Sosition of the pellet direction empty gameobject
                 Vector3 newSpawnPos = new Vector3(UnityEngine.Random.Range(-1.0f * shotgunStatistics.projectileDispersion.x, 1.0f * shotgunStatistics.projectileDispersion.x), 
                     UnityEngine.Random.Range(-1.0f * shotgunStatistics.projectileDispersion.y, 1.0f * shotgunStatistics.projectileDispersion.y), 0);
 
-                GameObject dispersionPoint = Instantiate(new GameObject(), spawnBulletPosition);
-                dispersionPoint.transform.localPosition = newSpawnPos;
-                dispersionPoint.transform.position += spawnBulletPosition.transform.forward*2;
-                Vector3 newSpreadPoint = (dispersionPoint.transform.position - spawnBulletPosition.transform.position).normalized;
+                GameObject dispersionPoint = Instantiate(new GameObject(), spawnBulletPosition); //Spawning the empty gamebject that acts as the ditection spawn point of the object
+                dispersionPoint.transform.localPosition = newSpawnPos; // Sets the local postion, of the direction gameobject, to the exact local posion related to the spawnBulletPosition
+                dispersionPoint.transform.position += spawnBulletPosition.transform.forward*2; // Moves the direction gameobject forward to scale down the dispersion multiplication
+                Vector3 newSpreadPoint = (dispersionPoint.transform.position - spawnBulletPosition.transform.position).normalized; //saves the new direction point
                 Destroy(dispersionPoint);
-                GameObject pellet = Instantiate(pfPelletProjectileShotgun, spawnBulletPosition.position, Quaternion.LookRotation(newSpreadPoint, Vector3.up));
+                GameObject pellet = Instantiate(pfPelletProjectileShotgun, spawnBulletPosition.position, Quaternion.LookRotation(newSpreadPoint, Vector3.up)); // Instantiating the pellet going to the direction point
                 
+                //setting the projectile damage and speed multiplier
                 BulletProjectile newPelletProjectile = pellet.GetComponent<BulletProjectile>();
                 newPelletProjectile.statistics.damage = shotgunStatistics.damagePerPellet;
                 newPelletProjectile.statistics.chargeStage = 1; 
