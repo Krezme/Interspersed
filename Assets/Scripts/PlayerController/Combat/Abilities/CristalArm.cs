@@ -87,12 +87,14 @@ public class CristalArm : PlayerAbility
         }
     }
 
+    /* This needs to be changed */ // ! ONLY PLACE HOLDER UNTIL PLAYER CHARACTER WITH MORTH TARGETS IS IMPORTED
     public override void MorthToTarget()
     {
         base.MorthToTarget();
         changeToArm.SetActive(!changeToArm.activeSelf);
     }
 
+    // Switching between modes
     public override void AimingAbility ()
     {
         if (crystalArmModes == CrystalArmModes.Default) { 
@@ -150,6 +152,7 @@ public class CristalArm : PlayerAbility
         }
     }
 
+    // Switching between modes
     public override void AditionalAbilities() {
         ChangeMode();
         if (crystalArmModes == CrystalArmModes.Default) {
