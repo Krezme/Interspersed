@@ -12,6 +12,8 @@ public class OptionsMenu : MonoBehaviour
     public Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
+    public static float masterVol, musicVol, sfxVol;
+
     void Start()
     {
         ///Setting the resolutions at the start
@@ -40,16 +42,19 @@ public class OptionsMenu : MonoBehaviour
     public void SetMasterVolLevel(float sliderValue)
     {
         mixer.SetFloat("MasterVolume", Mathf.Log10(sliderValue) * 20);
+        masterVol = sliderValue;
     }
 
     public void SetMusicLevel(float sliderValue)
     {
         mixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20);
+        musicVol = sliderValue;
     }
 
     public void SetSFXLevel(float sliderValue)
     {
         mixer.SetFloat("SFXVolume", Mathf.Log10(sliderValue) * 20);
+        sfxVol = sliderValue;
     }
 
     ///This section controls Quality settings
