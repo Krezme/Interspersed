@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 11220.088, g: 12512.539, b: 12551.578, a: 1}
+  m_IndirectSpecularColor: {r: 11045.152, g: 11307.336, b: 9914.398, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -34315,6 +34315,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e51cd468ef6447b4cb56f9d3f8bcfd04, type: 3}
+--- !u!82 &1594880257 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 456158230, guid: ea8f51932dd9ebc4594ef1eb69ed05ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 6820349922225900323}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1595614293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47988,6 +47994,34 @@ PrefabInstance:
     - target: {fileID: 479070404, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 838674820, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 838674820, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 838674820, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1594880257}
+    - target: {fileID: 838674820, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 838674820, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 838674820, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.Behaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 838674820, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1013976700, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: maxVolume
