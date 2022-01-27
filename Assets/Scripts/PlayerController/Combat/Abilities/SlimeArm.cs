@@ -10,6 +10,10 @@ public class SlimeArm : PlayerAbility
 
     public GameObject changeToArm;
 
+    public GameObject scaleSlimeBall;
+    
+    GameObject slimeBallInstance;
+
     //Functionality Variables
     [SerializeField] Camera cam;
     [SerializeField] float maxGrabDistance = 10f, throwforce = 20f;
@@ -22,7 +26,10 @@ public class SlimeArm : PlayerAbility
 
     public float grabbedNewAngularFriction = 0.8f; //The amount of angular friction of a grabbled object
 
-    private float currentGRBDefaultAngularFriction; //The current Grabbed Rigidbody Default Angular friction amount
+    ////private float currentGRBDefaultAngularFriction; //The current Grabbed Rigidbody Default Angular friction amount
+
+    private List<Rigidbody> changedRigidBodies = new List<Rigidbody>();
+    private List<float> currentRBDefaultAngularFriction = new List<float>(); //The current Rigidbodies' Default Angular friction amount
 
     public override void MorthToTarget()
     {
@@ -51,23 +58,32 @@ public class SlimeArm : PlayerAbility
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                        
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                             grabbedRagdoll.pickedUpByPlayer = true;
+                            
+                            
                             grabbedRagdoll.RagdollOn();
                             if (Physics.Raycast(ray, out hit, maxGrabDistance))
                             {
                                 grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                                Debug.Log(grabbedRB);
+                                grabbedRB.constraints = RigidbodyConstraints.FreezeRotationY;
+                            }
+                            foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
+                                changedRigidBodies.Add(rb);
+                                currentRBDefaultAngularFriction.Add(rb.angularDrag);
+                                rb.angularDrag = grabbedNewAngularFriction;
                             }
                         }
                         else {
+                            
                             if (grabbedRB.collisionDetectionMode == CollisionDetectionMode.Discrete) {
                                 grabbedRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
                             }
-                            currentGRBDefaultAngularFriction = grabbedRB.angularDrag;
+                            changedRigidBodies.Add(grabbedRB);
+                            currentRBDefaultAngularFriction.Add(grabbedRB.angularDrag);
                             grabbedRB.angularDrag = grabbedNewAngularFriction;
                         }
+                        slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
                         if (grabbedRB)
                         {
                             grabbedRB.useGravity = false;
@@ -86,12 +102,18 @@ public class SlimeArm : PlayerAbility
             if (PlayerAbilitiesController.instance.isAbilityActive) {
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
-                grabbedRB.angularDrag = currentGRBDefaultAngularFriction;
-                currentGRBDefaultAngularFriction = 0;
+                grabbedRB.constraints = RigidbodyConstraints.None;
+                for (int i = 0; i < changedRigidBodies.Count; i++) {
+                    changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
+                }
+                changedRigidBodies = new List<Rigidbody>();
+                currentRBDefaultAngularFriction = new List<float>();
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
                     grabbedRagdoll = null;
                 }
+                Destroy(slimeBallInstance);
+                slimeBallInstance = null;
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
             }
@@ -110,14 +132,20 @@ public class SlimeArm : PlayerAbility
             {
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
-                grabbedRB.angularDrag = currentGRBDefaultAngularFriction;
-                currentGRBDefaultAngularFriction = 0;
+                grabbedRB.constraints = RigidbodyConstraints.None;
+                for (int i = 0; i < changedRigidBodies.Count; i++) {
+                    changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
+                }
+                changedRigidBodies = new List<Rigidbody>();
+                currentRBDefaultAngularFriction = new List<float>();
                 grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>();
                 grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
                     grabbedRagdoll = null;
                 }
+                Destroy(slimeBallInstance);
+                slimeBallInstance = null;
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
                 OnPlayerInput.instance.onFire1 = false;
