@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Gamekit3D //The RandomAudioPlayer scipt was originally copied from Unity's 3DGameKit 'The Explorer' and to my knowledge, requires this namespace to function
 {
+
+    [RequireComponent(typeof(AudioSource))]
+
     public class PlayRandomSoundOnObjectCollision : MonoBehaviour
     {
         public RandomAudioPlayer player;

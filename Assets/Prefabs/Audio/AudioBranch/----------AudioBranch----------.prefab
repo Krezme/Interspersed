@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 387348740}
   - component: {fileID: 387348739}
   - component: {fileID: 387348738}
+  - component: {fileID: 723955464}
   m_Layer: 0
   m_Name: ObjectCollisionTestObject (2)
   m_TagString: Untagged
@@ -222,7 +223,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -296,7 +297,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -318,26 +319,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 0.5
-  maxPitch: 0.75
+  minVolume: 0.2
+  maxVolume: 0.2
+  minPitch: 0.25
+  maxPitch: 0.25
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: 34305c302c1f10d44a9d1f91f19266cc, type: 3}
-    - {fileID: 8300000, guid: 801338ff4a7a2a74096e3916fa2307c5, type: 3}
-    - {fileID: 8300000, guid: 73267bf250baf7a458466faffaa47e2f, type: 3}
-    - {fileID: 8300000, guid: 58c646a3942eba440b979c4dab6686b3, type: 3}
-    - {fileID: 8300000, guid: 79038f31a50a3064dad28dd97c943fcf, type: 3}
-    - {fileID: 8300000, guid: dbd2ba01975796c4592cbc5c0218be56, type: 3}
-    - {fileID: 8300000, guid: 2e32e8ea91a90534590dd247257866fa, type: 3}
-    - {fileID: 8300000, guid: 863f966ec44676b48af921b83fa3b291, type: 3}
-    - {fileID: 8300000, guid: 1bcaab4e1be985441b0422eab9a3a3b0, type: 3}
-    - {fileID: 8300000, guid: bb0698aeef0264546a84ffb3ec5d724b, type: 3}
-    - {fileID: 8300000, guid: 80776d282ae141641b42e8832328829b, type: 3}
-    - {fileID: 8300000, guid: ef5a5327173c7f748a5bec029aaf6509, type: 3}
+    - {fileID: 8300000, guid: e4bc569a0d25c254295ca295f0bec0e2, type: 3}
+    - {fileID: 8300000, guid: 7f48a6327e8061a438fa0042799be080, type: 3}
+    - {fileID: 8300000, guid: 0e0fd60ad3115b540a82707f10050e4b, type: 3}
+    - {fileID: 8300000, guid: d2df49723a3760f4bab2878328efa939, type: 3}
+    - {fileID: 8300000, guid: 3202e45b91414614a9feeae010c4f4ce, type: 3}
+    - {fileID: 8300000, guid: eed7d8d04ec368843bc758d47397c5f8, type: 3}
+    - {fileID: 8300000, guid: 176be1e7d06ba574981ec2554f90d76e, type: 3}
+    - {fileID: 8300000, guid: 78df7f83cf09032468e3a7c14f560287, type: 3}
+    - {fileID: 8300000, guid: de42263b920f73149b50004538abe90d, type: 3}
+    - {fileID: 8300000, guid: f128db803fbb7b14bb592dc55cb503ce, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -385,6 +384,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!169 &723955464
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387348736}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.47403365
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &456158227
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +425,7 @@ GameObject:
   - component: {fileID: 456158234}
   - component: {fileID: 456158235}
   - component: {fileID: 456158236}
+  - component: {fileID: 2013152131}
   m_Layer: 0
   m_Name: ObjectCollisionTestObject
   m_TagString: Untagged
@@ -484,7 +509,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -558,7 +583,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -580,26 +605,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 0.5
-  maxPitch: 0.75
+  minVolume: 0.2
+  maxVolume: 0.2
+  minPitch: 0.25
+  maxPitch: 0.25
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: 34305c302c1f10d44a9d1f91f19266cc, type: 3}
-    - {fileID: 8300000, guid: 801338ff4a7a2a74096e3916fa2307c5, type: 3}
-    - {fileID: 8300000, guid: 73267bf250baf7a458466faffaa47e2f, type: 3}
-    - {fileID: 8300000, guid: 58c646a3942eba440b979c4dab6686b3, type: 3}
-    - {fileID: 8300000, guid: 79038f31a50a3064dad28dd97c943fcf, type: 3}
-    - {fileID: 8300000, guid: dbd2ba01975796c4592cbc5c0218be56, type: 3}
-    - {fileID: 8300000, guid: 2e32e8ea91a90534590dd247257866fa, type: 3}
-    - {fileID: 8300000, guid: 863f966ec44676b48af921b83fa3b291, type: 3}
-    - {fileID: 8300000, guid: 1bcaab4e1be985441b0422eab9a3a3b0, type: 3}
-    - {fileID: 8300000, guid: bb0698aeef0264546a84ffb3ec5d724b, type: 3}
-    - {fileID: 8300000, guid: 80776d282ae141641b42e8832328829b, type: 3}
-    - {fileID: 8300000, guid: ef5a5327173c7f748a5bec029aaf6509, type: 3}
+    - {fileID: 8300000, guid: e4bc569a0d25c254295ca295f0bec0e2, type: 3}
+    - {fileID: 8300000, guid: 7f48a6327e8061a438fa0042799be080, type: 3}
+    - {fileID: 8300000, guid: 0e0fd60ad3115b540a82707f10050e4b, type: 3}
+    - {fileID: 8300000, guid: d2df49723a3760f4bab2878328efa939, type: 3}
+    - {fileID: 8300000, guid: 3202e45b91414614a9feeae010c4f4ce, type: 3}
+    - {fileID: 8300000, guid: eed7d8d04ec368843bc758d47397c5f8, type: 3}
+    - {fileID: 8300000, guid: 176be1e7d06ba574981ec2554f90d76e, type: 3}
+    - {fileID: 8300000, guid: 78df7f83cf09032468e3a7c14f560287, type: 3}
+    - {fileID: 8300000, guid: de42263b920f73149b50004538abe90d, type: 3}
+    - {fileID: 8300000, guid: f128db803fbb7b14bb592dc55cb503ce, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -647,6 +670,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!169 &2013152131
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456158227}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.47403365
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &479070398
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +711,7 @@ GameObject:
   - component: {fileID: 479070402}
   - component: {fileID: 479070401}
   - component: {fileID: 479070400}
+  - component: {fileID: 326176012}
   m_Layer: 0
   m_Name: ObjectCollisionTestObject (6)
   m_TagString: Untagged
@@ -746,7 +795,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -820,7 +869,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -842,26 +891,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 0.5
-  maxPitch: 0.75
+  minVolume: 0.2
+  maxVolume: 0.2
+  minPitch: 0.25
+  maxPitch: 0.25
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: 34305c302c1f10d44a9d1f91f19266cc, type: 3}
-    - {fileID: 8300000, guid: 801338ff4a7a2a74096e3916fa2307c5, type: 3}
-    - {fileID: 8300000, guid: 73267bf250baf7a458466faffaa47e2f, type: 3}
-    - {fileID: 8300000, guid: 58c646a3942eba440b979c4dab6686b3, type: 3}
-    - {fileID: 8300000, guid: 79038f31a50a3064dad28dd97c943fcf, type: 3}
-    - {fileID: 8300000, guid: dbd2ba01975796c4592cbc5c0218be56, type: 3}
-    - {fileID: 8300000, guid: 2e32e8ea91a90534590dd247257866fa, type: 3}
-    - {fileID: 8300000, guid: 863f966ec44676b48af921b83fa3b291, type: 3}
-    - {fileID: 8300000, guid: 1bcaab4e1be985441b0422eab9a3a3b0, type: 3}
-    - {fileID: 8300000, guid: bb0698aeef0264546a84ffb3ec5d724b, type: 3}
-    - {fileID: 8300000, guid: 80776d282ae141641b42e8832328829b, type: 3}
-    - {fileID: 8300000, guid: ef5a5327173c7f748a5bec029aaf6509, type: 3}
+    - {fileID: 8300000, guid: e4bc569a0d25c254295ca295f0bec0e2, type: 3}
+    - {fileID: 8300000, guid: 7f48a6327e8061a438fa0042799be080, type: 3}
+    - {fileID: 8300000, guid: 0e0fd60ad3115b540a82707f10050e4b, type: 3}
+    - {fileID: 8300000, guid: d2df49723a3760f4bab2878328efa939, type: 3}
+    - {fileID: 8300000, guid: 3202e45b91414614a9feeae010c4f4ce, type: 3}
+    - {fileID: 8300000, guid: eed7d8d04ec368843bc758d47397c5f8, type: 3}
+    - {fileID: 8300000, guid: 176be1e7d06ba574981ec2554f90d76e, type: 3}
+    - {fileID: 8300000, guid: 78df7f83cf09032468e3a7c14f560287, type: 3}
+    - {fileID: 8300000, guid: de42263b920f73149b50004538abe90d, type: 3}
+    - {fileID: 8300000, guid: f128db803fbb7b14bb592dc55cb503ce, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -909,6 +956,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!169 &326176012
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479070398}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.47403365
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &788556236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1143,7 @@ GameObject:
   - component: {fileID: 1013976699}
   - component: {fileID: 1013976698}
   - component: {fileID: 1013976697}
+  - component: {fileID: 651555451}
   m_Layer: 0
   m_Name: ObjectCollisionTestObject (5)
   m_TagString: Untagged
@@ -1154,7 +1227,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1228,7 +1301,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1250,26 +1323,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 0.5
-  maxPitch: 0.75
+  minVolume: 0.2
+  maxVolume: 0.2
+  minPitch: 0.25
+  maxPitch: 0.25
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: 34305c302c1f10d44a9d1f91f19266cc, type: 3}
-    - {fileID: 8300000, guid: 801338ff4a7a2a74096e3916fa2307c5, type: 3}
-    - {fileID: 8300000, guid: 73267bf250baf7a458466faffaa47e2f, type: 3}
-    - {fileID: 8300000, guid: 58c646a3942eba440b979c4dab6686b3, type: 3}
-    - {fileID: 8300000, guid: 79038f31a50a3064dad28dd97c943fcf, type: 3}
-    - {fileID: 8300000, guid: dbd2ba01975796c4592cbc5c0218be56, type: 3}
-    - {fileID: 8300000, guid: 2e32e8ea91a90534590dd247257866fa, type: 3}
-    - {fileID: 8300000, guid: 863f966ec44676b48af921b83fa3b291, type: 3}
-    - {fileID: 8300000, guid: 1bcaab4e1be985441b0422eab9a3a3b0, type: 3}
-    - {fileID: 8300000, guid: bb0698aeef0264546a84ffb3ec5d724b, type: 3}
-    - {fileID: 8300000, guid: 80776d282ae141641b42e8832328829b, type: 3}
-    - {fileID: 8300000, guid: ef5a5327173c7f748a5bec029aaf6509, type: 3}
+    - {fileID: 8300000, guid: e4bc569a0d25c254295ca295f0bec0e2, type: 3}
+    - {fileID: 8300000, guid: 7f48a6327e8061a438fa0042799be080, type: 3}
+    - {fileID: 8300000, guid: 0e0fd60ad3115b540a82707f10050e4b, type: 3}
+    - {fileID: 8300000, guid: d2df49723a3760f4bab2878328efa939, type: 3}
+    - {fileID: 8300000, guid: 3202e45b91414614a9feeae010c4f4ce, type: 3}
+    - {fileID: 8300000, guid: eed7d8d04ec368843bc758d47397c5f8, type: 3}
+    - {fileID: 8300000, guid: 176be1e7d06ba574981ec2554f90d76e, type: 3}
+    - {fileID: 8300000, guid: 78df7f83cf09032468e3a7c14f560287, type: 3}
+    - {fileID: 8300000, guid: de42263b920f73149b50004538abe90d, type: 3}
+    - {fileID: 8300000, guid: f128db803fbb7b14bb592dc55cb503ce, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -1317,6 +1388,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!169 &651555451
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013976695}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.47403365
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1201674913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,6 +1429,7 @@ GameObject:
   - component: {fileID: 1201674917}
   - component: {fileID: 1201674916}
   - component: {fileID: 1201674915}
+  - component: {fileID: 549208540}
   m_Layer: 0
   m_Name: ObjectCollisionTestObject (3)
   m_TagString: Untagged
@@ -1416,7 +1513,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1490,7 +1587,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1512,26 +1609,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 0.5
-  maxPitch: 0.75
+  minVolume: 0.2
+  maxVolume: 0.2
+  minPitch: 0.25
+  maxPitch: 0.25
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: 34305c302c1f10d44a9d1f91f19266cc, type: 3}
-    - {fileID: 8300000, guid: 801338ff4a7a2a74096e3916fa2307c5, type: 3}
-    - {fileID: 8300000, guid: 73267bf250baf7a458466faffaa47e2f, type: 3}
-    - {fileID: 8300000, guid: 58c646a3942eba440b979c4dab6686b3, type: 3}
-    - {fileID: 8300000, guid: 79038f31a50a3064dad28dd97c943fcf, type: 3}
-    - {fileID: 8300000, guid: dbd2ba01975796c4592cbc5c0218be56, type: 3}
-    - {fileID: 8300000, guid: 2e32e8ea91a90534590dd247257866fa, type: 3}
-    - {fileID: 8300000, guid: 863f966ec44676b48af921b83fa3b291, type: 3}
-    - {fileID: 8300000, guid: 1bcaab4e1be985441b0422eab9a3a3b0, type: 3}
-    - {fileID: 8300000, guid: bb0698aeef0264546a84ffb3ec5d724b, type: 3}
-    - {fileID: 8300000, guid: 80776d282ae141641b42e8832328829b, type: 3}
-    - {fileID: 8300000, guid: ef5a5327173c7f748a5bec029aaf6509, type: 3}
+    - {fileID: 8300000, guid: e4bc569a0d25c254295ca295f0bec0e2, type: 3}
+    - {fileID: 8300000, guid: 7f48a6327e8061a438fa0042799be080, type: 3}
+    - {fileID: 8300000, guid: 0e0fd60ad3115b540a82707f10050e4b, type: 3}
+    - {fileID: 8300000, guid: d2df49723a3760f4bab2878328efa939, type: 3}
+    - {fileID: 8300000, guid: 3202e45b91414614a9feeae010c4f4ce, type: 3}
+    - {fileID: 8300000, guid: eed7d8d04ec368843bc758d47397c5f8, type: 3}
+    - {fileID: 8300000, guid: 176be1e7d06ba574981ec2554f90d76e, type: 3}
+    - {fileID: 8300000, guid: 78df7f83cf09032468e3a7c14f560287, type: 3}
+    - {fileID: 8300000, guid: de42263b920f73149b50004538abe90d, type: 3}
+    - {fileID: 8300000, guid: f128db803fbb7b14bb592dc55cb503ce, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -1579,6 +1674,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!169 &549208540
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201674913}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.47403365
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1446881627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,6 +1715,7 @@ GameObject:
   - component: {fileID: 1446881631}
   - component: {fileID: 1446881630}
   - component: {fileID: 1446881629}
+  - component: {fileID: 1536176097}
   m_Layer: 0
   m_Name: ObjectCollisionTestObject (1)
   m_TagString: Untagged
@@ -1678,7 +1799,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1752,7 +1873,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1774,26 +1895,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 0.5
-  maxPitch: 0.75
+  minVolume: 0.2
+  maxVolume: 0.2
+  minPitch: 0.25
+  maxPitch: 0.25
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: 34305c302c1f10d44a9d1f91f19266cc, type: 3}
-    - {fileID: 8300000, guid: 801338ff4a7a2a74096e3916fa2307c5, type: 3}
-    - {fileID: 8300000, guid: 73267bf250baf7a458466faffaa47e2f, type: 3}
-    - {fileID: 8300000, guid: 58c646a3942eba440b979c4dab6686b3, type: 3}
-    - {fileID: 8300000, guid: 79038f31a50a3064dad28dd97c943fcf, type: 3}
-    - {fileID: 8300000, guid: dbd2ba01975796c4592cbc5c0218be56, type: 3}
-    - {fileID: 8300000, guid: 2e32e8ea91a90534590dd247257866fa, type: 3}
-    - {fileID: 8300000, guid: 863f966ec44676b48af921b83fa3b291, type: 3}
-    - {fileID: 8300000, guid: 1bcaab4e1be985441b0422eab9a3a3b0, type: 3}
-    - {fileID: 8300000, guid: bb0698aeef0264546a84ffb3ec5d724b, type: 3}
-    - {fileID: 8300000, guid: 80776d282ae141641b42e8832328829b, type: 3}
-    - {fileID: 8300000, guid: ef5a5327173c7f748a5bec029aaf6509, type: 3}
+    - {fileID: 8300000, guid: e4bc569a0d25c254295ca295f0bec0e2, type: 3}
+    - {fileID: 8300000, guid: 7f48a6327e8061a438fa0042799be080, type: 3}
+    - {fileID: 8300000, guid: 0e0fd60ad3115b540a82707f10050e4b, type: 3}
+    - {fileID: 8300000, guid: d2df49723a3760f4bab2878328efa939, type: 3}
+    - {fileID: 8300000, guid: 3202e45b91414614a9feeae010c4f4ce, type: 3}
+    - {fileID: 8300000, guid: eed7d8d04ec368843bc758d47397c5f8, type: 3}
+    - {fileID: 8300000, guid: 176be1e7d06ba574981ec2554f90d76e, type: 3}
+    - {fileID: 8300000, guid: 78df7f83cf09032468e3a7c14f560287, type: 3}
+    - {fileID: 8300000, guid: de42263b920f73149b50004538abe90d, type: 3}
+    - {fileID: 8300000, guid: f128db803fbb7b14bb592dc55cb503ce, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -1841,6 +1960,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!169 &1536176097
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446881627}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.47403365
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1457698850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1857,6 +2001,7 @@ GameObject:
   - component: {fileID: 1457698854}
   - component: {fileID: 1457698853}
   - component: {fileID: 1457698852}
+  - component: {fileID: 1759041254}
   m_Layer: 0
   m_Name: ObjectCollisionTestObject (4)
   m_TagString: Untagged
@@ -1940,7 +2085,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2014,7 +2159,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2036,26 +2181,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 0.5
-  maxPitch: 0.75
+  minVolume: 0.2
+  maxVolume: 0.2
+  minPitch: 0.25
+  maxPitch: 0.25
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: 34305c302c1f10d44a9d1f91f19266cc, type: 3}
-    - {fileID: 8300000, guid: 801338ff4a7a2a74096e3916fa2307c5, type: 3}
-    - {fileID: 8300000, guid: 73267bf250baf7a458466faffaa47e2f, type: 3}
-    - {fileID: 8300000, guid: 58c646a3942eba440b979c4dab6686b3, type: 3}
-    - {fileID: 8300000, guid: 79038f31a50a3064dad28dd97c943fcf, type: 3}
-    - {fileID: 8300000, guid: dbd2ba01975796c4592cbc5c0218be56, type: 3}
-    - {fileID: 8300000, guid: 2e32e8ea91a90534590dd247257866fa, type: 3}
-    - {fileID: 8300000, guid: 863f966ec44676b48af921b83fa3b291, type: 3}
-    - {fileID: 8300000, guid: 1bcaab4e1be985441b0422eab9a3a3b0, type: 3}
-    - {fileID: 8300000, guid: bb0698aeef0264546a84ffb3ec5d724b, type: 3}
-    - {fileID: 8300000, guid: 80776d282ae141641b42e8832328829b, type: 3}
-    - {fileID: 8300000, guid: ef5a5327173c7f748a5bec029aaf6509, type: 3}
+    - {fileID: 8300000, guid: e4bc569a0d25c254295ca295f0bec0e2, type: 3}
+    - {fileID: 8300000, guid: 7f48a6327e8061a438fa0042799be080, type: 3}
+    - {fileID: 8300000, guid: 0e0fd60ad3115b540a82707f10050e4b, type: 3}
+    - {fileID: 8300000, guid: d2df49723a3760f4bab2878328efa939, type: 3}
+    - {fileID: 8300000, guid: 3202e45b91414614a9feeae010c4f4ce, type: 3}
+    - {fileID: 8300000, guid: eed7d8d04ec368843bc758d47397c5f8, type: 3}
+    - {fileID: 8300000, guid: 176be1e7d06ba574981ec2554f90d76e, type: 3}
+    - {fileID: 8300000, guid: 78df7f83cf09032468e3a7c14f560287, type: 3}
+    - {fileID: 8300000, guid: de42263b920f73149b50004538abe90d, type: 3}
+    - {fileID: 8300000, guid: f128db803fbb7b14bb592dc55cb503ce, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -2103,6 +2246,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!169 &1759041254
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457698850}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.47403365
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2726635459806964259
 GameObject:
   m_ObjectHideFlags: 0
