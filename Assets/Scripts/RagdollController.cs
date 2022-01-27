@@ -9,14 +9,17 @@ public class RagdollController : MonoBehaviour
     private Animator thisAnimatior;
     private NavMeshAgent agent;
 
-    private Collider[] ragdollColliders;
-    private Rigidbody[] ragdollRigidbodies;
+    [HideInInspector]
+    public Collider[] ragdollColliders;
+    [HideInInspector]
+    public Rigidbody[] ragdollRigidbodies;
 
-    public GameObject mesh;
+    public GameObject rig;
     public bool pickedUpByPlayer;
     public bool ragdolling;
     public EnemyStatisticsManager enemyStatisticsManager;
     public MonoBehaviour[] monoBehaviourToggle;
+    public Renderer renderer;
 
     void Start()
     {
@@ -65,7 +68,7 @@ public class RagdollController : MonoBehaviour
             agent.enabled = true;
         }
         ragdolling = false;
-        transform.position = mesh.transform.position;
+        transform.position = rig.transform.position;
     }
 
     /// <summary>

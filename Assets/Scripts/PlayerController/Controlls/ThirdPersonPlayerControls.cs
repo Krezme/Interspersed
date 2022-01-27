@@ -121,6 +121,14 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ArmMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""33fbfd26-a5e4-43d3-908f-42cbd8a8b8f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -497,6 +505,28 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""ESC"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f2c945f-4fe8-4305-abc7-09030016ad33"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""ArmMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc392514-0b8f-4d60-b2da-d3c1f6cd4039"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""ArmMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -508,12 +538,12 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
                     ""isOR"": false
                 },
                 {
                     ""devicePath"": ""<Mouse>"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
                     ""isOR"": false
                 }
             ]
@@ -524,7 +554,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<XInputController>"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
                     ""isOR"": false
                 }
             ]
@@ -546,6 +576,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         m_Player_Arm1 = m_Player.FindAction("Arm1", throwIfNotFound: true);
         m_Player_Arm2 = m_Player.FindAction("Arm2", throwIfNotFound: true);
         m_Player_ESC = m_Player.FindAction("ESC", throwIfNotFound: true);
+        m_Player_ArmMode = m_Player.FindAction("ArmMode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -608,6 +639,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Arm1;
     private readonly InputAction m_Player_Arm2;
     private readonly InputAction m_Player_ESC;
+    private readonly InputAction m_Player_ArmMode;
     public struct PlayerActions
     {
         private @ThirdPersonPlayerControls m_Wrapper;
@@ -625,6 +657,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         public InputAction @Arm1 => m_Wrapper.m_Player_Arm1;
         public InputAction @Arm2 => m_Wrapper.m_Player_Arm2;
         public InputAction @ESC => m_Wrapper.m_Player_ESC;
+        public InputAction @ArmMode => m_Wrapper.m_Player_ArmMode;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -673,6 +706,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @ESC.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
                 @ESC.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
                 @ESC.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
+                @ArmMode.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArmMode;
+                @ArmMode.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArmMode;
+                @ArmMode.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArmMode;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -716,6 +752,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @ESC.started += instance.OnESC;
                 @ESC.performed += instance.OnESC;
                 @ESC.canceled += instance.OnESC;
+                @ArmMode.started += instance.OnArmMode;
+                @ArmMode.performed += instance.OnArmMode;
+                @ArmMode.canceled += instance.OnArmMode;
             }
         }
     }
@@ -753,5 +792,6 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         void OnArm1(InputAction.CallbackContext context);
         void OnArm2(InputAction.CallbackContext context);
         void OnESC(InputAction.CallbackContext context);
+        void OnArmMode(InputAction.CallbackContext context);
     }
 }
