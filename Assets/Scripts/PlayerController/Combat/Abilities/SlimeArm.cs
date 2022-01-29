@@ -61,12 +61,11 @@ public class SlimeArm : PlayerAbility
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                             grabbedRagdoll.pickedUpByPlayer = true;
                             
-                            
                             grabbedRagdoll.RagdollOn();
                             if (Physics.Raycast(ray, out hit, maxGrabDistance))
                             {
-                                grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                                grabbedRB.constraints = RigidbodyConstraints.FreezeRotationY;
+                                grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
+                                grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
                             }
                             foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
                                 changedRigidBodies.Add(rb);
@@ -83,7 +82,15 @@ public class SlimeArm : PlayerAbility
                             currentRBDefaultAngularFriction.Add(grabbedRB.angularDrag);
                             grabbedRB.angularDrag = grabbedNewAngularFriction;
                         }
-                        slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
+                        if (grabbedRagdoll != null) {
+                            slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
+                            slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRagdoll.rigCentre;
+                        }
+                        else {
+                            slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
+                            slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRB.gameObject;
+                        }
+                        
                         if (grabbedRB)
                         {
                             grabbedRB.useGravity = false;
@@ -138,7 +145,7 @@ public class SlimeArm : PlayerAbility
                 }
                 changedRigidBodies = new List<Rigidbody>();
                 currentRBDefaultAngularFriction = new List<float>();
-                grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>();
+                grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>(); // ? Maybe add this component to the chest of the enemy, if grabbedRagdoll is not null, so the actual object that needs to collide is the chest and NOT the grabbed one
                 grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
@@ -149,6 +156,18 @@ public class SlimeArm : PlayerAbility
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
                 OnPlayerInput.instance.onFire1 = false;
+            }
+        }
+    }
+
+    private void ShieldWithGrabbed() {
+        if (OnPlayerInput.instance.onFire2) {
+            if (grabbedRB && OnPlayerInput.instance.onAbility1) {
+                if (grabbedRagdoll != null) {
+                    foreach(Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
+                        rb.constraints  = RigidbodyConstraints.FreezeRotation;
+                    }
+                }
             }
         }
     }

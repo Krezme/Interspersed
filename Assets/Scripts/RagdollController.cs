@@ -19,7 +19,8 @@ public class RagdollController : MonoBehaviour
     public bool ragdolling;
     public EnemyStatisticsManager enemyStatisticsManager;
     public MonoBehaviour[] monoBehaviourToggle;
-    public Renderer renderer;
+
+    public GameObject rigCentre;
 
     void Start()
     {

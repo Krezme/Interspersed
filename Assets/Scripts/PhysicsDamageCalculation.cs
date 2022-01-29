@@ -16,11 +16,14 @@ public class PhysicsDamageCalculation : MonoBehaviour
         enemyStatisticsManager = GetComponent<EnemyStatisticsManager>();
     }
 
+    /// <summary>
+    /// When registering a collision it gets the current velocity of the object and compares it to the minimum force required
+    /// when the condition is met this calculates the avrage velocity of the object trough its lunched state to get a consitent damage
+    /// </summary>
+    /// <param name="other">The collided game object</param>
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody otherRB)){
-            float testTemp = Mathf.Abs(otherRB.velocity.x) + Mathf.Abs(otherRB.velocity.y) + Mathf.Abs(otherRB.velocity.z);
-            //Debug.Log(testTemp);
             if (Mathf.Abs(otherRB.velocity.x) + Mathf.Abs(otherRB.velocity.y) + Mathf.Abs(otherRB.velocity.z) >= minimumForceRequired) {
                 PhysicsDamageableObject physicsDamageableObject;
                 if (other.gameObject.TryGetComponent<PhysicsDamageableObject>(out physicsDamageableObject)) {
