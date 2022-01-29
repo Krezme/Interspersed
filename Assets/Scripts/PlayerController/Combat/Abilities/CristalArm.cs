@@ -24,7 +24,7 @@ public class CristalArm : PlayerAbility
 
     public AudioSource audioSource;
 
-    public AudioClip abilitySound;
+    public AudioClip CrystalShot;
 
     public GameObject changeToArm;
 
@@ -39,6 +39,16 @@ public class CristalArm : PlayerAbility
     private float currentChargeStage;
 
     private GameObject currentBullet;
+
+    public AudioClip ChargeOn; //Rhys - Plays when electrical shot is activated
+
+    public AudioClip ChargeOff; //Rhys - Plays when electrical shot is deactivated without firing
+
+    public AudioClip ElectricShot; //Rhys - Plays when holding fire key
+
+    public AudioSource Charging; //Rhys - Crystal arm charging sound
+
+
 
     void Update () {
         ElectricChargeCooldown();
@@ -98,9 +108,36 @@ public class CristalArm : PlayerAbility
         if (OnPlayerInput.instance.onAbility1 && statistics.currentElectricShots > 0) { // Toggle the electric ability
             statistics.isElectric = !statistics.isElectric;
             OnPlayerInput.instance.onAbility1 = false;
+
+
+            //audioSource.PlayOneShot(ChargeSwap);
+            if (statistics.isElectric == true)
+            {
+                audioSource.PlayOneShot(ChargeOn); //Rhys - Plays charge on sound when is.Electric == True
+            }
+            else
+            {
+                //isElectric = false;
+                audioSource.PlayOneShot(ChargeOff); //Rhys - Plays charge off sound when is.Electric !true
+            }
+
+
         } 
-        if (!OnPlayerInput.instance.onFire1) {
-            
+        if (!OnPlayerInput.instance.onFire1) { 
+
+
+
+            if (OnPlayerInput.instance.onAbility1 == false) //Rhys - Plays the charging sound while holding fire and stops the sound when released
+            {
+                Charging.Play();
+            }
+            else
+            {
+                Charging.Stop();
+            }
+
+ 
+
             if (timePassed > 0) {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
@@ -110,10 +147,26 @@ public class CristalArm : PlayerAbility
                 newBulletProjectile.statistics.isElectric = statistics.isElectric; // setting the projectile to electric 
                 if (statistics.isElectric) { // Decreasing charged shots
                     statistics.currentElectricShots--;
+
+                    if (statistics.isElectric == true) //Rhys - Plays electric shot if isElectric == true                    
+                    {
+                        audioSource.PlayOneShot(ElectricShot);
+                        Debug.Log("Electric");
+                    }
+
                 }
                 statistics.isElectric = false;
                 OnPlayerInput.instance.onFire1 = false;
-                audioSource.PlayOneShot(abilitySound);
+
+
+                if (statistics.isElectric == false) //Rhys - Plays electric shot if isElectric == false - I used to have an if/else statement here however it seemed to ignore the else and only played the regular sound, so I seperated the sounds into 2 if statements for now
+                {
+                    audioSource.PlayOneShot(CrystalShot);
+                    Debug.Log("Regular");
+                }
+                
+              
+
             }
             if (crosshair != null){
                 crosshair.value = 0;
