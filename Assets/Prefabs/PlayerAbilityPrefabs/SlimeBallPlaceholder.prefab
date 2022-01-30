@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3318853465249050941}
   - component: {fileID: 3318853465249050938}
   - component: {fileID: 3318853465249050939}
-  m_Layer: 0
+  - component: {fileID: -2325064884688327528}
+  m_Layer: 2
   m_Name: SlimeBallPlaceholder
-  m_TagString: Untagged
+  m_TagString: SlimeShield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,4 +98,17 @@ MonoBehaviour:
   objectScaleTo: {fileID: 0}
   scaleOffset: 1
   scaleToSpeed: 0
-  currentSize: {x: 0, y: 0, z: 0}
+  parentSize: {x: 0, y: 0, z: 0}
+--- !u!135 &-2325064884688327528
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3318853465249050936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
