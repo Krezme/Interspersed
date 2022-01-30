@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1701073143}
   - component: {fileID: 1701073142}
   - component: {fileID: -8360521353524901577}
-  - component: {fileID: 1307030115211753076}
   - component: {fileID: 5805469011468490780}
   m_Layer: 10
   m_Name: CrystalBullet S3
@@ -59,6 +58,7 @@ MonoBehaviour:
     speed: 10
   bulletRigidbody: {fileID: 1701073143}
   electricSparks: {fileID: 4831216751449139813}
+  BulletImpact: {fileID: 5805469011468490780}
 --- !u!54 &1701073143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -185,19 +185,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1307030115211753076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3470485994608312727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06db86f56c964b94db094dd79fa2642d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 5805469011468490780}
 --- !u!114 &5805469011468490780
 MonoBehaviour:
   m_ObjectHideFlags: 0

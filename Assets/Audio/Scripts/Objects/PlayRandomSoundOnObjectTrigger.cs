@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Gamekit3D //The RandomAudioPlayer scipt was originally copied from Unity's 3DGameKit 'The Explorer' and to my knowledge, requires this namespace to function
-{
+
 
     [RequireComponent(typeof(AudioSource))]
 
@@ -20,4 +19,3 @@ namespace Gamekit3D //The RandomAudioPlayer scipt was originally copied from Uni
         }
     }
     //Next is to implement surface detection using the same method as used for the footsteps
-}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 11200.646, g: 12493.328, b: 12534.016, a: 1}
+  m_IndirectSpecularColor: {r: 9972.099, g: 8794.633, b: 6968.7266, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12630,6 +12630,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fa060cc258dc3244ba5458ae7f8b639, type: 3}
+--- !u!1 &569820118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8486629471409610619, guid: 935fb2078b2bad749b29c45de2e794d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3229583470946494290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!164 &569820124
+AudioReverbFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569820118}
+  m_Enabled: 1
+  m_DryLevel: 0
+  m_Room: 0
+  m_RoomHF: 0
+  m_DecayTime: 1
+  m_DecayHFRatio: 0.5
+  m_ReflectionsLevel: -10000
+  m_ReverbLevel: 0
+  m_ReverbDelay: 0.04
+  m_Diffusion: 100
+  m_Density: 100
+  m_HFReference: 5000
+  m_RoomLF: 0
+  m_LFReference: 250
+  m_ReflectionsDelay: 0
+  m_ReverbPreset: 27
 --- !u!1001 &573642516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37128,16 +37157,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 995972451942568869, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: defaultBank.clips.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 995972451942568869, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: defaultBank.clips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 00d8a0a4d0da2fb47a58f1dfee4c1845, type: 3}
     - target: {fileID: 1008479993094344304, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: cam
@@ -37153,16 +37172,6 @@ PrefabInstance:
       propertyPath: aimVirtualCamera
       value: 
       objectReference: {fileID: 418391268}
-    - target: {fileID: 2950691652099078412, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: defaultBank.clips.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2950691652099078412, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: defaultBank.clips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: ba0e9803fca46f544a1ddb8f4909b884, type: 3}
     - target: {fileID: 2966370538525935677, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: aimVirtualCamera
@@ -37173,21 +37182,6 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 601658518}
-    - target: {fileID: 3205976935013982948, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: DopplerLevel
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4368016361496645584, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: defaultBank.clips.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4368016361496645584, guid: 011ebcb7dac1294429efd96cd3cb5575,
-        type: 3}
-      propertyPath: defaultBank.clips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3a88555fd56b2794b98147d9c36b9d05, type: 3}
     - target: {fileID: 4433144296201853555, guid: 011ebcb7dac1294429efd96cd3cb5575,
         type: 3}
       propertyPath: m_RootOrder
@@ -44998,6 +44992,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FloatRock_1 (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 4329992758225923795, guid: 13a8a4b00677489459276ec209a79d95,
+        type: 3}
+      propertyPath: m_TagString
+      value: Surface_Stone
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a8a4b00677489459276ec209a79d95, type: 3}
 --- !u!1001 &2052662286
@@ -47741,6 +47740,56 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].inSlope
+      value: 0.011859059
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[1].inSlope
+      value: -0.00837339
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].outSlope
+      value: 0.011859059
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[1].inWeight
+      value: 0.9952153
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[1].outSlope
+      value: -0.00837339
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229583470946494292, guid: 935fb2078b2bad749b29c45de2e794d6,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].outWeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8100066721082401694, guid: 935fb2078b2bad749b29c45de2e794d6,
         type: 3}
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.size
@@ -47924,32 +47973,88 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 387348736, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 387348736, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: m_TagString
-      value: Surface_Test
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 387348740, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: RequiredVelocity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 456158227, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 456158227, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: m_TagString
-      value: Surface_Test
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 456158234, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: RequiredVelocity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 479070398, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479070398, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: m_TagString
-      value: Surface_Test
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 479070402, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: RequiredVelocity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013976695, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1013976695, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: m_TagString
-      value: Surface_Test
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013976699, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: RequiredVelocity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201674913, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1201674913, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: m_TagString
-      value: Surface_Test
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201674917, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: RequiredVelocity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446881627, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1446881627, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: m_TagString
-      value: Surface_Test
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446881631, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: RequiredVelocity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457698850, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1457698850, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
       propertyPath: m_TagString
-      value: Surface_Test
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457698854, guid: ea8f51932dd9ebc4594ef1eb69ed05ca, type: 3}
+      propertyPath: RequiredVelocity
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6820349921072403552, guid: ea8f51932dd9ebc4594ef1eb69ed05ca,
         type: 3}

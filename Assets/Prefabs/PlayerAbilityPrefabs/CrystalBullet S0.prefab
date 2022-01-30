@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1701073142}
   - component: {fileID: 5572082340841992863}
   - component: {fileID: -6128610970427056319}
-  - component: {fileID: 4177394294979836424}
   m_Layer: 10
   m_Name: CrystalBullet S0
   m_TagString: PlayerBullet
@@ -59,6 +58,7 @@ MonoBehaviour:
     speed: 10
   bulletRigidbody: {fileID: 1701073143}
   electricSparks: {fileID: 6535173058667567451}
+  BulletImpact: {fileID: -6128610970427056319}
 --- !u!54 &1701073143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -220,19 +220,6 @@ MonoBehaviour:
   overrides: []
   playing: 0
   canPlay: 0
---- !u!114 &4177394294979836424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3470485994608312727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06db86f56c964b94db094dd79fa2642d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: -6128610970427056319}
 --- !u!1001 &3470485993375695488
 PrefabInstance:
   m_ObjectHideFlags: 0

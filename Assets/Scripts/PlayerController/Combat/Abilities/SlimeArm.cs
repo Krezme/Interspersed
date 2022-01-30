@@ -16,6 +16,10 @@ public class SlimeArm : PlayerAbility
 
     public RandomAudioPlayer Throw; //Rhys - RandomAudioPlayer for when the slime arm throws something
 
+    public GameObject FadeIn;
+
+    public GameObject FadeOut;
+
 
     //Functionality Variables
     [SerializeField] Camera cam;
@@ -61,10 +65,13 @@ public class SlimeArm : PlayerAbility
                             Debug.Log(grabbedRB);
                             if (grabbedRB)
                             {
-                                Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm 
+                                Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
+                                FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
+                                FadeOut.SetActive(false);
                                 grabbedRB.isKinematic = true;
-                                PlayerAbilitiesController.instance.isAbilityActive = true;
+                                PlayerAbilitiesController.instance.isAbilityActive = true;                                
                             }
+                                                       
                         }
                     }
                     OnPlayerInput.instance.onFire1 = false; // Sets the onFire1 button to false to require for another press
@@ -81,6 +88,8 @@ public class SlimeArm : PlayerAbility
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
                 Drop.PlayRandomClip(); //Plays sound when held object is dropped without throwing
+                FadeIn.SetActive(false);
+                FadeOut.SetActive(true);
             }
         }
     }
@@ -96,6 +105,8 @@ public class SlimeArm : PlayerAbility
             if (OnPlayerInput.instance.onFire1)
             {
                 Throw.PlayRandomClip(); //Rhys - Plays sound when held object is thrown
+                FadeIn.SetActive(false);
+                FadeOut.SetActive(true);
                 grabbedRB.isKinematic = false;
                 grabbedRB.AddForce(cam.transform.forward * throwforce, ForceMode.VelocityChange);
                 grabbedRB = null;

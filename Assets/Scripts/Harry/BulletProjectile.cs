@@ -33,6 +33,10 @@ public class BulletProjectile : MonoBehaviour
 
     private bool hasCollided;
 
+    public RandomAudioPlayer BulletImpact; //Rhys - Adds functionality for bullet to play impact sound, also opens up the possibility of different surface impact sounds
+
+
+
     private void Start()
     {
         bulletRigidbody.velocity = transform.forward * (statistics.speed * statistics.chargeStage);
@@ -62,6 +66,8 @@ public class BulletProjectile : MonoBehaviour
     {
         Vector3 hitPos = transform.position;
         if (!hasCollided) {
+
+            BulletImpact.PlayRandomClip();
 
             if (other.tag == "Enemy") { 
                 hasCollided = true; // Effectively dissables the OnTriggerEnter
