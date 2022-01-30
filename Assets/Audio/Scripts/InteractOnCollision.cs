@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Gamekit3D
-{
+
     [RequireComponent(typeof(Collider))]
     public class InteractOnCollision : MonoBehaviour
     {
@@ -36,4 +35,4 @@ namespace Gamekit3D
         }
 
     } 
-}
+

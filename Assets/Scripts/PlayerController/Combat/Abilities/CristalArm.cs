@@ -14,6 +14,8 @@ public class CrystalArmStatistics
     public bool isElectric;
 }
 
+
+
 public class CristalArm : PlayerAbility
 {
     public CrystalArmStatistics statistics;
@@ -24,7 +26,7 @@ public class CristalArm : PlayerAbility
 
     public AudioSource audioSource;
 
-    public AudioClip CrystalShot;
+    //public AudioClip CrystalShot; //Rhys - These have been commented out as I have upgraded the audio system to be handled by seperate RandomAudioPlayer objects
 
     public GameObject changeToArm;
 
@@ -40,13 +42,19 @@ public class CristalArm : PlayerAbility
 
     private GameObject currentBullet;
 
-    public AudioClip ChargeOn; //Rhys - Plays when electrical shot is activated
+    public RandomAudioPlayer ChargeOn; //Rhys - Plays when electrical shot is activated
 
-    public AudioClip ChargeOff; //Rhys - Plays when electrical shot is deactivated without firing
+    public RandomAudioPlayer ChargeOff; //Rhys - Plays when electrical shot is deactivated without firing
 
-    public AudioClip ElectricShot; //Rhys - Plays when holding fire key
+    public RandomAudioPlayer ChargingPlayer; //Rhys - Crystal arm charging sound
 
-    public AudioSource Charging; //Rhys - Crystal arm charging sound
+    public AudioSource ChargingSource;
+
+    public RandomAudioPlayer Regular; //Rhys - This enables my RandomAudioPlayer script to be created as an inspector window element to allow random sound variations for every sound handled by seperate sources - This allows for high customisation and ease of use
+
+    public RandomAudioPlayer Electric; //Rhys - Assign to RandomAudioPlayer for Electrical shot sound
+
+    private bool IsHold = false; //Rhys - Fixes an issue which would cause the RandomAudioPlayer to rapidly cycle through each charge sound variation instead of selecting one
 
 
 
@@ -113,30 +121,17 @@ public class CristalArm : PlayerAbility
             //audioSource.PlayOneShot(ChargeSwap);
             if (statistics.isElectric == true)
             {
-                audioSource.PlayOneShot(ChargeOn); //Rhys - Plays charge on sound when is.Electric == True
+                ChargeOn.PlayRandomClip(); //Rhys - Plays charge on sound when is.Electric == True
             }
             else
             {
                 //isElectric = false;
-                audioSource.PlayOneShot(ChargeOff); //Rhys - Plays charge off sound when is.Electric !true
+                ChargeOff.PlayRandomClip(); //Rhys - Plays charge off sound when is.Electric == false
             }
 
 
         } 
-        if (!OnPlayerInput.instance.onFire1) { 
-
-
-
-            if (OnPlayerInput.instance.onAbility1 == false) //Rhys - Plays the charging sound while holding fire and stops the sound when released
-            {
-                Charging.Play();
-            }
-            else
-            {
-                Charging.Stop();
-            }
-
- 
+        if (!OnPlayerInput.instance.onFire1) {
 
             if (timePassed > 0) {
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
@@ -150,21 +145,25 @@ public class CristalArm : PlayerAbility
 
                     if (statistics.isElectric == true) //Rhys - Plays electric shot if isElectric == true                    
                     {
-                        audioSource.PlayOneShot(ElectricShot);
+                        //audioSource.PlayOneShot(ElectricShot);
+                        Electric.PlayRandomClip();
                         Debug.Log("Electric");
                     }
 
                 }
+
+
                 statistics.isElectric = false;
                 OnPlayerInput.instance.onFire1 = false;
 
 
                 if (statistics.isElectric == false) //Rhys - Plays electric shot if isElectric == false - I used to have an if/else statement here however it seemed to ignore the else and only played the regular sound, so I seperated the sounds into 2 if statements for now
                 {
-                    audioSource.PlayOneShot(CrystalShot);
+                    //audioSource.PlayOneShot(CrystalShot);
+                    Regular.PlayRandomClip();
                     Debug.Log("Regular");
-                }
-                
+                    IsHold = false; //Rhys - Resets IsHold so that charging sound will be played when fire key is held again
+                }     
               
 
             }
@@ -174,5 +173,22 @@ public class CristalArm : PlayerAbility
             projectileDamage = 10;
             timePassed = 0;
         }
-    }
+
+
+        if (OnPlayerInput.instance.onFire1) //Rhys - Performs the opposite of the above code so that the charging sound plays 
+        {
+            if (IsHold == false) //Rhys - Checks to see if fire key has been held down already 
+            {
+                ChargingPlayer.PlayRandomClip();
+                //Debug.Log("Charging...");
+                IsHold = true; //Rhys - Once the fire key has been held down, IsHeld is set to true to prevent the RandomAudioPlayer from constantly cycling through each variantion of the charge sound instead of selecting one
+            }
+        }
+        else
+        {
+            ChargingSource.Stop();
+            //Debug.Log("Stopping...");
+        }
+
+        }
 }

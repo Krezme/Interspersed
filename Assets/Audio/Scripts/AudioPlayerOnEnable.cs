@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gamekit3D
-{
+
     public class AudioPlayerOnEnable : MonoBehaviour
     {
         public RandomAudioPlayer player;
@@ -20,4 +19,4 @@ namespace Gamekit3D
                 player.audioSource.Stop();
         }
     } 
-}
+
