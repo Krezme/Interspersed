@@ -57,7 +57,6 @@ public class CristalArm : PlayerAbility
     private bool IsHold = false; //Rhys - Fixes an issue which would cause the RandomAudioPlayer to rapidly cycle through each charge sound variation instead of selecting one
 
 
-
     void Update () {
         ElectricChargeCooldown();
     }

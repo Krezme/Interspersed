@@ -8,7 +8,14 @@ public class SlimeArm : PlayerAbility
     public float cooldownMaxTime = 1;
     public float cooldownTimer = 0;
 
-    public GameObject changeToArm;
+    public GameObject changeToArm; 
+
+    public RandomAudioPlayer Pickup; //Rhys - RandomAudioPlayer for when the slime arm picks something up
+
+    public RandomAudioPlayer Drop; //Rhys - RandomAudioPlayer for when the slime arm drops something
+
+    public RandomAudioPlayer Throw; //Rhys - RandomAudioPlayer for when the slime arm throws something
+
 
     //Functionality Variables
     [SerializeField] Camera cam;
@@ -36,13 +43,13 @@ public class SlimeArm : PlayerAbility
     }
 
     private void PickUpAbility() {
-        if (OnPlayerInput.instance.onFire2) {
+        if (OnPlayerInput.instance.onFire2) {            
             if (OnPlayerInput.instance.onFire1 && cooldownTimer == 0) {
                 if (!grabbedRB) {
                     RaycastHit hit;
                     Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
-                    {
+                    {                        
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                         Debug.Log(grabbedRB);
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out RagdollController grabbedRagdoll)) {
@@ -54,6 +61,7 @@ public class SlimeArm : PlayerAbility
                             Debug.Log(grabbedRB);
                             if (grabbedRB)
                             {
+                                Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm 
                                 grabbedRB.isKinematic = true;
                                 PlayerAbilitiesController.instance.isAbilityActive = true;
                             }
@@ -72,6 +80,7 @@ public class SlimeArm : PlayerAbility
                 grabbedRB.isKinematic = false;
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
+                Drop.PlayRandomClip(); //Plays sound when held object is dropped without throwing
             }
         }
     }
@@ -86,6 +95,7 @@ public class SlimeArm : PlayerAbility
             
             if (OnPlayerInput.instance.onFire1)
             {
+                Throw.PlayRandomClip(); //Rhys - Plays sound when held object is thrown
                 grabbedRB.isKinematic = false;
                 grabbedRB.AddForce(cam.transform.forward * throwforce, ForceMode.VelocityChange);
                 grabbedRB = null;
