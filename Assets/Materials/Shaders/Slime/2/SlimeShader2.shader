@@ -6,6 +6,12 @@ Shader "SlimeShader2"
 	{
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
+		_SubSurfDistortModifier("SubSurf Distort Modifier", Range( 0 , 1)) = 0.7846152
+		_Color0("Color 0", Color) = (0.6059666,1,0.495283,0.8)
+		_Color1("Color 1", Color) = (0.08518437,0.3490566,0.01481843,0.07058824)
+		_Smoothness("Smoothness", Range( 0 , 1)) = 0.98
+		_IOR("IOR", Float) = 1.309
+		[ASEEnd]_RefractDistance("Refract Distance", Float) = 1
 
 		[HideInInspector] _RenderQueueType("Render Queue Type", Float) = 5
 		[HideInInspector] [ToggleUI] _AddPrecomputedVelocity("Add Precomputed Velocity", Float) = 1
@@ -276,10 +282,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -323,7 +331,13 @@ Shader "SlimeShader2"
 			#endif
 
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -372,7 +386,11 @@ Shader "SlimeShader2"
 				float _TessMaxDisp;
 			#endif
 			CBUFFER_END
-			
+			float4x4 unity_CameraProjection;
+			float4x4 unity_CameraInvProjection;
+			float4x4 unity_WorldToCamera;
+			float4x4 unity_CameraToWorld;
+
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/Lit.hlsl"
@@ -382,7 +400,12 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
+			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+			#define ASE_NEEDS_FRAG_RELATIVE_WORLD_POS
+			#define ASE_NEEDS_FRAG_WORLD_TANGENT
+			#define ASE_NEEDS_VERT_TANGENT
 
 
 			#if defined(_DOUBLESIDED_ON) && !defined(ASE_NEED_CULLFACE)
@@ -396,7 +419,7 @@ Shader "SlimeShader2"
 				float4 tangentOS : TANGENT;
 				float4 uv1 : TEXCOORD1;
 				float4 uv2 : TEXCOORD2;
-				float4 ase_texcoord : TEXCOORD0;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -408,6 +431,7 @@ Shader "SlimeShader2"
 				float4 interp02 : TEXCOORD2;
 				float4 interp03 : TEXCOORD3;
 				float4 interp04 : TEXCOORD4;
+				float3 ase_normal : NORMAL;
 				float4 ase_texcoord5 : TEXCOORD5;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
@@ -417,14 +441,14 @@ Shader "SlimeShader2"
 			};
 
 
-					float2 voronoihash26( float2 p )
+					float2 voronoihash75( float2 p )
 					{
-						p = p - 3 * floor( p / 3 );
+						
 						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
 						return frac( sin( p ) *43758.5453);
 					}
 			
-					float voronoi26( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
 					{
 						float2 n = floor( v );
 						float2 f = frac( v );
@@ -435,7 +459,7 @@ Shader "SlimeShader2"
 							for ( int i = -1; i <= 1; i++ )
 						 	{
 						 		float2 g = float2( i, j );
-						 		float2 o = voronoihash26( n + g );
+						 		float2 o = voronoihash75( n + g );
 								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
 								float d = 0.5 * dot( r, r );
 						 		if( d<F1 ) {
@@ -448,6 +472,58 @@ Shader "SlimeShader2"
 						}
 						return F1;
 					}
+			
+			inline float noise_randomValue (float2 uv) { return frac(sin(dot(uv, float2(12.9898, 78.233)))*43758.5453); }
+			inline float noise_interpolate (float a, float b, float t) { return (1.0-t)*a + (t*b); }
+			inline float valueNoise (float2 uv)
+			{
+				float2 i = floor(uv);
+				float2 f = frac( uv );
+				f = f* f * (3.0 - 2.0 * f);
+				uv = abs( frac(uv) - 0.5);
+				float2 c0 = i + float2( 0.0, 0.0 );
+				float2 c1 = i + float2( 1.0, 0.0 );
+				float2 c2 = i + float2( 0.0, 1.0 );
+				float2 c3 = i + float2( 1.0, 1.0 );
+				float r0 = noise_randomValue( c0 );
+				float r1 = noise_randomValue( c1 );
+				float r2 = noise_randomValue( c2 );
+				float r3 = noise_randomValue( c3 );
+				float bottomOfGrid = noise_interpolate( r0, r1, f.x );
+				float topOfGrid = noise_interpolate( r2, r3, f.x );
+				float t = noise_interpolate( bottomOfGrid, topOfGrid, f.y );
+				return t;
+			}
+			
+			float SimpleNoise(float2 UV)
+			{
+				float t = 0.0;
+				float freq = pow( 2.0, float( 0 ) );
+				float amp = pow( 0.5, float( 3 - 0 ) );
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(1));
+				amp = pow(0.5, float(3-1));
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(2));
+				amp = pow(0.5, float(3-2));
+				t += valueNoise( UV/freq )*amp;
+				return t;
+			}
+			
+			float3 PerturbNormal107_g5( float3 surf_pos, float3 surf_norm, float height, float scale )
+			{
+				// "Bump Mapping Unparametrized Surfaces on the GPU" by Morten S. Mikkelsen
+				float3 vSigmaS = ddx( surf_pos );
+				float3 vSigmaT = ddy( surf_pos );
+				float3 vN = surf_norm;
+				float3 vR1 = cross( vSigmaT , vN );
+				float3 vR2 = cross( vN , vSigmaS );
+				float fDet = dot( vSigmaS , vR1 );
+				float dBs = ddx( height );
+				float dBt = ddy( height );
+				float3 vSurfGrad = scale * 0.05 * sign( fDet ) * ( dBs * vR1 + dBt * vR2 );
+				return normalize ( abs( fDet ) * vN - vSurfGrad );
+			}
 			
 
 			void BuildSurfaceData(FragInputs fragInputs, inout GlobalSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
@@ -648,17 +724,32 @@ Shader "SlimeShader2"
 				UNITY_TRANSFER_INSTANCE_ID(inputMesh, outputPackedVaryingsMeshToPS);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( outputPackedVaryingsMeshToPS );
 
-				outputPackedVaryingsMeshToPS.ase_texcoord5.xy = inputMesh.ase_texcoord.xy;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
+				
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				float3 ase_worldTangent = TransformObjectToWorldDir(inputMesh.tangentOS.xyz);
+				float ase_vertexTangentSign = inputMesh.tangentOS.w * unity_WorldTransformParams.w;
+				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
+				outputPackedVaryingsMeshToPS.ase_texcoord5.xyz = ase_worldBitangent;
+				
+				outputPackedVaryingsMeshToPS.ase_normal = inputMesh.normalOS;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				outputPackedVaryingsMeshToPS.ase_texcoord5.zw = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord5.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -690,8 +781,7 @@ Shader "SlimeShader2"
 				float4 tangentOS : TANGENT;
 				float4 uv1 : TEXCOORD1;
 				float4 uv2 : TEXCOORD2;
-				float4 ase_texcoord : TEXCOORD0;
-
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -711,7 +801,7 @@ Shader "SlimeShader2"
 				o.tangentOS = v.tangentOS;
 				o.uv1 = v.uv1;
 				o.uv2 = v.uv2;
-				o.ase_texcoord = v.ase_texcoord;
+				
 				return o;
 			}
 
@@ -758,7 +848,7 @@ Shader "SlimeShader2"
 				o.tangentOS = patch[0].tangentOS * bary.x + patch[1].tangentOS * bary.y + patch[2].tangentOS * bary.z;
 				o.uv1 = patch[0].uv1 * bary.x + patch[1].uv1 * bary.y + patch[2].uv1 * bary.z;
 				o.uv2 = patch[0].uv2 * bary.x + patch[1].uv2 * bary.y + patch[2].uv2 * bary.z;
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -814,27 +904,29 @@ Shader "SlimeShader2"
 				BuiltinData builtinData;
 
 				GlobalSurfaceDescription surfaceDescription = (GlobalSurfaceDescription)0;
-				float4 color28 = IsGammaSpace() ? float4(0.5224056,1,0.4198113,1) : float4(0.2353686,1,0.1471786,1);
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( normalWS * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( normalWS, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float4 lerpResult71 = lerp( _Color1 , _Color0 , temp_output_37_0);
 				
-				float time26 = 44.0;
-				float2 coords26 = packedInput.ase_texcoord5.xy * 3.0;
-				float2 id26 = 0;
-				float2 uv26 = 0;
-				float fade26 = 0.5;
-				float voroi26 = 0;
-				float rest26 = 0;
-				for( int it26 = 0; it26 <3; it26++ ){
-				voroi26 += fade26 * voronoi26( coords26, time26, id26, uv26, 0 );
-				rest26 += fade26;
-				coords26 *= 2;
-				fade26 *= 0.5;
-				}//Voronoi26
-				voroi26 /= rest26;
+				float3 ase_worldPos = GetAbsolutePositionWS( positionRWS );
+				float3 surf_pos107_g5 = ase_worldPos;
+				float3 surf_norm107_g5 = normalWS;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float simpleNoise78 = SimpleNoise( (packedInput.ase_normal*1.18 + mulTime81).xy*50.0 );
+				float height107_g5 = saturate( simpleNoise78 );
+				float scale107_g5 = 0.066;
+				float3 localPerturbNormal107_g5 = PerturbNormal107_g5( surf_pos107_g5 , surf_norm107_g5 , height107_g5 , scale107_g5 );
+				float3 ase_worldBitangent = packedInput.ase_texcoord5.xyz;
+				float3x3 ase_worldToTangent = float3x3(tangentWS.xyz,ase_worldBitangent,normalWS);
+				float3 worldToTangentDir42_g5 = mul( ase_worldToTangent, localPerturbNormal107_g5);
 				
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
 				
-				surfaceDescription.Albedo = color28.rgb;
-				surfaceDescription.Normal = float3( 0, 0, 1 );
+				surfaceDescription.Albedo = lerpResult71.rgb;
+				surfaceDescription.Normal = worldToTangentDir42_g5;
 				surfaceDescription.BentNormal = float3( 0, 0, 1 );
 				surfaceDescription.CoatMask = 0;
 				surfaceDescription.Metallic = 0;
@@ -843,10 +935,10 @@ Shader "SlimeShader2"
 				surfaceDescription.Specular = 0;
 				#endif
 
-				surfaceDescription.Emission = ( color28 * ( pow( voroi26 , 2.0 ) * 0.033 ) ).rgb;
-				surfaceDescription.Smoothness = 1.0;
+				surfaceDescription.Emission = 0;
+				surfaceDescription.Smoothness = _Smoothness;
 				surfaceDescription.Occlusion = 1;
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				surfaceDescription.Alpha = lerpResult63;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -873,9 +965,9 @@ Shader "SlimeShader2"
 				#endif
 
 				#ifdef _HAS_REFRACTION
-				surfaceDescription.RefractionIndex = 1;
-				surfaceDescription.RefractionColor = float3( 1, 1, 1 );
-				surfaceDescription.RefractionDistance = 0;
+				surfaceDescription.RefractionIndex = _IOR;
+				surfaceDescription.RefractionColor = lerpResult71.rgb;
+				surfaceDescription.RefractionDistance = _RefractDistance;
 				#endif
 
 				#ifdef _MATERIAL_FEATURE_SUBSURFACE_SCATTERING
@@ -933,10 +1025,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -969,7 +1063,13 @@ Shader "SlimeShader2"
 			#endif
 			
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -1018,7 +1118,11 @@ Shader "SlimeShader2"
 				float _TessMaxDisp;
 			#endif
 			CBUFFER_END
-			
+			float4x4 unity_CameraProjection;
+			float4x4 unity_CameraInvProjection;
+			float4x4 unity_WorldToCamera;
+			float4x4 unity_CameraToWorld;
+
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/Lit.hlsl"
@@ -1028,7 +1132,9 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
-			
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_VERT_TANGENT
+
 
 			#if defined(_DOUBLESIDED_ON) && !defined(ASE_NEED_CULLFACE)
 				#define ASE_NEED_CULLFACE 1
@@ -1051,20 +1157,23 @@ Shader "SlimeShader2"
 				float4 positionCS : SV_Position;
 				float4 ase_texcoord : TEXCOORD0;
 				float4 ase_texcoord1 : TEXCOORD1;
+				float3 ase_normal : NORMAL;
+				float4 ase_texcoord2 : TEXCOORD2;
+				float4 ase_texcoord3 : TEXCOORD3;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				#if defined(SHADER_STAGE_FRAGMENT) && defined(ASE_NEED_CULLFACE)
 				FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
 				#endif
 			};
 
-					float2 voronoihash26( float2 p )
+					float2 voronoihash75( float2 p )
 					{
-						p = p - 3 * floor( p / 3 );
+						
 						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
 						return frac( sin( p ) *43758.5453);
 					}
 			
-					float voronoi26( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
 					{
 						float2 n = floor( v );
 						float2 f = frac( v );
@@ -1075,7 +1184,7 @@ Shader "SlimeShader2"
 							for ( int i = -1; i <= 1; i++ )
 						 	{
 						 		float2 g = float2( i, j );
-						 		float2 o = voronoihash26( n + g );
+						 		float2 o = voronoihash75( n + g );
 								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
 								float d = 0.5 * dot( r, r );
 						 		if( d<F1 ) {
@@ -1088,6 +1197,58 @@ Shader "SlimeShader2"
 						}
 						return F1;
 					}
+			
+			inline float noise_randomValue (float2 uv) { return frac(sin(dot(uv, float2(12.9898, 78.233)))*43758.5453); }
+			inline float noise_interpolate (float a, float b, float t) { return (1.0-t)*a + (t*b); }
+			inline float valueNoise (float2 uv)
+			{
+				float2 i = floor(uv);
+				float2 f = frac( uv );
+				f = f* f * (3.0 - 2.0 * f);
+				uv = abs( frac(uv) - 0.5);
+				float2 c0 = i + float2( 0.0, 0.0 );
+				float2 c1 = i + float2( 1.0, 0.0 );
+				float2 c2 = i + float2( 0.0, 1.0 );
+				float2 c3 = i + float2( 1.0, 1.0 );
+				float r0 = noise_randomValue( c0 );
+				float r1 = noise_randomValue( c1 );
+				float r2 = noise_randomValue( c2 );
+				float r3 = noise_randomValue( c3 );
+				float bottomOfGrid = noise_interpolate( r0, r1, f.x );
+				float topOfGrid = noise_interpolate( r2, r3, f.x );
+				float t = noise_interpolate( bottomOfGrid, topOfGrid, f.y );
+				return t;
+			}
+			
+			float SimpleNoise(float2 UV)
+			{
+				float t = 0.0;
+				float freq = pow( 2.0, float( 0 ) );
+				float amp = pow( 0.5, float( 3 - 0 ) );
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(1));
+				amp = pow(0.5, float(3-1));
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(2));
+				amp = pow(0.5, float(3-2));
+				t += valueNoise( UV/freq )*amp;
+				return t;
+			}
+			
+			float3 PerturbNormal107_g5( float3 surf_pos, float3 surf_norm, float height, float scale )
+			{
+				// "Bump Mapping Unparametrized Surfaces on the GPU" by Morten S. Mikkelsen
+				float3 vSigmaS = ddx( surf_pos );
+				float3 vSigmaT = ddy( surf_pos );
+				float3 vN = surf_norm;
+				float3 vR1 = cross( vSigmaT , vN );
+				float3 vR2 = cross( vN , vSigmaS );
+				float fDet = dot( vSigmaS , vR1 );
+				float dBs = ddx( height );
+				float dBt = ddy( height );
+				float3 vSurfGrad = scale * 0.05 * sign( fDet ) * ( dBs * vR1 + dBt * vR2 );
+				return normalize ( abs( fDet ) * vN - vSurfGrad );
+			}
 			
 
 			void BuildSurfaceData(FragInputs fragInputs, inout GlobalSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
@@ -1288,21 +1449,40 @@ Shader "SlimeShader2"
 				UNITY_SETUP_INSTANCE_ID(inputMesh);
 				UNITY_TRANSFER_INSTANCE_ID(inputMesh, outputPackedVaryingsMeshToPS);
 
-				float3 ase_worldPos = GetAbsolutePositionWS( TransformObjectToWorld( (inputMesh.positionOS).xyz ) );
-				outputPackedVaryingsMeshToPS.ase_texcoord1.xyz = ase_worldPos;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
 				
-				outputPackedVaryingsMeshToPS.ase_texcoord.xy = inputMesh.uv0.xy;
+				float3 ase_worldPos = GetAbsolutePositionWS( TransformObjectToWorld( (inputMesh.positionOS).xyz ) );
+				outputPackedVaryingsMeshToPS.ase_texcoord.xyz = ase_worldPos;
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				outputPackedVaryingsMeshToPS.ase_texcoord1.xyz = ase_worldNormal;
+				
+				float3 ase_worldTangent = TransformObjectToWorldDir(inputMesh.tangentOS.xyz);
+				outputPackedVaryingsMeshToPS.ase_texcoord2.xyz = ase_worldTangent;
+				float ase_vertexTangentSign = inputMesh.tangentOS.w * unity_WorldTransformParams.w;
+				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
+				outputPackedVaryingsMeshToPS.ase_texcoord3.xyz = ase_worldBitangent;
+				
+				outputPackedVaryingsMeshToPS.ase_normal = inputMesh.normalOS;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				outputPackedVaryingsMeshToPS.ase_texcoord.zw = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord.w = 0;
 				outputPackedVaryingsMeshToPS.ase_texcoord1.w = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord2.w = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord3.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -1446,30 +1626,33 @@ Shader "SlimeShader2"
 				SurfaceData surfaceData;
 				BuiltinData builtinData;
 				GlobalSurfaceDescription surfaceDescription = (GlobalSurfaceDescription)0;
-				float4 color28 = IsGammaSpace() ? float4(0.5224056,1,0.4198113,1) : float4(0.2353686,1,0.1471786,1);
-				
-				float time26 = 44.0;
-				float2 coords26 = packedInput.ase_texcoord.xy * 3.0;
-				float2 id26 = 0;
-				float2 uv26 = 0;
-				float fade26 = 0.5;
-				float voroi26 = 0;
-				float rest26 = 0;
-				for( int it26 = 0; it26 <3; it26++ ){
-				voroi26 += fade26 * voronoi26( coords26, time26, id26, uv26, 0 );
-				rest26 += fade26;
-				coords26 *= 2;
-				fade26 *= 0.5;
-				}//Voronoi26
-				voroi26 /= rest26;
-				
-				float3 ase_worldPos = packedInput.ase_texcoord1.xyz;
+				float3 ase_worldPos = packedInput.ase_texcoord.xyz;
 				float3 ase_worldViewDir = ( _WorldSpaceCameraPos.xyz - ase_worldPos );
 				ase_worldViewDir = normalize(ase_worldViewDir);
-				float dotResult4 = dot( ase_worldViewDir , -_DirectionalLightDatas[0].forward );
+				float3 ase_worldNormal = packedInput.ase_texcoord1.xyz;
+				float dotResult36 = dot( ase_worldViewDir , -( -_DirectionalLightDatas[0].forward + ( ase_worldNormal * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( ase_worldNormal, ase_worldViewDir );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float4 lerpResult71 = lerp( _Color1 , _Color0 , temp_output_37_0);
 				
-				surfaceDescription.Albedo = color28.rgb;
-				surfaceDescription.Normal = float3( 0, 0, 1 );
+				float3 surf_pos107_g5 = ase_worldPos;
+				float3 surf_norm107_g5 = ase_worldNormal;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float simpleNoise78 = SimpleNoise( (packedInput.ase_normal*1.18 + mulTime81).xy*50.0 );
+				float height107_g5 = saturate( simpleNoise78 );
+				float scale107_g5 = 0.066;
+				float3 localPerturbNormal107_g5 = PerturbNormal107_g5( surf_pos107_g5 , surf_norm107_g5 , height107_g5 , scale107_g5 );
+				float3 ase_worldTangent = packedInput.ase_texcoord2.xyz;
+				float3 ase_worldBitangent = packedInput.ase_texcoord3.xyz;
+				float3x3 ase_worldToTangent = float3x3(ase_worldTangent,ase_worldBitangent,ase_worldNormal);
+				float3 worldToTangentDir42_g5 = mul( ase_worldToTangent, localPerturbNormal107_g5);
+				
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
+				
+				surfaceDescription.Albedo = lerpResult71.rgb;
+				surfaceDescription.Normal = worldToTangentDir42_g5;
 				surfaceDescription.BentNormal = float3( 0, 0, 1 );
 				surfaceDescription.CoatMask = 0;
 				surfaceDescription.Metallic = 0;
@@ -1478,10 +1661,10 @@ Shader "SlimeShader2"
 				surfaceDescription.Specular = 0;
 				#endif
 
-				surfaceDescription.Emission = ( color28 * ( pow( voroi26 , 2.0 ) * 0.033 ) ).rgb;
-				surfaceDescription.Smoothness = 1.0;
+				surfaceDescription.Emission = 0;
+				surfaceDescription.Smoothness = _Smoothness;
 				surfaceDescription.Occlusion = 1;
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				surfaceDescription.Alpha = lerpResult63;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -1501,9 +1684,9 @@ Shader "SlimeShader2"
 				#endif
 
 				#ifdef _HAS_REFRACTION
-				surfaceDescription.RefractionIndex = 1;
-				surfaceDescription.RefractionColor = float3( 1, 1, 1 );
-				surfaceDescription.RefractionDistance = 0;
+				surfaceDescription.RefractionIndex = _IOR;
+				surfaceDescription.RefractionColor = lerpResult71.rgb;
+				surfaceDescription.RefractionDistance = _RefractDistance;
 				#endif
 
 				#ifdef _MATERIAL_FEATURE_SUBSURFACE_SCATTERING
@@ -1561,10 +1744,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -1599,7 +1784,13 @@ Shader "SlimeShader2"
 			#endif
 
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -1658,6 +1849,7 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 
 
@@ -1677,7 +1869,7 @@ Shader "SlimeShader2"
 			{
 				float4 positionCS : SV_Position;
 				float3 interp00 : TEXCOORD0;
-				
+				float4 ase_texcoord1 : TEXCOORD1;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				#if defined(SHADER_STAGE_FRAGMENT) && defined(ASE_NEED_CULLFACE)
@@ -1685,7 +1877,39 @@ Shader "SlimeShader2"
 				#endif
 			};
 
+					float2 voronoihash75( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
 			
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash75( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+
 			void BuildSurfaceData(FragInputs fragInputs, inout AlphaSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
 			{
 				ZERO_INITIALIZE(SurfaceData, surfaceData);
@@ -1827,14 +2051,28 @@ Shader "SlimeShader2"
 				UNITY_TRANSFER_INSTANCE_ID(inputMesh, outputPackedVaryingsMeshToPS);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( outputPackedVaryingsMeshToPS );
 
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
 				
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				outputPackedVaryingsMeshToPS.ase_texcoord1.xyz = ase_worldNormal;
+				
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				outputPackedVaryingsMeshToPS.ase_texcoord1.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -1979,9 +2217,15 @@ Shader "SlimeShader2"
 				float3 V = GetWorldSpaceNormalizeViewDir(input.positionRWS);
 
 				AlphaSurfaceDescription surfaceDescription = (AlphaSurfaceDescription)0;
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float3 ase_worldNormal = packedInput.ase_texcoord1.xyz;
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( ase_worldNormal * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( ase_worldNormal, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
 				
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				surfaceDescription.Alpha = lerpResult63;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -2028,10 +2272,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -2066,7 +2312,13 @@ Shader "SlimeShader2"
 			#endif
 
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -2126,6 +2378,7 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 
 
@@ -2145,7 +2398,7 @@ Shader "SlimeShader2"
 			{
 				float4 positionCS : SV_Position;
 				float3 interp00 : TEXCOORD0;
-				
+				float4 ase_texcoord1 : TEXCOORD1;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				#if defined(SHADER_STAGE_FRAGMENT) && defined(ASE_NEED_CULLFACE)
@@ -2156,7 +2409,39 @@ Shader "SlimeShader2"
 			int _ObjectId;
 			int _PassValue;
 
+					float2 voronoihash75( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
 			
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash75( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+
 			void BuildSurfaceData(FragInputs fragInputs, inout SceneSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
 			{
 				ZERO_INITIALIZE(SurfaceData, surfaceData);
@@ -2294,14 +2579,28 @@ Shader "SlimeShader2"
 				UNITY_TRANSFER_INSTANCE_ID(inputMesh, outputPackedVaryingsMeshToPS);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( outputPackedVaryingsMeshToPS );
 
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
 				
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				outputPackedVaryingsMeshToPS.ase_texcoord1.xyz = ase_worldNormal;
+				
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				outputPackedVaryingsMeshToPS.ase_texcoord1.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -2446,9 +2745,15 @@ Shader "SlimeShader2"
 				float3 V = GetWorldSpaceNormalizeViewDir(input.positionRWS);
 
 				SceneSurfaceDescription surfaceDescription = (SceneSurfaceDescription)0;
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float3 ase_worldNormal = packedInput.ase_texcoord1.xyz;
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( ase_worldNormal * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( ase_worldNormal, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
 				
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				surfaceDescription.Alpha = lerpResult63;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -2505,10 +2810,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -2545,7 +2852,13 @@ Shader "SlimeShader2"
 			#endif
 			
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -2594,7 +2907,11 @@ Shader "SlimeShader2"
 				float _TessMaxDisp;
 			#endif
 			CBUFFER_END
-			
+			float4x4 unity_CameraProjection;
+			float4x4 unity_CameraInvProjection;
+			float4x4 unity_WorldToCamera;
+			float4x4 unity_CameraToWorld;
+
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/Lit.hlsl"
@@ -2604,6 +2921,11 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
+			#define ASE_NEEDS_FRAG_RELATIVE_WORLD_POS
+			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+			#define ASE_NEEDS_FRAG_WORLD_TANGENT
+			#define ASE_NEEDS_VERT_TANGENT
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 
 
@@ -2626,7 +2948,8 @@ Shader "SlimeShader2"
 				float3 interp00 : TEXCOORD0;
 				float3 interp01 : TEXCOORD1;
 				float4 interp02 : TEXCOORD2;
-				
+				float3 ase_normal : NORMAL;
+				float4 ase_texcoord3 : TEXCOORD3;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				#if defined(SHADER_STAGE_FRAGMENT) && defined(ASE_NEED_CULLFACE)
@@ -2634,7 +2957,91 @@ Shader "SlimeShader2"
 				#endif
 			};
 
+					float2 voronoihash75( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
 			
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash75( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+			inline float noise_randomValue (float2 uv) { return frac(sin(dot(uv, float2(12.9898, 78.233)))*43758.5453); }
+			inline float noise_interpolate (float a, float b, float t) { return (1.0-t)*a + (t*b); }
+			inline float valueNoise (float2 uv)
+			{
+				float2 i = floor(uv);
+				float2 f = frac( uv );
+				f = f* f * (3.0 - 2.0 * f);
+				uv = abs( frac(uv) - 0.5);
+				float2 c0 = i + float2( 0.0, 0.0 );
+				float2 c1 = i + float2( 1.0, 0.0 );
+				float2 c2 = i + float2( 0.0, 1.0 );
+				float2 c3 = i + float2( 1.0, 1.0 );
+				float r0 = noise_randomValue( c0 );
+				float r1 = noise_randomValue( c1 );
+				float r2 = noise_randomValue( c2 );
+				float r3 = noise_randomValue( c3 );
+				float bottomOfGrid = noise_interpolate( r0, r1, f.x );
+				float topOfGrid = noise_interpolate( r2, r3, f.x );
+				float t = noise_interpolate( bottomOfGrid, topOfGrid, f.y );
+				return t;
+			}
+			
+			float SimpleNoise(float2 UV)
+			{
+				float t = 0.0;
+				float freq = pow( 2.0, float( 0 ) );
+				float amp = pow( 0.5, float( 3 - 0 ) );
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(1));
+				amp = pow(0.5, float(3-1));
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(2));
+				amp = pow(0.5, float(3-2));
+				t += valueNoise( UV/freq )*amp;
+				return t;
+			}
+			
+			float3 PerturbNormal107_g5( float3 surf_pos, float3 surf_norm, float height, float scale )
+			{
+				// "Bump Mapping Unparametrized Surfaces on the GPU" by Morten S. Mikkelsen
+				float3 vSigmaS = ddx( surf_pos );
+				float3 vSigmaT = ddy( surf_pos );
+				float3 vN = surf_norm;
+				float3 vR1 = cross( vSigmaT , vN );
+				float3 vR2 = cross( vN , vSigmaS );
+				float fDet = dot( vSigmaS , vR1 );
+				float dBs = ddx( height );
+				float dBt = ddy( height );
+				float3 vSurfGrad = scale * 0.05 * sign( fDet ) * ( dBs * vR1 + dBt * vR2 );
+				return normalize ( abs( fDet ) * vN - vSurfGrad );
+			}
+			
+
 			void BuildSurfaceData(FragInputs fragInputs, inout SmoothSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
 			{
 				ZERO_INITIALIZE(SurfaceData, surfaceData);
@@ -2778,14 +3185,32 @@ Shader "SlimeShader2"
 				UNITY_TRANSFER_INSTANCE_ID(inputMesh, outputPackedVaryingsMeshToPS);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( outputPackedVaryingsMeshToPS );
 
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
 				
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				float3 ase_worldTangent = TransformObjectToWorldDir(inputMesh.tangentOS.xyz);
+				float ase_vertexTangentSign = inputMesh.tangentOS.w * unity_WorldTransformParams.w;
+				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
+				outputPackedVaryingsMeshToPS.ase_texcoord3.xyz = ase_worldBitangent;
+				
+				outputPackedVaryingsMeshToPS.ase_normal = inputMesh.normalOS;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				outputPackedVaryingsMeshToPS.ase_texcoord3.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -2952,11 +3377,28 @@ Shader "SlimeShader2"
 				float3 V = GetWorldSpaceNormalizeViewDir(input.positionRWS);
 
 				SmoothSurfaceDescription surfaceDescription = (SmoothSurfaceDescription)0;
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float3 ase_worldPos = GetAbsolutePositionWS( positionRWS );
+				float3 surf_pos107_g5 = ase_worldPos;
+				float3 surf_norm107_g5 = normalWS;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float simpleNoise78 = SimpleNoise( (packedInput.ase_normal*1.18 + mulTime81).xy*50.0 );
+				float height107_g5 = saturate( simpleNoise78 );
+				float scale107_g5 = 0.066;
+				float3 localPerturbNormal107_g5 = PerturbNormal107_g5( surf_pos107_g5 , surf_norm107_g5 , height107_g5 , scale107_g5 );
+				float3 ase_worldBitangent = packedInput.ase_texcoord3.xyz;
+				float3x3 ase_worldToTangent = float3x3(tangentWS.xyz,ase_worldBitangent,normalWS);
+				float3 worldToTangentDir42_g5 = mul( ase_worldToTangent, localPerturbNormal107_g5);
 				
-				surfaceDescription.Normal = float3( 0, 0, 1 );
-				surfaceDescription.Smoothness = 1.0;
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( normalWS * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( normalWS, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
+				
+				surfaceDescription.Normal = worldToTangentDir42_g5;
+				surfaceDescription.Smoothness = _Smoothness;
+				surfaceDescription.Alpha = lerpResult63;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -3021,10 +3463,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -3060,7 +3504,13 @@ Shader "SlimeShader2"
 			#endif
 			
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -3109,7 +3559,11 @@ Shader "SlimeShader2"
 				float _TessMaxDisp;
 			#endif
 			CBUFFER_END
-			
+			float4x4 unity_CameraProjection;
+			float4x4 unity_CameraInvProjection;
+			float4x4 unity_WorldToCamera;
+			float4x4 unity_CameraToWorld;
+
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/Lit.hlsl"
@@ -3119,6 +3573,7 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 
 
@@ -3135,7 +3590,7 @@ Shader "SlimeShader2"
 				#if defined (_ADD_PRECOMPUTED_VELOCITY)
 					float3 precomputedVelocity : TEXCOORD5;
 				#endif
-				
+				float4 ase_tangent : TANGENT;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3145,7 +3600,11 @@ Shader "SlimeShader2"
 				float3 vmeshInterp00 : TEXCOORD0;
 				float3 vpassInterpolators0 : TEXCOORD1; //interpolators0
 				float3 vpassInterpolators1 : TEXCOORD2; //interpolators1
-				
+				float4 ase_texcoord3 : TEXCOORD3;
+				float4 ase_texcoord4 : TEXCOORD4;
+				float3 ase_normal : NORMAL;
+				float4 ase_texcoord5 : TEXCOORD5;
+				float4 ase_texcoord6 : TEXCOORD6;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				#if defined(SHADER_STAGE_FRAGMENT) && defined(ASE_NEED_CULLFACE)
@@ -3154,7 +3613,91 @@ Shader "SlimeShader2"
 			};
 
 
+					float2 voronoihash75( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
 			
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash75( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+			inline float noise_randomValue (float2 uv) { return frac(sin(dot(uv, float2(12.9898, 78.233)))*43758.5453); }
+			inline float noise_interpolate (float a, float b, float t) { return (1.0-t)*a + (t*b); }
+			inline float valueNoise (float2 uv)
+			{
+				float2 i = floor(uv);
+				float2 f = frac( uv );
+				f = f* f * (3.0 - 2.0 * f);
+				uv = abs( frac(uv) - 0.5);
+				float2 c0 = i + float2( 0.0, 0.0 );
+				float2 c1 = i + float2( 1.0, 0.0 );
+				float2 c2 = i + float2( 0.0, 1.0 );
+				float2 c3 = i + float2( 1.0, 1.0 );
+				float r0 = noise_randomValue( c0 );
+				float r1 = noise_randomValue( c1 );
+				float r2 = noise_randomValue( c2 );
+				float r3 = noise_randomValue( c3 );
+				float bottomOfGrid = noise_interpolate( r0, r1, f.x );
+				float topOfGrid = noise_interpolate( r2, r3, f.x );
+				float t = noise_interpolate( bottomOfGrid, topOfGrid, f.y );
+				return t;
+			}
+			
+			float SimpleNoise(float2 UV)
+			{
+				float t = 0.0;
+				float freq = pow( 2.0, float( 0 ) );
+				float amp = pow( 0.5, float( 3 - 0 ) );
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(1));
+				amp = pow(0.5, float(3-1));
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(2));
+				amp = pow(0.5, float(3-2));
+				t += valueNoise( UV/freq )*amp;
+				return t;
+			}
+			
+			float3 PerturbNormal107_g5( float3 surf_pos, float3 surf_norm, float height, float scale )
+			{
+				// "Bump Mapping Unparametrized Surfaces on the GPU" by Morten S. Mikkelsen
+				float3 vSigmaS = ddx( surf_pos );
+				float3 vSigmaT = ddy( surf_pos );
+				float3 vN = surf_norm;
+				float3 vR1 = cross( vSigmaT , vN );
+				float3 vR2 = cross( vN , vSigmaS );
+				float fDet = dot( vSigmaS , vR1 );
+				float dBs = ddx( height );
+				float dBt = ddy( height );
+				float3 vSurfGrad = scale * 0.05 * sign( fDet ) * ( dBs * vR1 + dBt * vR2 );
+				return normalize ( abs( fDet ) * vN - vSurfGrad );
+			}
+			
+
 			void BuildSurfaceData(FragInputs fragInputs, inout SmoothSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
 			{
 				ZERO_INITIALIZE(SurfaceData, surfaceData);
@@ -3290,14 +3833,39 @@ Shader "SlimeShader2"
 			AttributesMesh ApplyMeshModification(AttributesMesh inputMesh, float3 timeParameters, inout PackedVaryingsMeshToPS outputPackedVaryingsMeshToPS )
 			{
 				_TimeParameters.xyz = timeParameters;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
 				
+				float3 ase_worldPos = GetAbsolutePositionWS( TransformObjectToWorld( (inputMesh.positionOS).xyz ) );
+				outputPackedVaryingsMeshToPS.ase_texcoord3.xyz = ase_worldPos;
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				outputPackedVaryingsMeshToPS.ase_texcoord4.xyz = ase_worldNormal;
+				float3 ase_worldTangent = TransformObjectToWorldDir(inputMesh.ase_tangent.xyz);
+				outputPackedVaryingsMeshToPS.ase_texcoord5.xyz = ase_worldTangent;
+				float ase_vertexTangentSign = inputMesh.ase_tangent.w * unity_WorldTransformParams.w;
+				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
+				outputPackedVaryingsMeshToPS.ase_texcoord6.xyz = ase_worldBitangent;
+				
+				outputPackedVaryingsMeshToPS.ase_normal = inputMesh.normalOS;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				outputPackedVaryingsMeshToPS.ase_texcoord3.w = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord4.w = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord5.w = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord6.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -3383,7 +3951,8 @@ Shader "SlimeShader2"
 				#if defined (_ADD_PRECOMPUTED_VELOCITY)
 					float3 precomputedVelocity : TEXCOORD5;
 				#endif
-				
+				float4 ase_tangent : TANGENT;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3404,7 +3973,7 @@ Shader "SlimeShader2"
 				#if defined (_ADD_PRECOMPUTED_VELOCITY)
 				o.precomputedVelocity = v.precomputedVelocity;
 				#endif
-				
+				o.ase_tangent = v.ase_tangent;
 				return o;
 			}
 
@@ -3452,7 +4021,7 @@ Shader "SlimeShader2"
 				#if defined (_ADD_PRECOMPUTED_VELOCITY)
 					o.precomputedVelocity = patch[0].precomputedVelocity * bary.x + patch[1].precomputedVelocity * bary.y + patch[2].precomputedVelocity * bary.z;
 				#endif
-				
+				o.ase_tangent = patch[0].ase_tangent * bary.x + patch[1].ase_tangent * bary.y + patch[2].ase_tangent * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -3504,11 +4073,30 @@ Shader "SlimeShader2"
 				BuiltinData builtinData;
 
 				SmoothSurfaceDescription surfaceDescription = (SmoothSurfaceDescription)0;
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float3 ase_worldPos = packedInput.ase_texcoord3.xyz;
+				float3 surf_pos107_g5 = ase_worldPos;
+				float3 ase_worldNormal = packedInput.ase_texcoord4.xyz;
+				float3 surf_norm107_g5 = ase_worldNormal;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float simpleNoise78 = SimpleNoise( (packedInput.ase_normal*1.18 + mulTime81).xy*50.0 );
+				float height107_g5 = saturate( simpleNoise78 );
+				float scale107_g5 = 0.066;
+				float3 localPerturbNormal107_g5 = PerturbNormal107_g5( surf_pos107_g5 , surf_norm107_g5 , height107_g5 , scale107_g5 );
+				float3 ase_worldTangent = packedInput.ase_texcoord5.xyz;
+				float3 ase_worldBitangent = packedInput.ase_texcoord6.xyz;
+				float3x3 ase_worldToTangent = float3x3(ase_worldTangent,ase_worldBitangent,ase_worldNormal);
+				float3 worldToTangentDir42_g5 = mul( ase_worldToTangent, localPerturbNormal107_g5);
 				
-				surfaceDescription.Normal = float3( 0, 0, 1 );
-				surfaceDescription.Smoothness = 1.0;
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( ase_worldNormal * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( ase_worldNormal, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
+				
+				surfaceDescription.Normal = worldToTangentDir42_g5;
+				surfaceDescription.Smoothness = _Smoothness;
+				surfaceDescription.Alpha = lerpResult63;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -3570,10 +4158,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -3614,7 +4204,13 @@ Shader "SlimeShader2"
 			#endif
 
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -3663,7 +4259,11 @@ Shader "SlimeShader2"
 				float _TessMaxDisp;
 			#endif
 			CBUFFER_END
-			
+			float4x4 unity_CameraProjection;
+			float4x4 unity_CameraInvProjection;
+			float4x4 unity_WorldToCamera;
+			float4x4 unity_CameraToWorld;
+
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/Lighting.hlsl"
@@ -3677,7 +4277,12 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
+			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+			#define ASE_NEEDS_FRAG_RELATIVE_WORLD_POS
+			#define ASE_NEEDS_FRAG_WORLD_TANGENT
+			#define ASE_NEEDS_VERT_TANGENT
 
 
 			#if defined(_DOUBLESIDED_ON) && !defined(ASE_NEED_CULLFACE)
@@ -3697,7 +4302,7 @@ Shader "SlimeShader2"
 						float3 precomputedVelocity : TEXCOORD5;
 					#endif
 				#endif
-				float4 ase_texcoord : TEXCOORD0;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3713,6 +4318,7 @@ Shader "SlimeShader2"
 					float3 vpassPositionCS : TEXCOORD5;
 					float3 vpassPreviousPositionCS : TEXCOORD6;
 				#endif
+				float3 ase_normal : NORMAL;
 				float4 ase_texcoord7 : TEXCOORD7;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
@@ -3721,14 +4327,14 @@ Shader "SlimeShader2"
 				#endif
 			};
 
-					float2 voronoihash26( float2 p )
+					float2 voronoihash75( float2 p )
 					{
-						p = p - 3 * floor( p / 3 );
+						
 						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
 						return frac( sin( p ) *43758.5453);
 					}
 			
-					float voronoi26( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
 					{
 						float2 n = floor( v );
 						float2 f = frac( v );
@@ -3739,7 +4345,7 @@ Shader "SlimeShader2"
 							for ( int i = -1; i <= 1; i++ )
 						 	{
 						 		float2 g = float2( i, j );
-						 		float2 o = voronoihash26( n + g );
+						 		float2 o = voronoihash75( n + g );
 								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
 								float d = 0.5 * dot( r, r );
 						 		if( d<F1 ) {
@@ -3752,6 +4358,58 @@ Shader "SlimeShader2"
 						}
 						return F1;
 					}
+			
+			inline float noise_randomValue (float2 uv) { return frac(sin(dot(uv, float2(12.9898, 78.233)))*43758.5453); }
+			inline float noise_interpolate (float a, float b, float t) { return (1.0-t)*a + (t*b); }
+			inline float valueNoise (float2 uv)
+			{
+				float2 i = floor(uv);
+				float2 f = frac( uv );
+				f = f* f * (3.0 - 2.0 * f);
+				uv = abs( frac(uv) - 0.5);
+				float2 c0 = i + float2( 0.0, 0.0 );
+				float2 c1 = i + float2( 1.0, 0.0 );
+				float2 c2 = i + float2( 0.0, 1.0 );
+				float2 c3 = i + float2( 1.0, 1.0 );
+				float r0 = noise_randomValue( c0 );
+				float r1 = noise_randomValue( c1 );
+				float r2 = noise_randomValue( c2 );
+				float r3 = noise_randomValue( c3 );
+				float bottomOfGrid = noise_interpolate( r0, r1, f.x );
+				float topOfGrid = noise_interpolate( r2, r3, f.x );
+				float t = noise_interpolate( bottomOfGrid, topOfGrid, f.y );
+				return t;
+			}
+			
+			float SimpleNoise(float2 UV)
+			{
+				float t = 0.0;
+				float freq = pow( 2.0, float( 0 ) );
+				float amp = pow( 0.5, float( 3 - 0 ) );
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(1));
+				amp = pow(0.5, float(3-1));
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(2));
+				amp = pow(0.5, float(3-2));
+				t += valueNoise( UV/freq )*amp;
+				return t;
+			}
+			
+			float3 PerturbNormal107_g5( float3 surf_pos, float3 surf_norm, float height, float scale )
+			{
+				// "Bump Mapping Unparametrized Surfaces on the GPU" by Morten S. Mikkelsen
+				float3 vSigmaS = ddx( surf_pos );
+				float3 vSigmaT = ddy( surf_pos );
+				float3 vN = surf_norm;
+				float3 vR1 = cross( vSigmaT , vN );
+				float3 vR2 = cross( vN , vSigmaS );
+				float fDet = dot( vSigmaS , vR1 );
+				float dBs = ddx( height );
+				float dBt = ddy( height );
+				float3 vSurfGrad = scale * 0.05 * sign( fDet ) * ( dBs * vR1 + dBt * vR2 );
+				return normalize ( abs( fDet ) * vN - vSurfGrad );
+			}
 			
 
 			void BuildSurfaceData(FragInputs fragInputs, inout GlobalSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
@@ -3939,17 +4597,32 @@ Shader "SlimeShader2"
 			AttributesMesh ApplyMeshModification(AttributesMesh inputMesh, float3 timeParameters, inout PackedVaryingsMeshToPS outputPackedVaryingsMeshToPS )
 			{
 				_TimeParameters.xyz = timeParameters;
-				outputPackedVaryingsMeshToPS.ase_texcoord7.xy = inputMesh.ase_texcoord.xy;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
+				
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				float3 ase_worldTangent = TransformObjectToWorldDir(inputMesh.tangentOS.xyz);
+				float ase_vertexTangentSign = inputMesh.tangentOS.w * unity_WorldTransformParams.w;
+				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
+				outputPackedVaryingsMeshToPS.ase_texcoord7.xyz = ase_worldBitangent;
+				
+				outputPackedVaryingsMeshToPS.ase_normal = inputMesh.normalOS;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				outputPackedVaryingsMeshToPS.ase_texcoord7.zw = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord7.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue = defaultVertexValue;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -4047,8 +4720,7 @@ Shader "SlimeShader2"
 						float3 precomputedVelocity : TEXCOORD5;
 					#endif
 				#endif
-				float4 ase_texcoord : TEXCOORD0;
-
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -4074,7 +4746,7 @@ Shader "SlimeShader2"
 						o.precomputedVelocity = v.precomputedVelocity;
 					#endif
 				#endif
-				o.ase_texcoord = v.ase_texcoord;
+				
 				return o;
 			}
 
@@ -4127,7 +4799,7 @@ Shader "SlimeShader2"
 						o.precomputedVelocity = patch[0].precomputedVelocity * bary.x + patch[1].precomputedVelocity * bary.y + patch[2].precomputedVelocity * bary.z;
 					#endif
 				#endif
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -4198,27 +4870,29 @@ Shader "SlimeShader2"
 				float3 V = GetWorldSpaceNormalizeViewDir(input.positionRWS);
 
 				GlobalSurfaceDescription surfaceDescription = (GlobalSurfaceDescription)0;
-				float4 color28 = IsGammaSpace() ? float4(0.5224056,1,0.4198113,1) : float4(0.2353686,1,0.1471786,1);
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( normalWS * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( normalWS, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float4 lerpResult71 = lerp( _Color1 , _Color0 , temp_output_37_0);
 				
-				float time26 = 44.0;
-				float2 coords26 = packedInput.ase_texcoord7.xy * 3.0;
-				float2 id26 = 0;
-				float2 uv26 = 0;
-				float fade26 = 0.5;
-				float voroi26 = 0;
-				float rest26 = 0;
-				for( int it26 = 0; it26 <3; it26++ ){
-				voroi26 += fade26 * voronoi26( coords26, time26, id26, uv26, 0 );
-				rest26 += fade26;
-				coords26 *= 2;
-				fade26 *= 0.5;
-				}//Voronoi26
-				voroi26 /= rest26;
+				float3 ase_worldPos = GetAbsolutePositionWS( positionRWS );
+				float3 surf_pos107_g5 = ase_worldPos;
+				float3 surf_norm107_g5 = normalWS;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float simpleNoise78 = SimpleNoise( (packedInput.ase_normal*1.18 + mulTime81).xy*50.0 );
+				float height107_g5 = saturate( simpleNoise78 );
+				float scale107_g5 = 0.066;
+				float3 localPerturbNormal107_g5 = PerturbNormal107_g5( surf_pos107_g5 , surf_norm107_g5 , height107_g5 , scale107_g5 );
+				float3 ase_worldBitangent = packedInput.ase_texcoord7.xyz;
+				float3x3 ase_worldToTangent = float3x3(tangentWS.xyz,ase_worldBitangent,normalWS);
+				float3 worldToTangentDir42_g5 = mul( ase_worldToTangent, localPerturbNormal107_g5);
 				
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
 				
-				surfaceDescription.Albedo = color28.rgb;
-				surfaceDescription.Normal = float3( 0, 0, 1 );
+				surfaceDescription.Albedo = lerpResult71.rgb;
+				surfaceDescription.Normal = worldToTangentDir42_g5;
 				surfaceDescription.BentNormal = float3( 0, 0, 1 );
 				surfaceDescription.CoatMask = 0;
 				surfaceDescription.Metallic = 0;
@@ -4227,10 +4901,10 @@ Shader "SlimeShader2"
 				surfaceDescription.Specular = 0;
 				#endif
 
-				surfaceDescription.Emission = ( color28 * ( pow( voroi26 , 2.0 ) * 0.033 ) ).rgb;
-				surfaceDescription.Smoothness = 1.0;
+				surfaceDescription.Emission = 0;
+				surfaceDescription.Smoothness = _Smoothness;
 				surfaceDescription.Occlusion = 1;
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				surfaceDescription.Alpha = lerpResult63;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -4250,9 +4924,9 @@ Shader "SlimeShader2"
 				#endif
 
 				#ifdef _HAS_REFRACTION
-				surfaceDescription.RefractionIndex = 1;
-				surfaceDescription.RefractionColor = float3( 1, 1, 1 );
-				surfaceDescription.RefractionDistance = 0;
+				surfaceDescription.RefractionIndex = _IOR;
+				surfaceDescription.RefractionColor = lerpResult71.rgb;
+				surfaceDescription.RefractionDistance = _RefractDistance;
 				#endif
 
 				#ifdef _MATERIAL_FEATURE_SUBSURFACE_SCATTERING
@@ -4418,10 +5092,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -4455,7 +5131,13 @@ Shader "SlimeShader2"
 			#endif
 			
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -4514,6 +5196,7 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 
 
@@ -4533,7 +5216,7 @@ Shader "SlimeShader2"
 			{
 				float4 positionCS : SV_Position;
 				float3 interp00 : TEXCOORD0;
-				
+				float4 ase_texcoord1 : TEXCOORD1;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				#if defined(SHADER_STAGE_FRAGMENT) && defined(ASE_NEED_CULLFACE)
@@ -4541,7 +5224,39 @@ Shader "SlimeShader2"
 				#endif
 			};
 
+					float2 voronoihash75( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
 			
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash75( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+
 			void BuildSurfaceData(FragInputs fragInputs, inout PrePassSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
 			{
 				ZERO_INITIALIZE(SurfaceData, surfaceData);
@@ -4679,14 +5394,28 @@ Shader "SlimeShader2"
 				UNITY_TRANSFER_INSTANCE_ID(inputMesh, outputPackedVaryingsMeshToPS);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( outputPackedVaryingsMeshToPS );
 
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
 				
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				outputPackedVaryingsMeshToPS.ase_texcoord1.xyz = ase_worldNormal;
+				
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				outputPackedVaryingsMeshToPS.ase_texcoord1.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -4831,9 +5560,15 @@ Shader "SlimeShader2"
 				float3 V = GetWorldSpaceNormalizeViewDir(input.positionRWS);
 
 				PrePassSurfaceDescription surfaceDescription = (PrePassSurfaceDescription)0;
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float3 ase_worldNormal = packedInput.ase_texcoord1.xyz;
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( ase_worldNormal * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( ase_worldNormal, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
 				
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				surfaceDescription.Alpha = lerpResult63;
 
 				surfaceDescription.AlphaClipThresholdDepthPrepass = 0.5;
 
@@ -4879,10 +5614,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -4916,7 +5653,13 @@ Shader "SlimeShader2"
 			#endif
 
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -4975,6 +5718,7 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 
 
@@ -4994,7 +5738,7 @@ Shader "SlimeShader2"
 			{
 				float4 positionCS : SV_Position;
 				float3 interp00 : TEXCOORD0;
-				
+				float4 ase_texcoord1 : TEXCOORD1;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				#if defined(SHADER_STAGE_FRAGMENT) && defined(ASE_NEED_CULLFACE)
@@ -5002,7 +5746,39 @@ Shader "SlimeShader2"
 				#endif
 			};
 
+					float2 voronoihash75( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
 			
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash75( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+
 			void BuildSurfaceData(FragInputs fragInputs, inout PostPassSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
 			{
 				ZERO_INITIALIZE(SurfaceData, surfaceData);
@@ -5140,14 +5916,28 @@ Shader "SlimeShader2"
 				UNITY_TRANSFER_INSTANCE_ID(inputMesh, outputPackedVaryingsMeshToPS);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( outputPackedVaryingsMeshToPS );
 
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
 				
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				outputPackedVaryingsMeshToPS.ase_texcoord1.xyz = ase_worldNormal;
+				
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				outputPackedVaryingsMeshToPS.ase_texcoord1.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -5292,9 +6082,15 @@ Shader "SlimeShader2"
 				float3 V = GetWorldSpaceNormalizeViewDir(input.positionRWS);
 
 				PostPassSurfaceDescription surfaceDescription = (PostPassSurfaceDescription)0;
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float3 ase_worldNormal = packedInput.ase_texcoord1.xyz;
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( ase_worldNormal * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( ase_worldNormal, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
 				
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				surfaceDescription.Alpha = lerpResult63;
 
 				surfaceDescription.AlphaClipThresholdDepthPostpass = 0.5;
 
@@ -5352,10 +6148,12 @@ Shader "SlimeShader2"
 
 			HLSLPROGRAM
 
-			#define _SPECULAR_OCCLUSION_FROM_AO 1
-			#define _BLENDMODE_PRESERVE_SPECULAR_LIGHTING 1
-			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _HAS_REFRACTION 1
+			#define _REFRACTION_SPHERE 1
 			#define _WRITE_TRANSPARENT_MOTION_VECTOR 1
+			#define _DISABLE_SSR_TRANSPARENT 1
+			#define _SPECULAR_OCCLUSION_FROM_AO 1
+			#define HAVE_MESH_MODIFICATION
 			#define ASE_SRP_VERSION 999999
 
 
@@ -5401,7 +6199,13 @@ Shader "SlimeShader2"
 
 			// CBuffer must be declared before Material.hlsl since it internaly uses _BlendMode now
 			CBUFFER_START( UnityPerMaterial )
-						float4 _EmissionColor;
+			float4 _Color1;
+			float4 _Color0;
+			float _SubSurfDistortModifier;
+			float _Smoothness;
+			float _IOR;
+			float _RefractDistance;
+			float4 _EmissionColor;
 			float _AlphaCutoff;
 			float _RenderQueueType;
 			#ifdef _ADD_PRECOMPUTED_VELOCITY
@@ -5450,7 +6254,11 @@ Shader "SlimeShader2"
 				float _TessMaxDisp;
 			#endif
 			CBUFFER_END
-			
+			float4x4 unity_CameraProjection;
+			float4x4 unity_CameraInvProjection;
+			float4x4 unity_WorldToCamera;
+			float4x4 unity_CameraToWorld;
+
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Material.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/Lighting.hlsl"
@@ -5464,7 +6272,12 @@ Shader "SlimeShader2"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
+			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+			#define ASE_NEEDS_FRAG_RELATIVE_WORLD_POS
+			#define ASE_NEEDS_FRAG_WORLD_TANGENT
+			#define ASE_NEEDS_VERT_TANGENT
 
 
 			#if defined(_DOUBLESIDED_ON) && !defined(ASE_NEED_CULLFACE)
@@ -5484,7 +6297,7 @@ Shader "SlimeShader2"
 						float3 precomputedVelocity : TEXCOORD5;
 					#endif
 				#endif
-				float4 ase_texcoord : TEXCOORD0;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -5500,6 +6313,7 @@ Shader "SlimeShader2"
 					float3 vpassPositionCS : TEXCOORD5;
 					float3 vpassPreviousPositionCS : TEXCOORD6;
 				#endif
+				float3 ase_normal : NORMAL;
 				float4 ase_texcoord7 : TEXCOORD7;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
@@ -5508,14 +6322,14 @@ Shader "SlimeShader2"
 				#endif
 			};
 
-					float2 voronoihash26( float2 p )
+					float2 voronoihash75( float2 p )
 					{
-						p = p - 3 * floor( p / 3 );
+						
 						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
 						return frac( sin( p ) *43758.5453);
 					}
 			
-					float voronoi26( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
+					float voronoi75( float2 v, float time, inout float2 id, inout float2 mr, float smoothness )
 					{
 						float2 n = floor( v );
 						float2 f = frac( v );
@@ -5526,7 +6340,7 @@ Shader "SlimeShader2"
 							for ( int i = -1; i <= 1; i++ )
 						 	{
 						 		float2 g = float2( i, j );
-						 		float2 o = voronoihash26( n + g );
+						 		float2 o = voronoihash75( n + g );
 								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
 								float d = 0.5 * dot( r, r );
 						 		if( d<F1 ) {
@@ -5539,6 +6353,58 @@ Shader "SlimeShader2"
 						}
 						return F1;
 					}
+			
+			inline float noise_randomValue (float2 uv) { return frac(sin(dot(uv, float2(12.9898, 78.233)))*43758.5453); }
+			inline float noise_interpolate (float a, float b, float t) { return (1.0-t)*a + (t*b); }
+			inline float valueNoise (float2 uv)
+			{
+				float2 i = floor(uv);
+				float2 f = frac( uv );
+				f = f* f * (3.0 - 2.0 * f);
+				uv = abs( frac(uv) - 0.5);
+				float2 c0 = i + float2( 0.0, 0.0 );
+				float2 c1 = i + float2( 1.0, 0.0 );
+				float2 c2 = i + float2( 0.0, 1.0 );
+				float2 c3 = i + float2( 1.0, 1.0 );
+				float r0 = noise_randomValue( c0 );
+				float r1 = noise_randomValue( c1 );
+				float r2 = noise_randomValue( c2 );
+				float r3 = noise_randomValue( c3 );
+				float bottomOfGrid = noise_interpolate( r0, r1, f.x );
+				float topOfGrid = noise_interpolate( r2, r3, f.x );
+				float t = noise_interpolate( bottomOfGrid, topOfGrid, f.y );
+				return t;
+			}
+			
+			float SimpleNoise(float2 UV)
+			{
+				float t = 0.0;
+				float freq = pow( 2.0, float( 0 ) );
+				float amp = pow( 0.5, float( 3 - 0 ) );
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(1));
+				amp = pow(0.5, float(3-1));
+				t += valueNoise( UV/freq )*amp;
+				freq = pow(2.0, float(2));
+				amp = pow(0.5, float(3-2));
+				t += valueNoise( UV/freq )*amp;
+				return t;
+			}
+			
+			float3 PerturbNormal107_g5( float3 surf_pos, float3 surf_norm, float height, float scale )
+			{
+				// "Bump Mapping Unparametrized Surfaces on the GPU" by Morten S. Mikkelsen
+				float3 vSigmaS = ddx( surf_pos );
+				float3 vSigmaT = ddy( surf_pos );
+				float3 vN = surf_norm;
+				float3 vR1 = cross( vSigmaT , vN );
+				float3 vR2 = cross( vN , vSigmaS );
+				float fDet = dot( vSigmaS , vR1 );
+				float dBs = ddx( height );
+				float dBt = ddy( height );
+				float3 vSurfGrad = scale * 0.05 * sign( fDet ) * ( dBs * vR1 + dBt * vR2 );
+				return normalize ( abs( fDet ) * vN - vSurfGrad );
+			}
 			
 
 			void BuildSurfaceData(FragInputs fragInputs, inout GlobalSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
@@ -5726,17 +6592,32 @@ Shader "SlimeShader2"
 			AttributesMesh ApplyMeshModification(AttributesMesh inputMesh, float3 timeParameters, inout PackedVaryingsMeshToPS outputPackedVaryingsMeshToPS )
 			{
 				_TimeParameters.xyz = timeParameters;
-				outputPackedVaryingsMeshToPS.ase_texcoord7.xy = inputMesh.ase_texcoord.xy;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float time75 = mulTime81;
+				float2 coords75 = inputMesh.normalOS.xy * 3.0;
+				float2 id75 = 0;
+				float2 uv75 = 0;
+				float voroi75 = voronoi75( coords75, time75, id75, uv75, 0 );
+				float smoothstepResult93 = smoothstep( 1.0 , -0.49 , voroi75);
+				float3 temp_cast_1 = (saturate( ( smoothstepResult93 * 0.166 ) )).xxx;
+				
+				float3 ase_worldNormal = TransformObjectToWorldNormal(inputMesh.normalOS);
+				float3 ase_worldTangent = TransformObjectToWorldDir(inputMesh.tangentOS.xyz);
+				float ase_vertexTangentSign = inputMesh.tangentOS.w * unity_WorldTransformParams.w;
+				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
+				outputPackedVaryingsMeshToPS.ase_texcoord7.xyz = ase_worldBitangent;
+				
+				outputPackedVaryingsMeshToPS.ase_normal = inputMesh.normalOS;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				outputPackedVaryingsMeshToPS.ase_texcoord7.zw = 0;
+				outputPackedVaryingsMeshToPS.ase_texcoord7.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue = defaultVertexValue;
+				float3 vertexValue = temp_cast_1;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -5834,8 +6715,7 @@ Shader "SlimeShader2"
 						float3 precomputedVelocity : TEXCOORD5;
 					#endif
 				#endif
-				float4 ase_texcoord : TEXCOORD0;
-
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -5861,7 +6741,7 @@ Shader "SlimeShader2"
 						o.precomputedVelocity = v.precomputedVelocity;
 					#endif
 				#endif
-				o.ase_texcoord = v.ase_texcoord;
+				
 				return o;
 			}
 
@@ -5914,7 +6794,7 @@ Shader "SlimeShader2"
 						o.precomputedVelocity = patch[0].precomputedVelocity * bary.x + patch[1].precomputedVelocity * bary.y + patch[2].precomputedVelocity * bary.z;
 					#endif
 				#endif
-				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
+				
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -5985,27 +6865,29 @@ Shader "SlimeShader2"
 				float3 V = GetWorldSpaceNormalizeViewDir(input.positionRWS);
 
 				GlobalSurfaceDescription surfaceDescription = (GlobalSurfaceDescription)0;
-				float4 color28 = IsGammaSpace() ? float4(0.5224056,1,0.4198113,1) : float4(0.2353686,1,0.1471786,1);
+				float dotResult36 = dot( V , -( -_DirectionalLightDatas[0].forward + ( normalWS * _SubSurfDistortModifier ) ) );
+				float dotResult46 = dot( pow( dotResult36 , 1.0 ) , 1.0 );
+				float fresnelNdotV64 = dot( normalWS, V );
+				float fresnelNode64 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV64, 0.5 ) );
+				float temp_output_37_0 = saturate( ( dotResult46 * fresnelNode64 ) );
+				float4 lerpResult71 = lerp( _Color1 , _Color0 , temp_output_37_0);
 				
-				float time26 = 44.0;
-				float2 coords26 = packedInput.ase_texcoord7.xy * 3.0;
-				float2 id26 = 0;
-				float2 uv26 = 0;
-				float fade26 = 0.5;
-				float voroi26 = 0;
-				float rest26 = 0;
-				for( int it26 = 0; it26 <3; it26++ ){
-				voroi26 += fade26 * voronoi26( coords26, time26, id26, uv26, 0 );
-				rest26 += fade26;
-				coords26 *= 2;
-				fade26 *= 0.5;
-				}//Voronoi26
-				voroi26 /= rest26;
+				float3 ase_worldPos = GetAbsolutePositionWS( positionRWS );
+				float3 surf_pos107_g5 = ase_worldPos;
+				float3 surf_norm107_g5 = normalWS;
+				float mulTime81 = _TimeParameters.x * 0.05;
+				float simpleNoise78 = SimpleNoise( (packedInput.ase_normal*1.18 + mulTime81).xy*50.0 );
+				float height107_g5 = saturate( simpleNoise78 );
+				float scale107_g5 = 0.066;
+				float3 localPerturbNormal107_g5 = PerturbNormal107_g5( surf_pos107_g5 , surf_norm107_g5 , height107_g5 , scale107_g5 );
+				float3 ase_worldBitangent = packedInput.ase_texcoord7.xyz;
+				float3x3 ase_worldToTangent = float3x3(tangentWS.xyz,ase_worldBitangent,normalWS);
+				float3 worldToTangentDir42_g5 = mul( ase_worldToTangent, localPerturbNormal107_g5);
 				
-				float dotResult4 = dot( V , -_DirectionalLightDatas[0].forward );
+				float lerpResult63 = lerp( _Color1.a , _Color0.a , temp_output_37_0);
 				
-				surfaceDescription.Albedo = color28.rgb;
-				surfaceDescription.Normal = float3( 0, 0, 1 );
+				surfaceDescription.Albedo = lerpResult71.rgb;
+				surfaceDescription.Normal = worldToTangentDir42_g5;
 				surfaceDescription.BentNormal = float3( 0, 0, 1 );
 				surfaceDescription.CoatMask = 0;
 				surfaceDescription.Metallic = 0;
@@ -6014,10 +6896,10 @@ Shader "SlimeShader2"
 				surfaceDescription.Specular = 0;
 				#endif
 
-				surfaceDescription.Emission = ( color28 * ( pow( voroi26 , 2.0 ) * 0.033 ) ).rgb;
-				surfaceDescription.Smoothness = 1.0;
+				surfaceDescription.Emission = 0;
+				surfaceDescription.Smoothness = _Smoothness;
 				surfaceDescription.Occlusion = 1;
-				surfaceDescription.Alpha = (0.15 + (saturate( dotResult4 ) - 0.0) * (0.85 - 0.15) / (1.0 - 0.0));
+				surfaceDescription.Alpha = lerpResult63;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -6037,9 +6919,9 @@ Shader "SlimeShader2"
 				#endif
 
 				#ifdef _HAS_REFRACTION
-				surfaceDescription.RefractionIndex = 1;
-				surfaceDescription.RefractionColor = float3( 1, 1, 1 );
-				surfaceDescription.RefractionDistance = 0;
+				surfaceDescription.RefractionIndex = _IOR;
+				surfaceDescription.RefractionColor = lerpResult71.rgb;
+				surfaceDescription.RefractionDistance = _RefractDistance;
 				#endif
 
 				#ifdef _MATERIAL_FEATURE_SUBSURFACE_SCATTERING
@@ -6198,42 +7080,93 @@ Shader "SlimeShader2"
 }
 /*ASEBEGIN
 Version=18813
-0;0;2560;1379;2357.02;898.5478;1.3;True;True
-Node;AmplifyShaderEditor.WorldSpaceLightDirHlpNode;1;-1753.019,242.6788;Inherit;False;False;1;0;FLOAT;0;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.VoronoiNode;26;-923.0162,-311.244;Inherit;False;0;0;1;0;3;True;3;False;False;4;0;FLOAT2;0,0;False;1;FLOAT;44;False;2;FLOAT;3;False;3;FLOAT;0;False;3;FLOAT;0;FLOAT2;1;FLOAT2;2
-Node;AmplifyShaderEditor.ViewDirInputsCoordNode;5;-1724.031,-116.4057;Inherit;False;World;False;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.DotProductOpNode;4;-1120.823,83.95699;Inherit;False;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.PowerNode;27;-719.7154,-14.644;Inherit;False;False;2;0;FLOAT;0;False;1;FLOAT;2;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;30;-447.2159,-39.944;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.033;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;28;-481.0162,-345.244;Inherit;False;Constant;_Color0;Color 0;0;0;Create;True;0;0;0;False;0;False;0.5224056,1,0.4198113,1;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SaturateNode;6;-918.7029,133.0962;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.NegateNode;2;-1343.657,274.9584;Inherit;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;29;-305.8159,-18.44392;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.TFHCRemapNode;25;-466.9994,299.601;Inherit;False;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;0.15;False;4;FLOAT;0.85;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;31;-384.707,171.3898;Inherit;False;Constant;_Float0;Float 0;0;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;7;0,0;Float;False;True;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;SlimeShader2;53b46d85872c5b24c8f4f0a1c3fe4c87;True;GBuffer;0;0;GBuffer;35;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;False;False;False;False;False;False;False;False;True;True;0;True;-14;255;False;-1;255;True;-13;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;False;True;0;True;-15;False;True;1;LightMode=GBuffer;False;0;;0;0;Standard;42;Surface Type;1;  Rendering Pass;1;  Refraction Model;0;    Blending Mode;0;    Blend Preserves Specular;1;  Receive Fog;1;  Back Then Front Rendering;1;  Transparent Depth Prepass;1;  Transparent Depth Postpass;1;  Transparent Writes Motion Vector;1;  Distortion;0;    Distortion Mode;0;    Distortion Depth Test;1;  ZWrite;0;  Z Test;4;Double-Sided;0;Alpha Clipping;0;  Use Shadow Threshold;0;Material Type,InvertActionOnDeselection;0;  Energy Conserving Specular;1;  Transmission;1;Receive Decals;1;Receives SSR;1;  Receive SSR Transparent;0;Motion Vectors;1;  Add Precomputed Velocity;0;Specular AA;0;Specular Occlusion Mode;1;Override Baked GI;0;Depth Offset;0;DOTS Instancing;0;LOD CrossFade;0;Tessellation;0;  Phong;0;  Strength;0.5,False,-1;  Type;0;  Tess;16,False,-1;  Min;10,False,-1;  Max;25,False,-1;  Edge Length;16,False,-1;  Max Displacement;25,False,-1;Vertex Position;1;0;11;True;True;True;True;True;True;False;True;True;True;True;False;;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;16;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentDepthPostpass;0;9;TransparentDepthPostpass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;1;1;False;-1;0;False;-1;0;1;False;-1;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;True;1;False;-1;False;False;True;1;LightMode=TransparentDepthPostpass;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;11;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;DepthOnly;0;4;DepthOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;False;False;False;False;False;False;False;False;True;True;0;True;-7;255;False;-1;255;True;-8;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;1;False;-1;False;False;True;1;LightMode=DepthOnly;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;12;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Motion Vectors;0;5;Motion Vectors;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;False;False;False;False;False;False;False;False;True;True;0;True;-9;255;False;-1;255;True;-10;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;1;False;-1;False;False;True;1;LightMode=MotionVectors;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;14;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentBackface;0;7;TransparentBackface;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;1;0;True;-21;0;True;-22;1;0;True;-23;0;True;-24;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;-1;False;False;False;True;True;True;True;True;0;True;-46;False;False;False;False;False;False;False;True;0;True;-25;True;0;True;-33;False;True;1;LightMode=TransparentBackface;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;15;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentDepthPrepass;0;8;TransparentDepthPrepass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;1;1;False;-1;0;False;-1;0;1;False;-1;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;True;1;False;-1;False;False;True;1;LightMode=TransparentDepthPrepass;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;8;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;META;0;1;META;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Meta;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;9;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;True;1;False;-1;True;3;False;-1;False;True;1;LightMode=ShadowCaster;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;13;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Distortion;0;6;Distortion;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;4;1;False;-1;1;False;-1;4;1;False;-1;1;False;-1;True;1;False;-1;1;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;0;True;-11;255;False;-1;255;True;-12;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;2;False;-1;True;3;False;-1;False;True;1;LightMode=DistortionVectors;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;10;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;SceneSelectionPass;0;3;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;17;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;14;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Forward;0;10;Forward;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;1;0;True;-21;0;True;-22;1;0;True;-23;0;True;-24;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-30;False;False;False;True;True;True;True;True;0;True;-46;False;False;False;False;False;True;True;0;True;-5;255;False;-1;255;True;-6;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;0;True;-25;True;0;True;-32;False;True;1;LightMode=Forward;False;0;;0;0;Standard;0;False;0
-WireConnection;4;0;5;0
-WireConnection;4;1;1;0
-WireConnection;27;0;26;0
-WireConnection;30;0;27;0
-WireConnection;6;0;4;0
-WireConnection;2;0;1;0
-WireConnection;29;0;28;0
-WireConnection;29;1;30;0
-WireConnection;25;0;6;0
-WireConnection;7;0;28;0
-WireConnection;7;6;29;0
-WireConnection;7;7;31;0
-WireConnection;7;9;25;0
+-29;768;2546;1363;1635.919;-646.302;1;True;True
+Node;AmplifyShaderEditor.WorldNormalVector;38;-3044.119,361.5358;Inherit;False;False;1;0;FLOAT3;0,0,1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.RangedFloatNode;41;-3052.67,518.765;Inherit;False;Property;_SubSurfDistortModifier;SubSurf Distort Modifier;0;0;Create;True;0;0;0;False;0;False;0.7846152;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.WorldSpaceLightDirHlpNode;33;-3076.304,188.9674;Inherit;False;False;1;0;FLOAT;0;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;40;-2774.581,369.0228;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;42;-2564.94,173.2873;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.NegateNode;34;-2322.153,103.7649;Inherit;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.ViewDirInputsCoordNode;32;-2753.194,-63.09119;Inherit;False;World;False;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.DotProductOpNode;36;-2171.344,21.40648;Inherit;False;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;45;-2224.998,227.4866;Inherit;False;Constant;_ScatteringFalloff;Scattering Falloff;2;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleTimeNode;81;-1351.481,701.3853;Inherit;False;1;0;FLOAT;0.05;False;1;FLOAT;0
+Node;AmplifyShaderEditor.PowerNode;44;-2023.435,101.6775;Inherit;False;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;47;-1981.216,287.9041;Inherit;False;Constant;_ScatterScale;Scatter Scale;2;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.NormalVertexDataNode;89;-1385.739,979.7076;Inherit;False;0;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.VoronoiNode;75;-1018.029,550.0509;Inherit;True;0;0;1;0;1;False;1;False;False;4;0;FLOAT2;0,0;False;1;FLOAT;3.47;False;2;FLOAT;3;False;3;FLOAT;0;False;3;FLOAT;0;FLOAT2;1;FLOAT2;2
+Node;AmplifyShaderEditor.DotProductOpNode;46;-1810.564,57.89342;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FresnelNode;64;-1826.182,535.7926;Inherit;True;Standard;WorldNormal;ViewDir;False;False;5;0;FLOAT3;0,0,1;False;4;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;0.5;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ScaleAndOffsetNode;92;-1120.64,901.0766;Inherit;False;3;0;FLOAT3;0,0,0;False;1;FLOAT;1.18;False;2;FLOAT;0.39;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;65;-1500.888,233.6794;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SmoothstepOpNode;93;-786.4061,632.66;Inherit;True;3;0;FLOAT;0;False;1;FLOAT;1;False;2;FLOAT;-0.49;False;1;FLOAT;0
+Node;AmplifyShaderEditor.NoiseGeneratorNode;78;-844.3937,919.2379;Inherit;True;Simple;True;False;2;0;FLOAT2;0,0;False;1;FLOAT;50;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ColorNode;60;-938.7531,-253.8047;Inherit;False;Property;_Color1;Color 1;2;0;Create;True;0;0;0;False;0;False;0.08518437,0.3490566,0.01481843,0.07058824;0.2109771,0.3301887,0.1822268,0.1098039;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SaturateNode;86;-529.3397,938.5168;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;90;-500.9962,631.8774;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.166;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ColorNode;56;-1331.974,-243.3977;Inherit;False;Property;_Color0;Color 0;1;0;Create;True;0;0;0;False;0;False;0.6059666,1,0.495283,0.8;0.6508237,1,0.5518868,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SaturateNode;37;-1338.834,186.8506;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SaturateNode;91;-271.4684,639.9666;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.LerpOp;63;-605.423,235.7914;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;58;-982.8864,63.8199;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
+Node;AmplifyShaderEditor.FunctionNode;85;-334.3397,889.5168;Inherit;True;Normal From Height;-1;;5;1942fe2c5f1a1f94881a33d532e4afeb;0;2;20;FLOAT;0;False;110;FLOAT;0.066;False;2;FLOAT3;40;FLOAT3;0
+Node;AmplifyShaderEditor.RangedFloatNode;73;-600.1022,456.9314;Inherit;False;Property;_RefractDistance;Refract Distance;5;0;Create;True;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;74;-520.0432,78.21592;Inherit;False;Property;_Smoothness;Smoothness;3;0;Create;True;0;0;0;False;0;False;0.98;0.98;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.LerpOp;71;-567.722,-178.065;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
+Node;AmplifyShaderEditor.RangedFloatNode;72;-606.8853,369.2884;Inherit;False;Property;_IOR;IOR;4;0;Create;True;0;0;0;False;0;False;1.309;1.309;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;59;-677.4268,37.83977;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;8;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;META;0;1;META;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Meta;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;15;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentDepthPrepass;0;8;TransparentDepthPrepass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;1;1;False;-1;0;False;-1;0;1;False;-1;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;True;1;False;-1;False;False;True;1;LightMode=TransparentDepthPrepass;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;13;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Distortion;0;6;Distortion;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;4;2;False;-1;0;False;-1;1;7;False;-1;0;False;-1;True;1;False;-1;1;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;0;True;-11;255;False;-1;255;True;-12;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;2;False;-1;True;3;False;-1;False;True;1;LightMode=DistortionVectors;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;12;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Motion Vectors;0;5;Motion Vectors;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;False;False;False;False;False;False;False;False;True;True;0;True;-9;255;False;-1;255;True;-10;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;1;False;-1;False;False;True;1;LightMode=MotionVectors;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;9;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;True;1;False;-1;True;3;False;-1;False;True;1;LightMode=ShadowCaster;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;10;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;SceneSelectionPass;0;3;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;16;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentDepthPostpass;0;9;TransparentDepthPostpass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;1;1;False;-1;0;False;-1;0;1;False;-1;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;True;1;False;-1;False;False;True;1;LightMode=TransparentDepthPostpass;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;17;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Forward;0;10;Forward;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;1;0;True;-21;0;True;-22;1;0;True;-23;0;True;-24;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-30;False;False;False;True;True;True;True;True;0;True;-46;False;False;False;False;False;True;True;0;True;-5;255;False;-1;255;True;-6;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;0;True;-25;True;0;True;-32;False;True;1;LightMode=Forward;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;14;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentBackface;0;7;TransparentBackface;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;True;1;0;True;-21;0;True;-22;1;0;True;-23;0;True;-24;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;-1;False;False;False;True;True;True;True;True;0;True;-46;False;False;False;False;False;False;False;True;0;True;-25;True;0;True;-33;False;True;1;LightMode=TransparentBackface;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;7;396.736,-18.91181;Float;False;True;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;SlimeShader2;53b46d85872c5b24c8f4f0a1c3fe4c87;True;GBuffer;0;0;GBuffer;35;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;False;False;False;False;False;False;False;False;True;True;0;True;-14;255;False;-1;255;True;-13;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;False;True;0;True;-15;False;True;1;LightMode=GBuffer;False;0;;0;0;Standard;42;Surface Type;1;  Rendering Pass;1;  Refraction Model;2;    Blending Mode;0;    Blend Preserves Specular;1;  Receive Fog;1;  Back Then Front Rendering;1;  Transparent Depth Prepass;1;  Transparent Depth Postpass;1;  Transparent Writes Motion Vector;1;  Distortion;0;    Distortion Mode;1;    Distortion Depth Test;1;  ZWrite;0;  Z Test;4;Double-Sided;0;Alpha Clipping;0;  Use Shadow Threshold;0;Material Type,InvertActionOnDeselection;0;  Energy Conserving Specular;1;  Transmission;1;Receive Decals;1;Receives SSR;1;  Receive SSR Transparent;0;Motion Vectors;1;  Add Precomputed Velocity;0;Specular AA;0;Specular Occlusion Mode;1;Override Baked GI;0;Depth Offset;0;DOTS Instancing;0;LOD CrossFade;0;Tessellation;0;  Phong;0;  Strength;0.5,False,-1;  Type;0;  Tess;16,False,-1;  Min;10,False,-1;  Max;25,False,-1;  Edge Length;16,False,-1;  Max Displacement;25,False,-1;Vertex Position;1;0;11;True;True;True;True;True;True;False;True;True;True;True;False;;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;11;0,0;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;2;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;DepthOnly;0;4;DepthOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;-27;False;False;False;False;False;False;False;False;False;True;True;0;True;-7;255;False;-1;255;True;-8;7;False;-1;3;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;1;False;-1;False;False;True;1;LightMode=DepthOnly;False;0;;0;0;Standard;0;False;0
+WireConnection;40;0;38;0
+WireConnection;40;1;41;0
+WireConnection;42;0;33;0
+WireConnection;42;1;40;0
+WireConnection;34;0;42;0
+WireConnection;36;0;32;0
+WireConnection;36;1;34;0
+WireConnection;44;0;36;0
+WireConnection;44;1;45;0
+WireConnection;75;0;89;0
+WireConnection;75;1;81;0
+WireConnection;46;0;44;0
+WireConnection;46;1;47;0
+WireConnection;92;0;89;0
+WireConnection;92;2;81;0
+WireConnection;65;0;46;0
+WireConnection;65;1;64;0
+WireConnection;93;0;75;0
+WireConnection;78;0;92;0
+WireConnection;86;0;78;0
+WireConnection;90;0;93;0
+WireConnection;37;0;65;0
+WireConnection;91;0;90;0
+WireConnection;63;0;60;4
+WireConnection;63;1;56;4
+WireConnection;63;2;37;0
+WireConnection;58;0;56;0
+WireConnection;58;1;37;0
+WireConnection;85;20;86;0
+WireConnection;71;0;60;0
+WireConnection;71;1;56;0
+WireConnection;71;2;37;0
+WireConnection;59;0;60;0
+WireConnection;59;1;58;0
+WireConnection;7;0;71;0
+WireConnection;7;1;85;40
+WireConnection;7;7;74;0
+WireConnection;7;9;63;0
+WireConnection;7;17;72;0
+WireConnection;7;18;71;0
+WireConnection;7;19;73;0
+WireConnection;7;11;91;0
 ASEEND*/
-//CHKSM=01C712BF48467A7990B3D3A03E42A7DBE6B9D335
+//CHKSM=9D869F19D087DD4C9CAFB6A40B895549DB4A5D8F
