@@ -189,5 +189,5 @@ public class CristalArm : PlayerAbility
             //Debug.Log("Stopping...");
         }
 
-        }
+    }
 }
