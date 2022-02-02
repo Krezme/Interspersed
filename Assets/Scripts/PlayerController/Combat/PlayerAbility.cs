@@ -9,7 +9,7 @@ public class PlayerAbility : MonoBehaviour
     
 #region References in Child
     [HideInInspector]
-    public Vector3 mouseWorldPosition;
+    public Vector3 centerScreenToWorldPosition;
     public CinemachineVirtualCamera aimVirtualCamera;
 #endregion
 
@@ -29,17 +29,17 @@ public class PlayerAbility : MonoBehaviour
     /// This is for Raycasting and finding where the player is aiming
     /// </summary>
     public void AimingAt() {
-        mouseWorldPosition = Vector3.zero;
+        centerScreenToWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         
         if (Physics.Raycast(ray, out RaycastHit hit, 999f, PlayerAbilitiesController.instance.aimColliderLayerMask)) {
             PlayerAbilitiesController.instance.rayBitch.position = hit.point;
-            mouseWorldPosition = hit.point;
+            centerScreenToWorldPosition = hit.point;
         }
         else {
             PlayerAbilitiesController.instance.rayBitch.position = Camera.main.ScreenToWorldPoint(screenCenterPoint) + ray.direction * 999f;
-            mouseWorldPosition = Camera.main.ScreenToWorldPoint(screenCenterPoint) + ray.direction * 999f;
+            centerScreenToWorldPosition = Camera.main.ScreenToWorldPoint(screenCenterPoint) + ray.direction * 999f;
         }
     }
 
@@ -57,7 +57,7 @@ public class PlayerAbility : MonoBehaviour
             }
             
             //Calculates where the player needs to aim depending on where the raycast (in the AimingAt function) hit
-            Vector3 worldAimTarget = mouseWorldPosition;
+            Vector3 worldAimTarget = centerScreenToWorldPosition;
             worldAimTarget.y = transform.position.y;
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
 

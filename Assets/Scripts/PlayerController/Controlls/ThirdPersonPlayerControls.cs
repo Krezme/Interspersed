@@ -121,6 +121,14 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ArmMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""33fbfd26-a5e4-43d3-908f-42cbd8a8b8f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -236,11 +244,33 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""bec4734a-6d8d-4bd0-a8c7-3aeb1a3a36de"",
+                    ""path"": ""<XInputController>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""PlayerMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""0469fef2-e374-408f-8802-d73b797cf744"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e72dac6-572b-40d1-ae07-5f9fb726ede3"",
+                    ""path"": ""<XInputController>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -258,11 +288,33 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""3e6136e4-2f97-4292-9251-28734e37c972"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""8253cb88-b72f-4ef4-97e6-5806a40021db"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
                     ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=10,y=10)"",
                     ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""136195f6-c19f-49ac-8f75-d64514b1bbb0"",
+                    ""path"": ""<XInputController>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=150,y=150)"",
+                    ""groups"": ""Controller"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -280,6 +332,17 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""28bfe3bb-0de8-4e41-8a90-3bbd7d7ec948"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9843f56e-62b8-4c18-8c32-8ce73a19df9d"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -291,11 +354,33 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""79b919ae-ada3-47ce-ae23-2cf646483452"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Fire1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""317478ae-0362-484d-86eb-becf67a33639"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Fire2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fda38254-055e-48cb-8d25-9628903f865d"",
+                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""Fire2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -324,11 +409,33 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""325bf257-788d-4ba3-8ddb-cac7d30ccf63"",
+                    ""path"": ""<XInputController>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Ability1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1b659542-4f67-4a0f-b635-b5b30390e24f"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Arm1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c459eda-1ec9-4906-a060-f621eb6539e1"",
+                    ""path"": ""<XInputController>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""Arm1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -346,11 +453,33 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""b1beecee-793f-4fda-bb4b-b5c4c9c4cc40"",
+                    ""path"": ""<XInputController>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Arm2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""10c1e96a-70cc-422f-aa7b-74dca8a8b76f"",
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba8fb0f1-ffab-43a5-8595-ae76092b9c91"",
+                    ""path"": ""<XInputController>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -365,6 +494,39 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""ESC"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8631d461-8e96-4dc0-9827-f38a21a770e0"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""ESC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f2c945f-4fe8-4305-abc7-09030016ad33"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""ArmMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc392514-0b8f-4d60-b2da-d3c1f6cd4039"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""ArmMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -376,12 +538,23 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
                     ""isOR"": false
                 },
                 {
                     ""devicePath"": ""<Mouse>"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Controller"",
+            ""bindingGroup"": ""Controller"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<XInputController>"",
+                    ""isOptional"": true,
                     ""isOR"": false
                 }
             ]
@@ -403,6 +576,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         m_Player_Arm1 = m_Player.FindAction("Arm1", throwIfNotFound: true);
         m_Player_Arm2 = m_Player.FindAction("Arm2", throwIfNotFound: true);
         m_Player_ESC = m_Player.FindAction("ESC", throwIfNotFound: true);
+        m_Player_ArmMode = m_Player.FindAction("ArmMode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -465,6 +639,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Arm1;
     private readonly InputAction m_Player_Arm2;
     private readonly InputAction m_Player_ESC;
+    private readonly InputAction m_Player_ArmMode;
     public struct PlayerActions
     {
         private @ThirdPersonPlayerControls m_Wrapper;
@@ -482,6 +657,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         public InputAction @Arm1 => m_Wrapper.m_Player_Arm1;
         public InputAction @Arm2 => m_Wrapper.m_Player_Arm2;
         public InputAction @ESC => m_Wrapper.m_Player_ESC;
+        public InputAction @ArmMode => m_Wrapper.m_Player_ArmMode;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -530,6 +706,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @ESC.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
                 @ESC.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
                 @ESC.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
+                @ArmMode.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArmMode;
+                @ArmMode.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArmMode;
+                @ArmMode.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArmMode;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -573,6 +752,9 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 @ESC.started += instance.OnESC;
                 @ESC.performed += instance.OnESC;
                 @ESC.canceled += instance.OnESC;
+                @ArmMode.started += instance.OnArmMode;
+                @ArmMode.performed += instance.OnArmMode;
+                @ArmMode.canceled += instance.OnArmMode;
             }
         }
     }
@@ -584,6 +766,15 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         {
             if (m_KeyboardAndMouseSchemeIndex == -1) m_KeyboardAndMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardAndMouse");
             return asset.controlSchemes[m_KeyboardAndMouseSchemeIndex];
+        }
+    }
+    private int m_ControllerSchemeIndex = -1;
+    public InputControlScheme ControllerScheme
+    {
+        get
+        {
+            if (m_ControllerSchemeIndex == -1) m_ControllerSchemeIndex = asset.FindControlSchemeIndex("Controller");
+            return asset.controlSchemes[m_ControllerSchemeIndex];
         }
     }
     public interface IPlayerActions
@@ -601,5 +792,6 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
         void OnArm1(InputAction.CallbackContext context);
         void OnArm2(InputAction.CallbackContext context);
         void OnESC(InputAction.CallbackContext context);
+        void OnArmMode(InputAction.CallbackContext context);
     }
 }
