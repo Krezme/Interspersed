@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public Canvas optionsCanvas;
+    public Canvas mainMenuCanvas;
+
     public void StartGame()
     {
         SceneManager.LoadScene("ImprovedLMALevel");
     }
 
+    /// <summary>
+    /// Loads up the splash screens when the game starts
+    /// </summary>
     public void LoadCutScene1() {
         SceneManager.LoadScene("CutScene1");
     }
@@ -35,5 +41,16 @@ public class MainMenu : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void Options()
+    {
+        optionsCanvas.enabled = true;
+        mainMenuCanvas.enabled = false;
+    }
+    public void ReturnToMainMenu()
+    {
+        optionsCanvas.enabled = false;
+        mainMenuCanvas.enabled = true;
     }
 }
