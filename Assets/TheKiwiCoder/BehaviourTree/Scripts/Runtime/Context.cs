@@ -21,6 +21,10 @@ namespace TheKiwiCoder {
         public CharacterController characterController;
         // Add other game specific systems here
 
+        public FieldOfView fieldOfView;
+
+        public GameObject playerObject;
+
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
             Context context = new Context();
@@ -33,8 +37,12 @@ namespace TheKiwiCoder {
             context.boxCollider = gameObject.GetComponent<BoxCollider>();
             context.capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
             context.characterController = gameObject.GetComponent<CharacterController>();
-            
+
             // Add whatever else you need here...
+
+            context.fieldOfView = gameObject.GetComponent<FieldOfView>();
+
+            context.playerObject = GameObject.FindGameObjectWithTag("Player");
 
             return context;
         }

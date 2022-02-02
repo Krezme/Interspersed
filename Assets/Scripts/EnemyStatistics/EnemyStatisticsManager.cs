@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TheKiwiCoder;
 
 [System.Serializable]
 public class CurrentStats {
@@ -18,6 +19,8 @@ public class EnemyStatisticsManager : MonoBehaviour
     
     public EnemyHealthbar enemyHealthbar;
 
+    public BehaviourTreeRunner behaviourTreeRunner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +30,7 @@ public class EnemyStatisticsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        behaviourTreeRunner.context.animator.SetFloat("speed", behaviourTreeRunner.context.agent.velocity.magnitude);
     }
 
     public void SetStatsFromSO () {
