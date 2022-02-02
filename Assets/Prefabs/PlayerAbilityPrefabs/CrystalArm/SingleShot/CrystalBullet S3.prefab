@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1701073144}
   - component: {fileID: 1701073143}
   - component: {fileID: 1701073142}
+  - component: {fileID: -8360521353524901577}
+  - component: {fileID: 5805469011468490780}
   m_Layer: 10
   m_Name: CrystalBullet S3
   m_TagString: PlayerBullet
@@ -56,6 +58,7 @@ MonoBehaviour:
     speed: 10
   bulletRigidbody: {fileID: 1701073143}
   electricSparks: {fileID: 4831216751449139813}
+  BulletImpact: {fileID: 5805469011468490780}
 --- !u!54 &1701073143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -85,6 +88,138 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.07, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.04}
+--- !u!82 &-8360521353524901577
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3470485994608312727}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 5924138822915904487, guid: 31aebf588b2608e4d89ebdb64b43369f,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 20
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.25
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5805469011468490780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3470485994608312727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minVolume: 0.3
+  maxVolume: 0.3
+  minPitch: 1.5
+  maxPitch: 2
+  playDelay: 0
+  defaultBank:
+    name: 
+    clips:
+    - {fileID: 8300000, guid: 980f585826091ca43a476a033015258d, type: 3}
+    - {fileID: 8300000, guid: a2368ff36902f7942a00e287e3a19fcb, type: 3}
+    - {fileID: 8300000, guid: 3998d927ef2a3ec46a9ffa40cb37a2fe, type: 3}
+    - {fileID: 8300000, guid: ebcf600d5ce3b174497805af2d89e5e5, type: 3}
+    - {fileID: 8300000, guid: ec93536e6a9ce14498f83ae3e101dee4, type: 3}
+    - {fileID: 8300000, guid: fb15194067d099c4cafeb028d0736a10, type: 3}
+    - {fileID: 8300000, guid: 475741c8c00b4ef4297a46c13f306ba9, type: 3}
+    - {fileID: 8300000, guid: 5d6cf598a632d5e4c8e32477a3616146, type: 3}
+    - {fileID: 8300000, guid: 2927d2bf5201d4e47b4a0453d4e8e25d, type: 3}
+    - {fileID: 8300000, guid: b18239b3d4058544fa48c02675d4723f, type: 3}
+    - {fileID: 8300000, guid: 55eaecdc0b9ba264c817760d3381628a, type: 3}
+    - {fileID: 8300000, guid: 197557d11b40b3d4ca19cfcdf10a3eb5, type: 3}
+  overrides: []
+  playing: 0
+  canPlay: 0
 --- !u!1001 &3470485993375695488
 PrefabInstance:
   m_ObjectHideFlags: 0

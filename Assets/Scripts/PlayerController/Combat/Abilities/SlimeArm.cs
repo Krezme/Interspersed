@@ -9,11 +9,21 @@ public class SlimeArm : PlayerAbility
     public float cooldownMaxTime = 1;
     public float cooldownTimer = 0;
 
-    public GameObject changeToArm;
+    public GameObject changeToArm; 
 
     public GameObject scaleSlimeBall;
     
     GameObject slimeBallInstance;
+    public RandomAudioPlayer Pickup; //Rhys - RandomAudioPlayer for when the slime arm picks something up
+
+    public RandomAudioPlayer Drop; //Rhys - RandomAudioPlayer for when the slime arm drops something
+
+    public RandomAudioPlayer Throw; //Rhys - RandomAudioPlayer for when the slime arm throws something
+
+    public GameObject FadeIn;
+
+    public GameObject FadeOut;
+
 
     //Functionality Variables
     [SerializeField] Camera cam;
@@ -56,13 +66,13 @@ public class SlimeArm : PlayerAbility
     }
 
     private void PickUpAbility() {
-        if (OnPlayerInput.instance.onFire2) {
+        if (OnPlayerInput.instance.onFire2) {            
             if (OnPlayerInput.instance.onFire1 && cooldownTimer == 0) {
                 if (!grabbedRB) {
                     RaycastHit hit;
                     Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
-                    {
+                    {                        
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                             grabbedRagdoll.pickedUpByPlayer = true;
@@ -72,6 +82,11 @@ public class SlimeArm : PlayerAbility
                             {
                                 grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
                                 grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
+                                Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
+                                FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
+                                FadeOut.SetActive(false);
+                                grabbedRB.isKinematic = true;
+                                PlayerAbilitiesController.instance.isAbilityActive = true;                                
                             }
                             foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
                                 changedRigidBodies.Add(rb);
@@ -136,6 +151,9 @@ public class SlimeArm : PlayerAbility
                 slimeBallInstance = null;
                 grabbedRB = null;
                 PlayerAbilitiesController.instance.isAbilityActive = false;
+                Drop.PlayRandomClip(); //Plays sound when held object is dropped without throwing
+                FadeIn.SetActive(false);
+                FadeOut.SetActive(true);
             }
         }
     }
@@ -176,6 +194,9 @@ public class SlimeArm : PlayerAbility
         {
             if (OnPlayerInput.instance.onFire1)
             {
+                Throw.PlayRandomClip(); //Rhys - Plays sound when held object is thrown
+                FadeIn.SetActive(false);
+                FadeOut.SetActive(true);
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
                 grabbedRB.constraints = RigidbodyConstraints.None;
