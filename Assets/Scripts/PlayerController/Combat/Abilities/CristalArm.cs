@@ -73,6 +73,8 @@ public class CristalArm : PlayerAbility
 
     private bool IsHold = false; //Rhys - Fixes an issue which would cause the RandomAudioPlayer to rapidly cycle through each charge sound variation instead of selecting one
 
+    public RandomAudioPlayer ShotgunShoot; //Rhys - Shotgun shoot sound bank
+
 
     void Update () {
         ElectricChargeCooldown();
@@ -153,6 +155,7 @@ public class CristalArm : PlayerAbility
                 Vector3 newSpreadPoint = (dispersionPoint.transform.position - spawnBulletPosition.transform.position).normalized; //saves the new direction point
                 Destroy(dispersionPoint);
                 GameObject pellet = Instantiate(pfPelletProjectileShotgun, spawnBulletPosition.position, Quaternion.LookRotation(newSpreadPoint, Vector3.up)); // Instantiating the pellet going to the direction point
+                ShotgunShoot.PlayRandomClip(); //Rhys - Plays from shotgun shoot sound bank
                 
                 //setting the projectile damage and speed multiplier
                 BulletProjectile newPelletProjectile = pellet.GetComponent<BulletProjectile>();
