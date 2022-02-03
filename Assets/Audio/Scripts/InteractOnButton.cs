@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace Gamekit3D
-{
+
     public class InteractOnButton : InteractOnTrigger
     {
 
@@ -33,4 +32,4 @@ namespace Gamekit3D
         }
 
     } 
-}
+
