@@ -6,6 +6,7 @@ using TheKiwiCoder;
 [System.Serializable]
 public class CurrentStats {
     public float health;
+    public float damage;
 }
 
 public class EnemyStatisticsManager : MonoBehaviour
@@ -35,6 +36,7 @@ public class EnemyStatisticsManager : MonoBehaviour
 
     public void SetStatsFromSO () {
         currentStats.health = statisticsSO.health;
+        currentStats.damage = statisticsSO.damage;
     }
 
     public void TakeDamage (float damage) {
