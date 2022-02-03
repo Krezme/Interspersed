@@ -110,6 +110,8 @@ public class SlimeArm : PlayerAbility
                         if (grabbedRagdoll != null) {
                             slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
                             slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRagdoll.rigCentre;
+                            FadeIn.SetActive(true);
+                            FadeOut.SetActive(false);
                         }
                         else {
                             slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
