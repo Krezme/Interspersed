@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class FollowPlayer : ActionNode
+public class Stop : ActionNode
 {
     protected override void OnStart() {
     }
@@ -13,11 +13,7 @@ public class FollowPlayer : ActionNode
 
     protected override State OnUpdate() {
 
-        if (blackboard.isFollowingPlayer)
-        {
-            blackboard.moveToPosition = context.playerObject.transform.position;
-            return State.Running;
-        }
+        context.agent.destination = context.transform.position;
 
         return State.Success;
     }

@@ -3,22 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class FollowPlayer : ActionNode
+public class ToggleAgentRotation : ActionNode
 {
+    public bool isUpdatingRotation;
     protected override void OnStart() {
+
+        context.agent.updateRotation = isUpdatingRotation;
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-
-        if (blackboard.isFollowingPlayer)
-        {
-            blackboard.moveToPosition = context.playerObject.transform.position;
-            return State.Running;
-        }
-
         return State.Success;
     }
 }
