@@ -6,6 +6,7 @@ namespace Gamekit3D //The RandomAudioPlayer scipt was originally copied from Uni
 {
 
     [RequireComponent(typeof(AudioSource))]
+    [RequireComponent(typeof(RandomAudioPlayer))]
 
     public class PlayRandomSoundOnObjectCollision : MonoBehaviour
     {
