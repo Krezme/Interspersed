@@ -26,6 +26,12 @@ public class WaterController : MonoBehaviour
 
     private float tickTimer;
 
+    public RandomAudioPlayer ElectrifiedPuddle; //Rhys - Puddle sound bank
+
+    public AudioSource audiosource;
+
+    public AudioClip PuddleBuzz;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +54,7 @@ public class WaterController : MonoBehaviour
         if (waterProperties.numberOfProjectiles <= 0) {
             waterProperties.isCharged = false;
             electricSparks.SetActive(false);
+            audiosource.Stop();
         }
     }
 
@@ -59,7 +66,10 @@ public class WaterController : MonoBehaviour
             waterProperties.damage += other.GetComponent<BulletProjectile>().statistics.damage / 2;
             if (waterProperties.numberOfProjectiles == 1){
                 electricSparks.SetActive(true);
+                //ElectrifiedPuddle.PlayRandomClip(); //Rhys enables pubble source to play
+                audiosource.PlayOneShot(PuddleBuzz);
             }
+            
         }
         if (other.tag == "Enemy") {
             currentlyAffectedEnemies.Add(other.gameObject);

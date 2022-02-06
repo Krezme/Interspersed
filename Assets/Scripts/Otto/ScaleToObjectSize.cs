@@ -30,7 +30,6 @@ public class ScaleToObjectSize : MonoBehaviour
         }
         else {
             Vector3 newScale = new Vector3(scaleOffset, scaleOffset, scaleOffset);
-            Debug.Log(transform.parent.name);
             transform.parent = objectScaleTo.transform;
             transform.localScale = newScale;
             transform.parent = parent.transform;
