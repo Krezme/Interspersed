@@ -73,6 +73,12 @@ public class CristalArm : PlayerAbility
 
     private bool IsHold = false; //Rhys - Fixes an issue which would cause the RandomAudioPlayer to rapidly cycle through each charge sound variation instead of selecting one
 
+    public RandomAudioPlayer ShotgunShoot; //Rhys - Shotgun shoot sound bank
+
+    public RandomAudioPlayer ShotgunSwapTrue; //Rhys - Swapping to shotgun
+
+    public RandomAudioPlayer ShotgunSwapFalse; //Rhys - Swapping from shotgun;
+
 
     void Update () {
         ElectricChargeCooldown();
@@ -153,6 +159,7 @@ public class CristalArm : PlayerAbility
                 Vector3 newSpreadPoint = (dispersionPoint.transform.position - spawnBulletPosition.transform.position).normalized; //saves the new direction point
                 Destroy(dispersionPoint);
                 GameObject pellet = Instantiate(pfPelletProjectileShotgun, spawnBulletPosition.position, Quaternion.LookRotation(newSpreadPoint, Vector3.up)); // Instantiating the pellet going to the direction point
+                ShotgunShoot.PlayRandomClip(); //Rhys - Plays from shotgun shoot sound bank
                 
                 //setting the projectile damage and speed multiplier
                 BulletProjectile newPelletProjectile = pellet.GetComponent<BulletProjectile>();
@@ -183,9 +190,11 @@ public class CristalArm : PlayerAbility
         if (OnPlayerInput.instance.onArmMode) {
             if ((int)crystalArmModes == Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Max()){ // if the current item is the last item possible
                 crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min(); //set it to first item
+                ShotgunSwapFalse.PlayRandomClip();
             }
             else {
                 crystalArmModes = (CrystalArmModes)((int)crystalArmModes+1); /* set it to the next item. */ // ! -----------IT DOES NOT WORK IF WE ASSIGN RANDOM IDs TO THE ENUM ITEMS-----------
+                ShotgunSwapTrue.PlayRandomClip();
             }
             OnPlayerInput.instance.onArmMode = false; //stop the button from being pressed and trigger the statement on the same press
         }

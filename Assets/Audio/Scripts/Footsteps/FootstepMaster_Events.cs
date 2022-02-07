@@ -196,7 +196,7 @@ public class FootstepMaster_Events : MonoBehaviour {
 			Invoke ("PlayMetal", 0);
 		if (floor.tag == ("Surface_Snow"))
 			Invoke ("PlaySnow", 0);
-		if (floor.tag == ("Surface_Water"))
+		if (floor.tag == ("WaterPuddle"))
 			Invoke ("PlayWater", 0);
 		if (floor.tag == ("Untagged"))
 			Invoke ("PlayDefault", 0);

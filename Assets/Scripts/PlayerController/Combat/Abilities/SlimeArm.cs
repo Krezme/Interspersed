@@ -43,6 +43,7 @@ public class SlimeArm : PlayerAbility
     private List<LayerMask> currentRBDefaultLayerMask = new List<LayerMask>();
 
     private bool isShielding = false;
+    private bool unShield = false;
 
     public override void MorthToTarget()
     {
@@ -82,11 +83,10 @@ public class SlimeArm : PlayerAbility
                             {
                                 grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
                                 grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
+                                Debug.Log(grabbedRB.constraints);
                                 Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
                                 FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
-                                FadeOut.SetActive(false);
-                                grabbedRB.isKinematic = true;
-                                PlayerAbilitiesController.instance.isAbilityActive = true;                                
+                                FadeOut.SetActive(false);                               
                             }
                             foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
                                 changedRigidBodies.Add(rb);
@@ -110,6 +110,8 @@ public class SlimeArm : PlayerAbility
                         if (grabbedRagdoll != null) {
                             slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
                             slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRagdoll.rigCentre;
+                            FadeIn.SetActive(true);
+                            FadeOut.SetActive(false);
                         }
                         else {
                             slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
@@ -135,6 +137,7 @@ public class SlimeArm : PlayerAbility
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
                 grabbedRB.constraints = RigidbodyConstraints.None;
+                Debug.Log(grabbedRB.constraints + "HEHE");
                 for (int i = 0; i < changedRigidBodies.Count; i++) {
                     changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
                     changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
@@ -165,6 +168,9 @@ public class SlimeArm : PlayerAbility
         if (grabbedRB)
         {
             if (OnPlayerInput.instance.onAbility1) {
+                if (isShielding) {
+                    unShield = true;
+                }
                 isShielding = !isShielding;
                 OnPlayerInput.instance.onAbility1 = false;
             }
@@ -199,12 +205,13 @@ public class SlimeArm : PlayerAbility
                 FadeOut.SetActive(true);
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
-                grabbedRB.constraints = RigidbodyConstraints.None;
+                Debug.Log(grabbedRB.constraints + "HEHE1");
                 for (int i = 0; i < changedRigidBodies.Count; i++) {
                     changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
                     changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
                 }
                 UnShieldWithGrabbed();
+                grabbedRB.constraints = RigidbodyConstraints.None;
                 changedRigidBodies = new List<Rigidbody>();
                 currentRBDefaultAngularFriction = new List<float>();
                 currentRBDefaultLayerMask = new List<LayerMask>();
@@ -238,7 +245,8 @@ public class SlimeArm : PlayerAbility
             }
         }
         else {
-            if (grabbedRB) {
+            if (grabbedRB && unShield) {
+                unShield = false;
                 UnShieldWithGrabbed();
             }
         }
@@ -247,11 +255,14 @@ public class SlimeArm : PlayerAbility
         if (grabbedRagdoll != null) {
             foreach(Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
                 rb.constraints  = RigidbodyConstraints.None;
+                Debug.Log(grabbedRB.constraints + "HEHE2");
                 rb.GetComponent<Collider>().isTrigger = false;
             }
+            grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
         }
         else{
             grabbedRB.constraints = RigidbodyConstraints.None;
+            Debug.Log(grabbedRB.constraints + "HEHE3");
             grabbedRB.GetComponent<Collider>().isTrigger = false;
         }
     }
