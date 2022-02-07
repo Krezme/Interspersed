@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gamekit3D //The RandomAudioPlayer scipt was originally copied from Unity's 3DGameKit 'The Explorer' and to my knowledge, requires this namespace to function
-{
 
     [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(RandomAudioPlayer))]
@@ -60,4 +58,3 @@ namespace Gamekit3D //The RandomAudioPlayer scipt was originally copied from Uni
             }
         }
     }
-}
