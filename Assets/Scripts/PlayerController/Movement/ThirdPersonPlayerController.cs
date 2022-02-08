@@ -10,6 +10,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     public static ThirdPersonPlayerController instance;
 
+    CristalArm hold; //Rhys - Creating reference to 'CristalArm' script used to control 'IsHold' bool
+
     void Awake() {
         if (instance == null) {
             instance = this;
@@ -17,6 +19,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         else {
             Debug.LogError("THERE ARE 2 ThirdPersonPlayerController SCRIPTS IN EXISTANCE");
         }
+
+        hold = GameObject.FindGameObjectWithTag("PlayerAbility").GetComponent<CristalArm>(); //Rhys - Used to control 'IsHold' variable present within 'CristalArm' script - Melee attack causes IsHold to incorrectly
+
     }
 
 #endregion
@@ -119,6 +124,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public int maxEnergy = 5;
     public int maxHealth = 100;
 
+    public RandomAudioPlayer PlayerDamaged; //Rhys - Player takes damage 
+    public RandomAudioPlayer PlayerAttack; //Rhys - Player melee attack
+
     // References
     private CharacterController controller;
     private GameObject mainCamera;
@@ -139,6 +147,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
         //secondaryRequiredForceToMove = frictionSlide * (playerCharacterMass * -gravity);
     }
     
+    
+
     void Update()
     {
         GroundCheckSphere();
@@ -426,6 +436,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
         if (OnPlayerInput.instance.onFire1 && !OnPlayerInput.instance.onFire2 && !PlayerAbilitiesController.instance.isAbilityActive){ // Only attacks if the fire 1 button is pressed without any other
             OnPlayerInput.instance.onFire1 = false;
             animator.SetTrigger("Attack");
+            PlayerAttack.PlayRandomClip();
+            hold.IsHold = false; //Rhys - Set 'IsHold' to false on melee to prevent melee from disabling CrystalArm chargeup sound after attack
         }
     }
 
@@ -481,6 +493,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
         currentHealth -= damage;
 
         healthbar.SetHealth(currentHealth);
+
+        PlayerDamaged.PlayRandomClip();
     }
     void Heal(int heal)
     {
