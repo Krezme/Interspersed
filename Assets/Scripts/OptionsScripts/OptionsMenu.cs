@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class OptionsMenu : MonoBehaviour
     Resolution[] resolutions;
 
     public static float masterVol, musicVol, sfxVol;
+
+    public InputActionReference cameraAction;
 
     void Start()
     {
@@ -74,5 +78,22 @@ public class OptionsMenu : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+    }
+
+    //This section controls Camera settings
+    public void InvertY(bool isInverted)
+    {
+        if (isInverted)
+        {
+            Debug.Log("Not Inverted");
+            cameraAction.action.ChangeBinding(0);
+            cameraAction.action.ApplyBindingOverride(new InputBinding { overrideProcessors = "invertVector2(invertX=true,invertY)" });
+        }
+        else
+        {
+            Debug.Log("Inverted");
+            cameraAction.action.ApplyBindingOverride(new InputBinding { overrideProcessors = "invertVector2(invertX=false,invertY)" });
+        }
+        
     }
 }
