@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gamekit3D
-{ 
+
+ 
 public class AudioPlayRandomAudioPlayerScript : MonoBehaviour
     {
 
@@ -24,4 +24,4 @@ public class AudioPlayRandomAudioPlayerScript : MonoBehaviour
         }
 
     }
-}
+

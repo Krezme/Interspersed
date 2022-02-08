@@ -5,8 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-namespace Gamekit3D
-{
+
     [RequireComponent(typeof(AudioSource))]
     public class RandomAudioPlayer : MonoBehaviour
     {
@@ -101,4 +100,4 @@ namespace Gamekit3D
         }
 
     }
-}
+
