@@ -63,7 +63,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""21db8fab-0295-40aa-b6b1-1721f6fabc5a"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""InvertVector2(invertX=false)"",
+                    ""processors"": """",
                     ""interactions"": """"
                 },
                 {

@@ -85,15 +85,42 @@ public class OptionsMenu : MonoBehaviour
     {
         if (isInverted)
         {
-            Debug.Log("Not Inverted");
-            cameraAction.action.ChangeBinding(0);
-            cameraAction.action.ApplyBindingOverride(new InputBinding { overrideProcessors = "invertVector2(invertX=true,invertY)" });
+            Debug.Log("Inverted");
+            InputBinding deltaPointer = cameraAction.action.bindings[0];
+            Debug.Log(deltaPointer);
+            deltaPointer.overrideProcessors = "invertVector2(invertX=false,invertY=false)"; // ! X and Y are the wrong way round, X=Y, Y=X
+
+            cameraAction.action.ApplyBindingOverride(0, deltaPointer);
         }
         else
         {
-            Debug.Log("Inverted");
-            cameraAction.action.ApplyBindingOverride(new InputBinding { overrideProcessors = "invertVector2(invertX=false,invertY)" });
+            Debug.Log("Not Inverted");
+            InputBinding deltaPointer = cameraAction.action.bindings[0];
+            deltaPointer.overrideProcessors = "invertVector2(invertX=true, invertY=false)"; // ! X and Y are the wrong way round, X=Y, Y=X
+
+
+            cameraAction.action.ApplyBindingOverride(0, deltaPointer);
         }
-        
+
+    }
+    public void InvertX(bool isInverted)
+    {
+        if (isInverted)
+        {
+            Debug.Log("Inverted");
+            InputBinding deltaPointer = cameraAction.action.bindings[0];
+            deltaPointer.overrideProcessors = "invertVector2(invertX=true,invertY=true)"; // ! X and Y are the wrong way round, X=Y, Y=X
+
+            cameraAction.action.ApplyBindingOverride(0, deltaPointer);
+        }
+        else
+        {
+            Debug.Log("Not Inverted");
+            InputBinding deltaPointer = cameraAction.action.bindings[0];
+            deltaPointer.overrideProcessors = "invertVector2(invertX=true,invertY=false)"; // ! X and Y are the wrong way round, X=Y, Y=X
+
+            cameraAction.action.ApplyBindingOverride(0, deltaPointer);
+        }
+
     }
 }
