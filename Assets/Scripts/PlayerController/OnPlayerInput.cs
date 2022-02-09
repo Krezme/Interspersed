@@ -28,9 +28,9 @@ public class OnPlayerInput : MonoBehaviour
     public static bool isWalkingToggleable = true; // if the player wants toggleable walking or just hold to sprint
     public static bool isSprintToggleable; // if the player wants toggleable sprinting or just hold to sprint
     [Range(0.1f, 5.0f)]
-    public float mouseSensitivity = 1f;
+    public static float mouseSensitivity = 1f;
     [Range(0.1f, 5.0f)]
-    public float mouseSensitivityAim = 0.5f;
+    public static float mouseSensitivityAim = 0.5f;
 
     public static bool invertXBool, invertYBool;
 

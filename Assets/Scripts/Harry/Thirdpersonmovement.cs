@@ -97,7 +97,7 @@ public class Thirdpersonmovement : MonoBehaviour {
         if (OnPlayerInput.instance.onFire2)
         {
             aimVirtualCamera.gameObject.SetActive(true);
-            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.instance.mouseSensitivityAim;
+            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.mouseSensitivityAim;
             thirdPersonPlayerController.SetRotateOnMove(true);
             for (int i = 0; thirdPersonPlayerController.rigBuilder.layers.Count > i; i++) { //Setting the weight of the rigs to 1 (Animation Rigging)
                 thirdPersonPlayerController.rigBuilder.layers[i].rig.weight = Mathf.Lerp(thirdPersonPlayerController.rigBuilder.layers[i].rig.weight, 1f, Time.deltaTime * 10f);
@@ -112,7 +112,7 @@ public class Thirdpersonmovement : MonoBehaviour {
         else
         {
             aimVirtualCamera.gameObject.SetActive(false);
-            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.instance.mouseSensitivity;
+            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.mouseSensitivity;
             thirdPersonPlayerController.SetRotateOnMove(false);
             for (int i = 0; thirdPersonPlayerController.rigBuilder.layers.Count > i; i++) { //Setting the weight of the rigs to 0 (Animation Rigging)
                 thirdPersonPlayerController.rigBuilder.layers[i].rig.weight = Mathf.Lerp(thirdPersonPlayerController.rigBuilder.layers[i].rig.weight, 0f, Time.deltaTime * 10f);

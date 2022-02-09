@@ -18,7 +18,9 @@ public class OptionsMenu : MonoBehaviour
     public Slider masterSlider, musicSlider, sfxSlider;
 
     public Toggle invertXToggle, invertYToggle;
-    public Slider mouseXSensitivitySlider, mouseYSensitivitySlider;
+    public Slider mouseSensitivitySlider, mouseAimSensitivitySlider;
+    public Text mouseSensitivityText, mouseAimSensitivityText;
+
     public Toggle sprintToggle, walkToggle;
 
     void Start()
@@ -58,6 +60,12 @@ public class OptionsMenu : MonoBehaviour
 
         sprintToggle.isOn = OnPlayerInput.isSprintToggleable;
         walkToggle.isOn = OnPlayerInput.isWalkingToggleable;
+
+        mouseSensitivitySlider.value = OnPlayerInput.mouseSensitivity;
+        mouseAimSensitivitySlider.value = OnPlayerInput.mouseSensitivityAim;
+
+        mouseSensitivityText.text = OnPlayerInput.mouseSensitivity.ToString();
+        mouseAimSensitivityText.text = OnPlayerInput.mouseSensitivityAim.ToString();
 
     }
 
@@ -113,13 +121,15 @@ public class OptionsMenu : MonoBehaviour
         OnPlayerInput.invertXBool = isInverted;
 
     }
-    public void MouseSensitivityX(float sliderValue)
+    public void MouseSensitivity(float sliderValue)
     {
-        
+        OnPlayerInput.mouseSensitivity = sliderValue;
+        mouseSensitivityText.text = OnPlayerInput.mouseSensitivity.ToString();
     }
-    public void MouseSensitivityY(float sliderValue)
+    public void MouseAimSensitivity(float sliderValue)
     {
-
+        OnPlayerInput.mouseSensitivityAim = sliderValue;
+        mouseAimSensitivityText.text = OnPlayerInput.mouseSensitivityAim.ToString();
     }
     public void OnSprintToggle(bool toggle)
     {
