@@ -71,7 +71,7 @@ public class CristalArm : PlayerAbility
 
     public RandomAudioPlayer Electric; //Rhys - Assign to RandomAudioPlayer for Electrical shot sound
 
-    private bool IsHold = false; //Rhys - Fixes an issue which would cause the RandomAudioPlayer to rapidly cycle through each charge sound variation instead of selecting one
+    public bool IsHold = false; //Rhys - Fixes an issue which would cause the RandomAudioPlayer to rapidly cycle through each charge sound variation instead of selecting one - Changed from private to public to allow access from ThirdPersonPlayerController
 
     public RandomAudioPlayer ShotgunShoot; //Rhys - Shotgun shoot sound bank
 
