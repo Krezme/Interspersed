@@ -75,8 +75,6 @@ public class SlimeArm : PlayerAbility
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {                        
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                        Debug.Log(grabbedRB);
-                        Debug.Log(grabbedRB.gameObject.transform.root.GetComponent<RagdollController>());
                         
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                             grabbedRagdoll.pickedUpByPlayer = true;
