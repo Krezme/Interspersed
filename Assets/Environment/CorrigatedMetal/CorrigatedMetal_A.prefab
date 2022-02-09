@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4415037389040820466}
   - component: {fileID: 1919002197778519096}
   - component: {fileID: 7927900423520566661}
+  - component: {fileID: -2945345708497416885}
+  - component: {fileID: -2397447231165398323}
   m_Layer: 0
   m_Name: CorrigatedMetal_A
   m_TagString: Untagged
@@ -96,3 +98,52 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1345780389422567108, guid: 718ee9a2bad20cf4589231082b08f107, type: 3}
+--- !u!114 &-2945345708497416885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117469781521069549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2da29ea2ef654449b4bcbb618c286e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: -2397447231165398323}
+  RequiredVelocity: 3
+--- !u!114 &-2397447231165398323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117469781521069549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minVolume: 0.2
+  maxVolume: 0.2
+  minPitch: 0.75
+  maxPitch: 1
+  playDelay: 0
+  defaultBank:
+    name: 
+    clips:
+    - {fileID: 8300000, guid: 34305c302c1f10d44a9d1f91f19266cc, type: 3}
+    - {fileID: 8300000, guid: 801338ff4a7a2a74096e3916fa2307c5, type: 3}
+    - {fileID: 8300000, guid: 73267bf250baf7a458466faffaa47e2f, type: 3}
+    - {fileID: 8300000, guid: 58c646a3942eba440b979c4dab6686b3, type: 3}
+    - {fileID: 8300000, guid: 79038f31a50a3064dad28dd97c943fcf, type: 3}
+    - {fileID: 8300000, guid: dbd2ba01975796c4592cbc5c0218be56, type: 3}
+    - {fileID: 8300000, guid: 2e32e8ea91a90534590dd247257866fa, type: 3}
+    - {fileID: 8300000, guid: 863f966ec44676b48af921b83fa3b291, type: 3}
+    - {fileID: 8300000, guid: 1bcaab4e1be985441b0422eab9a3a3b0, type: 3}
+    - {fileID: 8300000, guid: bb0698aeef0264546a84ffb3ec5d724b, type: 3}
+    - {fileID: 8300000, guid: 80776d282ae141641b42e8832328829b, type: 3}
+    - {fileID: 8300000, guid: ef5a5327173c7f748a5bec029aaf6509, type: 3}
+  overrides: []
+  playing: 0
+  canPlay: 0

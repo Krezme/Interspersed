@@ -14,7 +14,7 @@ public class MoveToPosition : ActionNode
     protected override void OnStart() {
         context.agent.stoppingDistance = stoppingDistance;
         context.agent.speed = speed;
-        context.agent.destination = blackboard.moveToPosition;
+        
         context.agent.updateRotation = updateRotation;
         context.agent.acceleration = acceleration;
     }
@@ -23,6 +23,8 @@ public class MoveToPosition : ActionNode
     }
 
     protected override State OnUpdate() {
+        context.agent.destination = blackboard.moveToPosition;
+
         if (context.agent.pathPending) {
             return State.Running;
         }

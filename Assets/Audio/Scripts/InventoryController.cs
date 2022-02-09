@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Gamekit3D
-{
+
     public class InventoryController : MonoBehaviour
     {
         [System.Serializable]
@@ -86,4 +85,3 @@ namespace Gamekit3D
 
     }
 
-}

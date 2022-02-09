@@ -8,4 +8,5 @@ public class EnemyStatisticsSO : ScriptableObject
     //
     public float health;
     public string description;
+    public float damage;
 }

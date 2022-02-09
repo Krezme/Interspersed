@@ -111,13 +111,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float heightCheckDistanceFrontLast = 1f;
     private float heightCheckDistanceBack;
     private bool isAiming;
-    
-    public Healthbar healthbar;
-    public Energybar energybar;
-    public int currentEnergy;
-    public int currentHealth;
-    public int maxEnergy = 5;
-    public int maxHealth = 100;
 
     // References
     private CharacterController controller;
@@ -129,9 +122,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         controller = GetComponent<CharacterController>();
         originalHeight = controller.height;
-        currentHealth = maxHealth;
-        healthbar.SetMaxHealth(maxHealth);
-        currentEnergy = 0;
             
        
 
@@ -464,7 +454,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         isAiming = aimState;
     }
 
-    void AddEnergy(int gain)
+    /* void AddEnergy(int gain)
     {
         currentEnergy += gain;
 
@@ -476,12 +466,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         energybar.SetEnergy(currentEnergy);
 
     }
-    void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-
-        healthbar.SetHealth(currentHealth);
-    }
+    
     void Heal(int heal)
     {
         currentHealth += heal;
@@ -513,5 +498,5 @@ public class ThirdPersonPlayerController : MonoBehaviour
         {
             Heal(50);
         }
-    }
+    } */
 }
