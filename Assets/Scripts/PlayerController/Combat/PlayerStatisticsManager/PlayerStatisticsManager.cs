@@ -22,6 +22,8 @@ public class PlayerStatisticsManager : MonoBehaviour
     public PlayerCurrentStatistics currentStatistics;
     public PlayerMaxStatistics maxStatistics;
 
+    public RandomAudioPlayer PlayerDamaged;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,5 +59,7 @@ public class PlayerStatisticsManager : MonoBehaviour
         currentStatistics.health -= damage;
 
         Healthbar.instance.slider.value = currentStatistics.health;
+
+        PlayerDamaged.PlayRandomClip();
     }
 }
