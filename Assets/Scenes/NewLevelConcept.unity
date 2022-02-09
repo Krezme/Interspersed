@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 1232.7532, g: 1374.9766, b: 1186.374, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -484,6 +484,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FloatingSpaceRock_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 47748182688642214, guid: b8a66c2caaea49645864c7b7d643ec29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 856372311549537820, guid: b8a66c2caaea49645864c7b7d643ec29,
         type: 3}
@@ -5519,6 +5524,51 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1843093290}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &612837532
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 612837534}
+  - component: {fileID: 612837533}
+  m_Layer: 0
+  m_Name: StaticLightingSky
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &612837533
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612837532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Profile: {fileID: 11400000, guid: a34bfe9233d5e5740a57e44e02ddcd7a, type: 2}
+  m_StaticLightingSkyUniqueID: 4
+--- !u!4 &612837534
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612837532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 38
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &614955341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3794029363245996480, guid: b1b32e293985db442b483491fa571af1,
@@ -9939,6 +9989,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1098447769}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1100941204
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.024831
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.7534032
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.52242064
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968912, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129713481424968914, guid: 729ba436228b0f340a91a88d67e34b48,
+        type: 3}
+      propertyPath: m_Name
+      value: Sky and Fog Volume
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 729ba436228b0f340a91a88d67e34b48, type: 3}
 --- !u!1001 &1107862286
 PrefabInstance:
   m_ObjectHideFlags: 0
