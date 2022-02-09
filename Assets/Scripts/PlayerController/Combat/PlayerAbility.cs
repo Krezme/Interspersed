@@ -50,7 +50,7 @@ public class PlayerAbility : MonoBehaviour
         if (OnPlayerInput.instance.onFire2)
         {
             aimVirtualCamera.gameObject.SetActive(true);
-            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.instance.mouseSensitivityAim;
+            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.mouseSensitivityAim;
             ThirdPersonPlayerController.instance.SetRotateOnMove(true);
             for (int i = 0; ThirdPersonPlayerController.instance.rigBuilder.layers.Count > i; i++) { //Setting the weight of the rigs to 1 (Animation Rigging) "pointing the arm forwards"
                 ThirdPersonPlayerController.instance.rigBuilder.layers[i].rig.weight = Mathf.Lerp(ThirdPersonPlayerController.instance.rigBuilder.layers[i].rig.weight, 1f, Time.deltaTime * 10f);
@@ -67,7 +67,7 @@ public class PlayerAbility : MonoBehaviour
         else
         {
             aimVirtualCamera.gameObject.SetActive(false);
-            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.instance.mouseSensitivity;
+            OnPlayerInput.instance.mouseSensitivityCurrent = OnPlayerInput.mouseSensitivity;
             ThirdPersonPlayerController.instance.SetRotateOnMove(false);
             for (int i = 0; ThirdPersonPlayerController.instance.rigBuilder.layers.Count > i; i++) { //Setting the weight of the rigs to 0 (Animation Rigging)
                 ThirdPersonPlayerController.instance.rigBuilder.layers[i].rig.weight = Mathf.Lerp(ThirdPersonPlayerController.instance.rigBuilder.layers[i].rig.weight, 0f, Time.deltaTime * 10f);
