@@ -116,6 +116,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float heightCheckDistanceFrontLast = 1f;
     private float heightCheckDistanceBack;
     private bool isAiming;
+    private bool hasJumped;
+    private float delayedJumpTime = 0.5f;
+    private float delayedJumpCurrentTime = 0.5f;
 
     public RandomAudioPlayer PlayerDamaged; //Rhys - Player takes damage 
     public RandomAudioPlayer PlayerAttack; //Rhys - Player melee attack
@@ -233,21 +236,22 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// Handles the player jump and gravity
     /// </summary>
     void PlayerJumpAndGravity(){
-        if (isGrounded) {
+        if (isGrounded || !hasJumped) {
             fallCooldownCurrent = fallCooldown;
 
             animator.SetBool("Jump", false);
 			animator.SetBool("Falling", false);
 
             // gravity reduction while grounded
-            if (verticalVelocity <= 0.0f) {
+            if (verticalVelocity <= 0.0f && isGrounded) {
                 verticalVelocity = constGravityWhileGrounded;
             }
 
             // Calculating the vertical velocuty when the input is pressed and the cooldown is over
-            if (OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) {
+            if ((OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) || (OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && delayedJumpCurrentTime < delayedJumpTime && !hasJumped)) {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);   // H * -2 * G to calculate how much velocity is required to reach the desired height
-
+                delayedJumpCurrentTime = delayedJumpTime;
+                hasJumped = true;
                 animator.SetBool("Jump", true);
             }
             else {
@@ -393,10 +397,30 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// </summary>
     private void GroundedCheck()
 	{
+        
 		// Checking if player is grounded
-		isGrounded = Physics.CheckSphere(groundedSpherePosition, groundedGizmoRadius, groundLayers, QueryTriggerInteraction.Ignore);
+        isGrounded = Physics.CheckSphere(groundedSpherePosition, groundedGizmoRadius, groundLayers, QueryTriggerInteraction.Ignore);
+        if (isGrounded) {
+            hasJumped = false;
+        }
+        animator.SetBool("Grounded", isGrounded);
 
-		animator.SetBool("Grounded", isGrounded);
+        if (isGrounded && !hasJumped) {
+            if (delayedJumpCurrentTime >= delayedJumpTime) {
+                
+            }
+            delayedJumpCurrentTime = 0;
+        }
+
+        if (delayedJumpCurrentTime < delayedJumpTime) {
+            delayedJumpCurrentTime += Time.deltaTime;
+            Debug.Log("isGrounded " + delayedJumpCurrentTime);
+        }
+
+        if (delayedJumpCurrentTime >= delayedJumpTime && !isGrounded) {
+            hasJumped = true;
+        }
+		
 	}
 
     /// <summary>
