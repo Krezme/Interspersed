@@ -356,7 +356,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""79b919ae-ada3-47ce-ae23-2cf646483452"",
                     ""path"": ""<XInputController>/rightTrigger"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Fire1"",
