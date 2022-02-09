@@ -14,9 +14,12 @@ public class OptionsMenu : MonoBehaviour
     public Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
-    public static float masterVol, musicVol, sfxVol;
+    public static float masterVol =1.0f, musicVol = 1.0f, sfxVol = 1.0f;
+    public Slider masterSlider, musicSlider, sfxSlider;
 
-    public InputActionReference cameraAction;
+    public Toggle invertXToggle, invertYToggle;
+    public Slider mouseXSensitivitySlider, mouseYSensitivitySlider;
+    public Toggle sprintToggle, walkToggle;
 
     void Start()
     {
@@ -40,7 +43,24 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        UpdateSettings();
     }
+
+    public void UpdateSettings()
+    {
+        masterSlider.value = masterVol;
+        musicSlider.value = musicVol;
+        sfxSlider.value = sfxVol;
+
+        invertXToggle.isOn = OnPlayerInput.invertXBool;
+        invertYToggle.isOn = OnPlayerInput.invertYBool;
+
+        sprintToggle.isOn = OnPlayerInput.isSprintToggleable;
+        walkToggle.isOn = OnPlayerInput.isWalkingToggleable;
+
+    }
+
 
     /// This Section is to control audio settings
     public void SetMasterVolLevel(float sliderValue)
@@ -83,44 +103,30 @@ public class OptionsMenu : MonoBehaviour
     //This section controls Camera settings
     public void InvertY(bool isInverted)
     {
-        if (isInverted)
-        {
-            Debug.Log("Inverted");
-            InputBinding deltaPointer = cameraAction.action.bindings[0];
-            Debug.Log(deltaPointer);
-            deltaPointer.overrideProcessors = "invertVector2(invertX=false,invertY=false)"; // ! X and Y are the wrong way round, X=Y, Y=X
-
-            cameraAction.action.ApplyBindingOverride(0, deltaPointer);
-        }
-        else
-        {
-            Debug.Log("Not Inverted");
-            InputBinding deltaPointer = cameraAction.action.bindings[0];
-            deltaPointer.overrideProcessors = "invertVector2(invertX=true, invertY=false)"; // ! X and Y are the wrong way round, X=Y, Y=X
-
-
-            cameraAction.action.ApplyBindingOverride(0, deltaPointer);
-        }
+        
+        OnPlayerInput.invertYBool = isInverted;
 
     }
     public void InvertX(bool isInverted)
     {
-        if (isInverted)
-        {
-            Debug.Log("Inverted");
-            InputBinding deltaPointer = cameraAction.action.bindings[0];
-            deltaPointer.overrideProcessors = "invertVector2(invertX=true,invertY=true)"; // ! X and Y are the wrong way round, X=Y, Y=X
 
-            cameraAction.action.ApplyBindingOverride(0, deltaPointer);
-        }
-        else
-        {
-            Debug.Log("Not Inverted");
-            InputBinding deltaPointer = cameraAction.action.bindings[0];
-            deltaPointer.overrideProcessors = "invertVector2(invertX=true,invertY=false)"; // ! X and Y are the wrong way round, X=Y, Y=X
+        OnPlayerInput.invertXBool = isInverted;
 
-            cameraAction.action.ApplyBindingOverride(0, deltaPointer);
-        }
+    }
+    public void MouseSensitivityX(float sliderValue)
+    {
+        
+    }
+    public void MouseSensitivityY(float sliderValue)
+    {
 
+    }
+    public void OnSprintToggle(bool toggle)
+    {
+        OnPlayerInput.isSprintToggleable = toggle;
+    }
+    public void OnWalkToggle(bool toggle)
+    {
+        OnPlayerInput.isWalkingToggleable = toggle;
     }
 }

@@ -25,12 +25,14 @@ public class OnPlayerInput : MonoBehaviour
 #endregion 
 
     [Header("Options")]
-    public bool isWalkingToggleable; // if the player wants toggleable walking or just hold to sprint
-    public bool isSprintToggleable; // if the player wants toggleable sprinting or just hold to sprint
+    public static bool isWalkingToggleable = true; // if the player wants toggleable walking or just hold to sprint
+    public static bool isSprintToggleable; // if the player wants toggleable sprinting or just hold to sprint
     [Range(0.1f, 5.0f)]
     public float mouseSensitivity = 1f;
     [Range(0.1f, 5.0f)]
     public float mouseSensitivityAim = 0.5f;
+
+    public static bool invertXBool, invertYBool;
 
 #region Values
     [HideInInspector]
@@ -224,7 +226,18 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="lookInput">The value to set the looking var</param>
     private void PlayerLookInput(Vector2 lookInput) {
+
         looking = lookInput * mouseSensitivityCurrent;
+
+        if (invertXBool)
+        {
+            looking.x = -looking.x;
+        }
+        if (invertYBool)
+        {
+            looking.y = -looking.y;
+        }
+        
     }
     
     /// <summary>
