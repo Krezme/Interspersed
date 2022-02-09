@@ -22,6 +22,12 @@ public class EnemyStatisticsManager : MonoBehaviour
 
     public BehaviourTreeRunner behaviourTreeRunner;
 
+    public RandomAudioPlayer WarplingDamaged;
+
+    public RandomAudioPlayer WarplingAttack;
+
+    public RandomAudioPlayer WarplingDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +47,7 @@ public class EnemyStatisticsManager : MonoBehaviour
 
     public void TakeDamage (float damage) {
         currentStats.health -= damage;
+        WarplingDamaged.PlayRandomClip();
         if(currentStats.health < statisticsSO.health)
         {
             healthBarCanvas.SetActive(true);
@@ -60,5 +67,6 @@ public class EnemyStatisticsManager : MonoBehaviour
         if (ragdollController != null) {
             ragdollController.RagdollOn();
         }
+        WarplingDeath.PlayRandomClip();
     }
 }
