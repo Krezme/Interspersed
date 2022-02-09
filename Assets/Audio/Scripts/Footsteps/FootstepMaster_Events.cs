@@ -47,7 +47,7 @@ public class FootstepMaster_Events : MonoBehaviour {
 	public AudioClip[] dirt = new AudioClip[0];
 	public AudioClip[] grass = new AudioClip[0];
 	public AudioClip[] gravel = new AudioClip[0];
-	public AudioClip[] leaves = new AudioClip[0];
+	public AudioClip[] Mud = new AudioClip[0];
 	public AudioClip[] metal = new AudioClip[0];
 	public AudioClip[] snow = new AudioClip[0];
 	public AudioClip[] stone = new AudioClip[0];
@@ -182,8 +182,8 @@ public class FootstepMaster_Events : MonoBehaviour {
 
 		if (floor.tag == ("Surface_Grass"))
 			Invoke ("PlayGrass", 0);
-		if (floor.tag == ("Surface_Leaves"))
-			Invoke ("PlayLeaves", 0);
+		if (floor.tag == ("Surface_Mud"))
+			Invoke ("PlayMud", 0);
 		if (floor.tag == ("Surface_Dirt"))
 			Invoke ("PlayDirt", 0);
 		if (floor.tag == ("Surface_Gravel"))
@@ -210,8 +210,8 @@ public class FootstepMaster_Events : MonoBehaviour {
 
 			if (whatTexture.Contains ("grass") == true || whatTexture.Contains ("Grass") == true || whatTexture.Contains ("GRASS") == true)
 				Invoke ("PlayGrass", 0);
-			else if (whatTexture.Contains ("leaves") == true || whatTexture.Contains ("Leaves") == true|| whatTexture.Contains ("LEAVES") == true)
-				Invoke ("PlayLeaves", 0);
+			else if (whatTexture.Contains ("Mud") == true || whatTexture.Contains ("Mud") == true|| whatTexture.Contains ("Mud") == true)
+				Invoke ("PlayMud", 0);
 			else if (whatTexture.Contains ("dirt") == true || whatTexture.Contains ("Dirt") == true|| whatTexture.Contains ("DIRT") == true)
 				Invoke ("PlayDirt", 0);
 			else if (whatTexture.Contains ("gravel") == true || whatTexture.Contains ("Gravel") == true|| whatTexture.Contains ("GRAVEL") == true)
@@ -248,13 +248,13 @@ public class FootstepMaster_Events : MonoBehaviour {
 		} else Debug.LogError ("trying to play grass sound, but no grass sounds in array!");
 	}
 
-	void PlayLeaves(){
+	void PlayMud(){
 		currentVolume = (volume + UnityEngine.Random.Range(-volumeVariance, volumeVariance));
 		pitch = (1.0f + Random.Range(-pitchVariance, pitchVariance));
 		mySound.pitch = pitch;
-		if (leaves.Length > 0) {
-			mySound.PlayOneShot (leaves [Random.Range (0, leaves.Length)], currentVolume);
-		} else Debug.LogError ("trying to play leaves sound, but no leaves sounds in array!");
+		if (Mud.Length > 0) {
+			mySound.PlayOneShot (Mud [Random.Range (0, Mud.Length)], currentVolume);
+		} else Debug.LogError ("trying to play Mud sound, but no Mud sounds in array!");
 	}
 	
 	void PlayDirt(){		//Supports toggling or instantiating a "dirtFX" AT THE PLAYER'S CURRENT FOOT which could be a dust cloud particle system, or something...
