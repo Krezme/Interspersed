@@ -15,16 +15,17 @@ public class WarplingAnimationManager : EnemyAnimationManager
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void EnableWeaponCollider()
     {
+        molarCollider.isTrigger = true;
         molarCollider.enabled = true;
     }
 
     public void DisableWeaponCollider()
     {
+        molarCollider.isTrigger = true;
         molarCollider.enabled = false;
     }
 }
