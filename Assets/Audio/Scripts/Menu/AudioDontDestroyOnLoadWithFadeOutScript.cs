@@ -9,8 +9,14 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
 
     public GameObject FadeInAudio;
 
+    public static AudioDontDestroyOnLoadWithFadeOutScript instance;
+
     void Awake()
     {
+        if (instance != null) {
+            Destroy(instance.gameObject);
+        }
+        instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
