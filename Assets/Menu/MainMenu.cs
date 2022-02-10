@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("ImprovedLMALevel");
+        SceneManager.LoadScene("NewLevelConcept");
     }
 
     /// <summary>
@@ -42,6 +42,10 @@ public class MainMenu : MonoBehaviour
     }
     public void LoadDemo() {
         SceneManager.LoadScene("Dev_Island");
+    }
+
+    public void LoadOldLevel() {
+        SceneManager.LoadScene("ImprovedLMALevel");
     }
 
     public void ExitGame()
