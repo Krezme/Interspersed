@@ -14,3 +14,8 @@ Note:  Do not leave empty folders in your Unity project.  Empty folders do not g
 For full details on this project's settings, please read the Changelog.md
  
 Do you have any suggestions for improvements? Please submit a pull request!
+
+Behaviour three free asset by TheKiwiCoder:
+https://www.youtube.com/watch?v=SgrG6uAZDHE
+https://thekiwicoder.com/behaviour-tree-editor/
+

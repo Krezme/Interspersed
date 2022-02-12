@@ -9,12 +9,12 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: SlimeMaterial2
   m_Shader: {fileID: 4800000, guid: fed2bf92d3016014c914e7c075b0713d, type: 3}
-  m_ShaderKeywords: _ADD_PRECOMPUTED_VELOCITY _DISABLE_SSR_TRANSPARENT _ENABLE_FOG_ON_TRANSPARENT
-    _SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: _ADD_PRECOMPUTED_VELOCITY _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON
+    _ENABLE_FOG_ON_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 3001
   stringTagMap:
     MotionVector: User
     RenderType: Transparent
@@ -30,19 +30,22 @@ Material:
     - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
     - _BlendMode: 0
-    - _CullMode: 2
+    - _CameraDistanceAlpha: 0.5
+    - _CullMode: 0
     - _CullModeForward: 2
-    - _DoubleSidedEnable: 0
+    - _DoubleSidedEnable: 1
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 10
     - _EnableFogOnTransparent: 1
     - _IOR: 1.309
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
-    - _RefractDistance: 5.66
+    - _RefractDistance: 15
     - _RenderQueueType: 4
     - _RequireSplitLighting: 0
-    - _Smoothness: 1
+    - _ScatterScale: 3
+    - _ScatteringFalloff: 4
+    - _Smoothness: 0.86
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 0
@@ -59,7 +62,7 @@ Material:
     - _SurfaceType: 1
     - _TransparentBackfaceEnable: 1
     - _TransparentCullMode: 2
-    - _TransparentSortPriority: 0
+    - _TransparentSortPriority: 1
     - _TransparentZWrite: 1
     - _UseShadowThreshold: 0
     - _ZTestDepthEqualForOpaque: 4
@@ -70,6 +73,6 @@ Material:
     m_Colors:
     - _Color0: {r: 0.5209888, g: 1, b: 0.3820755, a: 1}
     - _Color1: {r: 0.055937782, g: 0.2641509, b: 0, a: 0}
-    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

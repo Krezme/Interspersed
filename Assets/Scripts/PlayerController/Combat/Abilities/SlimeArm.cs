@@ -75,9 +75,10 @@ public class SlimeArm : PlayerAbility
                     if (Physics.Raycast(ray, out hit, maxGrabDistance))
                     {                        
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                        
                         if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                             grabbedRagdoll.pickedUpByPlayer = true;
-                            
+                            Debug.Log("Running Ragdoll");
                             grabbedRagdoll.RagdollOn();
                             if (Physics.Raycast(ray, out hit, maxGrabDistance))
                             {
@@ -137,7 +138,6 @@ public class SlimeArm : PlayerAbility
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
                 grabbedRB.constraints = RigidbodyConstraints.None;
-                Debug.Log(grabbedRB.constraints + "HEHE");
                 for (int i = 0; i < changedRigidBodies.Count; i++) {
                     changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
                     changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
@@ -205,7 +205,6 @@ public class SlimeArm : PlayerAbility
                 FadeOut.SetActive(true);
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
-                Debug.Log(grabbedRB.constraints + "HEHE1");
                 for (int i = 0; i < changedRigidBodies.Count; i++) {
                     changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
                     changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
@@ -255,14 +254,12 @@ public class SlimeArm : PlayerAbility
         if (grabbedRagdoll != null) {
             foreach(Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
                 rb.constraints  = RigidbodyConstraints.None;
-                Debug.Log(grabbedRB.constraints + "HEHE2");
                 rb.GetComponent<Collider>().isTrigger = false;
             }
             grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
         }
         else{
             grabbedRB.constraints = RigidbodyConstraints.None;
-            Debug.Log(grabbedRB.constraints + "HEHE3");
             grabbedRB.GetComponent<Collider>().isTrigger = false;
         }
     }

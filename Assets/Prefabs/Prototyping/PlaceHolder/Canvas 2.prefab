@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 423.8936}
-  m_SizeDelta: {x: 202.5883, y: 232.2133}
+  m_SizeDelta: {x: 300.0733, y: 232.2133}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &850853434
 CanvasRenderer:
@@ -157,30 +157,34 @@ MonoBehaviour:
   m_Text: 'Controls
 
 
-    W,A,S,D - Movement
+    W,A,S,D / Left Stick - Movement
 
-    Shift (Hold) - Sprint
+    Shift / Left Stick
+    Press  - Sprint
 
-    CTRL
-    (Toggle) - Walk
+    CTRL / Right Stick Press - Walk
 
-    Space - Jump
+    Space / A - Jump
 
-    Run + C - Slide
+    Run
+    + C / B - Slide
 
-    Right Click - Aim
+    Right Click / Left Trigger - Aim
 
-    Left
-    Click - Use ability/Shoot
+    Left Click / Right
+    Trigger - Use ability/Shoot
 
-    1 - Cristal Arm
+    1 / Left Bumper - Cristal Arm
 
-    2 - Slime Arm
+    2 / Right
+    Bumper - Slime Arm
 
-    Q - Carge
-    Cristal shot
+    Q / Y - Ability
 
-    ESC - Main Manu
+    R / X - Cristal Arm Mode Toggle
+
+    ESC
+    - Main Manu
 
 '
 --- !u!1 &918250822954237024
@@ -820,7 +824,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3782608401010193223}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02f5cb93e27c98e428f8f820441913bc, type: 3}
   m_Name: 
@@ -1296,7 +1300,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 3782608401818065963}
-  Maxhealth: 100
 --- !u!1 &3782608401936304766
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -12,7 +14,14 @@ public class OptionsMenu : MonoBehaviour
     public Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
-    public static float masterVol, musicVol, sfxVol;
+    public static float masterVol =1.0f, musicVol = 1.0f, sfxVol = 1.0f;
+    public Slider masterSlider, musicSlider, sfxSlider;
+
+    public Toggle invertXToggle, invertYToggle;
+    public Slider mouseSensitivitySlider, mouseAimSensitivitySlider;
+    public Text mouseSensitivityText, mouseAimSensitivityText;
+
+    public Toggle sprintToggle, walkToggle;
 
     void Start()
     {
@@ -36,7 +45,30 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        UpdateSettings();
     }
+
+    public void UpdateSettings()
+    {
+        masterSlider.value = masterVol;
+        musicSlider.value = musicVol;
+        sfxSlider.value = sfxVol;
+
+        invertXToggle.isOn = OnPlayerInput.invertXBool;
+        invertYToggle.isOn = OnPlayerInput.invertYBool;
+
+        sprintToggle.isOn = OnPlayerInput.isSprintToggleable;
+        walkToggle.isOn = OnPlayerInput.isWalkingToggleable;
+
+        mouseSensitivitySlider.value = OnPlayerInput.mouseSensitivity;
+        mouseAimSensitivitySlider.value = OnPlayerInput.mouseSensitivityAim;
+
+        mouseSensitivityText.text = OnPlayerInput.mouseSensitivity.ToString();
+        mouseAimSensitivityText.text = OnPlayerInput.mouseSensitivityAim.ToString();
+
+    }
+
 
     /// This Section is to control audio settings
     public void SetMasterVolLevel(float sliderValue)
@@ -74,5 +106,37 @@ public class OptionsMenu : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+    }
+
+    //This section controls Camera settings
+    public void InvertY(bool isInverted)
+    {
+        
+        OnPlayerInput.invertYBool = isInverted;
+
+    }
+    public void InvertX(bool isInverted)
+    {
+
+        OnPlayerInput.invertXBool = isInverted;
+
+    }
+    public void MouseSensitivity(float sliderValue)
+    {
+        OnPlayerInput.mouseSensitivity = sliderValue;
+        mouseSensitivityText.text = OnPlayerInput.mouseSensitivity.ToString();
+    }
+    public void MouseAimSensitivity(float sliderValue)
+    {
+        OnPlayerInput.mouseSensitivityAim = sliderValue;
+        mouseAimSensitivityText.text = OnPlayerInput.mouseSensitivityAim.ToString();
+    }
+    public void OnSprintToggle(bool toggle)
+    {
+        OnPlayerInput.isSprintToggleable = toggle;
+    }
+    public void OnWalkToggle(bool toggle)
+    {
+        OnPlayerInput.isWalkingToggleable = toggle;
     }
 }

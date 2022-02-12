@@ -10,6 +10,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     public static ThirdPersonPlayerController instance;
 
+    CristalArm hold; //Rhys - Creating reference to 'CristalArm' script used to control 'IsHold' bool
+
     void Awake() {
         if (instance == null) {
             instance = this;
@@ -17,6 +19,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
         else {
             Debug.LogError("THERE ARE 2 ThirdPersonPlayerController SCRIPTS IN EXISTANCE");
         }
+
+        hold = GameObject.FindGameObjectWithTag("PlayerAbility").GetComponent<CristalArm>(); //Rhys - Used to control 'IsHold' variable present within 'CristalArm' script - Melee attack causes IsHold to incorrectly
+
     }
 
 #endregion
@@ -111,13 +116,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float heightCheckDistanceFrontLast = 1f;
     private float heightCheckDistanceBack;
     private bool isAiming;
-    
-    public Healthbar healthbar;
-    public Energybar energybar;
-    public int currentEnergy;
-    public int currentHealth;
-    public int maxEnergy = 5;
-    public int maxHealth = 100;
+    private bool hasJumped;
+    private float delayedJumpTime = 0.5f;
+    private float delayedJumpCurrentTime = 0.5f;
+
+    public RandomAudioPlayer PlayerDamaged; //Rhys - Player takes damage 
+    public RandomAudioPlayer PlayerAttack; //Rhys - Player melee attack
 
     // References
     private CharacterController controller;
@@ -129,9 +133,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         controller = GetComponent<CharacterController>();
         originalHeight = controller.height;
-        currentHealth = maxHealth;
-        healthbar.SetMaxHealth(maxHealth);
-        currentEnergy = 0;
             
        
 
@@ -139,6 +140,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
         //secondaryRequiredForceToMove = frictionSlide * (playerCharacterMass * -gravity);
     }
     
+    
+
     void Update()
     {
         GroundCheckSphere();
@@ -233,21 +236,22 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// Handles the player jump and gravity
     /// </summary>
     void PlayerJumpAndGravity(){
-        if (isGrounded) {
+        if (isGrounded || !hasJumped) {
             fallCooldownCurrent = fallCooldown;
 
             animator.SetBool("Jump", false);
 			animator.SetBool("Falling", false);
 
             // gravity reduction while grounded
-            if (verticalVelocity <= 0.0f) {
+            if (verticalVelocity <= 0.0f && isGrounded) {
                 verticalVelocity = constGravityWhileGrounded;
             }
 
             // Calculating the vertical velocuty when the input is pressed and the cooldown is over
-            if (OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) {
+            if ((OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) || (OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && delayedJumpCurrentTime < delayedJumpTime && !hasJumped)) {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);   // H * -2 * G to calculate how much velocity is required to reach the desired height
-
+                delayedJumpCurrentTime = delayedJumpTime;
+                hasJumped = true;
                 animator.SetBool("Jump", true);
             }
             else {
@@ -393,10 +397,30 @@ public class ThirdPersonPlayerController : MonoBehaviour
     /// </summary>
     private void GroundedCheck()
 	{
+        
 		// Checking if player is grounded
-		isGrounded = Physics.CheckSphere(groundedSpherePosition, groundedGizmoRadius, groundLayers, QueryTriggerInteraction.Ignore);
+        isGrounded = Physics.CheckSphere(groundedSpherePosition, groundedGizmoRadius, groundLayers, QueryTriggerInteraction.Ignore);
+        if (isGrounded) {
+            hasJumped = false;
+        }
+        animator.SetBool("Grounded", isGrounded);
 
-		animator.SetBool("Grounded", isGrounded);
+        if (isGrounded && !hasJumped) {
+            if (delayedJumpCurrentTime >= delayedJumpTime) {
+                
+            }
+            delayedJumpCurrentTime = 0;
+        }
+
+        if (delayedJumpCurrentTime < delayedJumpTime) {
+            delayedJumpCurrentTime += Time.deltaTime;
+            Debug.Log("isGrounded " + delayedJumpCurrentTime);
+        }
+
+        if (delayedJumpCurrentTime >= delayedJumpTime && !isGrounded) {
+            hasJumped = true;
+        }
+		
 	}
 
     /// <summary>
@@ -426,6 +450,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
         if (OnPlayerInput.instance.onFire1 && !OnPlayerInput.instance.onFire2 && !PlayerAbilitiesController.instance.isAbilityActive){ // Only attacks if the fire 1 button is pressed without any other
             OnPlayerInput.instance.onFire1 = false;
             animator.SetTrigger("Attack");
+            PlayerAttack.PlayRandomClip();
+            hold.IsHold = false; //Rhys - Set 'IsHold' to false on melee to prevent melee from disabling CrystalArm chargeup sound after attack
         }
     }
 
@@ -464,7 +490,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         isAiming = aimState;
     }
 
-    void AddEnergy(int gain)
+    /* void AddEnergy(int gain)
     {
         currentEnergy += gain;
 
@@ -476,12 +502,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         energybar.SetEnergy(currentEnergy);
 
     }
-    void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-
-        healthbar.SetHealth(currentHealth);
-    }
+    
     void Heal(int heal)
     {
         currentHealth += heal;
@@ -513,5 +534,5 @@ public class ThirdPersonPlayerController : MonoBehaviour
         {
             Heal(50);
         }
-    }
+    } */
 }

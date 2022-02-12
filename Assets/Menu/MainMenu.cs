@@ -5,12 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public Canvas optionsCanvas;
-    public Canvas mainMenuCanvas;
+    public GameObject optionsCanvas;
+    public GameObject mainMenuCanvas;
+
+    void Start()
+    {
+        mainMenuCanvas.SetActive(true);
+        optionsCanvas.SetActive(false);
+    }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("ImprovedLMALevel");
+        SceneManager.LoadScene("NewLevelConcept");
     }
 
     /// <summary>
@@ -38,6 +44,10 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Dev_Island");
     }
 
+    public void LoadOldLevel() {
+        SceneManager.LoadScene("ImprovedLMALevel");
+    }
+
     public void ExitGame()
     {
         Application.Quit();
@@ -45,12 +55,12 @@ public class MainMenu : MonoBehaviour
 
     public void Options()
     {
-        optionsCanvas.enabled = true;
-        mainMenuCanvas.enabled = false;
+        optionsCanvas.SetActive(true);
+        mainMenuCanvas.SetActive(false);
     }
     public void ReturnToMainMenu()
     {
-        optionsCanvas.enabled = false;
-        mainMenuCanvas.enabled = true;
+        optionsCanvas.SetActive(false);
+        mainMenuCanvas.SetActive(true);
     }
 }

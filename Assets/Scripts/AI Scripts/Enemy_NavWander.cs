@@ -7,8 +7,8 @@ public class Enemy_NavWander : MonoBehaviour
 {
 
     private NavMeshAgent agent;
-    private float checkRate;
-    private float nextCheck;
+    //private float checkRate;
+    //private float nextCheck;
     [SerializeField]
     private float wanderRange = 10;
     private Transform myTransform;
@@ -29,12 +29,12 @@ public class Enemy_NavWander : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextCheck)
-        {
-            nextCheck = Time.time + checkRate;
-            CheckIfIShouldWander();
-        }
-        UpdateAnimations();
+        //if (Time.time > nextCheck)
+        //{
+        //    nextCheck = Time.time + checkRate;
+        //    CheckIfIShouldWander();
+        //}
+        //UpdateAnimations();
     }
 
     void SetIntialReferences()
@@ -44,7 +44,6 @@ public class Enemy_NavWander : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         }
 
-        checkRate = Random.Range(0.3f, 0.4f);
         myTransform = transform;
     }
 
@@ -71,7 +70,7 @@ public class Enemy_NavWander : MonoBehaviour
         }
     }
 
-    private void UpdateAnimations () {
+    public void UpdateAnimations () {
         if (agent.remainingDistance >= agent.stoppingDistance) {
             GetComponent<Enemy_Animation>().EnemyMovement(agent.desiredVelocity.magnitude);
         }else {
