@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 9952.326, g: 8727.2295, b: 6206.939, a: 1}
+  m_IndirectSpecularColor: {r: 9969.253, g: 8858.133, b: 6615.1323, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7660,8 +7660,9 @@ GameObject:
   - component: {fileID: 291148092}
   - component: {fileID: 291148108}
   - component: {fileID: 291148107}
+  - component: {fileID: 291148109}
   m_Layer: 0
-  m_Name: Flowchart
+  m_Name: Game Intro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7694,7 +7695,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 291148093}
   selectedCommands:
-  - {fileID: 291148104}
+  - {fileID: 291148109}
   variables: []
   description: 
   stepPause: 0
@@ -7708,7 +7709,7 @@ MonoBehaviour:
   luaBindingName: flowchart
 --- !u!114 &291148092
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -7748,7 +7749,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -149
-    y: 39
+    y: 33
     width: 194
     height: 40
   tint: {r: 1, g: 0.6131327, b: 0, a: 1}
@@ -7758,6 +7759,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 291148105}
   commandList:
+  - {fileID: 291148109}
   - {fileID: 291148104}
   - {fileID: 291148103}
   - {fileID: 291148102}
@@ -8095,13 +8097,16 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1615036393}
+  - {fileID: 1432036521}
+  - {fileID: 1871664015}
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &291148107
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -8128,7 +8133,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &291148108
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -8153,6 +8158,34 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!114 &291148109
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291148090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 16
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 1871664012}
+  targetComponentAssemblyName: FlowchartTrigger, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: FlowchartTrigger
+  targetMethod: DisableMovement
+  targetMethodText: 'DisableMovement (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
 --- !u!1 &291807498
 GameObject:
   m_ObjectHideFlags: 0
@@ -32387,6 +32420,12 @@ Transform:
   m_Father: {fileID: 420325143}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: -44.9, y: 0, z: 0}
+--- !u!1 &1252892420 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4433144296201853559, guid: 011ebcb7dac1294429efd96cd3cb5575,
+    type: 3}
+  m_PrefabInstance: {fileID: 4433144295746998350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1253241680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35717,7 +35756,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-49836
+  m_Name: pb_Mesh-7074
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -37314,12 +37353,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432036519}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_Father: {fileID: 291148106}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1442109518
 GameObject:
@@ -42142,12 +42181,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615036391}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_Father: {fileID: 291148106}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1619098955
 GameObject:
@@ -47668,6 +47707,67 @@ Transform:
   m_Father: {fileID: 420325143}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: -44.9, y: 0, z: 0}
+--- !u!1 &1871664012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1871664015}
+  - component: {fileID: 1871664014}
+  - component: {fileID: 1871664013}
+  m_Layer: 0
+  m_Name: Intro Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1871664013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871664012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23137eebeeaf6a7489ab48c0dd98d96a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowchart: {fileID: 291148091}
+  triggerName: 
+  blockName: Intro Trigger
+  player: {fileID: 1252892420}
+--- !u!65 &1871664014
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871664012}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1871664015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871664012}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.06, z: -0.97}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 291148106}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1872029395
 GameObject:
   m_ObjectHideFlags: 0
