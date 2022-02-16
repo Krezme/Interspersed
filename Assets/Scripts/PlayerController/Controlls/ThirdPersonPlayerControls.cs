@@ -488,7 +488,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""020ddfae-37a1-42bb-918f-4fa3a50e3c6e"",
                     ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ESC"",

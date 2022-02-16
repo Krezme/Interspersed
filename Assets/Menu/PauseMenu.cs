@@ -2,59 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuCanvas;
     public GameObject hudCanvas;
 
-    public bool isPaused = false;
+    //public bool isPaused = false;
+    CursorManager cursorManager;
+
+    public GameObject eventSystem;
 
     // Start is called before the first frame update
     void Start()
     {
         hudCanvas.SetActive(true);
         pauseMenuCanvas.SetActive(false);
-        isPaused = false;
+
+        cursorManager = eventSystem.GetComponent<CursorManager>();
+
     }
 
     void Update()
     {
         if (OnPlayerInput.instance.isESC)
         {
-            isPaused = true;
-        }
-
-        if (isPaused)
-        {
             PauseGame();
         }
-        else
-        {
-            ResumeGame();
-        }
+
     }
 
     public void PauseGame()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
         hudCanvas.SetActive(false);
         pauseMenuCanvas.SetActive(true);
-
-        Time.timeScale = 0;
+        cursorManager.cursorLocked = false;
+        cursorManager.isESC = true;
     }
 
     public void ResumeGame()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
-
         hudCanvas.SetActive(true);
         pauseMenuCanvas.SetActive(false);
-
-        Time.timeScale = 1;
+        cursorManager.cursorLocked = true;
+        cursorManager.isESC = false;
     }
 
     public void ReturnToMainMenu()
