@@ -7,11 +7,15 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject optionsCanvas;
     public GameObject mainMenuCanvas;
+    public GameObject controlsCanvas;
+    public GameObject creditsCanvas;
 
     void Start()
     {
         mainMenuCanvas.SetActive(true);
         optionsCanvas.SetActive(false);
+        controlsCanvas.SetActive(false);
+        creditsCanvas.SetActive(false);
     }
 
     public void StartGame()
@@ -58,9 +62,24 @@ public class MainMenu : MonoBehaviour
         optionsCanvas.SetActive(true);
         mainMenuCanvas.SetActive(false);
     }
+
+    public void Controls()
+    {
+        controlsCanvas.SetActive(true);
+        mainMenuCanvas.SetActive(false);
+    }
+
+    public void Credits()
+    {
+        creditsCanvas.SetActive(true);
+        mainMenuCanvas.SetActive(false);
+    }
+
     public void ReturnToMainMenu()
     {
         optionsCanvas.SetActive(false);
+        controlsCanvas.SetActive(false);
+        creditsCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
     }
 }
