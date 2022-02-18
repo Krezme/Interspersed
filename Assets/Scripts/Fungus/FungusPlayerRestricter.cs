@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class FungusPlayerRestricter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void RestrictPlayerForFungus() {
+        CursorManager.instance.SetCursorState(false);
+        OnPlayerInput.instance.isAllowedToMove = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void ReleasePlayerAfterFungus() {
+        CursorManager.instance.SetCursorState(true);
+        OnPlayerInput.instance.isAllowedToMove = true;
     }
 }
