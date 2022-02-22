@@ -86,8 +86,7 @@ namespace Fungus
 
             if (writer != null)
             {
-                if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
-                    (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
+                if (OnPlayerInput.instance.onFire1) /*(cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton))*/
                 {
                     SetNextLineFlag();
                 }
@@ -98,7 +97,7 @@ namespace Fungus
             case ClickMode.Disabled:
                 break;
             case ClickMode.ClickAnywhere:
-                if (Input.GetMouseButtonDown(0))
+                if (OnPlayerInput.instance.onFire1)
                 {
                     SetClickAnywhereClickedFlag();
                 }
