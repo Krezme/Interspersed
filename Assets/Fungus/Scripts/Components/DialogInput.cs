@@ -1,8 +1,10 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
-
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace Fungus
 {
@@ -46,6 +48,8 @@ namespace Fungus
 
         protected StandaloneInputModule currentStandaloneInputModule;
 
+        private bool onFire1Fungus;
+
         protected Writer writer;
 
         protected virtual void Awake()
@@ -86,9 +90,10 @@ namespace Fungus
 
             if (writer != null)
             {
-                if (OnPlayerInput.instance.onFire1) /*(cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton))*/
+                if (onFire1Fungus) /*(cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton))*/
                 {
                     SetNextLineFlag();
+                    onFire1Fungus = false;
                 }
             }
 
@@ -97,9 +102,10 @@ namespace Fungus
             case ClickMode.Disabled:
                 break;
             case ClickMode.ClickAnywhere:
-                if (OnPlayerInput.instance.onFire1)
+                if (onFire1Fungus)
                 {
                     SetClickAnywhereClickedFlag();
+                    onFire1Fungus = false;
                 }
                 break;
             case ClickMode.ClickOnDialog:
@@ -202,5 +208,15 @@ namespace Fungus
         }
 
         #endregion
+
+        public void OnFire1(InputValue value)
+        {
+            PlayerFire1Input(value.isPressed);
+        }
+
+        void PlayerFire1Input (bool state)
+        {
+            onFire1Fungus = state;
+        }
     }
 }

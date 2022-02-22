@@ -20,7 +20,7 @@ public class FlowchartTrigger : MonoBehaviour
     void Start()
     {
         //this hides the mesh renderer component of the trigger so that it can't be seen
-        this.GetComponent<MeshRenderer>().enabled = false;
+        //this.GetComponent<MeshRenderer>().enabled = false;
     }
 
 
