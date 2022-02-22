@@ -15,6 +15,7 @@ public class ToggleFollowingPlayer : ActionNode
 
     protected override State OnUpdate() {
         blackboard.isFollowingPlayer = newState;
+        blackboard.playerInAttackRange = newState;
 
         return State.Success;
     }
