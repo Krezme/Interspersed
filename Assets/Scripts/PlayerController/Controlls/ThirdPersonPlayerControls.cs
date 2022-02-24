@@ -432,7 +432,7 @@ public class @ThirdPersonPlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3c459eda-1ec9-4906-a060-f621eb6539e1"",
-                    ""path"": ""<XInputController>/dpad/left"",
+                    ""path"": ""<XInputController>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
