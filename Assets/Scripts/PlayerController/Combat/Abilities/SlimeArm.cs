@@ -78,9 +78,21 @@ public class SlimeArm : PlayerAbility
                         RaycastHit hit;
                         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
                         if (Physics.Raycast(ray, out hit, maxGrabDistance))
-                        {                        
-                            grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                            
+                        {   
+                            if (hit.collider.gameObject.TryGetComponent<GrabbedEnviromentReplacer>(out GrabbedEnviromentReplacer grabbedEnviromentReplacer)) {
+                                grabbedRB = grabbedEnviromentReplacer.Replace();
+                                Destroy(grabbedEnviromentReplacer.gameObject);
+                                OnPlayerInput.instance.onFire1 = false;
+                            }
+                            else if (hit.collider.gameObject.TryGetComponent<GrabbingEnviroment>(out GrabbingEnviroment grabbingEnviroment)) {
+                                grabbedRB = grabbingEnviroment.GrabObject();
+                                Destroy(grabbingEnviroment);
+                                OnPlayerInput.instance.onFire1 = false;
+                            }
+                            else {
+                                grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                            }
+
                             if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
                                 grabbedRagdoll.pickedUpByPlayer = true;
                                 Debug.Log("Running Ragdoll");
@@ -128,7 +140,7 @@ public class SlimeArm : PlayerAbility
                             {
                                 grabbedRB.useGravity = false;
                                 PlayerAbilitiesController.instance.isAbilityActive = true;
-                            } 
+                            }
                         }
                         OnPlayerInput.instance.onFire1 = false; // Sets the onFire1 button to false to require for another press
                     }

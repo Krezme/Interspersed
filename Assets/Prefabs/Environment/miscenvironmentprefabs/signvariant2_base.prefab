@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5646534990662343953}
   - component: {fileID: 8787470914220528308}
   - component: {fileID: 6780074083571852926}
+  - component: {fileID: 6931131076002680093}
   m_Layer: 0
   m_Name: signvariant2_base
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4978541392248588203}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.642, y: 1.128, z: 6.404}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.00020063498, y: 0.0012139871, z: 0.00020063498}
   m_Children:
   - {fileID: 3762026824879377819}
@@ -82,6 +83,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6931131076002680093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4978541392248588203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c37f6f1c1e841c42a5f779598557486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unparentObjects:
+  - {fileID: 6388780168391373485}
+  objectToGrab: {fileID: 6388780168391373485}
 --- !u!1 &6388780168391373485
 GameObject:
   m_ObjectHideFlags: 0
