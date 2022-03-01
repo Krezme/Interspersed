@@ -17,6 +17,7 @@ public class CursorManager : MonoBehaviour
 #endregion
 
     public bool cursorLocked = true;
+    public bool isESC;
 
     /// <summary>
     /// Sets the cursor state to cursorLocked variable
@@ -31,7 +32,10 @@ public class CursorManager : MonoBehaviour
     /// <param name="isFocused">If the application is focused it is true</param>
     private void OnApplicationFocus(bool isFocused)
 	{
-		SetCursorState (isFocused);
+        if (!isESC)
+        {
+            SetCursorState(isFocused);
+        }
 	}
 
     /// <summary>

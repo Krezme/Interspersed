@@ -414,7 +414,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         if (delayedJumpCurrentTime < delayedJumpTime) {
             delayedJumpCurrentTime += Time.deltaTime;
-            Debug.Log("isGrounded " + delayedJumpCurrentTime);
         }
 
         if (delayedJumpCurrentTime >= delayedJumpTime && !isGrounded) {
