@@ -24,7 +24,7 @@ public class OnPlayerInput : MonoBehaviour
 
     #endregion
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool isAllowedToMove = true;
 
     [Header("Options")]
@@ -36,6 +36,22 @@ public class OnPlayerInput : MonoBehaviour
     public static float mouseSensitivityAim = 0.5f;
 
     public static bool invertXBool, invertYBool;
+
+    public void ResetInput()
+    {
+        playerMovement = Vector2.zero;
+        isSprinting = false;
+        isWalking = false;
+        isSliding = false;
+        jumped = false;
+        onFire1 = false;
+        onFire2 = false;
+        onAbility1 = false;
+        onArmMode = false;
+        isESC = false;
+
+        looking = Vector2.zero;
+    }
 
 #region Values
     [HideInInspector]
