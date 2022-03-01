@@ -22,7 +22,10 @@ public class OnPlayerInput : MonoBehaviour
         }
     }
 
-#endregion 
+    #endregion
+
+    [HideInInspector]
+    public bool isAllowedToMove = true;
 
     [Header("Options")]
     public static bool isWalkingToggleable = true; // if the player wants toggleable walking or just hold to sprint
@@ -70,7 +73,8 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">The input value of PlayerMovement input action map</param>
     public void OnPlayerMovement (InputValue value) {
-        PlayerMovementInput(value.Get<Vector2>());
+        if (isAllowedToMove) 
+            PlayerMovementInput(value.Get<Vector2>());
     }
 
     /// <summary>
@@ -78,7 +82,8 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Sprint input value from Sprint input action map</param>
     public void OnSprint (InputValue value) {
-        PlayerSprintInput(value.isPressed);
+        if (isAllowedToMove)
+            PlayerSprintInput(value.isPressed);
     }
 
     /// <summary>
@@ -86,7 +91,8 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Walk input value</param>
     public void OnWalk (InputValue value) {
-        PlayerWalkInput(value.isPressed);
+        if (isAllowedToMove)
+            PlayerWalkInput(value.isPressed);
     }
 
     /// <summary>
@@ -94,7 +100,8 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Slide input value</param>
     public void OnSlide (InputValue value) {
-        PlayerSlideInput(value.isPressed);
+        if (isAllowedToMove)
+            PlayerSlideInput(value.isPressed);
     }
 
     /// <summary>
@@ -102,7 +109,8 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Jump input value</param>
     public void OnJump(InputValue value){
-        PlayerJumpInput(value.isPressed);
+        if (isAllowedToMove)
+            PlayerJumpInput(value.isPressed);
     }
 
     /// <summary>
@@ -110,7 +118,8 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Mouse value</param>
     public void OnLook(InputValue value) {
-        PlayerLookInput(value.Get<Vector2>());
+        if (isAllowedToMove)
+            PlayerLookInput(value.Get<Vector2>());
     }
 
     /// <summary>
@@ -118,7 +127,8 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Fire 1 input value</param>
     public void OnFire1(InputValue value) {
-        PlayerFire1Input(value.isPressed);
+        if (isAllowedToMove)
+            PlayerFire1Input(value.isPressed);
     }
     
     /// <summary>
@@ -126,7 +136,8 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Fire 2 input value</param>
     public void OnFire2(InputValue value) {
-        PlayerFire2Input(value.isPressed);
+        if (isAllowedToMove)
+            PlayerFire2Input(value.isPressed);
     }
 
     /// <summary>
@@ -135,7 +146,8 @@ public class OnPlayerInput : MonoBehaviour
     /// <param name="value">Ability1 input value</param>
     public void OnAbility1 (InputValue value)
     {
-        PlayerAbility1Input(value.isPressed);
+        if (isAllowedToMove)
+            PlayerAbility1Input(value.isPressed);
     }
 
     /// <summary>
@@ -143,9 +155,10 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Arm 1 input value</param>
     public void OnArm1 (InputValue value) {
-        if (value.isPressed && PlayerAbilitiesController.instance.selectedAbility != 0) { 
-            PlayerArmInput(0);
-        }
+        if (isAllowedToMove)
+            if (value.isPressed && PlayerAbilitiesController.instance.selectedAbility != 0) { 
+                PlayerArmInput(0);
+            }
     }
 
     /// <summary>
@@ -153,17 +166,20 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="value">Arm 2 input value</param>
     public void OnArm2 (InputValue value) {
-        if (value.isPressed && PlayerAbilitiesController.instance.selectedAbility != 1) {
-            PlayerArmInput(1);
-        }
+        if (isAllowedToMove)
+            if (value.isPressed && PlayerAbilitiesController.instance.selectedAbility != 1) {
+                PlayerArmInput(1);
+            }
     }
 
     public void OnArmMode(InputValue value) {
-        ArmModeInput(value.isPressed);
+        if (isAllowedToMove)
+            ArmModeInput(value.isPressed);
     }
 
     public void OnESC(InputValue value) {
-        ESCInput(value.isPressed);
+        if (isAllowedToMove)
+            ESCInput(value.isPressed);
     }
 
 #region Recording Functions
@@ -280,6 +296,7 @@ public class OnPlayerInput : MonoBehaviour
 
     private void ESCInput(bool escState) {
         isESC = escState;
+        Debug.Log(isESC);
     }
 
 #endregion
