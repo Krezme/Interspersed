@@ -41,9 +41,9 @@ public class KineticEnemyScript : MonoBehaviour
         }
         else
         {
-            if (other.attachedRigidbody.isKinematic == false)
+            if (other.attachedRigidbody.isKinematic == false) //if object is a physics object, add it to the list when it arrives
             {
-                physicsObjects.Add(other.gameObject);
+                physicsObjects.Add(other.gameObject); 
 
 
             }
@@ -64,7 +64,7 @@ public class KineticEnemyScript : MonoBehaviour
         }
         else
         {
-            if (other.attachedRigidbody.isKinematic == false)
+            if (other.attachedRigidbody.isKinematic == false) // if object is not kinematic (not a physics object), remove it from the list when it leaves
             {
                 physicsObjects.Remove(other.gameObject);
 
@@ -121,5 +121,6 @@ public class KineticEnemyScript : MonoBehaviour
 
     }
 
+ 
 
 }
