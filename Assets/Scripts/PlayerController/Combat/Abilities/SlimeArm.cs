@@ -44,6 +44,10 @@ public class SlimeArm : PlayerAbility
 
     private bool isShielding = false;
     private bool unShield = false;
+    
+    void Update () {
+        
+    }
 
     public override void MorthToTarget()
     {
@@ -67,97 +71,113 @@ public class SlimeArm : PlayerAbility
     }
 
     private void PickUpAbility() {
-        if (OnPlayerInput.instance.onFire2) {            
-            if (OnPlayerInput.instance.onFire1 && cooldownTimer == 0) {
-                if (!grabbedRB) {
-                    RaycastHit hit;
-                    Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-                    if (Physics.Raycast(ray, out hit, maxGrabDistance))
-                    {                        
-                        grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                        
-                        if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
-                            grabbedRagdoll.pickedUpByPlayer = true;
-                            Debug.Log("Running Ragdoll");
-                            grabbedRagdoll.RagdollOn();
-                            if (Physics.Raycast(ray, out hit, maxGrabDistance))
-                            {
-                                grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
-                                grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
-                                Debug.Log(grabbedRB.constraints);
-                                Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
-                                FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
-                                FadeOut.SetActive(false);                               
+        try {
+            if (OnPlayerInput.instance.onFire2) {            
+                if (OnPlayerInput.instance.onFire1 && cooldownTimer == 0) {
+                    if (!grabbedRB) {
+                        RaycastHit hit;
+                        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+                        if (Physics.Raycast(ray, out hit, maxGrabDistance))
+                        {   
+                            if (hit.collider.gameObject.TryGetComponent<GrabbedEnviromentReplacer>(out GrabbedEnviromentReplacer grabbedEnviromentReplacer)) {
+                                grabbedRB = grabbedEnviromentReplacer.Replace();
+                                Destroy(grabbedEnviromentReplacer.gameObject);
+                                OnPlayerInput.instance.onFire1 = false;
                             }
-                            foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
-                                changedRigidBodies.Add(rb);
-                                currentRBDefaultAngularFriction.Add(rb.angularDrag);
-                                currentRBDefaultLayerMask.Add(rb.gameObject.layer);
-                                rb.angularDrag = grabbedNewAngularFriction;
-                                rb.gameObject.layer = 2;
+                            else if (hit.collider.gameObject.TryGetComponent<GrabbingEnviroment>(out GrabbingEnviroment grabbingEnviroment)) {
+                                grabbedRB = grabbingEnviroment.GrabObject();
+                                Destroy(grabbingEnviroment);
+                                OnPlayerInput.instance.onFire1 = false;
                             }
-                        }
-                        else {
-                            
-                            if (grabbedRB.collisionDetectionMode == CollisionDetectionMode.Discrete) {
-                                grabbedRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                            else {
+                                grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                             }
-                            changedRigidBodies.Add(grabbedRB);
-                            currentRBDefaultAngularFriction.Add(grabbedRB.angularDrag);
-                            currentRBDefaultLayerMask.Add(grabbedRB.gameObject.layer);
-                            grabbedRB.angularDrag = grabbedNewAngularFriction;
-                            grabbedRB.gameObject.layer = 2;
-                        }
-                        if (grabbedRagdoll != null) {
-                            slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
-                            slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRagdoll.rigCentre;
-                            FadeIn.SetActive(true);
-                            FadeOut.SetActive(false);
-                        }
-                        else {
-                            slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
-                            slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRB.gameObject;
-                        }
-                        
-                        if (grabbedRB)
-                        {
-                            grabbedRB.useGravity = false;
-                            PlayerAbilitiesController.instance.isAbilityActive = true;
-                        } 
-                    }
-                    OnPlayerInput.instance.onFire1 = false; // Sets the onFire1 button to false to require for another press
-                }
 
-                //start the cooldown 
-                cooldownTimer = cooldownMaxTime;
-                StartCoroutine(Ability1Cooldown());
-            }
-        }
-        else {
-            if (PlayerAbilitiesController.instance.isAbilityActive) {
-                grabbedRB.isKinematic = false;
-                grabbedRB.useGravity = true;
-                grabbedRB.constraints = RigidbodyConstraints.None;
-                for (int i = 0; i < changedRigidBodies.Count; i++) {
-                    changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
-                    changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
+                            if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
+                                grabbedRagdoll.pickedUpByPlayer = true;
+                                Debug.Log("Running Ragdoll");
+                                grabbedRagdoll.RagdollOn();
+                                if (Physics.Raycast(ray, out hit, maxGrabDistance))
+                                {
+                                    grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
+                                    grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
+                                    Debug.Log(grabbedRB.constraints);
+                                    Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
+                                    FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
+                                    FadeOut.SetActive(false);                               
+                                }
+                                foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
+                                    changedRigidBodies.Add(rb);
+                                    currentRBDefaultAngularFriction.Add(rb.angularDrag);
+                                    currentRBDefaultLayerMask.Add(rb.gameObject.layer);
+                                    rb.angularDrag = grabbedNewAngularFriction;
+                                    rb.gameObject.layer = 2;
+                                }
+                            }
+                            else {
+                                
+                                if (grabbedRB.collisionDetectionMode == CollisionDetectionMode.Discrete) {
+                                    grabbedRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                                }
+                                changedRigidBodies.Add(grabbedRB);
+                                currentRBDefaultAngularFriction.Add(grabbedRB.angularDrag);
+                                currentRBDefaultLayerMask.Add(grabbedRB.gameObject.layer);
+                                grabbedRB.angularDrag = grabbedNewAngularFriction;
+                                grabbedRB.gameObject.layer = 2;
+                            }
+                            if (grabbedRagdoll != null) {
+                                slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
+                                slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRagdoll.rigCentre;
+                                FadeIn.SetActive(true);
+                                FadeOut.SetActive(false);
+                            }
+                            else {
+                                slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
+                                slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRB.gameObject;
+                            }
+                            
+                            if (grabbedRB)
+                            {
+                                grabbedRB.useGravity = false;
+                                PlayerAbilitiesController.instance.isAbilityActive = true;
+                            }
+                        }
+                        OnPlayerInput.instance.onFire1 = false; // Sets the onFire1 button to false to require for another press
+                    }
+
+                    //start the cooldown 
+                    cooldownTimer = cooldownMaxTime;
+                    StartCoroutine(Ability1Cooldown());
                 }
-                UnShieldWithGrabbed();
-                changedRigidBodies = new List<Rigidbody>();
-                currentRBDefaultAngularFriction = new List<float>();
-                currentRBDefaultLayerMask = new List<LayerMask>();
-                if (grabbedRagdoll != null) { 
-                    grabbedRagdoll.pickedUpByPlayer = false;
-                    grabbedRagdoll = null;
-                }
-                Destroy(slimeBallInstance);
-                slimeBallInstance = null;
-                grabbedRB = null;
-                PlayerAbilitiesController.instance.isAbilityActive = false;
-                Drop.PlayRandomClip(); //Plays sound when held object is dropped without throwing
-                FadeIn.SetActive(false);
-                FadeOut.SetActive(true);
             }
+            else {
+                if (PlayerAbilitiesController.instance.isAbilityActive) {
+                    grabbedRB.isKinematic = false;
+                    grabbedRB.useGravity = true;
+                    grabbedRB.constraints = RigidbodyConstraints.None;
+                    for (int i = 0; i < changedRigidBodies.Count; i++) {
+                        changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
+                        changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
+                    }
+                    UnShieldWithGrabbed();
+                    changedRigidBodies = new List<Rigidbody>();
+                    currentRBDefaultAngularFriction = new List<float>();
+                    currentRBDefaultLayerMask = new List<LayerMask>();
+                    if (grabbedRagdoll != null) { 
+                        grabbedRagdoll.pickedUpByPlayer = false;
+                        grabbedRagdoll = null;
+                    }
+                    Destroy(slimeBallInstance);
+                    slimeBallInstance = null;
+                    grabbedRB = null;
+                    PlayerAbilitiesController.instance.isAbilityActive = false;
+                    Drop.PlayRandomClip(); //Plays sound when held object is dropped without throwing
+                    FadeIn.SetActive(false);
+                    FadeOut.SetActive(true);
+                }
+            }
+        }catch (System.Exception) {
+            RestartGrabbedState();
         }
     }
 
@@ -262,6 +282,16 @@ public class SlimeArm : PlayerAbility
             grabbedRB.constraints = RigidbodyConstraints.None;
             grabbedRB.GetComponent<Collider>().isTrigger = false;
         }
+    }
+
+    private void RestartGrabbedState(){
+        grabbedRB = null;
+        grabbedRagdoll = null;
+        changedRigidBodies = new List<Rigidbody>();
+        currentRBDefaultAngularFriction = new List<float>();
+        currentRBDefaultLayerMask = new List<LayerMask>();
+        isShielding = false;
+        unShield = false;
     }
 
     private IEnumerator Ability1Cooldown()

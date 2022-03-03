@@ -100,7 +100,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
     private float originalHeight;
     private float targetRotation = 0.0f;
     private float rotationVelocity;
-    private float verticalVelocity;
+    [HideInInspector]
+    public float verticalVelocity; //public to be available for checkpoint teleportation
     private float jumpCooldownCurrent;
     private float fallCooldownCurrent;    
     private Vector3 groundedSpherePosition;
@@ -414,7 +415,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         if (delayedJumpCurrentTime < delayedJumpTime) {
             delayedJumpCurrentTime += Time.deltaTime;
-            Debug.Log("isGrounded " + delayedJumpCurrentTime);
         }
 
         if (delayedJumpCurrentTime >= delayedJumpTime && !isGrounded) {

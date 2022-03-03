@@ -245,9 +245,6 @@ public class CristalArm : PlayerAbility
                 }
 
 
-                statistics.isElectric = false;
-                OnPlayerInput.instance.onFire1 = false;
-
 
                 if (statistics.isElectric == false) //Rhys - Plays electric shot if isElectric == false - I used to have an if/else statement here however it seemed to ignore the else and only played the regular sound, so I seperated the sounds into 2 if statements for now
                 {
@@ -255,8 +252,10 @@ public class CristalArm : PlayerAbility
                     Regular.PlayRandomClip();
                     Debug.Log("Regular");
                     IsHold = false; //Rhys - Resets IsHold so that charging sound will be played when fire key is held again
-                }     
-              
+                }
+
+                statistics.isElectric = false;
+                OnPlayerInput.instance.onFire1 = false;
 
             }
             if (crosshair != null){
