@@ -62,7 +62,6 @@ public class PlayerStatisticsManager : MonoBehaviour
         PlayerDamaged.PlayRandomClip();
 
         if (currentStatistics.health <= 0) {
-            Debug.Log("Adaoidjasiodjioadasdiasioasdadiaiod");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
