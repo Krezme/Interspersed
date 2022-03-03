@@ -19,7 +19,7 @@ public class Checkpoint : MonoBehaviour
     void Start()
     {
         if (defaultSpawnpoint) {
-            SelectCheckpoint();
+            SelectDefaultCheckpoint();
         }
     }
 
@@ -32,6 +32,14 @@ public class Checkpoint : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SelectDefaultCheckpoint () {
+        CheckpointManager.instance.currentCheckpointIndex = Array.IndexOf(CheckpointManager.instance.checkpoints, this);
+        foreach (Light light in lights) {
+            light.enabled = true;
+        }
+        this.gameObject.GetComponent<Collider>().enabled = false;
     }
 
     public void SelectCheckpoint () {
