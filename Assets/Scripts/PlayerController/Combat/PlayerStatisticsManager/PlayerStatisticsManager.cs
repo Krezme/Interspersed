@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class PlayerCurrentStatistics {
@@ -44,8 +45,6 @@ public class PlayerStatisticsManager : MonoBehaviour
 
         Healthbar.instance.slider.value = maxStatistics.health;
         Energybar.instance.slider.value = maxStatistics.energy;
-
-
     }
 
     public void ResetPlayerStatistics()
@@ -61,5 +60,10 @@ public class PlayerStatisticsManager : MonoBehaviour
         Healthbar.instance.slider.value = currentStatistics.health;
 
         PlayerDamaged.PlayRandomClip();
+
+        if (currentStatistics.health <= 0) {
+            Debug.Log("Adaoidjasiodjioadasdiasioasdadiaiod");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
