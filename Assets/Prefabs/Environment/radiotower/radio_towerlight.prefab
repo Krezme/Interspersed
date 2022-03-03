@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1190318405411705060}
   - component: {fileID: 3990236555665761326}
   - component: {fileID: 5005629698756083401}
-  - component: {fileID: 7676116786139555252}
   m_Layer: 0
   m_Name: radio_towerlight
   m_TagString: Untagged
@@ -30,7 +29,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.99981517, z: -0, w: -0.019224603}
   m_LocalPosition: {x: 11.943007, y: 0.455, z: -12.472454}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_Children: []
+  m_Children:
+  - {fileID: 8424627689506612237}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -182.203, z: 0}
@@ -96,17 +96,48 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 17.835539, y: 7.7333374, z: 7.434928}
   m_Center: {x: 0.000015258787, y: 0, z: 0.000000119209275}
---- !u!123 &7676116786139555252
+--- !u!1 &5649943294385616108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8424627689506612237}
+  - component: {fileID: 8719748611557613771}
+  m_Layer: 0
+  m_Name: lensflare
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8424627689506612237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649943294385616108}
+  m_LocalRotation: {x: -0, y: 0.99981517, z: -0, w: -0.019224603}
+  m_LocalPosition: {x: -5.18, y: 0, z: -4.74}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children: []
+  m_Father: {fileID: 2822358238222327617}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!123 &8719748611557613771
 LensFlare:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3197792618458367483}
+  m_GameObject: {fileID: 5649943294385616108}
   m_Enabled: 1
-  m_Flare: {fileID: 0}
+  m_Flare: {fileID: 12100000, guid: 979ad50b024e92445b51d07333df135b, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_Brightness: 1
+  m_Brightness: 2
   m_FadeSpeed: 3
   m_IgnoreLayers:
     serializedVersion: 2
