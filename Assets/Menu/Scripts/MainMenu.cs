@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,8 +11,11 @@ public class MainMenu : MonoBehaviour
     public GameObject controlsCanvas;
     public GameObject creditsCanvas;
 
+    public GameObject startButton, controlsBackButton, optionsBackButton, creditsBackButton;
+
     void Start()
     {
+        EventSystem.current.SetSelectedGameObject(startButton);
         mainMenuCanvas.SetActive(true);
         optionsCanvas.SetActive(false);
         controlsCanvas.SetActive(false);
@@ -59,24 +63,28 @@ public class MainMenu : MonoBehaviour
 
     public void Options()
     {
+        EventSystem.current.SetSelectedGameObject(optionsBackButton);
         optionsCanvas.SetActive(true);
         mainMenuCanvas.SetActive(false);
     }
 
     public void Controls()
     {
+        EventSystem.current.SetSelectedGameObject(controlsBackButton);
         controlsCanvas.SetActive(true);
         mainMenuCanvas.SetActive(false);
     }
 
     public void Credits()
     {
+        EventSystem.current.SetSelectedGameObject(creditsBackButton);
         creditsCanvas.SetActive(true);
         mainMenuCanvas.SetActive(false);
     }
 
     public void ReturnToMainMenu()
     {
+        EventSystem.current.SetSelectedGameObject(startButton);
         optionsCanvas.SetActive(false);
         controlsCanvas.SetActive(false);
         creditsCanvas.SetActive(false);

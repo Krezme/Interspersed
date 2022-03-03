@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuCanvas;
     public GameObject hudCanvas;
-    public ThirdPersonPlayerController playerController;
+    public OnPlayerInput playerInput;
 
     //public bool isPaused = false;
     CursorManager cursorManager;
@@ -22,8 +22,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuCanvas.SetActive(false);
 
         cursorManager = eventSystem.GetComponent<CursorManager>();
-        
-        playerController.enabled = true;
 
     }
 
@@ -38,22 +36,25 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+        playerInput.isAllowedToMove = false;
+
+        OnPlayerInput.instance.ResetInput();
+
         hudCanvas.SetActive(false);
         pauseMenuCanvas.SetActive(true);
         cursorManager.cursorLocked = false;
         cursorManager.isESC = true;
-
-        playerController.enabled = false;
     }
 
     public void ResumeGame()
     {
+        playerInput.isAllowedToMove = true;
+        Debug.Log("Resume");
+
         hudCanvas.SetActive(true);
         pauseMenuCanvas.SetActive(false);
         cursorManager.cursorLocked = true;
         cursorManager.isESC = false;
-
-        playerController.enabled = true;
     }
 
     public void ReturnToMainMenu()

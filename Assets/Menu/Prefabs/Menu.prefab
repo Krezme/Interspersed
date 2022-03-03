@@ -187,11 +187,11 @@ RectTransform:
   - {fileID: 1770560450}
   - {fileID: 492547244}
   m_Father: {fileID: 3370729762093011588}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00000011706, y: -7.33}
+  m_AnchoredPosition: {x: -180, y: -7.33}
   m_SizeDelta: {x: 308.66, y: 114.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &822911620
@@ -278,7 +278,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: ExitGame
+        m_MethodName: LoadDemo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -287,6 +287,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &1770560449
 GameObject:
@@ -473,7 +485,7 @@ RectTransform:
   - {fileID: 5159108376150216389}
   - {fileID: 2466382460947193406}
   m_Father: {fileID: 3370729762093011588}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -564,7 +576,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: Options
+        m_MethodName: Controls
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -903,10 +915,10 @@ RectTransform:
   m_Children:
   - {fileID: 3370729762237479777}
   - {fileID: 3370729762262720592}
-  - {fileID: 3370729763204901428}
-  - {fileID: 3370729763417058532}
   - {fileID: 822911617}
+  - {fileID: 3370729763204901428}
   - {fileID: 3630664137368966886}
+  - {fileID: 3370729763417058532}
   - {fileID: 830888143541674377}
   m_Father: {fileID: 3370729762341695556}
   m_RootOrder: 1
@@ -1115,7 +1127,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: LoadCutScene1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1334,11 +1346,11 @@ RectTransform:
   - {fileID: 3370729761835488596}
   - {fileID: 3370729762061354386}
   m_Father: {fileID: 3370729762093011588}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030518, y: -147}
+  m_AnchoredPosition: {x: -180, y: -147}
   m_SizeDelta: {x: 437.874, y: 114.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3370729763204901431
@@ -1543,7 +1555,7 @@ RectTransform:
   - {fileID: 3370729761811077275}
   - {fileID: 3370729761982723409}
   m_Father: {fileID: 3370729762093011588}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1982,7 +1994,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 724, y: -358}
+  m_AnchoredPosition: {x: 724, y: -328}
   m_SizeDelta: {x: 458.6609, y: 114.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5629493127941938552
@@ -2069,7 +2081,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: Options
+        m_MethodName: Credits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
