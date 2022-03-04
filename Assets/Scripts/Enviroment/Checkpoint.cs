@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 
 [RequireComponent(typeof(SphereCollider))]
-[RequireComponent(typeof(Rigidbody))]
 public class Checkpoint : MonoBehaviour
 {
     
