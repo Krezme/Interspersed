@@ -3336,7 +3336,6 @@ GameObject:
   - component: {fileID: 7617052612126495506}
   - component: {fileID: 7617052612126495508}
   - component: {fileID: 7617052612126495584}
-  - component: {fileID: 7617052612126495585}
   - component: {fileID: 7617052612126495598}
   - component: {fileID: 7617052612126495599}
   - component: {fileID: 7617052612126495596}
@@ -3403,7 +3402,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 7617052612126495508}
   selectedCommands:
-  - {fileID: 7617052612126495586}
+  - {fileID: 7617052612126495598}
   variables: []
   description: 
   stepPause: 0
@@ -3441,7 +3440,7 @@ MonoBehaviour:
   eventHandler: {fileID: 7617052612126495584}
   commandList:
   - {fileID: 7617052612126495588}
-  - {fileID: 7617052612126495585}
+  - {fileID: 0}
   - {fileID: 7617052612126495598}
   - {fileID: 7617052612126495599}
   - {fileID: 7617052612126495596}
@@ -3472,33 +3471,6 @@ MonoBehaviour:
   parentBlock: {fileID: 7617052612126495508}
   suppressBlockAutoSelect: 0
   waitForFrames: 1
---- !u!114 &7617052612126495585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 1
-  indentLevel: 0
-  storyText: Wake.
-  description: 
-  character: {fileID: 7617052610985682561}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &7617052612126495598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3513,7 +3485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 3
   indentLevel: 0
-  storyText: WAKE.
+  storyText: Wake. WAKE!
   description: 
   character: {fileID: 7617052610985682561}
   portrait: {fileID: 0}
@@ -3567,7 +3539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 5
   indentLevel: 0
-  storyText: Who's speaking? Where are you?
+  storyText: Ah! What are you? What is this?
   description: 
   character: {fileID: 7617052610769141185}
   portrait: {fileID: 0}
