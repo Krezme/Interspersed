@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.EventSystems;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -23,8 +24,12 @@ public class OptionsMenu : MonoBehaviour
 
     public Toggle sprintToggle, walkToggle;
 
+    public GameObject backButton;
+
     void Start()
     {
+        EventSystem.current.SetSelectedGameObject(backButton);
+
         ///Setting the resolutions at the start
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions(); ///Clearing placeholder resolutions
