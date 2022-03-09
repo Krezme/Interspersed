@@ -23,6 +23,8 @@ public class InAirPathFinding : MonoBehaviour
     private bool goDetectedTop;
     private bool goDetectedBottom;
 
+    private Vector3 directionToPlayer;
+
     private List<Vector3> obsticlePositions;
     private RaycastHit centerShperecastHit;
     Vector3 averageObsticlePositions;
@@ -48,6 +50,8 @@ public class InAirPathFinding : MonoBehaviour
         goDetectedTop = PhysicsRaycast(transform.position + transform.up * rayOffset, transform.forward, obsticlePositions, out obsticlePositions, obsticlesLayer);
         goDetectedBottom = PhysicsRaycast(transform.position - transform.up * rayOffset, transform.forward, obsticlePositions, out obsticlePositions, obsticlesLayer);
         goDetectedCenterSphere = PhysicsSpherecast(transform.position, transform.forward, obsticlesLayer);
+
+        directionToPlayer = (objectToFollow.transform.position - transform.position).normalized;
         
         if (obsticlePositions.Count() > 0) {
             averageObsticlePositions = new Vector3(obsticlePositions.Average(x=>x.x), obsticlePositions.Average(y=>y.y), obsticlePositions.Average(z=>z.z));
@@ -97,6 +101,10 @@ public class InAirPathFinding : MonoBehaviour
 
 #region Gizmos
     void OnDrawGizmos () {
+        Gizmos.color =Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + directionToPlayer * rayLenght);
+        Gizmos.DrawWireSphere(transform.position + directionToPlayer * rayLenght, sphereCastRadius * 2);
+
         Gizmos.color = goDetectedRight?Color.red:Color.green;
         Gizmos.DrawRay(transform.position + transform.right * rayOffset, transform.forward * rayLenght);
 
