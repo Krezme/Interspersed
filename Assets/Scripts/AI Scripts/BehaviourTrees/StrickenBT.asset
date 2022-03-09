@@ -121,7 +121,7 @@ MonoBehaviour:
     playerInAttackRange: 0
   description: 
   drawGizmos: 0
-  newState: 0
+  newState: 1
 --- !u!114 &-4337662163101754840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +159,29 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: a8e883bf471ed1f48b829a31c437c2eb
-  position: {x: -568.52075, y: 916.5626}
+  position: {x: -568.07806, y: 917.0619}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &-3033921870501910987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58929f7c4e0b5c1409650a5f0907827c, type: 3}
+  m_Name: Shooting
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 243c0fa33f0897d40a3d07a0482e751a
+  position: {x: -40, y: 1284}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -217,7 +239,7 @@ MonoBehaviour:
   - {fileID: 7818105569483602971}
   - {fileID: -4337662163101754840}
   - {fileID: 6699501755809240163}
-  - {fileID: 7580820048800647691}
+  - {fileID: -3033921870501910987}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,8 +271,8 @@ MonoBehaviour:
   - {fileID: 2610190790830126221}
   - {fileID: -109026692776886203}
   - {fileID: -4337662163101754840}
-  - {fileID: 7580820048800647691}
   - {fileID: 6699501755809240163}
+  - {fileID: -3033921870501910987}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -396,30 +418,7 @@ MonoBehaviour:
     playerInAttackRange: 0
   description: 
   drawGizmos: 0
-  isUpdatingRotation: 0
---- !u!114 &7580820048800647691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9e411f4095d0a44acd9a25323f5e73, type: 3}
-  m_Name: Log
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 08fd4bc8ab8e90d44a22de3fdd2b20b0
-  position: {x: -37, y: 1284}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    playerInAttackRange: 0
-  description: 
-  drawGizmos: 0
-  message: Attacking
+  isUpdatingRotation: 1
 --- !u!114 &7647925052245068975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +469,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   speed: 5
-  stoppingDistance: 0.1
+  stoppingDistance: 5
   updateRotation: 1
   acceleration: 40
   tolerance: 1

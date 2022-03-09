@@ -22,6 +22,7 @@ namespace TheKiwiCoder {
         // Add other game specific systems here
 
         public FieldOfView fieldOfView;
+        public EnemyShoot enemyshoot;
 
         public GameObject playerObject;
 
@@ -41,6 +42,7 @@ namespace TheKiwiCoder {
             // Add whatever else you need here...
 
             context.fieldOfView = gameObject.GetComponent<FieldOfView>();
+            context.enemyshoot = gameObject.GetComponent<EnemyShoot>();
 
             context.playerObject = GameObject.FindGameObjectWithTag("Player");
 
