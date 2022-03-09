@@ -53,13 +53,15 @@ public class InAirPathFinding : MonoBehaviour
             averageObsticlePositions = new Vector3(obsticlePositions.Average(x=>x.x), obsticlePositions.Average(y=>y.y), obsticlePositions.Average(z=>z.z));
         }
 
-        if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) {
+        if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
+        {
             Turning(-averageObsticlePositions);
         }
-        else {
+        else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){}
+        else
+        {
             Turning(objectToFollow.transform.position);
         }
-
         Movement();
     }
 
