@@ -14,8 +14,11 @@ public class FindAThrowingPosition : ActionNode
     protected override State OnUpdate() {
 
         LayerMask targetMask = context.fieldOfView.targetMask;
+        
+        blackboard.distance = Vector2.Distance(context.gameObject.transform.position, context.playerObject.transform.position);
+        Debug.Log("Distance:" + blackboard.distance);
 
-        blackboard.playerInAttackRange = Physics.CheckSphere(context.agent.transform.position, context.fieldOfView.viewRadius, targetMask);
+        blackboard.playerInAttackRange = Physics.CheckSphere(context.agent.transform.position, blackboard.attackDistance, targetMask);
 
         if (blackboard.isFollowingPlayer)
         {

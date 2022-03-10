@@ -12,5 +12,7 @@ namespace TheKiwiCoder {
         public Vector3 moveToPosition;
         public bool isFollowingPlayer;
         public bool playerInAttackRange;
+        public float distance;
+        public float attackDistance = 5f;
     }
 }
