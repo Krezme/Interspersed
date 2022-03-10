@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class FollowPlayer : ActionNode
+public class GetPlayerPosition : ActionNode
 {
     protected override void OnStart() {
     }

@@ -15,7 +15,8 @@ public class IsInAttackRange : DecoratorNode
         blackboard.distance = Vector2.Distance(context.gameObject.transform.position, context.playerObject.transform.position);
         if (blackboard.distance <= blackboard.attackRange)
         {
-            return State.Success;
+            var state = child.Update();
+            return state;
         }
         else
         {
