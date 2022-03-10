@@ -20,19 +20,49 @@ public class KineticEnemyScript2 : MonoBehaviour
     public float throwCooldownTime = 2f;
     public float throwForce = 1f;
 
+    //graphic variables
+    public LineRenderer throwLineRenderer;
+
+    public Material lineMaterial;
+
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        //initializing the line renderer
+        throwLineRenderer.startWidth = 0.3f;
+        throwLineRenderer.endWidth = 0.3f;
+
+        throwLineRenderer.startColor = Color.red;
+        throwLineRenderer.endColor = Color.blue;
+
+        throwLineRenderer.material = lineMaterial;
+
+        throwLineRenderer.SetPosition(0, headObject.transform.position);
+        throwLineRenderer.SetPosition(1, headObject.transform.position);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(object2Throw == null)
+        {
+            return;
+        }
+        else
+        {
+            throwLineRenderer.SetPosition(0, headObject.transform.position);
+            throwLineRenderer.SetPosition(1, object2Throw.transform.position);
+        }
+
 
     }
+
+
 
     void findDistance()
     {
@@ -46,12 +76,17 @@ public class KineticEnemyScript2 : MonoBehaviour
 
         object2Throw = sortedPObjectsArray[sortedPObjectsArray.Length - 1];
 
+        //start drawing line renderer between selected object and head
+
+
+
+
 
     }
 
     private void OnTriggerEnter(Collider other) //enter
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player") //if the player enters mark them
         {
             playerInRange = true;
 
@@ -76,7 +111,7 @@ public class KineticEnemyScript2 : MonoBehaviour
 
     private void OnTriggerExit(Collider other) //exit
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player") //if it's the player mark them as non-present
         {
             playerInRange = false;
 
@@ -91,14 +126,23 @@ public class KineticEnemyScript2 : MonoBehaviour
             if (other.attachedRigidbody.isKinematic == false)
             {
                 physicsObjects.Remove(other.gameObject);
+
+                if(object2Throw = other.gameObject)
+                {
+                    object2Throw = null;
+                    throwLineRenderer.SetPosition(0, headObject.transform.position);
+                    throwLineRenderer.SetPosition(1, headObject.transform.position);
+                }
+
             }
+           
         }
     }
 
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player") //if the player is around look and throw
         {
             headObject.transform.LookAt(other.gameObject.transform);
 
