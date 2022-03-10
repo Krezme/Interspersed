@@ -13,6 +13,8 @@ public class InAirPathFinding : MonoBehaviour
     public float rayLenght = 3;
     public float rayOffset = 0.5f;
     public float sphereCastRadius = 0.25f;
+    public float directionalSphereCastRadiusMultiplier = 1.33f;
+
     public LayerMask obsticlesLayer;
 
     private Rigidbody rb;
@@ -103,7 +105,7 @@ public class InAirPathFinding : MonoBehaviour
     void OnDrawGizmos () {
         Gizmos.color =Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + directionToPlayer * rayLenght);
-        Gizmos.DrawWireSphere(transform.position + directionToPlayer * rayLenght, sphereCastRadius * 2);
+        Gizmos.DrawWireSphere(transform.position + directionToPlayer * rayLenght, sphereCastRadius * directionalSphereCastRadiusMultiplier);
 
         Gizmos.color = goDetectedRight?Color.red:Color.green;
         Gizmos.DrawRay(transform.position + transform.right * rayOffset, transform.forward * rayLenght);
