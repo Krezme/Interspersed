@@ -13,6 +13,6 @@ namespace TheKiwiCoder {
         public bool isFollowingPlayer;
         public bool playerInAttackRange;
         public float distance;
-        public float attackDistance = 5f;
+        public float attackRange = 5f;
     }
 }

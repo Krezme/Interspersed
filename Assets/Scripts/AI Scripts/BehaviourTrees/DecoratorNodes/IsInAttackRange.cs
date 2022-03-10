@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class FollowPlayer : ActionNode
+public class IsInAttackRange : DecoratorNode
 {
     protected override void OnStart() {
     }
@@ -12,16 +12,14 @@ public class FollowPlayer : ActionNode
     }
 
     protected override State OnUpdate() {
-
-        if (blackboard.isFollowingPlayer)
+        blackboard.distance = Vector2.Distance(context.gameObject.transform.position, context.playerObject.transform.position);
+        if (blackboard.distance <= blackboard.attackRange)
         {
-            blackboard.moveToPosition = context.playerObject.transform.position;
             return State.Success;
         }
         else
         {
             return State.Failure;
         }
-
     }
 }

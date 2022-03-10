@@ -18,7 +18,7 @@ public class FindAThrowingPosition : ActionNode
         blackboard.distance = Vector2.Distance(context.gameObject.transform.position, context.playerObject.transform.position);
         Debug.Log("Distance:" + blackboard.distance);
 
-        blackboard.playerInAttackRange = Physics.CheckSphere(context.agent.transform.position, blackboard.attackDistance, targetMask);
+        blackboard.playerInAttackRange = Physics.CheckSphere(context.agent.transform.position, blackboard.attackRange, targetMask);
 
         if (blackboard.isFollowingPlayer)
         {
