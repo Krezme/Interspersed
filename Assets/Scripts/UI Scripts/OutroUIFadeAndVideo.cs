@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OutroUIFadeAndVideo : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class OutroUIFadeAndVideo : MonoBehaviour
     public GameObject Video;
 
     public GameObject Credits;
+
+    public GameObject CreditsMusic;
 
     private float FadeTimer = 0;
 
@@ -34,9 +37,24 @@ public class OutroUIFadeAndVideo : MonoBehaviour
             FadeToBlack.SetActive(false);
         }
 
-        if (FadeTimer > 7)
+        if (FadeTimer > 10) //was set to 7 then 9
         {
             Credits.SetActive(true);
+        }
+
+        if (FadeTimer > 9) //was set to 8
+        {
+            CreditsMusic.SetActive(true);
+        }
+
+        if (FadeTimer > 51)
+        {
+            Credits.SetActive(false);
+        }
+
+        if (FadeTimer > 52)
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }
