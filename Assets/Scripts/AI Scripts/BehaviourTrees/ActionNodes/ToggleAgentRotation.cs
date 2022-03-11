@@ -15,6 +15,8 @@ public class ToggleAgentRotation : ActionNode
     }
 
     protected override State OnUpdate() {
+
         return State.Success;
+
     }
 }

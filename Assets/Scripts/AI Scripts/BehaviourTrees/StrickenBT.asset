@@ -93,7 +93,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 2057e515775236f4cb26b81629cac8c5
-  position: {x: -568.18445, y: 1395.2}
+  position: {x: -226.00003, y: 1394.6667}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
     attackRange: 5
   description: 
   drawGizmos: 0
-  duration: 1
+  duration: 3
 --- !u!114 &-5350338930759541797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 243c0fa33f0897d40a3d07a0482e751a
-  position: {x: -193.59999, y: 1394.8926}
+  position: {x: -376.00006, y: 1394.6667}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -286,9 +286,9 @@ MonoBehaviour:
   description: The sequence that lets the AI attack the player
   drawGizmos: 0
   children:
-  - {fileID: -5586686421024376060}
-  - {fileID: 6699501755809240163}
+  - {fileID: 5103886155290198241}
   - {fileID: -3033921870501910987}
+  - {fileID: -5586686421024376060}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,7 +313,6 @@ MonoBehaviour:
   - {fileID: -5350338930759541797}
   - {fileID: 7818105569483602971}
   - {fileID: -109026692776886203}
-  - {fileID: 6699501755809240163}
   - {fileID: -3033921870501910987}
   - {fileID: -1344580897900635814}
   - {fileID: -7581596552879077135}
@@ -324,6 +323,7 @@ MonoBehaviour:
   - {fileID: 837993108924165611}
   - {fileID: -5703040215286822600}
   - {fileID: 6972929228210767284}
+  - {fileID: 5103886155290198241}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -432,7 +432,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: -5350338930759541797}
---- !u!114 &6699501755809240163
+--- !u!114 &5103886155290198241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -441,13 +441,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d62b0ea18e475844c83c1645dcf1270c, type: 3}
-  m_Name: ToggleAgentRotation
+  m_Script: {fileID: 11500000, guid: 6f5e8427576fe02419a7c61b0ca5cde6, type: 3}
+  m_Name: LookAtPlayer
   m_EditorClassIdentifier: 
   state: 0
   started: 0
-  guid: 0a7d2c765c6ce3a4fab442ea1f1a27aa
-  position: {x: -380, y: 1395.6926}
+  guid: 07b3e5f6ebafb524aa3bed686cb93d3c
+  position: {x: -529.33344, y: 1394.6667}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -456,7 +456,6 @@ MonoBehaviour:
     attackRange: 5
   description: 
   drawGizmos: 0
-  isUpdatingRotation: 1
 --- !u!114 &6972929228210767284
 MonoBehaviour:
   m_ObjectHideFlags: 0

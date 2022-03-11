@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class Despawn : ActionNode
+public class LookAtPlayer : ActionNode
 {
     protected override void OnStart() {
     }
@@ -12,6 +12,8 @@ public class Despawn : ActionNode
     }
 
     protected override State OnUpdate() {
+
+        context.gameObject.transform.LookAt(context.playerObject.transform);
         return State.Success;
     }
 }

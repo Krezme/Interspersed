@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InterruptSelector
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: da91b4d8de2b2424dbe2d39d7b569739
   position: {x: -3.0854723, y: 241.54074}
   blackboard:
@@ -21,6 +21,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   children:
@@ -47,6 +48,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: Plays the attack animation
   drawGizmos: 0
   floatEntry: 0
@@ -81,6 +83,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   duration: 2
@@ -105,6 +108,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   isUpdatingRotation: 0
@@ -121,7 +125,7 @@ MonoBehaviour:
   m_Name: RootNode
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: 583d9fdc04488724f858207ac9c0c1b1
   position: {x: 0, y: 0}
   blackboard:
@@ -129,6 +133,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   child: {fileID: -3728982681411422887}
@@ -145,7 +150,7 @@ MonoBehaviour:
   m_Name: Repeat
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: cf1eb7a5dae01ec4fbf13e77cf0f2160
   position: {x: -2, y: 119}
   blackboard:
@@ -153,6 +158,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   child: {fileID: -8072251516043427338}
@@ -179,6 +185,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   child: {fileID: 3755547529442688538}
@@ -205,6 +212,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
 --- !u!114 &11400000
@@ -231,7 +239,7 @@ MonoBehaviour:
   - {fileID: -8072251516043427338}
   - {fileID: 4420308151075241694}
   - {fileID: 4581052970866196997}
-  - {fileID: 7663569595806120895}
+  - {fileID: 0}
   - {fileID: -7360740251223536}
   - {fileID: 4560565255085613813}
   - {fileID: -5574153236207536069}
@@ -246,6 +254,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
 --- !u!114 &2408704689098051697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +276,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   duration: 1
@@ -291,6 +301,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
 --- !u!114 &3755547529442688538
@@ -314,6 +325,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: This section attacks the player
   drawGizmos: 0
   children:
@@ -335,7 +347,7 @@ MonoBehaviour:
   m_Name: Sequencer
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: 946759d21c1a8104fac4eeb541d188c6
   position: {x: -284.249, y: 360}
   blackboard:
@@ -343,11 +355,12 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: Sees and attacks player
   drawGizmos: 0
   children:
   - {fileID: 4581052970866196997}
-  - {fileID: 7663569595806120895}
+  - {fileID: 0}
   - {fileID: 5962955564880954809}
 --- !u!114 &4560565255085613813
 MonoBehaviour:
@@ -370,6 +383,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   speed: 5
@@ -390,7 +404,7 @@ MonoBehaviour:
   m_Name: HasSeenPlayer
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: 7443b4cd860502c4b88c468ad25442a7
   position: {x: -664.249, y: 500}
   blackboard:
@@ -398,6 +412,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
 --- !u!114 &4595726662343683832
@@ -421,6 +436,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: This sections lets the AI wander around
   drawGizmos: 0
   children:
@@ -448,6 +464,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   children:
@@ -474,6 +491,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   speed: 2
@@ -526,6 +544,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
+    attackRange: 5
   description: 
   drawGizmos: 0
   wanderRange: 10
