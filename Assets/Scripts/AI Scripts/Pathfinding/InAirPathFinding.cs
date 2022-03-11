@@ -19,6 +19,8 @@ public class InAirPathFinding : MonoBehaviour
 
     private Rigidbody rb;
 
+    private bool goDetectedInDirectionToTarget;
+    private bool goDetectedInAgraveDirectionToTarget;
     private bool goDetectedCenterSphere;
     private bool goDetectedRight;
     private bool goDetectedLeft;
@@ -86,6 +88,11 @@ public class InAirPathFinding : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
     }
 
+    Vector3 CalculatePassThroughPosition()
+    {
+        return transform.forward.normalized + directionToPlayer.normalized;
+    }
+
     bool PhysicsRaycast (Vector3 origin, Vector3 direction, List<Vector3> obsticlePos, out List<Vector3> newObsticlePos, LayerMask layer = default) {
         bool hasDetected = Physics.Raycast(origin, direction, rayLenght, layer)?true:false;
         List<Vector3> tempObsticlePos = obsticlePos;
@@ -106,6 +113,10 @@ public class InAirPathFinding : MonoBehaviour
         Gizmos.color =Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + directionToPlayer * rayLenght);
         Gizmos.DrawWireSphere(transform.position + directionToPlayer * rayLenght, sphereCastRadius * directionalSphereCastRadiusMultiplier);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, transform.position + CalculatePassThroughPosition() * rayLenght/3);
+        Gizmos.DrawWireSphere(transform.position + CalculatePassThroughPosition() * rayLenght/3, sphereCastRadius * directionalSphereCastRadiusMultiplier);
 
         Gizmos.color = goDetectedRight?Color.red:Color.green;
         Gizmos.DrawRay(transform.position + transform.right * rayOffset, transform.forward * rayLenght);
