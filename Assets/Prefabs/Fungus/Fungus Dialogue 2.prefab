@@ -1367,6 +1367,8 @@ GameObject:
   - component: {fileID: 8806699145250371509}
   - component: {fileID: 7431406940638090507}
   - component: {fileID: 8726369554430838185}
+  - component: {fileID: 1669769993}
+  - component: {fileID: 1669769994}
   m_Layer: 0
   m_Name: Player Encounters Radio Tower
   m_TagString: Untagged
@@ -1414,8 +1416,7 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 7431406940638090507}
-  selectedCommands:
-  - {fileID: 8726369554430838185}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -1453,6 +1454,8 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 8726369554430838185}
+  - {fileID: 1669769994}
+  - {fileID: 1669769993}
   suppressAllAutoSelections: 0
 --- !u!114 &8726369554430838185
 MonoBehaviour:
@@ -1468,9 +1471,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  storyText: 
+  storyText: Hey! Hey you!
   description: 
-  character: {fileID: 0}
+  character: {fileID: 2270147176233522172}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1669769993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7229179362782076376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 3
+  indentLevel: 0
+  storyText: "Seems you better help him, sounds like he\u2019s in trouble. And there's
+    plenty of Abyssal for me to harvest."
+  description: 
+  character: {fileID: 7617052610985682561}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &1669769994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7229179362782076376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 2
+  indentLevel: 0
+  storyText: "Help me out here huh? Get these freaks off me! Quick I can\u2019t hold
+    out much longer!"
+  description: 
+  character: {fileID: 2270147176233522172}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
@@ -1524,7 +1583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: Character Name
+  nameText: Radio Announcer
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits: []
