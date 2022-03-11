@@ -12,7 +12,7 @@ public class HasSeenPlayer : ActionNode
     }
 
     protected override State OnUpdate() {
-
+        
         if (context.fieldOfView.targetvisible)
         {
             return State.Success;
@@ -21,6 +21,5 @@ public class HasSeenPlayer : ActionNode
         {
             return State.Failure;
         }
-        
     }
 }

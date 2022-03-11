@@ -12,16 +12,9 @@ public class GetPlayerPosition : ActionNode
     }
 
     protected override State OnUpdate() {
-
-        if (blackboard.isFollowingPlayer)
-        {
-            blackboard.moveToPosition = context.playerObject.transform.position;
-            return State.Success;
-        }
-        else
-        {
-            return State.Failure;
-        }
-
+        
+        blackboard.moveToPosition = context.playerObject.transform.position;
+        return State.Success;
+       
     }
 }

@@ -13,18 +13,8 @@ public class Shooting : ActionNode
 
     protected override State OnUpdate() {
 
-        if (blackboard.distance <= 1f)
-        {
-            context.enemyshoot.FireBullet();
-            return State.Success;
-        }
-        else
-        {
-            return State.Failure;
-        }
-
-
-        
-        
+        context.enemyshoot.FireBullet();
+        return State.Success;
+  
     }
 }
