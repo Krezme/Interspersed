@@ -52,16 +52,16 @@ public class InAirPathFinding : MonoBehaviour
 
     void ObstacleManeuvering() {
         directionToTarget = (objectToFollow.transform.position - transform.position).normalized;
-
+        
         PhysicsCasts();
         
         if (obsticlePositions.Count() > 0) {
             averageObsticlePositions = new Vector3(obsticlePositions.Average(x=>x.x), obsticlePositions.Average(y=>y.y), obsticlePositions.Average(z=>z.z));
         }
-        Debug.Log("averageObsticlePositions: " + averageObsticlePositions + " directionToTarget: " + directionToTarget);
+
         if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
         {
-            Turning(transform.position - (averageObsticlePositions - transform.position));
+            Turning(transform.position - averageObsticlePositions);
         }
         else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){}
         else
@@ -76,7 +76,7 @@ public class InAirPathFinding : MonoBehaviour
         //Shperecasts
         goDetectedInDirectionToTargetSphere = PhysicsSpherecast(transform.position, transform.position + directionToTarget, rayLenght, sphereCastRadius * directionalSphereCastRadiusMultiplier, out directionToTargetShpereCastHit, obsticlesLayer);
         goDetectedInAvrageDirectionToTargetSphere = PhysicsSpherecast(transform.position, transform.position + CalculatePassThroughPosition(), rayLenght/3, sphereCastRadius * directionalSphereCastRadiusMultiplier, out avrageDirectionToTargetSphereHit, obsticlesLayer);
-        goDetectedCenterSphere = PhysicsSpherecast(transform.position, transform.forward, rayLenght, sphereCastRadius, out centerShpereCastHit, obsticlesLayer);
+        goDetectedCenterSphere = PhysicsSpherecast(transform.position, transform.forward, rayLenght, sphereCastRadius * directionalSphereCastRadiusMultiplier, out centerShpereCastHit, obsticlesLayer);
 
         //Raycasts
         goDetectedRight = PhysicsRaycast(transform.position, transform.right * rayOffset, transform.forward, rayLenght, obsticlePositions, out obsticlePositions, obsticlesLayer);
@@ -109,7 +109,7 @@ public class InAirPathFinding : MonoBehaviour
         bool hasDetected = Physics.Raycast(centerPos + rayOffsetPos, direction, rayCastLenght, layer)?true:false;
         List<Vector3> tempObsticlePos = obsticlePos;
         if (hasDetected) {
-            tempObsticlePos.Add(centerPos + rayOffsetPos);
+            tempObsticlePos.Add(rayOffsetPos);
         }
         newObsticlePos = tempObsticlePos;
         return hasDetected;
@@ -165,13 +165,13 @@ public class InAirPathFinding : MonoBehaviour
             distance = rayLenght;
         }
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * distance);
-        Gizmos.DrawWireSphere(transform.position + transform.forward * distance, sphereCastRadius);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
 
         if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){
             Gizmos.color = Color.black;
-            Gizmos.DrawSphere(transform.position - (averageObsticlePositions - transform.position),  0.1f);
+            Gizmos.DrawSphere(transform.position - averageObsticlePositions,  0.1f);
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(averageObsticlePositions, 0.1f);
+            Gizmos.DrawSphere(transform.position + averageObsticlePositions, 0.1f);
         }
     }
 #endregion
