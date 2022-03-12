@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GeneratorTurnOnWithCharge : MonoBehaviour
 {
@@ -16,29 +17,69 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
 
     public GameObject BellLightBulbs;
 
-    public int Digit;
+    private int Digit;
+
+    public BoxCollider Collider;
 
 
-    private void OnTriggerEnter(Collider other)
+
+
+    private LayerMask layers;
+    public UnityEvent OnEnter;
+    private InventoryController.InventoryChecker[] inventoryChecks;
+
+
+
+
+
+
+    void OnTriggerEnter(Collider other)
     {
         if (other.tag == "PlayerBullet" && other.GetComponent<BulletProjectile>().statistics.isElectric)
         {
             Digit = Random.Range(0, 101);
-   
-            if (Digit <10)
+
+            if (Digit < 10)
             {
                 EngineStartUpLayer.SetActive(true);
                 animator.enabled = true;
                 BellLightBulbs.SetActive(true);
+                Collider.enabled = false;
                 Debug.Log("Generator Charged");
+                //---------------------------------------------------------------------------------
+
+                ExecuteOnEnter(other);
+
             }
             else
             {
                 EngineStartUp.SetActive(true);
                 animator.enabled = true;
                 BellLightBulbs.SetActive(true);
+                Collider.enabled = false;
                 Debug.Log("Generator Charged");
+                //---------------------------------------------------------------------------------
+
+                ExecuteOnEnter(other);
+
             }
+
+
         }
     }
+
+
+    protected virtual void ExecuteOnEnter(Collider other)
+    {
+        OnEnter.Invoke();
+        for (var i = 0; i < inventoryChecks.Length; i++)
+        {
+            inventoryChecks[i].CheckInventory(other.GetComponentInChildren<InventoryController>());
+        }
+    }
+
+
+
+
+
 }
