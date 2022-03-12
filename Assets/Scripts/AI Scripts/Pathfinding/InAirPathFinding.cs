@@ -61,12 +61,15 @@ public class InAirPathFinding : MonoBehaviour
 
         if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
         {
-            Turning(transform.position - averageObsticlePositions);
+            Turning(transform.position - averageObsticlePositions); //Turn in the oposite direction of the obsicles
+        }
+        else if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && (!goDetectedInDirectionToTargetSphere && !goDetectedInAvrageDirectionToTargetSphere)) {
+            Turning(objectToFollow.transform.position); //Turn towards the target
         }
         else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){}
         else
         {
-            Turning(objectToFollow.transform.position);
+            Turning(objectToFollow.transform.position); //Turn towards the target
         }
         Movement();
     }
