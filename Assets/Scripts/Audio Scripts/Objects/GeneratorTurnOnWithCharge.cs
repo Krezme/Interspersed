@@ -15,7 +15,9 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
 
     public Animator animator;
 
-    public GameObject BellLightBulbs;
+    public GameObject BellLightBulbA;
+
+    public GameObject BellLightBulbB;
 
     private int Digit;
 
@@ -43,7 +45,8 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
             {
                 EngineStartUpLayer.SetActive(true);
                 animator.enabled = true;
-                BellLightBulbs.SetActive(true);
+                BellLightBulbA.SetActive(true);
+                BellLightBulbB.SetActive(true);
                 Collider.enabled = false;
                 Debug.Log("Generator Charged");
                 //---------------------------------------------------------------------------------
@@ -55,7 +58,8 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
             {
                 EngineStartUp.SetActive(true);
                 animator.enabled = true;
-                BellLightBulbs.SetActive(true);
+                BellLightBulbA.SetActive(true);
+                BellLightBulbB.SetActive(true);
                 Collider.enabled = false;
                 Debug.Log("Generator Charged");
                 //---------------------------------------------------------------------------------
