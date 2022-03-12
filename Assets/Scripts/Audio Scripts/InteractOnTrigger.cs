@@ -7,6 +7,9 @@ using UnityEngine.Events;
     [RequireComponent(typeof(Collider))]
     public class InteractOnTrigger : MonoBehaviour
     {
+        [Header(" ")]
+        [Header("                                     ---===== From Rhys' Collection =====---")]
+
         public LayerMask layers;
         public UnityEvent OnEnter, OnExit;
         new Collider collider;

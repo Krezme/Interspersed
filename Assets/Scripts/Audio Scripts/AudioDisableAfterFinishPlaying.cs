@@ -6,8 +6,11 @@ using UnityEngine.Audio;
 public class AudioDisableAfterFinishPlaying : MonoBehaviour
     
 {
+    [Header(" ")]
+    [Header("                                     ---===== From Rhys' Collection =====---")]
     [Header("When the audio clip has finished playing")]
     [Header("This script will DISABLE the GameObject")]
+
     [SerializeField]
 
 

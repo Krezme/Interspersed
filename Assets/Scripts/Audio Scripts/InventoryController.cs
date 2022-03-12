@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
     public class InventoryController : MonoBehaviour
     {
+        //Also from Rhys' Collection, although Unity didn't like me adding headers into this script for some reason - || - Redundant within this project, however another script I use requires it, so I just transferred it to this project rather than editing out the dependency
+
         [System.Serializable]
         public class InventoryEvent
         {

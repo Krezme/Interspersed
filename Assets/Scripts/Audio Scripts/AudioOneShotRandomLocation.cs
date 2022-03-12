@@ -8,6 +8,8 @@ using UnityEngine.Audio;
 public class AudioOneShotRandomLocation : MonoBehaviour
 {
     [Header(" PLEASE ENSURE PLAY ON AWAKE AND LOOP ARE NOT ENABLED!! ")]
+    [Header(" ")]
+    [Header("                                     ---===== From Rhys' Collection =====---")]
 
     [Tooltip("The MINIMUM amount of TIME TO WAIT before playback")]
     [Range(0, 60)] public float minTimeToWait = 5.0f;

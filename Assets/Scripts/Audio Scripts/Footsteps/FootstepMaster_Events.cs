@@ -17,6 +17,9 @@ using System.Collections;
 
 public class FootstepMaster_Events : MonoBehaviour {
 
+	[Header(" ")]
+	[Header("                                     ---===== From Rhys' Collection =====---")]
+
 	private GameObject terrainFinder;	//Stores the Terrain GameObject out of the Scene for use later.
 	private Terrain terrain;			//Your Terrain (if one's in your scene)
 	private TerrainData terrainData;	//Lets us get to the Terrain's splatmap.

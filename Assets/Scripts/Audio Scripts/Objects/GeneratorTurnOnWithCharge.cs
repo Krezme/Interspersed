@@ -2,21 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RadioTurnOnWithCharge : MonoBehaviour
+public class GeneratorTurnOnWithCharge : MonoBehaviour
 {
     [Header(" ")]
     [Header("                                            ---===== Written by Rhys =====---")]
 
-    public RandomAudioPlayer RadioShows;
 
+    public GameObject EngineStartUp;
+
+    public Animator animator;
+
+    public GameObject BellLightBulbs;
 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "PlayerBullet" && other.GetComponent<BulletProjectile>().statistics.isElectric)
         {
-            RadioShows.PlayRandomClip();
-            Debug.Log("RadioHit");
+            EngineStartUp.SetActive(true);
+            animator.enabled = true;
+            BellLightBulbs.SetActive(true);
+            Debug.Log("Generator Charged");
         }
     }
 }

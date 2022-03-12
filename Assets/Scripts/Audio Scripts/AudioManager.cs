@@ -5,6 +5,8 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    [Header(" ")]
+    [Header("                                     ---===== From Rhys' Collection =====---")]
     public AudioMixer mixer;
 
     // Start is called before the first frame update

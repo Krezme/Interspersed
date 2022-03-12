@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FadeOutDontDestroyAudioOnEnable : MonoBehaviour
 {
+    [Header(" ")]
+    [Header("                                            ---===== Written by Rhys =====---")]
 
     AudioDontDestroyOnLoadWithFadeOutScript fadeout;
 

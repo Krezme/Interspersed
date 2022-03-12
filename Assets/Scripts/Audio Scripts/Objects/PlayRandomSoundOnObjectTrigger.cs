@@ -9,6 +9,9 @@ using UnityEngine;
 
     public class PlayRandomSoundOnObjectTrigger : MonoBehaviour
     {
+        [Header(" ")]
+        [Header("                                            ---===== Written by Rhys =====---")]
+
         public RandomAudioPlayer player;
         //Creates inspector window slot in which the GameObject that contains the desired to be played RandomAudioPlayer Sctipt must be placed (In this case it should be tbe object that this script is also placed on)
 

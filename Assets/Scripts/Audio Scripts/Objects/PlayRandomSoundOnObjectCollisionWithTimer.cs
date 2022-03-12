@@ -8,6 +8,9 @@ using UnityEngine;
 
     public class PlayRandomSoundOnObjectCollisionWithTimer : MonoBehaviour
     {
+        [Header(" ")]
+        [Header("                                            ---===== Written by Rhys =====---")]
+
         public RandomAudioPlayer player;
         public float RequiredVelocity = 3;
         private float CollisionTimer = 0;

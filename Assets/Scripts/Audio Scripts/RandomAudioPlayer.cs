@@ -9,6 +9,8 @@ using Random = UnityEngine.Random;
     [RequireComponent(typeof(AudioSource))]
     public class RandomAudioPlayer : MonoBehaviour
     {
+        //Also from Rhys' Collection, although Unity didn't like me adding headers into this script for some reason
+
         [Serializable]
         public class MaterialAudioOverride
         {
