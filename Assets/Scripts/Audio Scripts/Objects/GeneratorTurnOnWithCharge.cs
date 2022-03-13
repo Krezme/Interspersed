@@ -24,6 +24,8 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
 
     public Animator Shake;
 
+    public GameObject GreasedLightning;
+
 
     private LayerMask layers;
     public UnityEvent OnEnter;
@@ -40,7 +42,8 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
             {
                 EngineStartUpLayer.SetActive(true); /*- NiceTry at hiding*/
                 LightSpin.enabled = true;
-                Shake.enabled = true; 
+                Shake.enabled = true;
+                GreasedLightning.SetActive(true);
                 BellLightBulbA.SetActive(true);
                 BellLightBulbB.SetActive(true);
                 Collider.enabled = false;
@@ -53,6 +56,7 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
                 EngineStartUp.SetActive(true);
                 LightSpin.enabled = true;
                 Shake.enabled = true;
+                GreasedLightning.SetActive(true);
                 BellLightBulbA.SetActive(true);
                 BellLightBulbB.SetActive(true);
                 Collider.enabled = false;
