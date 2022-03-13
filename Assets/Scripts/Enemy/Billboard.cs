@@ -7,12 +7,28 @@ public class Billboard : MonoBehaviour
 
     private GameObject cam;
 
-    void Start () {
+    void Start () 
+    {
         cam = FindObjectOfType<Camera>().gameObject;
+        InvokeRepeating("FlashOff", 2.0f, 2.0f);
+        InvokeRepeating("FlashOn", 1.5f, 1.5f);
     }
-
+   
     void LateUpdate()
     {
         transform.LookAt(transform.position + cam.transform.forward);
     }
+    
+
+
+    void FlashOn()
+    {
+        this.gameObject.SetActive(false);
+    }
+    void FlashOff()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+        
 }

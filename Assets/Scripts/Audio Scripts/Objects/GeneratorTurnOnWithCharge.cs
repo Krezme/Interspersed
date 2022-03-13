@@ -43,7 +43,7 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
 
             if (Digit < 10)
             {
-                EngineStartUpLayer.SetActive(true);
+                EngineStartUpLayer.SetActive(true); /*- NiceTry at hiding*/
                 animator.enabled = true;
                 BellLightBulbA.SetActive(true);
                 BellLightBulbB.SetActive(true);
