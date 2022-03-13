@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3386280623118432304}
   - component: {fileID: 4897113269936810622}
   - component: {fileID: 4897113269936810617}
+  - component: {fileID: 8688303580542923095}
   m_Layer: 0
   m_Name: postbox norigid
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4279831969613838579}
-  m_LocalRotation: {x: -0.0042065624, y: 0.99977446, z: 0.015807899, w: -0.013549502}
+  m_LocalRotation: {x: -0.0042088963, y: 0.9997744, z: 0.015809573, w: -0.0135503905}
   m_LocalPosition: {x: 264.654, y: -0.965, z: 122.476}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.009999998}
   m_Children: []
@@ -257,3 +258,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 28.465145, y: 20.871435, z: 31.031107}
   m_Center: {x: -0.25718138, y: 10.435128, z: -0.106789224}
+--- !u!114 &8688303580542923095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279831969613838579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c37f6f1c1e841c42a5f779598557486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAlredySpawned: 1
+  unparentObjects: []
+  objectToGrab: {fileID: 4279831969613838579}
