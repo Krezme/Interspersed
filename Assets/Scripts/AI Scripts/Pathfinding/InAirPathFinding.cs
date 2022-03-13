@@ -84,7 +84,7 @@ public class InAirPathFinding : MonoBehaviour
         obsticleDistances = new List<float>();
         //Shperecasts
         goDetectedInDirectionToTargetSphere = PhysicsSpherecast(transform.position, directionToTarget, rayLenght, sphereCastRadius * directionalSphereCastRadiusMultiplier, out directionToTargetShpereCastHit, obsticlesLayer);
-        goDetectedInAvrageDirectionToTargetSphere = PhysicsSpherecast(transform.position, CalculatePassThroughPosition(), rayLenght, sphereCastRadius * directionalSphereCastRadiusMultiplier, out avrageDirectionToTargetSphereHit, obsticlesLayer);
+        goDetectedInAvrageDirectionToTargetSphere = PhysicsSpherecast(transform.position, CalculatePassThroughPosition(), rayLenght/3, sphereCastRadius * directionalSphereCastRadiusMultiplier, out avrageDirectionToTargetSphereHit, obsticlesLayer);
         goDetectedCenterSphere = PhysicsSpherecast(transform.position, transform.forward, rayLenght, sphereCastRadius, out centerShpereCastHit, obsticlesLayer);
 
         //Raycasts
@@ -158,7 +158,7 @@ public class InAirPathFinding : MonoBehaviour
             distance = avrageDirectionToTargetSphereHit.distance;
         }
         else {
-            distance = rayLenght;
+            distance = rayLenght/2;
         }
         Gizmos.DrawLine(transform.position, transform.position + CalculatePassThroughPosition() * distance);
         Gizmos.DrawWireSphere(transform.position + CalculatePassThroughPosition() * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
