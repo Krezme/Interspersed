@@ -8,12 +8,11 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
     [Header(" ")]
     [Header("                                            ---===== Written by Rhys =====---")]
 
-
     public GameObject EngineStartUp;
 
     public GameObject EngineStartUpLayer;
 
-    public Animator animator;
+    public Animator LightSpin;
 
     public GameObject BellLightBulbA;
 
@@ -23,16 +22,12 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
 
     public BoxCollider Collider;
 
-
+    public Animator Shake;
 
 
     private LayerMask layers;
     public UnityEvent OnEnter;
-    private InventoryController.InventoryChecker[] inventoryChecks;
-
-
-
-
+    private InventoryController.InventoryChecker[] inventoryChecks; //Anything referring to this is essentially a redundant dependency from another script of mine, hence why I made it private - Currently cba to write it out since it works
 
 
     void OnTriggerEnter(Collider other)
@@ -41,37 +36,32 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
         {
             Digit = Random.Range(0, 101);
 
-            if (Digit < 10)
+            if (Digit <= 3)
             {
                 EngineStartUpLayer.SetActive(true); /*- NiceTry at hiding*/
-                animator.enabled = true;
+                LightSpin.enabled = true;
+                Shake.enabled = true; 
                 BellLightBulbA.SetActive(true);
                 BellLightBulbB.SetActive(true);
                 Collider.enabled = false;
                 Debug.Log("Generator Charged");
-                //---------------------------------------------------------------------------------
-
+                
                 ExecuteOnEnter(other);
-
             }
             else
             {
                 EngineStartUp.SetActive(true);
-                animator.enabled = true;
+                LightSpin.enabled = true;
+                Shake.enabled = true;
                 BellLightBulbA.SetActive(true);
                 BellLightBulbB.SetActive(true);
                 Collider.enabled = false;
-                Debug.Log("Generator Charged");
-                //---------------------------------------------------------------------------------
+                Debug.Log("Generator Charged");      
 
                 ExecuteOnEnter(other);
-
             }
-
-
         }
     }
-
 
     protected virtual void ExecuteOnEnter(Collider other)
     {
@@ -81,9 +71,4 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
             inventoryChecks[i].CheckInventory(other.GetComponentInChildren<InventoryController>());
         }
     }
-
-
-
-
-
 }
