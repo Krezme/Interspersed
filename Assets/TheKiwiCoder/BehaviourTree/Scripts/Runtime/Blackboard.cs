@@ -14,6 +14,7 @@ namespace TheKiwiCoder {
         public bool playerInAttackRange;
         public float distance;
         public float attackRange = 5f;
+        public float meleeRange = 1f;
 
     }
 }
