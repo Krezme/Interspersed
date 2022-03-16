@@ -13,7 +13,7 @@ public class Shooting : ActionNode
 
     protected override State OnUpdate() {
 
-        context.enemyshoot.FireBullet();
+        context.enemyshoot.FireBullet(); /// runs a function in EnemyShoot Script (attatched to AI)
         return State.Success;
   
     }

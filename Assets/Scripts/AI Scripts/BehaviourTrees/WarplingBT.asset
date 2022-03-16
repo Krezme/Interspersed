@@ -21,8 +21,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   children:
@@ -49,39 +47,11 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
-  child: {fileID: -6741649389481883909}
+  child: {fileID: -565257902273767489}
   restartOnSuccess: 1
   restartOnFailure: 0
---- !u!114 &-6741649389481883909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a740ca58916d15c48b5d1d82a4179c58, type: 3}
-  m_Name: IsInMeleeRange
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 7520615b592788d43b10088cad637944
-  position: {x: -301.59995, y: 1123.2}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    playerInAttackRange: 0
-    distance: 0
-    attackRange: 5
-    meleeRange: 1
-  description: 
-  drawGizmos: 0
-  child: {fileID: 3487933802776653783}
 --- !u!114 &-6096325770138787223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,8 +73,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   children:
@@ -131,9 +99,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
-  description: 
+  description: Checks to see if Player is visible to AI
   drawGizmos: 0
 --- !u!114 &-5779871271513293973
 MonoBehaviour:
@@ -156,8 +122,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
 --- !u!114 &-5286624521367889199
@@ -181,8 +145,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   floatEntry: 0
@@ -217,8 +179,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   wanderRange: 10
@@ -243,8 +203,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
 --- !u!114 &-2476393351414650614
@@ -268,8 +226,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   children:
@@ -296,11 +252,34 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
-  description: 
+  description: Root Node for Warpling Behaviour Tree
   drawGizmos: 0
   child: {fileID: -377102377970099303}
+--- !u!114 &-565257902273767489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a416bc9bfde0a524790d95e1a7b6ae0b, type: 3}
+  m_Name: IsInAttackRange
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 4ac1c762eea53b04fa4deee61977e49c
+  position: {x: -301.0879, y: 1135.9207}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+  description: Checks to see if the AI is in attack Range
+  drawGizmos: 0
+  child: {fileID: 3487933802776653783}
+  attackRange: 1
 --- !u!114 &-377102377970099303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,8 +301,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   child: {fileID: -6096325770138787223}
@@ -363,15 +340,13 @@ MonoBehaviour:
   - {fileID: 4492307805966523010}
   - {fileID: -5286624521367889199}
   - {fileID: 8964110170256432002}
-  - {fileID: -6741649389481883909}
   - {fileID: -3701724504416946732}
+  - {fileID: -565257902273767489}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 3
-    meleeRange: 1
 --- !u!114 &731774253893855120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,8 +368,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   speed: 5
@@ -423,8 +396,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   child: {fileID: -7689444743220011712}
@@ -451,9 +422,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
-  description: 
+  description: The sequence lets the AI wander around the environment
   drawGizmos: 0
   children:
   - {fileID: -5107224497448025997}
@@ -480,9 +449,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
-  description: 
+  description: The sequence that lets the AI attack the player
   drawGizmos: 0
   children:
   - {fileID: 4492307805966523010}
@@ -510,8 +477,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   speed: 5
@@ -540,8 +505,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
 --- !u!114 &7805135437750104779
@@ -565,8 +528,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   duration: 1
@@ -591,9 +552,7 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
-  description: 
+  description: Chases the player
   drawGizmos: 0
   children:
   - {fileID: -5779871271513293973}
@@ -619,8 +578,6 @@ MonoBehaviour:
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
-    attackRange: 5
-    meleeRange: 1
   description: 
   drawGizmos: 0
   duration: 1

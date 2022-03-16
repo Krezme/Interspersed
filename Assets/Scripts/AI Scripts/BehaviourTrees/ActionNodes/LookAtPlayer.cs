@@ -13,7 +13,7 @@ public class LookAtPlayer : ActionNode
 
     protected override State OnUpdate() {
 
-        context.gameObject.transform.LookAt(context.playerObject.transform);
+        context.gameObject.transform.LookAt(context.playerObject.transform); /// makes the AI look at the player
         return State.Success;
     }
 }

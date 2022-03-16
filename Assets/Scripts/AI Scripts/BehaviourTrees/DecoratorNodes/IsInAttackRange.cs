@@ -5,6 +5,8 @@ using TheKiwiCoder;
 
 public class IsInAttackRange : DecoratorNode
 {
+    public float attackRange;
+
     protected override void OnStart() {
     }
 
@@ -12,10 +14,13 @@ public class IsInAttackRange : DecoratorNode
     }
 
     protected override State OnUpdate() {
+
+        /// Gets the distance betweem the player and AI 
         blackboard.distance = Vector2.Distance(context.gameObject.transform.position, context.playerObject.transform.position);
-        if (blackboard.distance <= blackboard.attackRange)
+
+        if (blackboard.distance <= attackRange) /// Compares distance to attack range
         {
-            var state = child.Update();
+            var state = child.Update(); /// returns the state of the child node (the node attatched to this)
             return state;
         }
         else
