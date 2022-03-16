@@ -70,9 +70,9 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
     protected virtual void ExecuteOnEnter(Collider other)
     {
         OnEnter.Invoke();
-        for (var i = 0; i < inventoryChecks.Length; i++)
+        /* for (var i = 0; i < inventoryChecks.Length; i++)
         {
             inventoryChecks[i].CheckInventory(other.GetComponentInChildren<InventoryController>());
-        }
+        } */
     }
 }

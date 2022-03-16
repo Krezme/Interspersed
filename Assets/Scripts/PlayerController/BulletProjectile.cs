@@ -17,6 +17,9 @@ public class BulletStatistics
     public float currentAge;
 
     public float speed = 10f;
+    
+    //Tick this in the editor to apply special conditions from shotgun ability
+    public bool isShotgunProjectile = false;
 }
 
 public class BulletProjectile : MonoBehaviour
@@ -66,7 +69,7 @@ public class BulletProjectile : MonoBehaviour
     {
         Vector3 hitPos = transform.position;
         if (!hasCollided) {
-
+            Debug.Log(other.gameObject.name + "------------------------------------------------------------------------------- ");
             BulletImpact.PlayRandomClip();
 
             if (other.tag == "Enemy") { 
@@ -85,6 +88,9 @@ public class BulletProjectile : MonoBehaviour
                     inWaterController.waterProperties.isCharged = statistics.isElectric;
                 }
             }
+            else if (other.tag == "SlimeObsticle" && statistics.isShotgunProjectile) {
+                Destroy(other.gameObject);
+            }
             else if (other.gameObject.layer != this.gameObject.layer) // Resterts the age and lets it sit in the colided spot for a short time 
             {
                 hasCollided = true; // Effectively dissables the OnTriggerEnter
@@ -93,6 +99,7 @@ public class BulletProjectile : MonoBehaviour
                 //bulletRigidbody.isKinematic = true;
                 transform.position = hitPos;
             }
+            
         }
     }
 }
