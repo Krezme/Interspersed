@@ -16,6 +16,8 @@ public class OutroUIFadeAndVideo : MonoBehaviour
 
     private float FadeTimer = 0;
 
+    public GameObject HUD;
+
 
     void Update()
     {
@@ -30,6 +32,7 @@ public class OutroUIFadeAndVideo : MonoBehaviour
         else
         {
             FadeToBlack.SetActive(true);
+            HUD.SetActive(false);
         }
 
         if (FadeTimer > 1.1f)
@@ -55,6 +58,7 @@ public class OutroUIFadeAndVideo : MonoBehaviour
         if (FadeTimer > 52)
         {
             SceneManager.LoadScene(0);
+            HUD.SetActive(true);
         }
     }
 }
