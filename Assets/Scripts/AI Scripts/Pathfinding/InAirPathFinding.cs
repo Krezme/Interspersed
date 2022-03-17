@@ -51,19 +51,26 @@ public class InAirPathFinding : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         if (other.tag != "Player") {
-            
+            // ! Trigger Ragdoll when it hits a obsitcle with enough speed
             Debug.Log("Hit");
         }
     }
 
+    /// <summary>
+    /// Main function that calls all of the turning conditions and movement code
+    /// </summary>
     void ObstacleManeuvering() {
+        // Calculates the diraction from the enemy to the target
         directionToTarget = (objectToFollow.transform.position - transform.position).normalized;
+        // Performs all physics casts (Ray casts and Sphere Casts) needed for Maneuvering
         PhysicsCasts();
         
+        // Calculates the avrage obsicle position. Used to make the player turn in the correct direction
         if (obsticlePositions.Count() > 0) {
             averageObsticlePositions = new Vector3(obsticlePositions.Average(x=>x.x), obsticlePositions.Average(y=>y.y), obsticlePositions.Average(z=>z.z));
         }
 
+        //
         if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
         {
             Turning(transform.position - averageObsticlePositions); //Turn in the oposite direction of the obsicles
