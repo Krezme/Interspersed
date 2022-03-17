@@ -5,7 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyBulletStatistics
 {
-    public float damage = 10f;
+    [HideInInspector]
+    public float damage;
 
     public float thisLifespan = 5f;
 
@@ -18,7 +19,6 @@ public class EnemyBulletStatistics
 public class EnemyProjectile : MonoBehaviour
 {
     public EnemyBulletStatistics statistics;
-    //public EnemyStatisticsManager statisticsManager;
     
     public Rigidbody bulletRigidbody;
 

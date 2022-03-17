@@ -6,13 +6,13 @@ public class EnemyShoot : MonoBehaviour
 {
     public Transform bulletSpawn;
     public GameObject projectile;
-
-    public float speed = 32f; /// change this variable to adjust shoot speed
+    public EnemyStatisticsManager enemyStatisticsManager;
 
     public void FireBullet()
     {
 
-        Instantiate(projectile, bulletSpawn.position, Quaternion.identity); ///clones the projectile
+        GameObject currentBullet = Instantiate(projectile, bulletSpawn.position, Quaternion.identity); ///clones the projectile
+        currentBullet.GetComponent<EnemyProjectile>().statistics.damage = enemyStatisticsManager.currentStats.damage;
 
     }
 }
