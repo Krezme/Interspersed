@@ -12,8 +12,7 @@ public class EnemyShoot : MonoBehaviour
     public void FireBullet()
     {
 
-        Rigidbody rb = Instantiate(projectile, bulletSpawn.position, Quaternion.identity).GetComponent<Rigidbody>(); /// clones projectile prefab and makes it a rigidbody
-        rb.AddForce(bulletSpawn.forward * speed, ForceMode.Impulse); /// shoots it forward at the chosen speed
+        Instantiate(projectile, bulletSpawn.position, Quaternion.identity); ///clones the projectile
 
     }
 }
