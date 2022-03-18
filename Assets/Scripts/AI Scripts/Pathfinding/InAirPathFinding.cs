@@ -101,6 +101,9 @@ public class InAirPathFinding : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Contails all of the contidions and functions for steering the enemy
+    /// </summary>
     void TurningConditions() {
         if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
         {
@@ -116,6 +119,10 @@ public class InAirPathFinding : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Steering the enemy to the passed position
+    /// </summary>
+    /// <param name="targetPos"> The target position for the enemy to look at</param>
     void Turning(Vector3 targetPos) {
         Vector3 position = targetPos - transform.position;
         Quaternion rotation = Quaternion.LookRotation(position);
