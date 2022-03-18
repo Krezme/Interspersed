@@ -12,10 +12,18 @@ public class RadioTowerEvent : MonoBehaviour
     public GameObject spawnPoint4;
     public GameObject spawnPoint5;
 
+    public BoxCollider boxCollider;
+
+    void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         SpawnWarplings();
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        boxCollider.enabled = false;
     }
 
     void SpawnWarplings()
