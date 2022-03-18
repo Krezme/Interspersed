@@ -11,7 +11,7 @@ public class EnemyShoot : MonoBehaviour
     public void FireBullet()
     {
 
-        GameObject currentBullet = Instantiate(projectile, bulletSpawn.position, Quaternion.identity); ///clones the projectile
+        GameObject currentBullet = Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation); ///clones the projectile
         currentBullet.GetComponent<EnemyProjectile>().statistics.damage = enemyStatisticsManager.currentStats.damage;
 
     }
