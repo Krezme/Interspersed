@@ -53,12 +53,13 @@ public class OutroUIFadeAndVideo : MonoBehaviour
         if (FadeTimer > 51)
         {
             Credits.SetActive(false);
+            HUD.SetActive(true);
         }
 
         if (FadeTimer > 52)
         {
-            SceneManager.LoadScene(0);
-            HUD.SetActive(true);
+            //HUD.SetActive(true);
+            SceneManager.LoadScene(1);
         }
     }
 }
