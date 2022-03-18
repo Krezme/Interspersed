@@ -16,7 +16,7 @@ public class RadioTowerEvent : MonoBehaviour
 
     void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();s
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other)
