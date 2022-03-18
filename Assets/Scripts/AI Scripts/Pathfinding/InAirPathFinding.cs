@@ -70,19 +70,10 @@ public class InAirPathFinding : MonoBehaviour
             averageObsticlePositions = new Vector3(obsticlePositions.Average(x=>x.x), obsticlePositions.Average(y=>y.y), obsticlePositions.Average(z=>z.z));
         }
 
-        //
-        if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
-        {
-            Turning(transform.position - averageObsticlePositions); //Turn in the oposite direction of the obsicles
-        }
-        else if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && (!goDetectedInDirectionToTargetSphere && !goDetectedInAvrageDirectionToTargetSphere)) {
-            Turning(objectToFollow.transform.position); //Turn towards the target
-        }
-        else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){}
-        else
-        {
-            Turning(objectToFollow.transform.position); //Turn towards the target
-        }
+        // Checking ray cast data and steering the enemy in corresponding direction
+        TurningConditions();
+        
+        // Moving the enemy
         Movement();
     }
 
@@ -107,6 +98,21 @@ public class InAirPathFinding : MonoBehaviour
             rb.velocity = (speed * Time.deltaTime) * transform.forward;
         }else {
             rb.velocity = Vector3.zero;
+        }
+    }
+
+    void TurningConditions() {
+        if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
+        {
+            Turning(transform.position - averageObsticlePositions); //Turn in the oposite direction of the obsicles
+        }
+        else if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && (!goDetectedInDirectionToTargetSphere && !goDetectedInAvrageDirectionToTargetSphere)) {
+            Turning(objectToFollow.transform.position); //Turn towards the target
+        }
+        else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){}
+        else
+        {
+            Turning(objectToFollow.transform.position); //Turn towards the target
         }
     }
 
