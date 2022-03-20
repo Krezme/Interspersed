@@ -12,11 +12,11 @@ public class InAirPathFinding : MonoBehaviour
     public float stoppingDistance = 1;
     public float rayLenght = 3;
     public float rayOffset = 0.5f;
-    public float sphereCastRadius = 0.25f;
     [Range(0, 2)]
-    public float rayBackwardsOffsetMultiplier = 0.5f;
-    public float directionalSphereCastRadiusMultiplier = 1.33f;
-
+    public float rayBackwardsOffsetMultiplier = 1.12f;
+    public float sphereCastRadius = 0.3f;
+    public float directionalSphereCastRadiusMultiplier = 1.12f;
+    
     public LayerMask obsticlesLayer;
 
     private float currentRotationSpeed;
