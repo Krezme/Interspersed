@@ -31,14 +31,37 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
 
     public static AudioDontDestroyOnLoadWithFadeOutScript instance;
 
+
     void start()
     {
-        MenuMusicSource = GetComponent<AudioSource>();
+        MenuMusicSource = GetComponent<AudioSource>(); //Telling the script to play the music through a single sourse which is assigned through the inspector window
     }
+
 
     void Awake()
     {
-        MenuSelector = Random.Range(0, 3);
+        if (instance != null) //Places the music with a DontDestroyOnLoad thing which allows it to continute playing until we start a level
+        {
+            Destroy(instance.gameObject);
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+
+    void Update()
+    {
+        if (!MenuMusicSource.isPlaying) //If a song stops playing, it gets noticed - The code then triggers the SongSelector to choose a new song and accompanying 3D background randomly
+        {
+            Invoke("SongSelector", 0f);
+        }
+    }
+
+
+    void SongSelector()
+    {
+
+        MenuSelector = Random.Range(0, 3); //Generating a random digit which is assigned to a song and it's accompanying 3D background
 
         if (MenuSelector == 0)
         {
@@ -64,14 +87,5 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
             DistantValleysScene.SetActive(false);
             TheLiberatorScene.SetActive(true);
         }
-
-
-
-        if (instance != null) 
-        {
-            Destroy(instance.gameObject);
-        }
-        instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 }
