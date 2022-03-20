@@ -119,6 +119,10 @@ public class InAirPathFinding : MonoBehaviour
         }
         else {
             speed = 100;
+            if (blockedPathBackDir != new Vector3()) {
+                blockedPathBackDir = new Vector3();
+            }
+            
             if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
             {
                 Turning(transform.position - averageObsticlePositions); //Turn in the oposite direction of the obsicles
