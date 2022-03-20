@@ -13,11 +13,15 @@ public class InAirPathFinding : MonoBehaviour
     public float rayLenght = 3;
     public float rayOffset = 0.5f;
     public float sphereCastRadius = 0.25f;
+    [Range(0, 2)]
+    public float rayBackwardsOffsetMultiplier = 0.5f;
     public float directionalSphereCastRadiusMultiplier = 1.33f;
 
     public LayerMask obsticlesLayer;
 
     private float currentRotationSpeed;
+
+    private Vector3 blockedPathBackDir = new Vector3(); // The backwards position of the enemy when forward path is blocked
 
     private Rigidbody rb;
 
@@ -86,10 +90,10 @@ public class InAirPathFinding : MonoBehaviour
         goDetectedCenterSphere = PhysicsSpherecast(transform.position, transform.forward, rayLenght, sphereCastRadius, out centerShpereCastHit, obsticlesLayer);
 
         //Raycasts
-        goDetectedRight = PhysicsRaycast(transform.position, transform.right * rayOffset, transform.forward, rayLenght, obsticlePositions, out obsticlePositions, obsticlesLayer);
-        goDetectedLeft = PhysicsRaycast(transform.position, - transform.right * rayOffset, transform.forward, rayLenght, obsticlePositions, out obsticlePositions, obsticlesLayer);
-        goDetectedTop = PhysicsRaycast(transform.position, transform.up * rayOffset, transform.forward, rayLenght, obsticlePositions, out obsticlePositions, obsticlesLayer);
-        goDetectedBottom = PhysicsRaycast(transform.position, - transform.up * rayOffset, transform.forward, rayLenght, obsticlePositions, out obsticlePositions, obsticlesLayer);
+        goDetectedRight = PhysicsRaycast(transform.position, (transform.right - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        goDetectedLeft = PhysicsRaycast(transform.position, - (transform.right + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        goDetectedTop = PhysicsRaycast(transform.position, (transform.up - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        goDetectedBottom = PhysicsRaycast(transform.position, - (transform.up + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
     }
 
     void Movement () {
@@ -105,17 +109,28 @@ public class InAirPathFinding : MonoBehaviour
     /// Contails all of the contidions and functions for steering the enemy
     /// </summary>
     void TurningConditions() {
-        if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
-        {
-            Turning(transform.position - averageObsticlePositions); //Turn in the oposite direction of the obsicles
+        
+        if (goDetectedRight && goDetectedLeft && goDetectedTop && goDetectedBottom) {
+            speed = 0;
+            if (blockedPathBackDir == new Vector3()) {
+                blockedPathBackDir = -this.transform.forward;
+            }
+            Turning(transform.position + blockedPathBackDir);
         }
-        else if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && (!goDetectedInDirectionToTargetSphere && !goDetectedInAvrageDirectionToTargetSphere)) {
-            Turning(objectToFollow.transform.position); //Turn towards the target
-        }
-        else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){}
-        else
-        {
-            Turning(objectToFollow.transform.position); //Turn towards the target
+        else {
+            speed = 100;
+            if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
+            {
+                Turning(transform.position - averageObsticlePositions); //Turn in the oposite direction of the obsicles
+            }
+            else if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && (!goDetectedInDirectionToTargetSphere && !goDetectedInAvrageDirectionToTargetSphere)) {
+                Turning(objectToFollow.transform.position); //Turn towards the target
+            }
+            else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){}
+            else
+            {
+                Turning(objectToFollow.transform.position); //Turn towards the target
+            }
         }
     }
 
@@ -124,6 +139,7 @@ public class InAirPathFinding : MonoBehaviour
     /// </summary>
     /// <param name="targetPos"> The target position for the enemy to look at</param>
     void Turning(Vector3 targetPos) {
+        Debug.Log("Turning(transform.position - blockedPathBackDir);");
         Vector3 position = targetPos - transform.position;
         Quaternion rotation = Quaternion.LookRotation(position);
         if (obsticleDistances.Count > 0) {
@@ -184,16 +200,16 @@ public class InAirPathFinding : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + CalculatePassThroughPosition() * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
 
         Gizmos.color = goDetectedRight?Color.red:Color.green;
-        Gizmos.DrawRay(transform.position + transform.right * rayOffset, transform.forward * rayLenght);
+        Gizmos.DrawRay(transform.position + (transform.right - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
 
         Gizmos.color = goDetectedLeft?Color.red:Color.green;
-        Gizmos.DrawRay(transform.position - transform.right * rayOffset, transform.forward * rayLenght);
+        Gizmos.DrawRay(transform.position - (transform.right + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
 
         Gizmos.color = goDetectedTop?Color.red:Color.green;
-        Gizmos.DrawRay(transform.position + transform.up * rayOffset, transform.forward * rayLenght);
+        Gizmos.DrawRay(transform.position + (transform.up - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
 
         Gizmos.color = goDetectedBottom?Color.red:Color.green;
-        Gizmos.DrawRay(transform.position - transform.up * rayOffset, transform.forward * rayLenght);
+        Gizmos.DrawRay(transform.position - (transform.up + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
 
         Gizmos.color = goDetectedCenterSphere?Color.red:Color.green;
         distance = 0;
