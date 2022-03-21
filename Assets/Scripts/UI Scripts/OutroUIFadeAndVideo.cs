@@ -18,10 +18,13 @@ public class OutroUIFadeAndVideo : MonoBehaviour
 
     public GameObject HUD;
 
+    CursorManager m_cursorManager;
+
 
     void Start()
     {
         StartCoroutine(LoadScene());
+        m_cursorManager = GameObject.Find("Events System").GetComponent<CursorManager>();
     }
 
 
@@ -59,12 +62,13 @@ public class OutroUIFadeAndVideo : MonoBehaviour
         if (FadeTimer > 51)
         {
             Credits.SetActive(false);
-            HUD.SetActive(true);
+            //HUD.SetActive(true);
         }
 
         if (FadeTimer > 52)
         {
-            //HUD.SetActive(true);
+            HUD.SetActive(true);
+            m_cursorManager.SetCursorState(false);
             //SceneManager.LoadScene(1);
         }
     }

@@ -28,6 +28,8 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
 
     public GameObject TheLiberatorScene;
 
+    public GameObject Bus;
+
 
     public static AudioDontDestroyOnLoadWithFadeOutScript instance;
 
@@ -69,6 +71,7 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
             ValienteScene.SetActive(true);
             DistantValleysScene.SetActive(false);
             TheLiberatorScene.SetActive(false);
+            Bus.SetActive(true);
 
         }
 
@@ -78,6 +81,7 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
             ValienteScene.SetActive(false);
             DistantValleysScene.SetActive(true);
             TheLiberatorScene.SetActive(false);
+            Bus.SetActive(false);
         }
 
         if (MenuSelector == 2)
@@ -86,6 +90,7 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
             ValienteScene.SetActive(false);
             DistantValleysScene.SetActive(false);
             TheLiberatorScene.SetActive(true);
+            Bus.SetActive(false);
         }
     }
 }
