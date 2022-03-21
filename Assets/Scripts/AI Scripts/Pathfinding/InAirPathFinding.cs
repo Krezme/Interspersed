@@ -100,10 +100,10 @@ public class InAirPathFinding : MonoBehaviour
         goDetectedCenterSphere = PhysicsSpherecast(transform.position, transform.forward, rayLenght, sphereCastRadius, out centerShpereCastHit, obsticlesLayer);
 
         //Raycasts
-        goDetectedRight = PhysicsRaycast(transform.position, (transform.right - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
-        goDetectedLeft = PhysicsRaycast(transform.position, - (transform.right + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
-        goDetectedTop = PhysicsRaycast(transform.position, (transform.up - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
-        goDetectedBottom = PhysicsRaycast(transform.position, - (transform.up + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        goDetectedRight = PhysicsRaycast(transform.position, 1, transform.right, - (transform.forward * rayBackwardsOffsetMultiplier), rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        goDetectedLeft = PhysicsRaycast(transform.position, -1, transform.right, (transform.forward * rayBackwardsOffsetMultiplier), rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        goDetectedTop = PhysicsRaycast(transform.position, 1, transform.up, - (transform.forward * rayBackwardsOffsetMultiplier), rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        goDetectedBottom = PhysicsRaycast(transform.position, -1, transform.up, (transform.forward * rayBackwardsOffsetMultiplier), rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
     }
 
     /// <summary>
@@ -111,12 +111,12 @@ public class InAirPathFinding : MonoBehaviour
     /// </summary>
     void TurningConditions() {
         
-        if (goDetectedRight && goDetectedLeft && goDetectedTop && goDetectedBottom) {
-            movementStatistics.currentSpeed = ChangeMovementSpeed(true);
-            if (blockedPathBackDir == new Vector3()) {
-                blockedPathBackDir = -this.transform.forward;
-            }
-            Turning(transform.position + blockedPathBackDir);
+        if ((goDetectedRight && goDetectedLeft && goDetectedTop && goDetectedBottom) && goDetectedCenterSphere) {
+            AvoidingDeadEnd();
+        }
+        else if ((((goDetectedRight && goDetectedLeft) && !(goDetectedTop || goDetectedBottom)) && goDetectedCenterSphere) ^ (((goDetectedTop && goDetectedBottom) && !(goDetectedRight || goDetectedLeft)) && goDetectedCenterSphere)) {
+            Debug.Log("Trigger My comlicated condition of shit _________________________________________________________________________");
+            AvoidingDeadEnd();
         }
         else {
             movementStatistics.currentSpeed = ChangeMovementSpeed(false);
@@ -137,6 +137,14 @@ public class InAirPathFinding : MonoBehaviour
                 Turning(objectToFollow.transform.position); //Turn towards the target
             }
         }
+    }
+
+    void AvoidingDeadEnd() {
+        movementStatistics.currentSpeed = ChangeMovementSpeed(true);
+            if (blockedPathBackDir == new Vector3()) {
+                blockedPathBackDir = -this.transform.forward;
+            }
+            Turning(transform.position + blockedPathBackDir);
     }
 
     float ChangeMovementSpeed (bool forceStop) {
@@ -187,13 +195,13 @@ public class InAirPathFinding : MonoBehaviour
         
     }
 
-    bool PhysicsRaycast (Vector3 centerPos, Vector3 rayOffsetPos, Vector3 direction, float rayCastLenght, List<Vector3> obsticlePos, out List<Vector3> newObsticlePos, LayerMask layer) {
+    bool PhysicsRaycast (Vector3 centerPos, int possitiveOrNegativeMultiplier, Vector3 rayOffsetPos, Vector3 rayOffsetBackwardsPos, float rayOffset, Vector3 direction, float rayCastLenght, List<Vector3> obsticlePos, out List<Vector3> newObsticlePos, LayerMask layer) {
         RaycastHit hit;
         // centerPos + rayOffsetPos, direction, rayCastLenght, layer
-        bool hasDetected = Physics.Raycast(centerPos + rayOffsetPos, direction, out hit, rayCastLenght, layer)?true:false;
+        bool hasDetected = Physics.Raycast(centerPos + (possitiveOrNegativeMultiplier * ((rayOffsetPos + rayOffsetBackwardsPos) * rayOffset)), direction, out hit, rayCastLenght, layer)?true:false;
         List<Vector3> tempObsticlePos = obsticlePos;
         if (hasDetected) {
-            tempObsticlePos.Add(rayOffsetPos);
+            tempObsticlePos.Add(possitiveOrNegativeMultiplier * (rayOffsetPos * rayOffset));
             obsticleDistances.Add(hit.distance);
         }
         newObsticlePos = tempObsticlePos;
