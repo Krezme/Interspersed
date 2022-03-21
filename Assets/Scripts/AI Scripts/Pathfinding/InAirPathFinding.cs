@@ -115,7 +115,6 @@ public class InAirPathFinding : MonoBehaviour
             AvoidingDeadEnd();
         }
         else if ((((goDetectedRight && goDetectedLeft) && !(goDetectedTop || goDetectedBottom)) && goDetectedCenterSphere) ^ (((goDetectedTop && goDetectedBottom) && !(goDetectedRight || goDetectedLeft)) && goDetectedCenterSphere)) {
-            Debug.Log("Trigger My comlicated condition of shit _________________________________________________________________________");
             AvoidingDeadEnd();
         }
         else {
