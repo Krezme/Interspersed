@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+[System.Serializable]
+public class MovementStatistics {
+    public float maxSpeed = 100;
+    public float currentSpeed;
+    public float minSpeed = 50;
+    public float speedUpMultiplier = 1;
+    public float rotationSpeed = 2;
+    public float stoppingDistance = 1;
+}
+
 [RequireComponent(typeof(Rigidbody))]
 public class InAirPathFinding : MonoBehaviour
 {
     public GameObject objectToFollow;
-    public float speed = 100;
-    public float rotationSpeed = 1;
-    public float stoppingDistance = 1;
+    public MovementStatistics movementStatistics;
     public float rayLenght = 3;
     public float rayOffset = 0.5f;
     [Range(0, 2)]
@@ -18,6 +26,8 @@ public class InAirPathFinding : MonoBehaviour
     public float directionalSphereCastRadiusMultiplier = 1.12f;
     
     public LayerMask obsticlesLayer;
+
+    public bool showGizmos = false;
 
     private float currentRotationSpeed;
 
@@ -96,29 +106,20 @@ public class InAirPathFinding : MonoBehaviour
         goDetectedBottom = PhysicsRaycast(transform.position, - (transform.up + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
     }
 
-    void Movement () {
-        float distanceToTarget = Vector3.Distance(transform.position, objectToFollow.transform.position);
-        if (distanceToTarget > stoppingDistance) {
-            rb.velocity = (speed * Time.deltaTime) * transform.forward;
-        }else {
-            rb.velocity = Vector3.zero;
-        }
-    }
-
     /// <summary>
     /// Contails all of the contidions and functions for steering the enemy
     /// </summary>
     void TurningConditions() {
         
         if (goDetectedRight && goDetectedLeft && goDetectedTop && goDetectedBottom) {
-            speed = 0;
+            movementStatistics.currentSpeed = ChangeMovementSpeed(true);
             if (blockedPathBackDir == new Vector3()) {
                 blockedPathBackDir = -this.transform.forward;
             }
             Turning(transform.position + blockedPathBackDir);
         }
         else {
-            speed = 100;
+            movementStatistics.currentSpeed = ChangeMovementSpeed(false);
             if (blockedPathBackDir != new Vector3()) {
                 blockedPathBackDir = new Vector3();
             }
@@ -138,21 +139,46 @@ public class InAirPathFinding : MonoBehaviour
         }
     }
 
+    float ChangeMovementSpeed (bool forceStop) {
+        float newSpeed;
+        if (forceStop) {
+            newSpeed = 0;
+            return newSpeed;
+        }
+        else{
+            if (!goDetectedRight && !goDetectedLeft && !goDetectedTop && !goDetectedBottom) {
+                newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.maxSpeed, movementStatistics.speedUpMultiplier * Time.deltaTime);
+            }
+            else{
+                newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.minSpeed, movementStatistics.speedUpMultiplier * (Time.deltaTime * 10));
+            }
+            return newSpeed;
+        }
+    }
+
+    void Movement () {
+        float distanceToTarget = Vector3.Distance(transform.position, objectToFollow.transform.position);
+        if (distanceToTarget > movementStatistics.stoppingDistance) {
+            rb.velocity = (movementStatistics.currentSpeed * Time.deltaTime) * transform.forward;
+        }else {
+            rb.velocity = Vector3.zero;
+        }
+    }
+
     /// <summary>
     /// Steering the enemy to the passed position
     /// </summary>
     /// <param name="targetPos"> The target position for the enemy to look at</param>
     void Turning(Vector3 targetPos) {
-        Debug.Log("Turning(transform.position - blockedPathBackDir);");
         Vector3 position = targetPos - transform.position;
         Quaternion rotation = Quaternion.LookRotation(position);
         if (obsticleDistances.Count > 0) {
-            currentRotationSpeed = (1 - (obsticleDistances.Min() / rayLenght)) * rotationSpeed; //rotation speed calculated from the distance to closest obsticle
+            currentRotationSpeed = (1 - (obsticleDistances.Min() / rayLenght)) * movementStatistics.rotationSpeed; //rotation speed calculated from the distance to closest obsticle
         }else {
-            currentRotationSpeed = rotationSpeed;
+            currentRotationSpeed = movementStatistics.rotationSpeed;
         }
         
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, movementStatistics.rotationSpeed * Time.deltaTime);
     }
 
     Vector3 CalculatePassThroughPosition()
@@ -181,56 +207,58 @@ public class InAirPathFinding : MonoBehaviour
 
 #region Gizmos
     void OnDrawGizmos () {
-        Gizmos.color = goDetectedInDirectionToTargetSphere?Color.magenta:Color.blue;
-        float distance;
-        if (goDetectedInDirectionToTargetSphere) {
-            distance = directionToTargetShpereCastHit.distance;
-        }
-        else {
-            distance = rayLenght;
-        }
-        Gizmos.DrawLine(transform.position, transform.position + directionToTarget * distance);
-        Gizmos.DrawWireSphere(transform.position + directionToTarget * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
+        if (showGizmos) {
+            Gizmos.color = goDetectedInDirectionToTargetSphere?Color.magenta:Color.blue;
+            float distance;
+            if (goDetectedInDirectionToTargetSphere) {
+                distance = directionToTargetShpereCastHit.distance;
+            }
+            else {
+                distance = rayLenght;
+            }
+            Gizmos.DrawLine(transform.position, transform.position + directionToTarget * distance);
+            Gizmos.DrawWireSphere(transform.position + directionToTarget * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
 
-        Gizmos.color = goDetectedInAvrageDirectionToTargetSphere?Color.yellow:Color.cyan;
-        distance = 0;
-        if (goDetectedInAvrageDirectionToTargetSphere) {
-            distance = avrageDirectionToTargetSphereHit.distance;
-        }
-        else {
-            distance = rayLenght/2;
-        }
-        Gizmos.DrawLine(transform.position, transform.position + CalculatePassThroughPosition() * distance);
-        Gizmos.DrawWireSphere(transform.position + CalculatePassThroughPosition() * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
+            Gizmos.color = goDetectedInAvrageDirectionToTargetSphere?Color.yellow:Color.cyan;
+            distance = 0;
+            if (goDetectedInAvrageDirectionToTargetSphere) {
+                distance = avrageDirectionToTargetSphereHit.distance;
+            }
+            else {
+                distance = rayLenght/2;
+            }
+            Gizmos.DrawLine(transform.position, transform.position + CalculatePassThroughPosition() * distance);
+            Gizmos.DrawWireSphere(transform.position + CalculatePassThroughPosition() * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
 
-        Gizmos.color = goDetectedRight?Color.red:Color.green;
-        Gizmos.DrawRay(transform.position + (transform.right - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
+            Gizmos.color = goDetectedRight?Color.red:Color.green;
+            Gizmos.DrawRay(transform.position + (transform.right - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
 
-        Gizmos.color = goDetectedLeft?Color.red:Color.green;
-        Gizmos.DrawRay(transform.position - (transform.right + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
+            Gizmos.color = goDetectedLeft?Color.red:Color.green;
+            Gizmos.DrawRay(transform.position - (transform.right + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
 
-        Gizmos.color = goDetectedTop?Color.red:Color.green;
-        Gizmos.DrawRay(transform.position + (transform.up - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
+            Gizmos.color = goDetectedTop?Color.red:Color.green;
+            Gizmos.DrawRay(transform.position + (transform.up - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
 
-        Gizmos.color = goDetectedBottom?Color.red:Color.green;
-        Gizmos.DrawRay(transform.position - (transform.up + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
+            Gizmos.color = goDetectedBottom?Color.red:Color.green;
+            Gizmos.DrawRay(transform.position - (transform.up + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
 
-        Gizmos.color = goDetectedCenterSphere?Color.red:Color.green;
-        distance = 0;
-        if (goDetectedCenterSphere) {
-            distance = centerShpereCastHit.distance;
-        }
-        else {
-            distance = rayLenght;
-        }
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * distance);
-        Gizmos.DrawWireSphere(transform.position + transform.forward * distance, sphereCastRadius);
+            Gizmos.color = goDetectedCenterSphere?Color.red:Color.green;
+            distance = 0;
+            if (goDetectedCenterSphere) {
+                distance = centerShpereCastHit.distance;
+            }
+            else {
+                distance = rayLenght;
+            }
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * distance);
+            Gizmos.DrawWireSphere(transform.position + transform.forward * distance, sphereCastRadius);
 
-        if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){
-            Gizmos.color = Color.black;
-            Gizmos.DrawSphere(transform.position - averageObsticlePositions,  0.1f);
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(transform.position + averageObsticlePositions, 0.1f);
+            if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){
+                Gizmos.color = Color.black;
+                Gizmos.DrawSphere(transform.position - averageObsticlePositions,  0.1f);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(transform.position + averageObsticlePositions, 0.1f);
+            }
         }
     }
 #endregion
