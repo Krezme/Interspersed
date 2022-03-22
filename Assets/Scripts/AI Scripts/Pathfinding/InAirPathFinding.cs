@@ -3,37 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+/// <summary>
+/// The movement statistics for this enemy
+/// </summary>
 [System.Serializable]
 public class MovementStatistics {
-    public float maxSpeed = 100;
-    public float currentSpeed;
-    public float minSpeed = 50;
-    public float speedUpMultiplier = 1;
-    public float rotationSpeed = 2;
-    public float stoppingDistance = 1;
+    public float maxSpeed = 100; // The max speed the enemy is allowed to move at
+    [HideInInspector]
+    public float currentSpeed; // The current speed of the enemy
+    public float minSpeed = 50; // The minimum move speed when (When it needs to be slow but not stopped)
+    public float changeSpeedMultiplier = 1; // a multiplier used to change the speed of the enemy while moving around
+    public float rotationSpeed = 2; // the rotation speed of the enemy
+    [HideInInspector]
+    public float currentRotationSpeed; // the current rotation speed of the enemy
+    public float stoppingDistance = 1; // the distance it will stop when it has reached the destination
 }
 
 [RequireComponent(typeof(Rigidbody))]
 public class InAirPathFinding : MonoBehaviour
 {
-    public GameObject objectToFollow;
-    public MovementStatistics movementStatistics;
-    public float rayLenght = 3;
-    public float rayOffset = 0.5f;
+    public GameObject objectToFollow; // target for the enemy
+    public MovementStatistics movementStatistics; 
+    public float rayLenght = 3; // the forward lenght from local position Z 0 for all rays 
+    public float rayOffset = 0.5f; // a multipliyer to change the sideways offset for the forward 4 rays
     [Range(0, 2)]
-    public float rayBackwardsOffsetMultiplier = 1.12f;
-    public float sphereCastRadius = 0.3f;
-    public float directionalSphereCastRadiusMultiplier = 1.12f;
+    public float rayBackwardsOffsetMultiplier = 1.12f; // The multiplier for the ray lenght to stretch backwards (works like peripheral vision) and continue avoiding obsticles that are close, but still behind the enemy
+    public float sphereCastRadius = 0.3f; // initial radius size for all sphere casts
+    public float directionalSphereCastRadiusMultiplier = 1.12f; // multiplier for spherecasts that need to be slightly different size, but still controlled by normal sphere cast
     
-    public LayerMask obsticlesLayer;
+    public LayerMask obsticlesLayer; // all layers that need to be avoided
 
-    public bool showGizmos = false;
-
-    private float currentRotationSpeed;
+    public bool showGizmos = false; // if true it will draw gizmos (mostly for debugging purposes and showcase)
 
     private Vector3 blockedPathBackDir = new Vector3(); // The backwards position of the enemy when forward path is blocked
 
-    private Rigidbody rb;
+    private Rigidbody rb; // 
 
     private bool goDetectedInDirectionToTargetSphere;
     private bool goDetectedInAvrageDirectionToTargetSphere;
@@ -154,10 +158,10 @@ public class InAirPathFinding : MonoBehaviour
         }
         else{
             if (!goDetectedRight && !goDetectedLeft && !goDetectedTop && !goDetectedBottom) {
-                newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.maxSpeed, movementStatistics.speedUpMultiplier * Time.deltaTime);
+                newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.maxSpeed, movementStatistics.changeSpeedMultiplier * Time.deltaTime);
             }
             else{
-                newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.minSpeed, movementStatistics.speedUpMultiplier * (Time.deltaTime * 10));
+                newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.minSpeed, movementStatistics.changeSpeedMultiplier * (Time.deltaTime * 10));
             }
             return newSpeed;
         }
@@ -180,9 +184,9 @@ public class InAirPathFinding : MonoBehaviour
         Vector3 position = targetPos - transform.position;
         Quaternion rotation = Quaternion.LookRotation(position);
         if (obsticleDistances.Count > 0) {
-            currentRotationSpeed = (1 - (obsticleDistances.Min() / rayLenght)) * movementStatistics.rotationSpeed; //rotation speed calculated from the distance to closest obsticle
+            movementStatistics.currentRotationSpeed = (1 - (obsticleDistances.Min() / rayLenght)) * movementStatistics.rotationSpeed; //rotation speed calculated from the distance to closest obsticle
         }else {
-            currentRotationSpeed = movementStatistics.rotationSpeed;
+            movementStatistics.currentRotationSpeed = movementStatistics.rotationSpeed;
         }
         
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, movementStatistics.rotationSpeed * Time.deltaTime);
