@@ -11,6 +11,8 @@ public class StrickenMeleeDamageController : MonoBehaviour
         if (other.tag == "Player")
         {
             other.GetComponent<PlayerStatisticsManager>().TakeDamage(statisticsManager.currentStats.damage);
+
+            ThirdPersonPlayerController.instance.Knockback();
         }
     }
 }
