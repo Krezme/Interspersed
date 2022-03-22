@@ -2710,7 +2710,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 623439214}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1681788984}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbdc267be640dab4baafb1fdb8cd4a4d, type: 3}
@@ -15065,7 +15065,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 623439214}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1681788984}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9d1a2219b2779f45bb0a058ddb94621, type: 3}
@@ -15119,7 +15119,7 @@ MonoBehaviour:
   headObject: {fileID: 1360240039}
   object2Throw: {fileID: 0}
   throwCooldownTime: 2
-  throwForce: 400
+  throwForce: 666
   throwLineRenderer: {fileID: 380517656}
   lineMaterial: {fileID: 2100000, guid: e9db10904e1101b419cf4b871eb53b69, type: 2}
 --- !u!4 &1587789856
@@ -20213,6 +20213,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &1681788984 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4433144296201853559, guid: 011ebcb7dac1294429efd96cd3cb5575,
+    type: 3}
+  m_PrefabInstance: {fileID: 623439214}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1681788985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681788984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0fb729e05556074ab223a6ee8831708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  incomingForceFloat: 0
+  minimumForceRequired: 2
+  physicsDamageMultiplier: 2
 --- !u!4 &1716696213 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1841111864138971565, guid: edec235306b4811459107e89f5f8279e,
@@ -20718,7 +20739,7 @@ MonoBehaviour:
   isGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 1
+  weight: 0.37
   sharedProfile: {fileID: 11400000, guid: 1012764abd15222428e0b7b75d0998b3, type: 2}
 --- !u!4 &1941506369
 Transform:

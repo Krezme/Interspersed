@@ -25,6 +25,8 @@ public class KineticEnemyScript2 : MonoBehaviour
 
     public Material lineMaterial;
 
+    
+
 
 
 
@@ -159,6 +161,11 @@ public class KineticEnemyScript2 : MonoBehaviour
         StartCoroutine(throwCooldownFunc());
         findDistance();
 
+        if(object2Throw.GetComponent<PhysicsDamageableObject>() == null)
+        {
+            object2Throw.AddComponent<PhysicsDamageableObject>();
+        }
+        
         object2Throw.GetComponent<Rigidbody>().AddForce((playerVar.transform.position - object2Throw.transform.position) * throwForce);
 
 
