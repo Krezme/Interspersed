@@ -22,10 +22,10 @@ public class PlayerPhysicsDamageCalculation : MonoBehaviour
     /// when the condition is met this calculates the avrage velocity of the object trough its lunched state to get a consitent damage
     /// </summary>
     /// <param name="other">The collided game object</param>
-    private void OnCollisionEnter(Collision other)
+    /*private void OnCollisionEnter(Collision other)
     {
 
-        Debug.Log("PlayerHit By physics");
+        //Debug.Log("PlayerHit By physics");
         if (other.gameObject.TryGetComponent<Rigidbody>(out Rigidbody otherRB))
         {
             if (Mathf.Abs(otherRB.velocity.x) + Mathf.Abs(otherRB.velocity.y) + Mathf.Abs(otherRB.velocity.z) >= minimumForceRequired)
@@ -44,5 +44,33 @@ public class PlayerPhysicsDamageCalculation : MonoBehaviour
                 }
             }
         }
+
+    }*/
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.TryGetComponent<Rigidbody>(out Rigidbody otherRB))
+        {
+            if (Mathf.Abs(otherRB.velocity.x) + Mathf.Abs(otherRB.velocity.y) + Mathf.Abs(otherRB.velocity.z) >= minimumForceRequired)
+            {
+                PhysicsDamageableObject physicsDamageableObject;
+                if (hit.gameObject.TryGetComponent<PhysicsDamageableObject>(out physicsDamageableObject))
+                {
+
+                    Vector3 averageVelocity = physicsDamageableObject.AverageOfVelocities();
+
+                    incomingForceVector3 = otherRB.mass * averageVelocity;
+
+                    incomingForceFloat = Mathf.Abs(Mathf.Abs(incomingForceVector3.x) + Mathf.Abs(incomingForceVector3.y) + Mathf.Abs(incomingForceVector3.z));
+                    playerStatisticsManager.TakeDamage(Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier));
+                    Destroy(physicsDamageableObject);
+                    //Debug.Log("Damage taken = " + (Mathf.RoundToInt(incomingForceFloat * physicsDamageMultiplier)));
+                }
+            }
+        }
+
+          
     }
+
+
 }

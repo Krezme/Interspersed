@@ -66,7 +66,7 @@ public class KineticEnemyScript2 : MonoBehaviour
 
 
 
-    void findDistance()
+    void FindDistance()
     {
  
         //sort object list
@@ -96,7 +96,7 @@ public class KineticEnemyScript2 : MonoBehaviour
 
             playerVar = other.gameObject;
 
-            StartCoroutine(throwCooldownFunc());
+            StartCoroutine(ThrowCooldownFunc());
 
         }
         else
@@ -150,16 +150,16 @@ public class KineticEnemyScript2 : MonoBehaviour
 
             if (canThrow)
             {
-                throwObjectFunc();
+                ThrowObjectFunc();
             }
         }
     }
 
 
-    private void throwObjectFunc()
+    private void ThrowObjectFunc()
     {
-        StartCoroutine(throwCooldownFunc());
-        findDistance();
+        StartCoroutine(ThrowCooldownFunc());
+        FindDistance();
 
         if(object2Throw.GetComponent<PhysicsDamageableObject>() == null)
         {
@@ -172,7 +172,7 @@ public class KineticEnemyScript2 : MonoBehaviour
 
     }
 
-    IEnumerator throwCooldownFunc()
+    IEnumerator ThrowCooldownFunc()
     {
         Debug.Log("Throw Charging");
 
