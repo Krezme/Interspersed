@@ -200,6 +200,7 @@ public class InAirPathFinding : MonoBehaviour
     /// </summary>
     void Movement () {
         float distanceToTarget = Vector3.Distance(transform.position, objectToFollow.transform.position);
+        // Moves the game object forward until it has reach the target
         if (distanceToTarget > movementStatistics.stoppingDistance) {
             rb.velocity = (movementStatistics.currentSpeed * Time.deltaTime) * transform.forward;
         }else {
@@ -210,16 +211,17 @@ public class InAirPathFinding : MonoBehaviour
     /// <summary>
     /// Steering the enemy to the passed position
     /// </summary>
-    /// <param name="targetPos"> The target position for the enemy to look at</param>
+    /// <param name="targetPos"> The target position for the enemy to look at </param>
     void Turning(Vector3 targetPos) {
-        Vector3 position = targetPos - transform.position;
+        Vector3 position = targetPos - transform.position; // direction to look at
         Quaternion rotation = Quaternion.LookRotation(position);
-        if (obsticleDistances.Count > 0) {
-            movementStatistics.currentRotationSpeed = (1 - (obsticleDistances.Min() / rayLenght)) * movementStatistics.rotationSpeed; //rotation speed calculated from the distance to closest obsticle
-        }else {
+        if (obsticleDistances.Count > 0) { 
+            movementStatistics.currentRotationSpeed = (1 - (obsticleDistances.Min() / rayLenght)) * movementStatistics.rotationSpeed; // rotation speed calculated from the distance to closest obsticle
+        }else { 
             movementStatistics.currentRotationSpeed = movementStatistics.rotationSpeed;
         }
         
+        // Apply the actual rotaion to the game object over time
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, movementStatistics.rotationSpeed * Time.deltaTime);
     }
 
@@ -230,29 +232,28 @@ public class InAirPathFinding : MonoBehaviour
     Vector3 CalculatePassThroughPosition()
     {
         return (transform.forward.normalized + directionToTarget.normalized).normalized;
-        
     }
 
     /// <summary>
     /// Performs a Ray cast depending on parameters
     /// </summary>
-    /// <param name="centerPos"> current position of the enemy</param>
-    /// <param name="possitiveOrNegativeMultiplier"> multiplier that is used for starting the ray from opposite side of the given starting position</param>
-    /// <param name="rayOffsetPos"></param>
-    /// <param name="rayOffsetBackwardsPos"></param>
-    /// <param name="rayOffset"></param>
-    /// <param name="direction"></param>
-    /// <param name="rayCastLenght"></param>
-    /// <param name="obsticlePos"></param>
-    /// <param name="newObsticlePos"></param>
-    /// <param name="layer"></param>
-    /// <returns></returns>
+    /// <param name="centerPos"> current position of the enemy </param>
+    /// <param name="possitiveOrNegativeMultiplier"> multiplier that is used for starting the ray from opposite side of the given starting position </param>
+    /// <param name="rayOffsetPos"> the offset direction/position calculated from the centerPos </param>
+    /// <param name="rayOffsetBackwardsPos"> backwards offset that extends the starting position of the rays further behind the enemy </param>
+    /// <param name="rayOffset"> multiplier to space the rays closer or further apart from the center </param>
+    /// <param name="direction"> direction to shoot the raycast in </param>
+    /// <param name="rayCastLenght"> the max lenght of the ray </param>
+    /// <param name="obsticlePos"> the current list with all obsticle positions </param>
+    /// <param name="newObsticlePos"> the new list with the previous and new obsticle position</param>
+    /// <param name="layer"> the layers that the rays can be blocked by </param>
+    /// <returns> true or false if the rays have hit a object </returns>
     bool PhysicsRaycast (Vector3 centerPos, int possitiveOrNegativeMultiplier, Vector3 rayOffsetPos, Vector3 rayOffsetBackwardsPos, float rayOffset, Vector3 direction, float rayCastLenght, List<Vector3> obsticlePos, out List<Vector3> newObsticlePos, LayerMask layer) {
         RaycastHit hit;
         // centerPos + rayOffsetPos, direction, rayCastLenght, layer
         bool hasDetected = Physics.Raycast(centerPos + (possitiveOrNegativeMultiplier * ((rayOffsetPos + rayOffsetBackwardsPos) * rayOffset)), direction, out hit, rayCastLenght, layer)?true:false;
         List<Vector3> tempObsticlePos = obsticlePos;
-        if (hasDetected) {
+        if (hasDetected) { // When a obsticle has been detected the position and the direction are both added to their respectful lists
             tempObsticlePos.Add(possitiveOrNegativeMultiplier * (rayOffsetPos * rayOffset));
             obsticleDistances.Add(hit.distance);
         }
@@ -260,14 +261,29 @@ public class InAirPathFinding : MonoBehaviour
         return hasDetected;
     }
 
+    /// <summary>
+    /// Performs a Sphere cast depending on paramenters
+    /// </summary>
+    /// <param name="origin"> current position of the enemy </param>
+    /// <param name="direction"> the direction of the ray to go in </param>
+    /// <param name="rayCastLenght"> the ray cast lenght </param>
+    /// <param name="sphereRadius"> the size of the sphere (radius) </param>
+    /// <param name="hit"> outputs the hit data from the sphere cast </param>
+    /// <param name="layer"> the layers that the sphere cast can be blocked by </param>
+    /// <returns> true or false if the sphere cast have hit a object </returns>
     bool PhysicsSpherecast (Vector3 origin, Vector3 direction, float rayCastLenght , float sphereRadius, out RaycastHit hit, LayerMask layer) {
         bool hasDetected = Physics.SphereCast(origin, sphereRadius, direction, out hit, rayCastLenght, layer, QueryTriggerInteraction.UseGlobal);
         return hasDetected;
     }
 
-#region Gizmos
+    #region Gizmos
+    /// <summary>
+    /// Draws all of the Gizmos that represent the rays and sphere cast being functional
+    /// </summary>
     void OnDrawGizmos () {
+        // if the bool in the editor is turned ture it will show the gizmos
         if (showGizmos) {
+            # region Directional Sphere cast Gizmos
             Gizmos.color = goDetectedInDirectionToTargetSphere?Color.magenta:Color.blue;
             float distance;
             if (goDetectedInDirectionToTargetSphere) {
@@ -278,7 +294,9 @@ public class InAirPathFinding : MonoBehaviour
             }
             Gizmos.DrawLine(transform.position, transform.position + directionToTarget * distance);
             Gizmos.DrawWireSphere(transform.position + directionToTarget * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
+            # endregion
 
+            # region Avrage Directional Sphere cast Gizmos
             Gizmos.color = goDetectedInAvrageDirectionToTargetSphere?Color.yellow:Color.cyan;
             distance = 0;
             if (goDetectedInAvrageDirectionToTargetSphere) {
@@ -289,19 +307,29 @@ public class InAirPathFinding : MonoBehaviour
             }
             Gizmos.DrawLine(transform.position, transform.position + CalculatePassThroughPosition() * distance);
             Gizmos.DrawWireSphere(transform.position + CalculatePassThroughPosition() * distance, sphereCastRadius * directionalSphereCastRadiusMultiplier);
+            # endregion
 
+            # region Right Forward Ray cast Gizmo
             Gizmos.color = goDetectedRight?Color.red:Color.green;
             Gizmos.DrawRay(transform.position + (transform.right - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
+            # endregion
 
+            # region Left Forward Ray cast Gizmo
             Gizmos.color = goDetectedLeft?Color.red:Color.green;
             Gizmos.DrawRay(transform.position - (transform.right + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
+            # endregion
 
+            # region Top Forward Ray cast Gizmo
             Gizmos.color = goDetectedTop?Color.red:Color.green;
             Gizmos.DrawRay(transform.position + (transform.up - (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
+            # endregion
 
+            # region Bottom Forward Ray cast Gizmo
             Gizmos.color = goDetectedBottom?Color.red:Color.green;
             Gizmos.DrawRay(transform.position - (transform.up + (transform.forward * rayBackwardsOffsetMultiplier)) * rayOffset, transform.forward * (rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2))));
+            # endregion
 
+            # region Central Forward Sphere cast Gizmos
             Gizmos.color = goDetectedCenterSphere?Color.red:Color.green;
             distance = 0;
             if (goDetectedCenterSphere) {
@@ -312,14 +340,17 @@ public class InAirPathFinding : MonoBehaviour
             }
             Gizmos.DrawLine(transform.position, transform.position + transform.forward * distance);
             Gizmos.DrawWireSphere(transform.position + transform.forward * distance, sphereCastRadius);
+            # endregion
 
+            # region Obsitcle +avrage and -avrage position Sphere casts
             if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){
                 Gizmos.color = Color.black;
-                Gizmos.DrawSphere(transform.position - averageObsticlePositions,  0.1f);
+                Gizmos.DrawSphere(transform.position - averageObsticlePositions,  0.1f); // Graphic representation of the opposite position of averageObsticlePositions related to the center of the object
                 Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(transform.position + averageObsticlePositions, 0.1f);
+                Gizmos.DrawSphere(transform.position + averageObsticlePositions, 0.1f); // Graphic representation of the opposite position of averageObsticlePositions related to the center of the object
             }
+            # endregion
         }
     }
-#endregion
+    #endregion
 }
