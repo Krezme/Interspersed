@@ -450,7 +450,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
         if (OnPlayerInput.instance.onFire1 && !OnPlayerInput.instance.onFire2 && !PlayerAbilitiesController.instance.isAbilityActive){ // Only attacks if the fire 1 button is pressed without any other
             OnPlayerInput.instance.onFire1 = false;
             animator.SetTrigger("Attack");
-            PlayerAttack.PlayRandomClip();
+             if (!this.animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+             {
+                 PlayerAttack.PlayRandomClip();
+             }
+             
+
             hold.IsHold = false; //Rhys - Set 'IsHold' to false on melee to prevent melee from disabling CrystalArm chargeup sound after attack
         }
     }
