@@ -37,27 +37,26 @@ public class InAirPathFinding : MonoBehaviour
 
     private Vector3 blockedPathBackDir = new Vector3(); // The backwards position of the enemy when forward path is blocked
 
-    private Rigidbody rb; // 
+    private Rigidbody rb; // This rigid body that has all of the force
 
-    private bool goDetectedInDirectionToTargetSphere;
-    private bool goDetectedInAvrageDirectionToTargetSphere;
-    private bool goDetectedCenterSphere;
+    private bool goDetectedInDirectionToTargetSphere; // if the direcational sphere cast has detected any obsticles (Always points in direction of the target)
+    private bool goDetectedInAvrageDirectionToTargetSphere; // if the avrage directional sphere cast has detected any obsticles (Always is in the exact middle between the central and directional sphere cast)
+    private bool goDetectedCenterSphere; // if the central sphere cast has detected any obsticles (Always points right infornt of the enemy)
 
-    private bool goDetectedRight;
-    private bool goDetectedLeft;
-    private bool goDetectedTop;
-    private bool goDetectedBottom;
+    private bool goDetectedRight; // if the forward right ray cast has detected anything 
+    private bool goDetectedLeft; // if the forward left ray cast has detected anything 
+    private bool goDetectedTop; // if the forward top ray cast has detected anything 
+    private bool goDetectedBottom; // if the bottom right ray cast has detected anything 
 
-    private Vector3 directionToTarget;
+    private Vector3 directionToTarget; // the direction to the target
 
-    private List<Vector3> obsticlePositions;
-    private List<float> obsticleDistances;
-    private RaycastHit directionToTargetShpereCastHit;
-    private RaycastHit avrageDirectionToTargetSphereHit;
-    private RaycastHit centerShpereCastHit;
-    private Vector3 averageObsticlePositions;
+    private List<Vector3> obsticlePositions; // a list of the positions of all the currently detected obsticles from the forward: right, left, bottom and top rays
+    private List<float> obsticleDistances; // a list of the distances of all the currently detected obsticles from the forward: right, left, bottom and top rays
+    private RaycastHit directionToTargetShpereCastHit; // hit data from the directional sphere cast
+    private RaycastHit avrageDirectionToTargetSphereHit; // hit data from the avrage directional sphere cast
+    private RaycastHit centerShpereCastHit; // hit data from the forward central sphere cast
+    private Vector3 averageObsticlePositions; // the avrage obsicle position (calculated from obsticlePositions)
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -67,6 +66,10 @@ public class InAirPathFinding : MonoBehaviour
         ObstacleManeuvering();
     }
 
+    /// <summary>
+    /// If this game object has hit something
+    /// </summary>
+    /// <param name="other"> the other game object's collider </param>
     void OnTriggerEnter(Collider other) {
         if (other.tag != "Player") {
             // ! Trigger Ragdoll when it hits a obsitcle with enough speed
@@ -95,18 +98,29 @@ public class InAirPathFinding : MonoBehaviour
         Movement();
     }
 
+    /// <summary>
+    /// Preforming all physics casts
+    /// </summary>
     void PhysicsCasts() {
         obsticlePositions = new List<Vector3>();
         obsticleDistances = new List<float>();
-        //Shperecasts
+
+        // Shperecasts
+        // Target directional sphere cast
         goDetectedInDirectionToTargetSphere = PhysicsSpherecast(transform.position, directionToTarget, rayLenght, sphereCastRadius * directionalSphereCastRadiusMultiplier, out directionToTargetShpereCastHit, obsticlesLayer);
+        // avrage directional shpere cast
         goDetectedInAvrageDirectionToTargetSphere = PhysicsSpherecast(transform.position, CalculatePassThroughPosition(), rayLenght/3, sphereCastRadius * directionalSphereCastRadiusMultiplier, out avrageDirectionToTargetSphereHit, obsticlesLayer);
+        // central forward sphere cast
         goDetectedCenterSphere = PhysicsSpherecast(transform.position, transform.forward, rayLenght, sphereCastRadius, out centerShpereCastHit, obsticlesLayer);
 
-        //Raycasts
+        // Raycasts
+        // Forward right ray cast
         goDetectedRight = PhysicsRaycast(transform.position, 1, transform.right, - (transform.forward * rayBackwardsOffsetMultiplier), rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        // Forward left ray cast
         goDetectedLeft = PhysicsRaycast(transform.position, -1, transform.right, (transform.forward * rayBackwardsOffsetMultiplier), rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        // Forward top ray cast
         goDetectedTop = PhysicsRaycast(transform.position, 1, transform.up, - (transform.forward * rayBackwardsOffsetMultiplier), rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
+        // Forward bottom ray cast
         goDetectedBottom = PhysicsRaycast(transform.position, -1, transform.up, (transform.forward * rayBackwardsOffsetMultiplier), rayOffset, transform.forward, rayLenght * (1 + ((rayBackwardsOffsetMultiplier / rayLenght) / 2)), obsticlePositions, out obsticlePositions, obsticlesLayer);
     }
 
@@ -115,26 +129,32 @@ public class InAirPathFinding : MonoBehaviour
     /// </summary>
     void TurningConditions() {
         
+        // in case of dead end
         if ((goDetectedRight && goDetectedLeft && goDetectedTop && goDetectedBottom) && goDetectedCenterSphere) {
-            AvoidingDeadEnd();
+            AvoidingDeadEnd(); // perform avoidance
         }
+        // in case of opposite forward rays are blocked (left and right) or (top and bottom)
         else if ((((goDetectedRight && goDetectedLeft) && !(goDetectedTop || goDetectedBottom)) && goDetectedCenterSphere) ^ (((goDetectedTop && goDetectedBottom) && !(goDetectedRight || goDetectedLeft)) && goDetectedCenterSphere)) {
-            AvoidingDeadEnd();
+            AvoidingDeadEnd(); // perform avoidance
         }
         else {
-            movementStatistics.currentSpeed = ChangeMovementSpeed(false);
+            // changing sleed depending on ray data
+            movementStatistics.currentSpeed = ChangeMovementSpeed(false); 
+            // restarting the reverse ridection of the enemy
             if (blockedPathBackDir != new Vector3()) {
                 blockedPathBackDir = new Vector3();
             }
             
+            // performing turning action in the opposite direction when a obsticle is detected and the center sphere cast is blocked
             if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && goDetectedCenterSphere) 
             {
                 Turning(transform.position - averageObsticlePositions); //Turn in the oposite direction of the obsicles
             }
+            // turning when the directional sphere casts are not blocked
             else if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && (!goDetectedInDirectionToTargetSphere && !goDetectedInAvrageDirectionToTargetSphere)) {
                 Turning(objectToFollow.transform.position); //Turn towards the target
             }
-            else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){}
+            else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){} // pass close to the obsticle
             else
             {
                 Turning(objectToFollow.transform.position); //Turn towards the target
@@ -142,31 +162,42 @@ public class InAirPathFinding : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Rotating the enemy in the backwards direction when a path in front is not found
+    /// </summary>
     void AvoidingDeadEnd() {
-        movementStatistics.currentSpeed = ChangeMovementSpeed(true);
-            if (blockedPathBackDir == new Vector3()) {
-                blockedPathBackDir = -this.transform.forward;
-            }
-            Turning(transform.position + blockedPathBackDir);
+        movementStatistics.currentSpeed = ChangeMovementSpeed(true); // stopping enemy in place
+        if (blockedPathBackDir == new Vector3()) {
+            blockedPathBackDir = -this.transform.forward; // setting back direction
+        }
+        Turning(transform.position + blockedPathBackDir); // perform turning in the backwards direction
     }
 
+    /// <summary>
+    /// dinamically reduces moving speed when obsticles are derected and increses the speed when the path is clear
+    /// </summary>
+    /// <param name="forceStop"> if the enemy needs to force stop in place </param>
+    /// <returns> new speed of the caracter </returns>
     float ChangeMovementSpeed (bool forceStop) {
         float newSpeed;
-        if (forceStop) {
+        if (forceStop) { // fully stops the enemy
             newSpeed = 0;
             return newSpeed;
         }
         else{
-            if (!goDetectedRight && !goDetectedLeft && !goDetectedTop && !goDetectedBottom) {
+            if (!goDetectedRight && !goDetectedLeft && !goDetectedTop && !goDetectedBottom) { // reduces speed when obsitcles are detected
                 newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.maxSpeed, movementStatistics.changeSpeedMultiplier * Time.deltaTime);
             }
-            else{
+            else{ // increses speed when obsticles are not detected
                 newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.minSpeed, movementStatistics.changeSpeedMultiplier * (Time.deltaTime * 10));
             }
             return newSpeed;
         }
     }
 
+    /// <summary>
+    /// moving the enemy forward
+    /// </summary>
     void Movement () {
         float distanceToTarget = Vector3.Distance(transform.position, objectToFollow.transform.position);
         if (distanceToTarget > movementStatistics.stoppingDistance) {
@@ -192,12 +223,30 @@ public class InAirPathFinding : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, movementStatistics.rotationSpeed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Calculates the pass through position (avrage position between the target direction and the forward direction)
+    /// </summary>
+    /// <returns> returns avrage direction </returns>
     Vector3 CalculatePassThroughPosition()
     {
         return (transform.forward.normalized + directionToTarget.normalized).normalized;
         
     }
 
+    /// <summary>
+    /// Performs a Ray cast depending on parameters
+    /// </summary>
+    /// <param name="centerPos"> current position of the enemy</param>
+    /// <param name="possitiveOrNegativeMultiplier"> multiplier that is used for starting the ray from opposite side of the given starting position</param>
+    /// <param name="rayOffsetPos"></param>
+    /// <param name="rayOffsetBackwardsPos"></param>
+    /// <param name="rayOffset"></param>
+    /// <param name="direction"></param>
+    /// <param name="rayCastLenght"></param>
+    /// <param name="obsticlePos"></param>
+    /// <param name="newObsticlePos"></param>
+    /// <param name="layer"></param>
+    /// <returns></returns>
     bool PhysicsRaycast (Vector3 centerPos, int possitiveOrNegativeMultiplier, Vector3 rayOffsetPos, Vector3 rayOffsetBackwardsPos, float rayOffset, Vector3 direction, float rayCastLenght, List<Vector3> obsticlePos, out List<Vector3> newObsticlePos, LayerMask layer) {
         RaycastHit hit;
         // centerPos + rayOffsetPos, direction, rayCastLenght, layer
