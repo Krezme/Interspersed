@@ -13,6 +13,8 @@ public class AsynchronousSceneLoader : MonoBehaviour
 
     public Button uibutton;
 
+    public string SceneName;
+
     
 
     //public static AsynchronousSceneLoader instance;
@@ -45,7 +47,7 @@ public class AsynchronousSceneLoader : MonoBehaviour
         yield return null;
 
         //Begin to load the Scene you specify
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("NewLevelConcept");
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName);
         //Don't let the Scene activate until you allow it to
         asyncOperation.allowSceneActivation = false;
         Debug.Log("Pro :" + asyncOperation.progress);
