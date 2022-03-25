@@ -9,7 +9,7 @@ public class AsynchronousSceneLoader : MonoBehaviour
 
     public bool SceneReady = false;
 
-    public Text m_Text;
+    //!public Text m_Text;
 
     public Button uibutton;
 
@@ -50,23 +50,18 @@ public class AsynchronousSceneLoader : MonoBehaviour
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName);
         //Don't let the Scene activate until you allow it to
         asyncOperation.allowSceneActivation = false;
-        Debug.Log("Pro :" + asyncOperation.progress);
         //When the load is still in progress, output the Text and progress bar
+
         while (!asyncOperation.isDone)
         {
-            //Output the current progress
-            m_Text.text = "Loading progress: " + (asyncOperation.progress * 100) + "%";
-
-            // Check if the load has finished
-            if (asyncOperation.progress >= 0.9f)
-            {
-                //Change the Text to show the Scene is ready
-                m_Text.text = "100%";
-                //Wait for intro to finish before activating the Scene
+            //!m_Text.text = "Loading progress: " + (asyncOperation.progress * 100) + "%"; //Output the current progress
+            if (asyncOperation.progress >= 0.9f) // Check if the load has finished
+            {  
+                //m_Text.text = "100%"; //Change the Text to show the Scene is ready
+                
                 if (SceneReady == true)
-                {
-                    //Activate the Scene
-                    asyncOperation.allowSceneActivation = true;
+                {   
+                    asyncOperation.allowSceneActivation = true; //Activate the Scene
                 }
             }
 
