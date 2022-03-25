@@ -9,9 +9,9 @@ public class RagdollController : MonoBehaviour
     private Animator thisAnimatior;
     private NavMeshAgent agent;
 
-    [HideInInspector]
+    //[HideInInspector]
     public Collider[] ragdollColliders;
-    [HideInInspector]
+    //[HideInInspector]
     public Rigidbody[] ragdollRigidbodies;
 
     public GameObject rig;
