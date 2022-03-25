@@ -71,6 +71,10 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     Vector3 additionalKnockbackTargetDir;
     float additionalKnockbackHeight;
+
+    float stopStrength; // time incremental stopping multiplier
+    public float stopStrengthMultiplier = 0.1f;
+   
     #endregion
 
     #region Public Player Grounded Vars
@@ -225,7 +229,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
         StickingToSlopes();
 
-        moveDirection = ((targetDirection.normalized * (speed * Time.deltaTime)) + additionalKnockbackTargetDir ) + new Vector3(0.0f, verticalVelocity + additionalKnockbackHeight, 0.0f) * Time.deltaTime;
+        moveDirection = ((targetDirection.normalized * (speed * Time.deltaTime)) + additionalKnockbackTargetDir ) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime;
 
         SlidingOnOverTheLimitSurface();
 
@@ -290,13 +294,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
                 animator.SetBool("Falling", true);
             }
 
-            launchKnockbackDir = new Vector3();
-            launchKnockbackStrength = 0;
-            launchKnockbackHeight = 0;
-            additionalKnockbackHeight = 0;
-            additionalKnockbackTargetDir = new Vector3();
-            hasBeenLaunched = false;
-
             OnPlayerInput.instance.jumped = false; // when not grounded stop jumping
         }
 
@@ -315,24 +312,31 @@ public class ThirdPersonPlayerController : MonoBehaviour
         launchKnockbackHeight = height;
 
         hasBeenLaunched = true;
-        
+
+        stopStrength = 0;
         
     }
 
     void Knockback()
     {
-        if (isGrounded)
-        {
-            
-        }
+        stopStrength += Time.deltaTime;
+
+        additionalKnockbackTargetDir = Vector3.Lerp(additionalKnockbackTargetDir, Vector3.zero, stopStrength * stopStrengthMultiplier);
     
         if (hasBeenLaunched)
         {
-            isGrounded = false;
+           
             hasJumped = true;
             float knockbackVelocity = Mathf.Sqrt(launchKnockbackHeight * -2 * gravity);
             additionalKnockbackHeight = knockbackVelocity;
-            additionalKnockbackTargetDir = launchKnockbackDir.normalized * (launchKnockbackStrength * Time.deltaTime);   
+            verticalVelocity = 0;
+            verticalVelocity += additionalKnockbackHeight;
+            additionalKnockbackTargetDir = launchKnockbackDir.normalized * (launchKnockbackStrength * Time.deltaTime);
+            hasBeenLaunched = false;
+            launchKnockbackDir = new Vector3();
+            launchKnockbackStrength = 0;
+            launchKnockbackHeight = 0;
+
         }
 
         Debug.Log("has grounded = " + isGrounded);
