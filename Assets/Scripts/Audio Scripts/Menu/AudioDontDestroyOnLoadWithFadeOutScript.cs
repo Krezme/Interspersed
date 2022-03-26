@@ -31,6 +31,12 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
     public GameObject Bus;
 
 
+
+    public AudioSource MenuClickSource;
+
+    public AudioSource MenuHoverSource;
+
+
     public static AudioDontDestroyOnLoadWithFadeOutScript instance;
 
 
