@@ -68,7 +68,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
     float launchKnockbackHeight;
     bool hasBeenLaunched;
 
-
     Vector3 additionalKnockbackTargetDir;
     float additionalKnockbackHeight;
 
@@ -303,6 +302,12 @@ public class ThirdPersonPlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Applying knockback in a direction, depending on strength and vertical height strength 
+    /// </summary>
+    /// <param name="enemyPosition"> The enemy position (Used to calculate direction)</param>
+    /// <param name="strength"> directional strength (preferably from 0 to 1) </param>
+    /// <param name="height"> vertical push strength (preferably from 0 to 1) </param>
     public void ApplyKnockback(Vector3 enemyPosition, float strength, float height)
     {
         launchKnockbackDir = transform.position - enemyPosition;
@@ -312,26 +317,24 @@ public class ThirdPersonPlayerController : MonoBehaviour
         launchKnockbackHeight = height;
 
         hasBeenLaunched = true;
-
-        stopStrength = 0;
         
     }
 
+    /// <summary>
+    /// Pushing back the player in direction and height
+    /// </summary>
     void Knockback()
     {
-        stopStrength += Time.deltaTime;
+        stopStrength += Time.deltaTime; // time passed from last knockback push
 
         additionalKnockbackTargetDir = Vector3.Lerp(additionalKnockbackTargetDir, Vector3.zero, stopStrength * stopStrengthMultiplier);
     
-        if (hasBeenLaunched)
+        if (hasBeenLaunched) // applies force backwards
         {
-           
-            hasJumped = true;
-            float knockbackVelocity = Mathf.Sqrt(launchKnockbackHeight * -2 * gravity);
-            additionalKnockbackHeight = knockbackVelocity;
-            verticalVelocity = 0;
-            verticalVelocity += additionalKnockbackHeight;
-            additionalKnockbackTargetDir = launchKnockbackDir.normalized * (launchKnockbackStrength * Time.deltaTime);
+            stopStrength = 0; // start timer
+            additionalKnockbackTargetDir = ((launchKnockbackDir.normalized * launchKnockbackStrength) + (transform.up*launchKnockbackHeight)); // calculates the knockback direction and height
+
+            //restarting variables for next knockback
             hasBeenLaunched = false;
             launchKnockbackDir = new Vector3();
             launchKnockbackStrength = 0;

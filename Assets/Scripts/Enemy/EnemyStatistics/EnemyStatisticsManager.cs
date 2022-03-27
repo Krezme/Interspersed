@@ -7,6 +7,8 @@ using TheKiwiCoder;
 public class CurrentStats {
     public float health;
     public float damage;
+    public float knockbackStrength;
+    public float knockbackHeight;
 }
 
 public class EnemyStatisticsManager : MonoBehaviour
@@ -43,6 +45,8 @@ public class EnemyStatisticsManager : MonoBehaviour
     public void SetStatsFromSO () {
         currentStats.health = statisticsSO.health;
         currentStats.damage = statisticsSO.damage;
+        currentStats.knockbackStrength = statisticsSO.knockbackStrength;
+        currentStats.knockbackHeight = statisticsSO.knockbackHeight;
     }
 
     public void TakeDamage (float damage) {

@@ -12,7 +12,7 @@ public class StrickenMeleeDamageController : MonoBehaviour
         {
             other.GetComponent<PlayerStatisticsManager>().TakeDamage(statisticsManager.currentStats.damage);
 
-            ThirdPersonPlayerController.instance.ApplyKnockback(this.transform.position, 50, 0);
+            ThirdPersonPlayerController.instance.ApplyKnockback(statisticsManager.transform.position, statisticsManager.currentStats.knockbackStrength, statisticsManager.currentStats.knockbackHeight);
         }
     }
 }
