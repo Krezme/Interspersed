@@ -567,8 +567,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: -0.1415863, z: 0}
-    m_Extent: {x: 37.496048, y: 163.11684, z: 25.822206}
+    m_Center: {x: 0, y: -0.14413452, z: 0}
+    m_Extent: {x: 37.496048, y: 163.11937, z: 25.822206}
   m_DirtyAABB: 0
 --- !u!183 &6289800503348668211
 Cloth:
@@ -3275,6 +3275,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 837897299537207269}
     m_Modifications:
+    - target: {fileID: 2339871932753316944, guid: f85136d27e48bd34e947ba575aae0925,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2339871932753316945, guid: f85136d27e48bd34e947ba575aae0925,
         type: 3}
       propertyPath: m_Name
@@ -3338,6 +3343,37 @@ PrefabInstance:
     - target: {fileID: 2339871932753316946, guid: f85136d27e48bd34e947ba575aae0925,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339871932753316947, guid: f85136d27e48bd34e947ba575aae0925,
+        type: 3}
+      propertyPath: SubModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339871932753316947, guid: f85136d27e48bd34e947ba575aae0925,
+        type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 872354835683500101, guid: 4e13f0beb4353604cb308f3417dd3d69,
+        type: 3}
+    - target: {fileID: 2339871932753316947, guid: f85136d27e48bd34e947ba575aae0925,
+        type: 3}
+      propertyPath: LightsModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339871932753316947, guid: f85136d27e48bd34e947ba575aae0925,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339871932753316947, guid: f85136d27e48bd34e947ba575aae0925,
+        type: 3}
+      propertyPath: LightsModule.maxLights
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339871932753316947, guid: f85136d27e48bd34e947ba575aae0925,
+        type: 3}
+      propertyPath: LightsModule.randomDistribution
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -34,6 +34,8 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
 
     public AudioSource MenuClickSource;
 
+    public AudioSource MenuHoverSource;
+
 
     public static AudioDontDestroyOnLoadWithFadeOutScript instance;
 
