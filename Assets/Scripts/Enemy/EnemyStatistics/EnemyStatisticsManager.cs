@@ -11,7 +11,6 @@ public class CurrentStats {
 
 public class EnemyStatisticsManager : MonoBehaviour
 {
-
     public EnemyStatisticsSO statisticsSO;
 
     public CurrentStats currentStats;
@@ -37,7 +36,9 @@ public class EnemyStatisticsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        behaviourTreeRunner.context.animator.SetFloat("speed", behaviourTreeRunner.context.agent.velocity.magnitude);
+        if (behaviourTreeRunner.context.agent != null) {
+            behaviourTreeRunner.context.animator.SetFloat("speed", behaviourTreeRunner.context.agent.velocity.magnitude);
+        }
     }
 
     public void SetStatsFromSO () {

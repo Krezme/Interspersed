@@ -202,10 +202,11 @@ public class InAirPathFinding : MonoBehaviour
         float distanceToTarget = Vector3.Distance(transform.position, objectToFollow.transform.position);
         // Moves the game object forward until it has reach the target
         if (distanceToTarget > movementStatistics.stoppingDistance) {
-            rb.velocity = (movementStatistics.currentSpeed * Time.deltaTime) * transform.forward;
-        }else {
-            rb.velocity = Vector3.zero;
+            movementStatistics.rotationSpeed = 2f;
+        }else if (distanceToTarget <= movementStatistics.stoppingDistance) {
+            movementStatistics.rotationSpeed = 1f;
         }
+        rb.velocity = (movementStatistics.currentSpeed * Time.deltaTime) * transform.forward;
     }
 
     /// <summary>
