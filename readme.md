@@ -1,4 +1,14 @@
-### Blank Unity Project ### 
+### Interspersed ###
+
+Interspersed, is a combat driven, action-adventure game. Set in a fractured and broken world, you must fight otherworldly enemies using their own power against them, in hopes to restore the land and save the realm from destruction.
+
+Referenced Assets:
+
+Behaviour tree free asset by TheKiwiCoder
+https://www.youtube.com/watch?v=SgrG6uAZDHE
+https://thekiwicoder.com/behaviour-tree-editor/
+
+Repo info:
 
 This repository has been pre-configured with a .gitignore and .gitattributes file specific to Unity projects using git-lfs. 
 
@@ -14,8 +24,4 @@ Note:  Do not leave empty folders in your Unity project.  Empty folders do not g
 For full details on this project's settings, please read the Changelog.md
  
 Do you have any suggestions for improvements? Please submit a pull request!
-
-Behaviour three free asset by TheKiwiCoder:
-https://www.youtube.com/watch?v=SgrG6uAZDHE
-https://thekiwicoder.com/behaviour-tree-editor/
 
