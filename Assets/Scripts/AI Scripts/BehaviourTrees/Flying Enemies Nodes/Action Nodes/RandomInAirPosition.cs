@@ -8,6 +8,9 @@ public class RandomInAirPosition : ActionNode
 
     public float wanderRadius;
 
+    [Range(0f,1f)]
+    public float sphereHeightMultiplier = 1f;
+
     protected override void OnStart() {
     }
 
@@ -19,7 +22,8 @@ public class RandomInAirPosition : ActionNode
     /// </summary>
     /// <returns></returns>
     protected override State OnUpdate() {
-        blackboard.moveToPosition = context.characterInAirPathFinding.spawnedPostion + Random.insideUnitSphere * wanderRadius;
+        Vector3 randomPositionInSphere = Random.insideUnitSphere * wanderRadius;
+        blackboard.moveToPosition = context.characterInAirPathFinding.spawnedPostion + new Vector3(randomPositionInSphere.x, randomPositionInSphere.y * sphereHeightMultiplier, randomPositionInSphere.z);
         return State.Success;
     }
 }
