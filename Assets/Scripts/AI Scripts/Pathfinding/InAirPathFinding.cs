@@ -22,7 +22,7 @@ public class MovementStatistics {
 [RequireComponent(typeof(Rigidbody))]
 public class InAirPathFinding : MonoBehaviour
 {
-    public GameObject objectToFollow; // target for the enemy
+    public Vector3 moveToPosition; // position to move to 
     public MovementStatistics movementStatistics; 
     public float rayLenght = 3; // the forward lenght from local position Z 0 for all rays 
     public float rayOffset = 0.5f; // a multipliyer to change the sideways offset for the forward 4 rays
@@ -57,8 +57,13 @@ public class InAirPathFinding : MonoBehaviour
     private RaycastHit centerShpereCastHit; // hit data from the forward central sphere cast
     private Vector3 averageObsticlePositions; // the avrage obsicle position (calculated from obsticlePositions)
 
+    #region  BehaviourTree Variables
+    [HideInInspector] public Vector3 spawnedPostion;
+    #endregion 
+
     void Start()
     {
+        spawnedPostion = transform.position;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -82,7 +87,7 @@ public class InAirPathFinding : MonoBehaviour
     /// </summary>
     void ObstacleManeuvering() {
         // Calculates the diraction from the enemy to the target
-        directionToTarget = (objectToFollow.transform.position - transform.position).normalized;
+        directionToTarget = (moveToPosition - transform.position).normalized;
         // Performs all physics casts (Ray casts and Sphere Casts) needed for Maneuvering
         PhysicsCasts();
         
@@ -152,12 +157,12 @@ public class InAirPathFinding : MonoBehaviour
             }
             // turning when the directional sphere casts are not blocked
             else if ((goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom) && (!goDetectedInDirectionToTargetSphere && !goDetectedInAvrageDirectionToTargetSphere)) {
-                Turning(objectToFollow.transform.position); //Turn towards the target
+                Turning(moveToPosition); //Turn towards the target
             }
             else if (goDetectedRight || goDetectedLeft || goDetectedTop || goDetectedBottom){} // pass close to the obsticle
             else
             {
-                Turning(objectToFollow.transform.position); //Turn towards the target
+                Turning(moveToPosition); //Turn towards the target
             }
         }
     }
@@ -199,7 +204,7 @@ public class InAirPathFinding : MonoBehaviour
     /// moving the enemy forward
     /// </summary>
     void Movement () {
-        float distanceToTarget = Vector3.Distance(transform.position, objectToFollow.transform.position);
+        float distanceToTarget = Vector3.Distance(transform.position, moveToPosition);
         // Moves the game object forward until it has reach the target
         if (distanceToTarget > movementStatistics.stoppingDistance) {
             movementStatistics.rotationSpeed = 2f;

@@ -736,6 +736,7 @@ GameObject:
   - component: {fileID: 1686793834}
   - component: {fileID: 479160177}
   - component: {fileID: 479160179}
+  - component: {fileID: 419248826972340885}
   m_Layer: 0
   m_Name: Carrier
   m_TagString: Enemy
@@ -837,7 +838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bbef286bc469948908414edcbd7a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToFollow: {fileID: 0}
+  moveToPosition: {x: 0, y: 0, z: 0}
   movementStatistics:
     maxSpeed: 300
     currentSpeed: 0
@@ -855,6 +856,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   showGizmos: 1
+  spawnedPostion: {x: 0, y: 0, z: 0}
 --- !u!65 &1686793834
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -880,7 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tree: {fileID: 11400000, guid: 0174cbf38ee5fcc42bd2b0daadb9fdcd, type: 2}
+  tree: {fileID: 11400000, guid: 7721c26c4a7eb524eaedfea00f8d3d1b, type: 2}
 --- !u!114 &479160179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,6 +905,28 @@ MonoBehaviour:
   WarplingDamaged: {fileID: 6609084430726664583}
   WarplingAttack: {fileID: 6609084428782440171}
   WarplingDeath: {fileID: 6609084428730939725}
+--- !u!114 &419248826972340885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7467382200159323077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2808c77b51897240b9020a8ae21db6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 20
+  viewAngle: 280
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  visibleTargets: []
+  targetvisible: 0
 --- !u!1001 &5311864498618417408
 PrefabInstance:
   m_ObjectHideFlags: 0
