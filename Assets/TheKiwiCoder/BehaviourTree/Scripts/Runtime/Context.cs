@@ -21,11 +21,11 @@ namespace TheKiwiCoder {
         public CharacterController characterController;
         // Add other game specific systems here
 
-        public FieldOfView fieldOfView;
-        public EnemyShoot enemyshoot;
+        public FieldOfView fieldOfView; /// AI's view cone
+        public EnemyShoot enemyshoot; /// Script that lets an AI shoot projectiles
 
-        public GameObject playerObject;
-
+        public GameObject playerObject; /// The Player (good to get components from)
+      
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
             Context context = new Context();

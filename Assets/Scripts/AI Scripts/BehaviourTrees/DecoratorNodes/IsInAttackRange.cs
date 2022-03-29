@@ -5,7 +5,7 @@ using TheKiwiCoder;
 
 public class IsInAttackRange : DecoratorNode
 {
-    public float attackRange;
+    public float attackRange; /// can adjust the attack range in the behaviour tree
 
     protected override void OnStart() {
     }
@@ -23,7 +23,7 @@ public class IsInAttackRange : DecoratorNode
             var state = child.Update(); /// returns the state of the child node (the node attatched to this)
             return state;
         }
-        else
+        else /// otherwise it fails this check
         {
             return State.Failure;
         }
