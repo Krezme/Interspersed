@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RootNode
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: 7a811365f8dc25044bd706f5162486ed
   position: {x: -1, y: -3}
   blackboard:
@@ -37,13 +37,13 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 7b5793fec4e1b2f4aa4d7dc9bd1ab5e5
-  position: {x: 538, y: 497}
+  position: {x: 453.48322, y: 989.8472}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: waits a periot of time
   drawGizmos: 0
-  duration: 5
+  duration: 1
 --- !u!114 &-4233336839160371223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,16 +59,53 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 2005f63a799149645be9d493712df12c
-  position: {x: 381, y: 366}
+  position: {x: 296.48312, y: 826.00006}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: Randomising the enemy new move to position, moving to that position,
+    waits a periot of time.
   drawGizmos: 0
   children:
   - {fileID: 8093224043324595051}
+  - {fileID: 8093224043324595051}
+  - {fileID: 8093224043324595051}
+  - {fileID: 8093224043324595051}
+  - {fileID: 1624504726580573287}
+  - {fileID: 1624504726580573287}
+  - {fileID: 1624504726580573287}
   - {fileID: 1624504726580573287}
   - {fileID: -6243395997554961687}
+--- !u!114 &-3686483908755222156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bf77e26564daa41815cba042a730aa, type: 3}
+  m_Name: InterruptSelector
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 1
+  guid: 813cbc35b963d054d8b5bef45e4ff011
+  position: {x: -0.30005905, y: 253.35004}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: Runs the Left most runable child
+  drawGizmos: 0
+  children:
+  - {fileID: -372236206309946912}
+  - {fileID: -372236206309946912}
+  - {fileID: -372236206309946912}
+  - {fileID: -372236206309946912}
+  - {fileID: -3405546779042127766}
+  - {fileID: -3405546779042127766}
+  - {fileID: -3405546779042127766}
+  - {fileID: -3405546779042127766}
 --- !u!114 &-3405546779042127766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,14 +121,66 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 1cbf34e38eb391140aae8e29694d01ac
-  position: {x: 381, y: 255}
+  position: {x: 296.26834, y: 551.8569}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: 'Wander Branch
+
+
+    When the target is not visible, an random position
+    is chosen and the enemy moves to there.'
+  drawGizmos: 0
+  child: {fileID: 474667845604098668}
+  playOnFoundTarget: 0
+--- !u!114 &-643098097557621263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d522cbbd9574d847a1e0ed29b6572fd, type: 3}
+  m_Name: FollowAboveTargetPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: af3558c01a85ed34da6fc3c9d3e7ef21
+  position: {x: -121.15663, y: 836.18005}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
   description: 
   drawGizmos: 0
-  child: {fileID: -4233336839160371223}
-  playOnFoundTarget: 0
+  child: {fileID: 8611574867556689186}
+  heightAboveTarget: 10
+  randomReducedHeight: -1
+  randomAdditionalHeight: 1
+--- !u!114 &-372236206309946912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e933ddbdbdfb0d4fb2876d5e347548c, type: 3}
+  m_Name: HasSeenTarget
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 1
+  guid: 8b2b33c9fad7db6478defa3a238ebad0
+  position: {x: -196.5505, y: 533.44946}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 6346583706350774408}
+  playOnFoundTarget: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,9 +203,64 @@ MonoBehaviour:
   - {fileID: 1624504726580573287}
   - {fileID: -6243395997554961687}
   - {fileID: -3405546779042127766}
+  - {fileID: -3686483908755222156}
+  - {fileID: -372236206309946912}
+  - {fileID: 8611574867556689186}
+  - {fileID: 6346583706350774408}
+  - {fileID: -643098097557621263}
+  - {fileID: 474667845604098668}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+--- !u!114 &474667845604098668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: Repeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b9f44e160c6651d4896f8a9f80eb61b5
+  position: {x: 295.93265, y: 720}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: -4233336839160371223}
+  restartOnSuccess: 1
+  restartOnFailure: 0
+--- !u!114 &618529340598050453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d522cbbd9574d847a1e0ed29b6572fd, type: 3}
+  m_Name: CircleAboveAndFollowTargetPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 2b304118f78d44e4c9bbc0a33cc074d5
+  position: {x: -154.1, y: 824.85004}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 0}
+  heightAboveTarget: 10
+  randomReducedHeight: 0
+  randomAdditionalHeight: 0
 --- !u!114 &1624504726580573287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,13 +276,111 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: d45b442140b742f4e924710a1ef31a07
-  position: {x: 377, y: 496}
+  position: {x: 292.4832, y: 988.8473}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: Moving to the move to position
+  drawGizmos: 0
+  distanceThreshold: 3
+--- !u!114 &3961216357005350183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d522cbbd9574d847a1e0ed29b6572fd, type: 3}
+  m_Name: CircleAndFollowTargetPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 1a5b746887d829e438f04e82133125c7
+  position: {x: -133.65247, y: 825.29755}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
   description: 
   drawGizmos: 0
-  distanceThreshold: 3
+  child: {fileID: 8611574867556689186}
+  heightAboveTarget: 10
+  randomReducedHeight: 0
+  randomAdditionalHeight: 0
+--- !u!114 &4152488965307221513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d522cbbd9574d847a1e0ed29b6572fd, type: 3}
+  m_Name: CircleAboveAndFollowTargetPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 9a5655303719e8c45b64b57eeb087be6
+  position: {x: -155.16898, y: 836.2088}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 0}
+  heightAboveTarget: 10
+  randomReducedHeight: 0
+  randomAdditionalHeight: 0
+--- !u!114 &6346583706350774408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2932073b8a6c3b34391576c45d359457, type: 3}
+  m_Name: Parallel
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b466f2a60e12d4149bf016b1b316062c
+  position: {x: -94.99999, y: 694.4524}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: -643098097557621263}
+--- !u!114 &6946161001230448133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d522cbbd9574d847a1e0ed29b6572fd, type: 3}
+  m_Name: CircleAboveAndFollowTargetPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 3bf3a7c0aef0f9e4294438549a9b9649
+  position: {x: -209.94049, y: 827.50995}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 0}
+  heightAboveTarget: 10
+  randomReducedHeight: 0
+  randomAdditionalHeight: 0
 --- !u!114 &8093224043324595051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,11 +396,11 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 4d3386053f9ce7943b58c5ecfa0b61d3
-  position: {x: 217, y: 497}
+  position: {x: 132.48312, y: 989.8472}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: Randomising the enemy new move to position
   drawGizmos: 0
   wanderRadius: 10
   sphereHeightMultiplier: 0.25
@@ -175,7 +417,7 @@ MonoBehaviour:
   m_Name: Repeat
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: b4486cd1e74d3fb4fa16a9cf0ef8f186
   position: {x: -1, y: 125}
   blackboard:
@@ -183,6 +425,28 @@ MonoBehaviour:
     isFollowingPlayer: 0
   description: 
   drawGizmos: 0
-  child: {fileID: -3405546779042127766}
+  child: {fileID: -3686483908755222156}
   restartOnSuccess: 1
   restartOnFailure: 1
+--- !u!114 &8611574867556689186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3b783671b05d14b8bec4de9f8da343, type: 3}
+  m_Name: InAirMoveToPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 8e47e7665f9d6bc47874fe5e602c24a4
+  position: {x: -96.70003, y: 968.6001}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+  description: 
+  drawGizmos: 0
+  distanceThreshold: 3
