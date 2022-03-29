@@ -37,7 +37,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 7b5793fec4e1b2f4aa4d7dc9bd1ab5e5
-  position: {x: 453.48322, y: 989.8472}
+  position: {x: 453.00003, y: 1034.1055}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 2005f63a799149645be9d493712df12c
-  position: {x: 296.48312, y: 826.00006}
+  position: {x: 296.00003, y: 870.10535}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -148,11 +148,12 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: af3558c01a85ed34da6fc3c9d3e7ef21
-  position: {x: -121.15663, y: 836.18005}
+  position: {x: -76.49801, y: 915.2549}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: Following the player's position and add a height offset to make the
+    enemy circle above the player.
   drawGizmos: 0
   child: {fileID: 8611574867556689186}
   heightAboveTarget: 10
@@ -173,11 +174,19 @@ MonoBehaviour:
   state: 0
   started: 1
   guid: 8b2b33c9fad7db6478defa3a238ebad0
-  position: {x: -196.5505, y: 533.44946}
+  position: {x: -207.05678, y: 552.2953}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: 'Interaction with the player.
+
+
+    When the target is detected, the
+    Carrier will start following the player and circle above them.
+
+
+    Also attacking
+    the player with a dive bomb '
   drawGizmos: 0
   child: {fileID: 6346583706350774408}
   playOnFoundTarget: 1
@@ -227,11 +236,11 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: b9f44e160c6651d4896f8a9f80eb61b5
-  position: {x: 295.93265, y: 720}
+  position: {x: 296.00003, y: 744.22864}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: Repeating the wander branch.
   drawGizmos: 0
   child: {fileID: -4233336839160371223}
   restartOnSuccess: 1
@@ -276,7 +285,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: d45b442140b742f4e924710a1ef31a07
-  position: {x: 292.4832, y: 988.8473}
+  position: {x: 292.00003, y: 1033.1053}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -348,11 +357,14 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: b466f2a60e12d4149bf016b1b316062c
-  position: {x: -94.99999, y: 694.4524}
+  position: {x: -207.00002, y: 762.1817}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: 'Left - Follow Player
+
+
+    Right - Attacking Player'
   drawGizmos: 0
   children:
   - {fileID: -643098097557621263}
@@ -396,7 +408,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 4d3386053f9ce7943b58c5ecfa0b61d3
-  position: {x: 132.48312, y: 989.8472}
+  position: {x: 132.00002, y: 1034.1055}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -423,7 +435,7 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: Keeping the Behaviour Tree running in all cases
   drawGizmos: 0
   child: {fileID: -3686483908755222156}
   restartOnSuccess: 1
@@ -443,10 +455,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 8e47e7665f9d6bc47874fe5e602c24a4
-  position: {x: -96.70003, y: 968.6001}
+  position: {x: -53, y: 1048}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
-  description: 
+  description: Moving to the move to position
   drawGizmos: 0
   distanceThreshold: 3
