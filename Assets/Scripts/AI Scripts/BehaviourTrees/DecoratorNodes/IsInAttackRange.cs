@@ -16,7 +16,7 @@ public class IsInAttackRange : DecoratorNode
     protected override State OnUpdate() {
 
         /// Gets the distance betweem the player and AI 
-        blackboard.distance = Vector2.Distance(context.gameObject.transform.position, context.playerObject.transform.position);
+        blackboard.distance = Vector3.Distance(context.gameObject.transform.position, context.playerObject.transform.position);
 
         if (blackboard.distance <= attackRange) /// Compares distance to attack range
         {
