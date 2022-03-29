@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -14,6 +15,13 @@ public class PauseMenu : MonoBehaviour
     CursorManager cursorManager;
 
     public GameObject eventSystem;
+
+    public AudioMixerSnapshot PausedSnapshot;
+
+    public AudioMixerSnapshot UnpausedSnapshot;
+
+    private float TransitionTime = 0.01f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +48,8 @@ public class PauseMenu : MonoBehaviour
 
         OnPlayerInput.instance.ResetInput();
 
+        PausedSnapshot.TransitionTo(TransitionTime);
+
         hudCanvas.SetActive(false);
         pauseMenuCanvas.SetActive(true);
         cursorManager.cursorLocked = false;
@@ -50,6 +60,8 @@ public class PauseMenu : MonoBehaviour
     {
         playerInput.isAllowedToMove = true;
         Debug.Log("Resume");
+
+        UnpausedSnapshot.TransitionTo(TransitionTime);
 
         hudCanvas.SetActive(true);
         pauseMenuCanvas.SetActive(false);

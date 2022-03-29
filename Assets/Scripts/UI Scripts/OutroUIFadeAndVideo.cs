@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class OutroUIFadeAndVideo : MonoBehaviour
 {
@@ -18,13 +19,21 @@ public class OutroUIFadeAndVideo : MonoBehaviour
 
     public GameObject HUD;
 
-    CursorManager m_cursorManager;
+    public AudioMixerSnapshot CreditsMixerSnapshot;
+
+    public AudioMixerSnapshot UnpausedMixerSnapshot;
+
+    private float CreditsTransitionTime = 1f;
+
+    private float UnpausedTransitionTime = 0.01f;
+
+
+
 
 
     void Start()
     {
         StartCoroutine(LoadScene());
-        m_cursorManager = GameObject.Find("Events System").GetComponent<CursorManager>();
     }
 
 
@@ -34,6 +43,7 @@ public class OutroUIFadeAndVideo : MonoBehaviour
 
         if (FadeTimer > 1)
         {
+            CreditsMixerSnapshot.TransitionTo(CreditsTransitionTime);
             //FadeToBlack.SetActive(false);
             Video.SetActive(true);
             Debug.Log("Video Enable");
@@ -68,8 +78,9 @@ public class OutroUIFadeAndVideo : MonoBehaviour
         if (FadeTimer > 52)
         {
             HUD.SetActive(true);
-            m_cursorManager.SetCursorState(false);
+            CursorManager.instance.SetCursorState(false);
             //SceneManager.LoadScene(1);
+            UnpausedMixerSnapshot.TransitionTo(UnpausedTransitionTime);
         }
     }
 
