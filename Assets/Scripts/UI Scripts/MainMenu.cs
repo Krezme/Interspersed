@@ -11,6 +11,12 @@ public class MainMenu : MonoBehaviour
     public GameObject controlsCanvas;
     public GameObject creditsCanvas;
 
+    public GameObject cutScene1;
+    public GameObject cutScene2;
+    public GameObject cutScene3;
+    public GameObject cutScene4;
+    public GameObject cutScene5;
+
     public GameObject startButton, controlsBackButton, optionsBackButton, creditsBackButton;
 
     void Start()
@@ -33,18 +39,7 @@ public class MainMenu : MonoBehaviour
     public void LoadCutScene1() {
         SceneManager.LoadScene("CutScene1");
     }
-    public void LoadCutScene2() {
-        SceneManager.LoadScene("CutScene2");
-    }
-    public void LoadCutScene3() {
-        SceneManager.LoadScene("CutScene3");
-    }
-    public void LoadCutScene4() {
-        SceneManager.LoadScene("CutScene4");
-    }
-    public void LoadCutScene5() {
-        SceneManager.LoadScene("CutScene5");
-    }
+    
     public void LoadCutScene6() {
         SceneManager.LoadScene("CutScene6");
     }
@@ -89,5 +84,26 @@ public class MainMenu : MonoBehaviour
         controlsCanvas.SetActive(false);
         creditsCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
+    }
+
+    public void ToggleCS2()
+    {
+        cutScene1.SetActive(false);
+        cutScene2.SetActive(true);
+    }
+    public void ToggleCS3()
+    {
+        cutScene2.SetActive(false);
+        cutScene3.SetActive(true);
+    }
+    public void ToggleCS4()
+    {
+        cutScene3.SetActive(false);
+        cutScene4.SetActive(true);
+    }
+    public void ToggleCS5()
+    {
+        cutScene4.SetActive(false);
+        cutScene5.SetActive(true);
     }
 }
