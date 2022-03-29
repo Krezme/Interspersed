@@ -27,6 +27,8 @@ namespace TheKiwiCoder {
         public GameObject playerObject;
 
         public InAirPathFinding characterInAirPathFinding;
+
+        public CarrierAttacksManager carrierAttacksManager;
         
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
@@ -48,6 +50,8 @@ namespace TheKiwiCoder {
             context.playerObject = GameObject.FindGameObjectWithTag("Player");
 
             context.characterInAirPathFinding = gameObject.GetComponent<InAirPathFinding>();
+            
+            context.carrierAttacksManager = gameObject.GetComponent<CarrierAttacksManager>();
 
             return context;
         }
