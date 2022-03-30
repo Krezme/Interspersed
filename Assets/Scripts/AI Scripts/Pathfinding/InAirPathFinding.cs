@@ -95,12 +95,13 @@ public class InAirPathFinding : MonoBehaviour
     /// </summary>
     /// <param name="other"> the other game object's collider </param>
     void OnTriggerEnter(Collider other) {
-        if (other.tag != "Player") {
+        if (other.tag != "Player" && other.tag != "Enemy") {
             // ! Trigger Ragdoll when it hits a obsitcle with enough speed
             Debug.Log("Hit");
         }
         if (other.tag == "Player") {
-            Debug.Log("Hit Ebanie");
+            // ! Damage the Player with the Divebomb
+            Debug.Log("Hit Player");
         }
     }
 
