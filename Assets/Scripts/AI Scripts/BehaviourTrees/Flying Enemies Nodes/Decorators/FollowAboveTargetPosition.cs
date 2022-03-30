@@ -24,7 +24,7 @@ public class FollowAboveTargetPosition : DecoratorNode
     }
 
     protected override State OnUpdate() {
-        blackboard.moveToPosition = new Vector3(context.playerObject.transform.position.x, context.playerObject.transform.position.y + randomisedHeightOffset);
+        blackboard.moveToPosition = new Vector3(context.playerObject.transform.position.x, context.playerObject.transform.position.y + randomisedHeightOffset, context.playerObject.transform.position.z);
         return RunChildren();
     }
 

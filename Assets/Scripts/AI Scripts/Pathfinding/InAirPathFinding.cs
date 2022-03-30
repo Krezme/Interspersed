@@ -4,26 +4,44 @@ using UnityEngine;
 using System.Linq;
 
 /// <summary>
+/// The Default unchangable movement statistics
+/// </summary>
+[System.Serializable]
+public class InAirMovementStatistics {
+    public float maxSpeed = 300;
+
+    public float minSpeed = 80;
+
+    public float changeSpeedMultiplier = 1;
+
+    public float rotationSpeed = 2;
+
+    public float stoppingDistance = 2
+    ;
+}
+
+/// <summary>
 /// The movement statistics for this enemy
 /// </summary>
 [System.Serializable]
-public class MovementStatistics {
-    public float maxSpeed = 100; // The max speed the enemy is allowed to move at
+public class CurrentMovementStatistics {
+    public float maxSpeed; // The max speed the enemy is allowed to move at
     [HideInInspector]
     public float currentSpeed; // The current speed of the enemy
-    public float minSpeed = 50; // The minimum move speed when (When it needs to be slow but not stopped)
-    public float changeSpeedMultiplier = 1; // a multiplier used to change the speed of the enemy while moving around
-    public float rotationSpeed = 2; // the rotation speed of the enemy
+    public float minSpeed; // The minimum move speed when (When it needs to be slow but not stopped)
+    public float changeSpeedMultiplier; // a multiplier used to change the speed of the enemy while moving around
+    public float rotationSpeed; // the rotation speed of the enemy
     [HideInInspector]
     public float currentRotationSpeed; // the current rotation speed of the enemy
-    public float stoppingDistance = 1; // the distance it will stop when it has reached the destination
+    public float stoppingDistance; // the distance it will stop when it has reached the destination
 }
 
 [RequireComponent(typeof(Rigidbody))]
 public class InAirPathFinding : MonoBehaviour
 {
     public Vector3 moveToPosition; // position to move to 
-    public MovementStatistics movementStatistics; 
+    public InAirMovementStatistics defaultMovementSpeed;
+    public CurrentMovementStatistics currentMovementStatistics; 
     public float rayLenght = 3; // the forward lenght from local position Z 0 for all rays 
     public float rayOffset = 0.5f; // a multipliyer to change the sideways offset for the forward 4 rays
     [Range(0, 2)]
@@ -63,6 +81,7 @@ public class InAirPathFinding : MonoBehaviour
 
     void Start()
     {
+        ResetMovementStatistics();
         spawnedPostion = transform.position;
         rb = GetComponent<Rigidbody>();
     }
@@ -79,6 +98,9 @@ public class InAirPathFinding : MonoBehaviour
         if (other.tag != "Player") {
             // ! Trigger Ragdoll when it hits a obsitcle with enough speed
             Debug.Log("Hit");
+        }
+        if (other.tag == "Player") {
+            Debug.Log("Hit Ebanie");
         }
     }
 
@@ -144,7 +166,7 @@ public class InAirPathFinding : MonoBehaviour
         }
         else {
             // changing sleed depending on ray data
-            movementStatistics.currentSpeed = ChangeMovementSpeed(false); 
+            currentMovementStatistics.currentSpeed = ChangeMovementSpeed(false); 
             // restarting the reverse ridection of the enemy
             if (blockedPathBackDir != new Vector3()) {
                 blockedPathBackDir = new Vector3();
@@ -171,7 +193,7 @@ public class InAirPathFinding : MonoBehaviour
     /// Rotating the enemy in the backwards direction when a path in front is not found
     /// </summary>
     void AvoidingDeadEnd() {
-        movementStatistics.currentSpeed = ChangeMovementSpeed(true); // stopping enemy in place
+        currentMovementStatistics.currentSpeed = ChangeMovementSpeed(true); // stopping enemy in place
         if (blockedPathBackDir == new Vector3()) {
             blockedPathBackDir = -this.transform.forward; // setting back direction
         }
@@ -191,10 +213,10 @@ public class InAirPathFinding : MonoBehaviour
         }
         else{
             if (!goDetectedRight && !goDetectedLeft && !goDetectedTop && !goDetectedBottom) { // reduces speed when obsitcles are detected
-                newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.maxSpeed, movementStatistics.changeSpeedMultiplier * Time.deltaTime);
+                newSpeed = Mathf.Lerp(currentMovementStatistics.currentSpeed, currentMovementStatistics.maxSpeed, currentMovementStatistics.changeSpeedMultiplier * Time.deltaTime);
             }
             else{ // increses speed when obsticles are not detected
-                newSpeed = Mathf.Lerp(movementStatistics.currentSpeed, movementStatistics.minSpeed, movementStatistics.changeSpeedMultiplier * (Time.deltaTime * 10));
+                newSpeed = Mathf.Lerp(currentMovementStatistics.currentSpeed, currentMovementStatistics.minSpeed, currentMovementStatistics.changeSpeedMultiplier * (Time.deltaTime * 10));
             }
             return newSpeed;
         }
@@ -206,12 +228,12 @@ public class InAirPathFinding : MonoBehaviour
     void Movement () {
         float distanceToTarget = Vector3.Distance(transform.position, moveToPosition);
         // Moves the game object forward until it has reach the target
-        if (distanceToTarget > movementStatistics.stoppingDistance) {
-            movementStatistics.rotationSpeed = 2f;
-        }else if (distanceToTarget <= movementStatistics.stoppingDistance) {
-            movementStatistics.rotationSpeed = 1f;
+        if (distanceToTarget > currentMovementStatistics.stoppingDistance) {
+            currentMovementStatistics.rotationSpeed = defaultMovementSpeed.rotationSpeed;
+        }else if (distanceToTarget <= currentMovementStatistics.stoppingDistance) {
+            currentMovementStatistics.rotationSpeed = 1f;
         }
-        rb.velocity = (movementStatistics.currentSpeed * Time.deltaTime) * transform.forward;
+        rb.velocity = (currentMovementStatistics.currentSpeed * Time.deltaTime) * transform.forward;
     }
 
     /// <summary>
@@ -222,13 +244,13 @@ public class InAirPathFinding : MonoBehaviour
         Vector3 position = targetPos - transform.position; // direction to look at
         Quaternion rotation = Quaternion.LookRotation(position);
         if (obsticleDistances.Count > 0) { 
-            movementStatistics.currentRotationSpeed = (1 - (obsticleDistances.Min() / rayLenght)) * movementStatistics.rotationSpeed; // rotation speed calculated from the distance to closest obsticle
+            currentMovementStatistics.currentRotationSpeed = (1 - (obsticleDistances.Min() / rayLenght)) * currentMovementStatistics.rotationSpeed; // rotation speed calculated from the distance to closest obsticle
         }else { 
-            movementStatistics.currentRotationSpeed = movementStatistics.rotationSpeed;
+            currentMovementStatistics.currentRotationSpeed = currentMovementStatistics.rotationSpeed;
         }
         
         // Apply the actual rotaion to the game object over time
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, movementStatistics.rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, currentMovementStatistics.rotationSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -280,6 +302,17 @@ public class InAirPathFinding : MonoBehaviour
     bool PhysicsSpherecast (Vector3 origin, Vector3 direction, float rayCastLenght , float sphereRadius, out RaycastHit hit, LayerMask layer) {
         bool hasDetected = Physics.SphereCast(origin, sphereRadius, direction, out hit, rayCastLenght, layer, QueryTriggerInteraction.UseGlobal);
         return hasDetected;
+    }
+
+    /// <summary>
+    /// Sets the currently used statistics to the Default statistics
+    /// </summary>
+    public void ResetMovementStatistics() {
+        currentMovementStatistics.maxSpeed = defaultMovementSpeed.maxSpeed;
+        currentMovementStatistics.minSpeed = defaultMovementSpeed.minSpeed;
+        currentMovementStatistics.changeSpeedMultiplier = defaultMovementSpeed.changeSpeedMultiplier;
+        currentMovementStatistics.rotationSpeed = defaultMovementSpeed.rotationSpeed;
+        currentMovementStatistics.stoppingDistance = defaultMovementSpeed.stoppingDistance;
     }
 
     #region Gizmos

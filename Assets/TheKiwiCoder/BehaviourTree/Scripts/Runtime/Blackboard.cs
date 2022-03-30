@@ -12,5 +12,6 @@ namespace TheKiwiCoder {
         public Vector3 moveToPosition;
         public bool isFollowingPlayer;
         public Vector3 directionToTarget;
+        public bool isCurrentlyDiveBombing;
     }
 }
