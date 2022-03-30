@@ -7,8 +7,19 @@ public class MeleeStats {
     public float damage;
 }
 
+
 public class PlayerAbilitiesController : MonoBehaviour
+
 {
+public Light CrystalGlow;
+
+public Light SlimeGlow;
+
+public Light ElectricGlow;
+
+
+
+
 
 #region Singleton
 
@@ -51,5 +62,31 @@ public class PlayerAbilitiesController : MonoBehaviour
     void Update()
     {
         abilities[selectedAbility].Ability(); // Uses the ability depending on selected arm
+
+        if (selectedAbility == 0)
+            {
+                CrystalGlow.GetComponent<Light>().enabled = true;
+                SlimeGlow.GetComponent<Light>().enabled = false;
+                ElectricGlow.GetComponent<Light>().enabled = false;
+            }
+            else
+            {
+                CrystalGlow.GetComponent<Light>().enabled = false;
+                SlimeGlow.GetComponent<Light>().enabled = true;
+                ElectricGlow.GetComponent<Light>().enabled = false;
+            }
+            /*
+        if ((selectedAbility == 0) && (isAbilityActive == true))
+            {
+                CrystalGlow.GetComponent<Light>().enabled = false;
+                SlimeGlow.GetComponent<Light>().enabled = false;
+                ElectricGlow.GetComponent<Light>().enabled = true;
+            }
+            else
+            {
+                CrystalGlow.GetComponent<Light>().enabled = false;
+                SlimeGlow.GetComponent<Light>().enabled = false;
+                ElectricGlow.GetComponent<Light>().enabled = true;
+            }*/
     }
 }

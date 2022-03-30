@@ -11,6 +11,14 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
     private Rigidbody thisRigidBody;
 
 
+    public RandomAudioPlayer ImpactSFX;
+
+    //public RandomAudioPlayer ExplosionSFX;
+
+    public GameObject ExplosionSFXSource;
+
+
+
     private void Start()
     {
         thisRigidBody = this.GetComponent<Rigidbody>();
@@ -19,20 +27,25 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        ContactPoint contact = collision.contacts[0];
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+        Vector3 pos = contact.point;
 
-        //if the force of this object is higher than the force required on impact
-        if (Mathf.Abs(thisRigidBody.velocity.x) + Mathf.Abs(thisRigidBody.velocity.y) + Mathf.Abs(thisRigidBody.velocity.z) >= forceRequired)
+
+            //if the force of this object is higher than the force required on impact
+            if (Mathf.Abs(thisRigidBody.velocity.x) + Mathf.Abs(thisRigidBody.velocity.y) + Mathf.Abs(thisRigidBody.velocity.z) >= forceRequired)
         {
 
-            Instantiate(toInstantiate, transform.position, transform.rotation);
+
+            
+            Instantiate(toInstantiate, pos, rot);
+
+            Instantiate(ExplosionSFXSource, pos, rot);
+
 
             Destroy(this.gameObject);
-
-
         }
     }
-
-
 
 
 

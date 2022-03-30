@@ -34,7 +34,7 @@ public class RagdollController : MonoBehaviour
 
     void Update()
     {
-        thisRigidbody.isKinematic = true;
+        //thisRigidbody.isKinematic = true;
     }
 
     private void GatherRagdollColliders () {
