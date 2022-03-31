@@ -5,7 +5,7 @@ using TheKiwiCoder;
 
 public class HasSeenTarget : DecoratorNode
 {
-
+    // if the node is supposed to allow children to run depending if player is detected
     public bool playOnFoundTarget;
 
     protected override void OnStart() {
@@ -14,6 +14,10 @@ public class HasSeenTarget : DecoratorNode
     protected override void OnStop() {
     }
 
+    /// <summary>
+    /// Running Children depening on playOnFoundTarget value
+    /// </summary>
+    /// <returns> Node State </returns>
     protected override State OnUpdate() {
         if (playOnFoundTarget && context.fieldOfView.targetvisible) {
             return RunChildren();
@@ -26,6 +30,10 @@ public class HasSeenTarget : DecoratorNode
         }
     }
 
+    /// <summary>
+    /// Start child node
+    /// </summary>
+    /// <returns> Node State </returns>
     State RunChildren() {
         switch (child.Update()) {
             case State.Running:

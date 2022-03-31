@@ -6,6 +6,7 @@ using TheKiwiCoder;
 public class IsCarrierDiveBombing : DecoratorNode
 {
 
+    // if the child is allowed to run depending if the carrier is currently dive bombing
     public bool playWhenDiveBombing;
 
     protected override void OnStart() {
@@ -14,6 +15,10 @@ public class IsCarrierDiveBombing : DecoratorNode
     protected override void OnStop() {
     }
 
+    /// <summary>
+    /// Checks if the child is allowed to run depending on playWhenDiveBombing and the blackboard's isCurrentlyDiveBombing
+    /// </summary>
+    /// <returns></returns>
     protected override State OnUpdate() {
         if (playWhenDiveBombing && blackboard.isCurrentlyDiveBombing) {
             return RunChildren();
@@ -24,6 +29,10 @@ public class IsCarrierDiveBombing : DecoratorNode
         }
     }
 
+    /// <summary>
+    /// Runs the children
+    /// </summary>
+    /// <returns> Child Node State </returns>
     State RunChildren() {
         switch (child.Update()) {
             case State.Running:

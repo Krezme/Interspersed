@@ -5,9 +5,10 @@ using TheKiwiCoder;
 
 public class RandomInAirPosition : ActionNode
 {
-
+    // Radius of how big the random area can be
     public float wanderRadius;
 
+    // Reducing the random height of the carrier's wander
     [Range(0f,1f)]
     public float sphereHeightMultiplier = 1f;
 
