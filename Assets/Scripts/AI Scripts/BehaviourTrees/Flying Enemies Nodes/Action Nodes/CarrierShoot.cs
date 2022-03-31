@@ -12,7 +12,7 @@ public class CarrierShoot : ActionNode
     }
 
     protected override State OnUpdate() {
-        context.carrierAttacksManager.ShootProjectile(blackboard.directionToTarget);
+        context.carrierAttacksManager.ShootProjectile(blackboard.directionToTarget); // Shooting projectile
         return State.Success;
     }
 }

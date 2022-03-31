@@ -12,7 +12,7 @@ public class StartCarrierAttackCooldown : ActionNode
     }
 
     protected override State OnUpdate() {
-        context.carrierAttacksManager.attackCurrentCooldown = context.carrierAttacksManager.attackCooldown;
+        context.carrierAttacksManager.attackCurrentCooldown = context.carrierAttacksManager.attackCooldown; // Restarts attack cooldown
         return State.Success;
     }
 }

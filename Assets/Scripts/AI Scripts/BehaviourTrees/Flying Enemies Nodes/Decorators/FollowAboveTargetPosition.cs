@@ -6,22 +6,25 @@ using TheKiwiCoder;
 public class FollowAboveTargetPosition : DecoratorNode
 {
 
+    // Additional height to make the enemy hover above player
     public float heightAboveTarget = 10f;
 
-    private float randomisedHeightOffset;
-
     protected override void OnStart() {
-        randomisedHeightOffset = (heightAboveTarget);
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-        blackboard.moveToPosition = new Vector3(context.playerObject.transform.position.x, context.playerObject.transform.position.y + randomisedHeightOffset, context.playerObject.transform.position.z);
-        return RunChildren();
+        // Updating the move to position every frame
+        blackboard.moveToPosition = new Vector3(context.playerObject.transform.position.x, context.playerObject.transform.position.y + heightAboveTarget, context.playerObject.transform.position.z);
+        return RunChildren(); // Returns child State
     }
 
+    /// <summary>
+    /// Run child nodes
+    /// </summary>
+    /// <returns></returns>
     State RunChildren() {
         switch (child.Update()) {
             case State.Running:

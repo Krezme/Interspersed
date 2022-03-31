@@ -5,6 +5,7 @@ using TheKiwiCoder;
 
 public class ToggleDiveBombing : ActionNode
 {
+    // update the blackboard with this value
     public bool isDiveBombing;
 
     protected override void OnStart() {
@@ -14,6 +15,7 @@ public class ToggleDiveBombing : ActionNode
     }
 
     protected override State OnUpdate() {
+        // Setting the blackboard to the variable
         blackboard.isCurrentlyDiveBombing = isDiveBombing;
         return State.Success;
     }
