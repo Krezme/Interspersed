@@ -7,17 +7,11 @@ public class FollowAboveTargetPosition : DecoratorNode
 {
 
     public float heightAboveTarget = 10f;
-    
-    // The min and max of 
-    [Range(0, -Mathf.Infinity)]
-    public float randomReducedHeight = 0;
-    [Range(0, Mathf.Infinity)]
-    public float randomAdditionalHeight = 0;
 
     private float randomisedHeightOffset;
 
     protected override void OnStart() {
-        randomisedHeightOffset = (heightAboveTarget + Random.Range(randomReducedHeight, randomAdditionalHeight));
+        randomisedHeightOffset = (heightAboveTarget);
     }
 
     protected override void OnStop() {

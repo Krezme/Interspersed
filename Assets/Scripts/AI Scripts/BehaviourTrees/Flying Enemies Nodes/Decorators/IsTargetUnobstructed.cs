@@ -24,7 +24,6 @@ public class IsTargetUnobstructed : DecoratorNode
         Vector3 rayDirection = ((context.playerObject.transform.position + targetPositionOffset) - context.gameObject.transform.position).normalized;
         Debug.DrawLine(context.gameObject.transform.position, context.gameObject.transform.position + (rayDirection * raycastLenght), Color.blue);
         if (Physics.Raycast(context.gameObject.transform.position, rayDirection, out hit , raycastLenght)) {
-            Debug.Log(hit.transform.gameObject.layer + " " + targetLayer.value);
             if (1<< hit.transform.gameObject.layer == targetLayer.value) {
                 blackboard.directionToTarget = rayDirection;
                 return RunChildren();

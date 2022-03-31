@@ -9,6 +9,9 @@ public class RagdollController : MonoBehaviour
     private Animator thisAnimatior;
     private NavMeshAgent agent;
 
+
+    private Transform rigPositionOffset;
+
     [HideInInspector]
     public Collider[] ragdollColliders;
     [HideInInspector]
@@ -34,7 +37,7 @@ public class RagdollController : MonoBehaviour
 
     void Update()
     {
-        thisRigidbody.isKinematic = true;
+        //thisRigidbody.isKinematic = false;
     }
 
     private void GatherRagdollColliders () {
@@ -60,7 +63,7 @@ public class RagdollController : MonoBehaviour
         }
         if (thisRigidbody != null) {
             thisRigidbody.useGravity = false;
-            thisRigidbody.isKinematic = true;
+            thisRigidbody.isKinematic = false;
         }
         if (thisAnimatior != null) {
             thisAnimatior.enabled = true;

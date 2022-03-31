@@ -67,6 +67,8 @@ public class EnemyStatisticsManager : MonoBehaviour
         healthBarCanvas.SetActive(false);
         if (ragdollController != null) {
             ragdollController.RagdollOn();
+        }else {
+            Destroy(this.gameObject);
         }
         WarplingDeath.PlayRandomClip();
     }

@@ -250,7 +250,6 @@ public class CristalArm : PlayerAbility
                 {
                     //audioSource.PlayOneShot(CrystalShot);
                     Regular.PlayRandomClip();
-                    Debug.Log("Regular");
                     IsHold = false; //Rhys - Resets IsHold so that charging sound will be played when fire key is held again
                 }
 

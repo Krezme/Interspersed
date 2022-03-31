@@ -312,7 +312,6 @@ public class OnPlayerInput : MonoBehaviour
 
     private void ESCInput(bool escState) {
         isESC = escState;
-        Debug.Log(isESC);
     }
 
 #endregion

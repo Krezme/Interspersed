@@ -16,8 +16,7 @@ public class InAirMovementStatistics {
 
     public float rotationSpeed = 2;
 
-    public float stoppingDistance = 2
-    ;
+    public float stoppingDistance = 2;
 }
 
 /// <summary>
@@ -75,12 +74,18 @@ public class InAirPathFinding : MonoBehaviour
     private RaycastHit centerShpereCastHit; // hit data from the forward central sphere cast
     private Vector3 averageObsticlePositions; // the avrage obsicle position (calculated from obsticlePositions)
 
+    private EnemyStatisticsManager enemyStatisticsManager;
+
+    private PlayerStatisticsManager playerStatisticsManager;
+
     #region  BehaviourTree Variables
     [HideInInspector] public Vector3 spawnedPostion;
     #endregion 
 
     void Start()
     {
+        enemyStatisticsManager = gameObject.GetComponent<EnemyStatisticsManager>();
+        playerStatisticsManager = ThirdPersonPlayerController.instance.gameObject.GetComponent<PlayerStatisticsManager>();
         ResetMovementStatistics();
         spawnedPostion = transform.position;
         rb = GetComponent<Rigidbody>();
@@ -97,11 +102,16 @@ public class InAirPathFinding : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if (other.tag != "Player" && other.tag != "Enemy") {
             // ! Trigger Ragdoll when it hits a obsitcle with enough speed
-            Debug.Log("Hit");
+            if (((currentMovementStatistics.minSpeed + currentMovementStatistics.maxSpeed) / 2) <= currentMovementStatistics.currentSpeed) {
+                gameObject.GetComponent<RagdollController>().RagdollOn();
+                enemyStatisticsManager.TakeDamage(enemyStatisticsManager.currentStats.damage * 2);
+            }
+            //Debug.Log("Hit");
         }
         if (other.tag == "Player") {
             // ! Damage the Player with the Divebomb
-            Debug.Log("Hit Player");
+            playerStatisticsManager.TakeDamage(enemyStatisticsManager.currentStats.damage * 2);
+            //Debug.Log("Hit Player");
         }
     }
 

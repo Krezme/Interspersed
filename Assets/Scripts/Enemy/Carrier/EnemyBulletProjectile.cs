@@ -36,7 +36,7 @@ public class EnemyBulletProjectile : MonoBehaviour
         if (other.tag == "Player") {
             other.GetComponent<PlayerStatisticsManager>().TakeDamage(enemyBulletStatistics.damage);
             Destroy(this.gameObject);
-            Debug.Log("EnemyBulletProjectile");
+            //Debug.Log("EnemyBulletProjectile");
         }
         else if (!other.isTrigger){
             Destroy(this.gameObject);
