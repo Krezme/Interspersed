@@ -4,34 +4,37 @@ using UnityEngine;
 using UnityEngine.AI;
 public class RagdollController : MonoBehaviour
 {
-    private Collider thisCollider;
-    private Rigidbody thisRigidbody;
-    private Animator thisAnimatior;
-    private NavMeshAgent agent;
+    private Collider thisCollider; // The Collider in the parent game object
+    private Rigidbody thisRigidbody; // The Rigidbody in the parent game object
+    private Animator thisAnimatior; // The Animator in the parent game object
+    private NavMeshAgent agent; // The NavMeshAgent in the parent game object
 
 
-    private Transform rigPositionOffset;
+    private Transform rigPositionOffset; 
 
     [HideInInspector]
-    public Collider[] ragdollColliders;
+    public Collider[] ragdollColliders; // all colliders used for the ragdoll in the joints
     [HideInInspector]
-    public Rigidbody[] ragdollRigidbodies;
+    public Rigidbody[] ragdollRigidbodies; // all rigidbodies used for the ragdoll in the joints
 
-    public GameObject rig;
-    public bool pickedUpByPlayer;
-    public bool ragdolling;
-    public EnemyStatisticsManager enemyStatisticsManager;
-    public MonoBehaviour[] monoBehaviourToggle;
+    public GameObject rig; // rig of the character
+    public bool pickedUpByPlayer; // if it is picked up by the player
+    public bool ragdolling; // if it is currently ragdolling
+    public EnemyStatisticsManager enemyStatisticsManager; // The enemy statistics manager attacked to the root game object
+    public MonoBehaviour[] monoBehaviourToggle; // scripts to toggle (on and off) when ragdolling
 
-    public GameObject rigCentre;
+    public GameObject rigCentre; // the centre of the rig
 
     void Start()
     {
+        // Finding and assigning all required components
         TryGetComponent<Collider>(out thisCollider);
         TryGetComponent<Rigidbody>(out thisRigidbody);
         TryGetComponent<Animator>(out thisAnimatior);
         TryGetComponent<NavMeshAgent>(out agent);
+
         GatherRagdollColliders();
+        // Makes sure that the ragdoll is turned off
         RagdollOff();
     }
 
@@ -40,13 +43,17 @@ public class RagdollController : MonoBehaviour
         //thisRigidbody.isKinematic = false;
     }
 
+    /// <summary>
+    /// Finding all colliders and rigidbodies used for the ragdolling and saves them
+    /// </summary>
     private void GatherRagdollColliders () {
         ragdollColliders = GetComponentsInChildren<Collider>();
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
 
     /// <summary>
-    /// Turn's off the ragdoll by; enableing the agent, animator, collider and disabling the ragdoll colliders 
+    /// Turn's off the ragdoll by; enableing the agent, animator, collider and disabling the ragdoll colliders
+    /// This is so the enemy can function properly and in one piece when the ragdoll is OFF
     /// </summary>
     [ContextMenu("RagdollOff")]
     public void RagdollOff(){
@@ -76,7 +83,8 @@ public class RagdollController : MonoBehaviour
     }
 
     /// <summary>
-    /// Turn's on ragdoll by: disabling the agent, animator, collider and enabling the ragdoll colliders 
+    /// Turn's on ragdoll by: disabling the agent, animator, collider and enabling the ragdoll colliders
+    /// This is so the enemy can now be affected by gravity and the individual pieces as well
     /// </summary>
     [ContextMenu("RagdollOn")]
     public void RagdollOn(){
@@ -105,6 +113,10 @@ public class RagdollController : MonoBehaviour
         StartCoroutine(PauseBeforeRagdollOff());
     }
 
+    /// <summary>
+    /// Turning off the ragdoll after a small down time
+    /// </summary>
+    /// <returns></returns>
     IEnumerator PauseBeforeRagdollOff() {
         while (true) {
             yield return new WaitForSeconds(0.1f);
