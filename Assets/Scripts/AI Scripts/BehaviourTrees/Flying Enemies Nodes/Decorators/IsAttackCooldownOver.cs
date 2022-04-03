@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class IsCarrierAttackCooldownOver : DecoratorNode
+public class IsAttackCooldownOver : DecoratorNode
 {
     protected override void OnStart() {
     }

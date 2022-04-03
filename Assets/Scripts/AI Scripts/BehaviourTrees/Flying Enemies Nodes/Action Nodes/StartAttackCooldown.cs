@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class StartCarrierAttackCooldown : ActionNode
+public class StartAttackCooldown : ActionNode
 {
     protected override void OnStart() {
     }
