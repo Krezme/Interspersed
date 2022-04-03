@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class EnemyBulletStatistics {
+public class EnemyBulletStatisticsPlaceHolder {
     public float damage;
 
     public float speed = 10;
@@ -12,7 +12,7 @@ public class EnemyBulletStatistics {
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyBulletProjectile : MonoBehaviour
 {
-    public EnemyBulletStatistics enemyBulletStatistics;
+    public EnemyBulletStatisticsPlaceHolder enemyBulletStatistics;
 
     public Rigidbody projectileRigidbody;
     

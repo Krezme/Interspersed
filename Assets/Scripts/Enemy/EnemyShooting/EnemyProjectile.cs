@@ -65,6 +65,9 @@ public class EnemyProjectile : MonoBehaviour
                 //bulletRigidbody.isKinematic = true;
                 transform.position = hitPos;
             }
+            else if (!other.isTrigger){
+                Destroy(this.gameObject);
+            }
         }
         
     }
