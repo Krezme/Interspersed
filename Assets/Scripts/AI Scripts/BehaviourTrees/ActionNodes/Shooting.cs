@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class ToggleFollowingPlayer : ActionNode
+public class Shooting : ActionNode
 {
-    public bool newState;
-
     protected override void OnStart() {
     }
 
@@ -14,8 +12,9 @@ public class ToggleFollowingPlayer : ActionNode
     }
 
     protected override State OnUpdate() {
-        blackboard.isFollowingPlayer = newState;
 
+        context.enemyshoot.FireBullet(); /// runs a function in EnemyShoot Script (attatched to AI)
         return State.Success;
+  
     }
 }

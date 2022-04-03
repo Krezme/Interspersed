@@ -13,7 +13,7 @@ public class Stop : ActionNode
 
     protected override State OnUpdate() {
 
-        context.agent.destination = context.transform.position;
+        context.agent.destination = context.transform.position; /// makes the AI stop moving 
 
         return State.Success;
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class FollowPlayer : ActionNode
+public class LookAtPlayer : ActionNode
 {
     protected override void OnStart() {
     }
@@ -13,12 +13,7 @@ public class FollowPlayer : ActionNode
 
     protected override State OnUpdate() {
 
-        if (blackboard.isFollowingPlayer)
-        {
-            blackboard.moveToPosition = context.playerObject.transform.position;
-            return State.Running;
-        }
-
+        context.gameObject.transform.LookAt(context.playerObject.transform); /// makes the AI look at the player
         return State.Success;
     }
 }

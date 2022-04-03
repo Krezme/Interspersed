@@ -22,10 +22,11 @@ namespace TheKiwiCoder {
         
         // Add other game specific systems here
 
-        public FieldOfView fieldOfView;
+        public FieldOfView fieldOfView; /// AI's view cone
+        public EnemyShoot enemyshoot; /// Script that lets an AI shoot projectiles
 
-        public GameObject playerObject;
-
+        public GameObject playerObject; /// The Player (good to get components from)
+      
         public InAirPathFinding characterInAirPathFinding;
 
         public CarrierAttacksManager carrierAttacksManager;
@@ -46,6 +47,7 @@ namespace TheKiwiCoder {
             // Add whatever else you need here...
 
             context.fieldOfView = gameObject.GetComponent<FieldOfView>();
+            context.enemyshoot = gameObject.GetComponent<EnemyShoot>();
 
             context.playerObject = GameObject.FindGameObjectWithTag("Player");
 

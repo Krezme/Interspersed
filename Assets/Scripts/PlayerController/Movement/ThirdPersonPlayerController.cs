@@ -6,7 +6,7 @@ using UnityEngine.Animations.Rigging;
 
 public class ThirdPersonPlayerController : MonoBehaviour
 {
-#region Singleton
+    #region Singleton
 
     public static ThirdPersonPlayerController instance;
 
@@ -26,7 +26,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
 #endregion
 
-#region Public Player Vars
+    #region Public Player Vars
     [Header("Player Statistics")]
     public float walkSpeed; // Player walk speed
     public float jogSpeed; // Player jogging speed
@@ -47,7 +47,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float fallCooldown;
 #endregion
 
-#region Phisics Vars
+    #region Phisics Vars
     [Header("Phisics")]
     public float gravity; // the vertival force that pulls the player character downwards
     public float constGravityWhileGrounded = -2f;
@@ -60,9 +60,23 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public float playerCharacterMass;
     public float slideSpeedToStopSliding; // When the slide speed falls below that number the slide will stop and the player will start walking
 
-#endregion
+    #endregion
 
-#region Public Player Grounded Vars
+    #region Knockback Vars
+    Vector3 launchKnockbackDir;
+    float launchKnockbackStrength;
+    float launchKnockbackHeight;
+    bool hasBeenLaunched;
+
+    Vector3 additionalKnockbackTargetDir;
+    float additionalKnockbackHeight;
+
+    float stopStrength; // time incremental stopping multiplier
+    public float stopStrengthMultiplier = 0.1f;
+   
+    #endregion
+
+    #region Public Player Grounded Vars
     [Header("Grounded")]
     public bool isGrounded; // if the player is grounded
     public float groundedOffset = -0.14f; // small offset to make sure the player is prounded even on rough terrain
@@ -71,28 +85,28 @@ public class ThirdPersonPlayerController : MonoBehaviour
     public LayerMask groundLayers; // the layer which the player can stand on and are counted as ground
 #endregion
 
-#region Public Cinemachine Vars
+    #region Public Cinemachine Vars
     [Header("Cinemachine")]
     public GameObject playerCameraRoot; // the camera root under the player object
     public float topClamp = 90f; // The top vertical camera rotation limit
     public float bottomClamp = -50f; // The bottom vertical camera rotation limit
     public bool isCameraLocked; // if the camera is locked 
-#endregion
+    #endregion
 
-#region 
+    #region 
     [Header("Other References")]
     //public GameObject playerBody; // Needed for prototyping
     public GameObject heightCheckFront;
     public GameObject heightCheckBack;
     public Animator animator;
     public RigBuilder rigBuilder;
-#endregion
+    #endregion
 
-#region Private Cinemachine Vars
+    #region Private Cinemachine Vars
     private float camTargetYaw; // current target for the camera horizontal rotation
     private float camTargetPitch; // current target fot the camera vertical rotation
     private float camMoveThreshold; // threshold for minimum mouse movement required to move the camera
-#endregion
+    #endregion
 
     // Current player stats (at the exact moment of the movement)
     private float speed;
@@ -150,6 +164,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         CheckingIfGoingUpOrDownASlope();
         GetSurfaceAngleBelowPlayer();
         PlayerJumpAndGravity();
+        Knockback();
         PlayerMovement();
         //PlayerSliding();
         Attacking();
@@ -213,7 +228,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
         //If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
         StickingToSlopes();
 
-        moveDirection = targetDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime;
+        moveDirection = ((targetDirection.normalized * (speed * Time.deltaTime)) + additionalKnockbackTargetDir ) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime;
 
         SlidingOnOverTheLimitSurface();
 
@@ -240,6 +255,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
         if (isGrounded || !hasJumped) {
             fallCooldownCurrent = fallCooldown;
 
+            
+
             animator.SetBool("Jump", false);
 			animator.SetBool("Falling", false);
 
@@ -252,6 +269,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
             if ((OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) || (OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && delayedJumpCurrentTime < delayedJumpTime && !hasJumped)) {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);   // H * -2 * G to calculate how much velocity is required to reach the desired height
                 delayedJumpCurrentTime = delayedJumpTime;
+                Debug.Log("Has jumped and is it over time ");
                 hasJumped = true;
                 animator.SetBool("Jump", true);
             }
@@ -283,7 +301,50 @@ public class ThirdPersonPlayerController : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;
         }
     }
+
+    /// <summary>
+    /// Applying knockback in a direction, depending on strength and vertical height strength 
+    /// </summary>
+    /// <param name="enemyPosition"> The enemy position (Used to calculate direction)</param>
+    /// <param name="strength"> directional strength (preferably from 0 to 1) </param>
+    /// <param name="height"> vertical push strength (preferably from 0 to 1) </param>
+    public void ApplyKnockback(Vector3 enemyPosition, float strength, float height)
+    {
+        launchKnockbackDir = transform.position - enemyPosition;
+
+        launchKnockbackStrength = strength;
+
+        launchKnockbackHeight = height;
+
+        hasBeenLaunched = true;
+        
+    }
+
+    /// <summary>
+    /// Pushing back the player in direction and height
+    /// </summary>
+    void Knockback()
+    {
+        stopStrength += Time.deltaTime; // time passed from last knockback push
+
+        additionalKnockbackTargetDir = Vector3.Lerp(additionalKnockbackTargetDir, Vector3.zero, stopStrength * stopStrengthMultiplier);
     
+        if (hasBeenLaunched) // applies force backwards
+        {
+            stopStrength = 0; // start timer
+            additionalKnockbackTargetDir = ((launchKnockbackDir.normalized * launchKnockbackStrength) + (transform.up*launchKnockbackHeight)); // calculates the knockback direction and height
+
+            //restarting variables for next knockback
+            hasBeenLaunched = false;
+            launchKnockbackDir = new Vector3();
+            launchKnockbackStrength = 0;
+            launchKnockbackHeight = 0;
+
+        }
+
+        Debug.Log("has grounded = " + isGrounded);
+    }
+
     /// <summary>
     /// If the character is on a slope increase the downwards velocity to make up for the slope and reduce juddering
     /// </summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class Despawn : ActionNode
+public class GetPlayerPosition : ActionNode
 {
     protected override void OnStart() {
     }
@@ -12,6 +12,9 @@ public class Despawn : ActionNode
     }
 
     protected override State OnUpdate() {
+        
+        blackboard.moveToPosition = context.playerObject.transform.position; /// Sets the position it needs to move towards to the player's location
         return State.Success;
+       
     }
 }
