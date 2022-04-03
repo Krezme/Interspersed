@@ -29,7 +29,7 @@ public class IsTargetUnobstructed : DecoratorNode
     /// <returns> Node State </returns>
     protected override State OnUpdate() {
         // Calculated direction to target with the offset
-        Vector3 rayDirection = ((context.playerObject.transform.position + targetPositionOffset) - context.gameObject.transform.position).normalized;
+        Vector3 rayDirection = ((context.playerObject.transform.position + targetPositionOffset) - context.enemyAttacksManager.projectileSpawnPos.position).normalized;
         // Debug.DrawLine(context.gameObject.transform.position, context.gameObject.transform.position + (rayDirection * raycastLenght), Color.blue);
         // Performing the Raycast 
         if (Physics.Raycast(context.gameObject.transform.position, rayDirection, out hit , raycastLenght)) {

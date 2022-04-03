@@ -16,7 +16,7 @@ public class IsCarrierAttackCooldownOver : DecoratorNode
     /// </summary>
     /// <returns> Node State </returns>
     protected override State OnUpdate() {
-        if (context.carrierAttacksManager.attackCurrentCooldown <= 0) {
+        if (context.enemyAttacksManager.attackCurrentCooldown <= 0) {
             return RunChildren();
         }
         return State.Failure;

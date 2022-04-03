@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarrierAttacksManager : MonoBehaviour
+public class EnemyAttacksManager : MonoBehaviour
 {
     public GameObject projectile;
 

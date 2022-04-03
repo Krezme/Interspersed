@@ -312,6 +312,31 @@ MonoBehaviour:
   - {fileID: 1049096335504134270}
   - {fileID: -8260667221276984856}
   - {fileID: -1731868273971172780}
+--- !u!114 &-3033921870501910987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58929f7c4e0b5c1409650a5f0907827c, type: 3}
+  m_Name: Shooting
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 243c0fa33f0897d40a3d07a0482e751a
+  position: {x: -376.00006, y: 1394.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
 --- !u!114 &-2283337567911965520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +445,7 @@ MonoBehaviour:
   drawGizmos: 0
   children:
   - {fileID: 5103886155290198241}
-  - {fileID: 2772124654679550828}
+  - {fileID: -3033921870501910987}
   - {fileID: -5586686421024376060}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -432,7 +457,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
-  m_Name: StrickenBT
+  m_Name: StrickenBT SAFE
   m_EditorClassIdentifier: 
   rootNode: {fileID: 2609447219643541474}
   treeState: 0
@@ -446,6 +471,7 @@ MonoBehaviour:
   - {fileID: -5350338930759541797}
   - {fileID: 7818105569483602971}
   - {fileID: -109026692776886203}
+  - {fileID: -3033921870501910987}
   - {fileID: -1344580897900635814}
   - {fileID: -7581596552879077135}
   - {fileID: -5845354817107686501}
@@ -463,7 +489,6 @@ MonoBehaviour:
   - {fileID: 1049096335504134270}
   - {fileID: -8260667221276984856}
   - {fileID: -1731868273971172780}
-  - {fileID: 2772124654679550828}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -602,31 +627,6 @@ MonoBehaviour:
   description: Root Node for Stricken Behaviour Tree
   drawGizmos: 0
   child: {fileID: -5350338930759541797}
---- !u!114 &2772124654679550828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94e2f6e04b0f1884fa76eb0f26e80cba, type: 3}
-  m_Name: Shoot
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 1b541d1955e0b754bb575b4e70a06df1
-  position: {x: -375.54996, y: 1395.0001}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    playerInAttackRange: 0
-    distance: 0
-    directionToTarget: {x: 0, y: 0, z: 0}
-    isCurrentlyDiveBombing: 0
-  description: 
-  drawGizmos: 0
 --- !u!114 &5103886155290198241
 MonoBehaviour:
   m_ObjectHideFlags: 0

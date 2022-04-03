@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class CarrierShoot : ActionNode
+public class Shoot : ActionNode
 {
     protected override void OnStart() {
     }
@@ -12,7 +12,7 @@ public class CarrierShoot : ActionNode
     }
 
     protected override State OnUpdate() {
-        context.carrierAttacksManager.ShootProjectile(blackboard.directionToTarget); // Shooting projectile
+        context.enemyAttacksManager.ShootProjectile(blackboard.directionToTarget); // Shooting projectile
         return State.Success;
     }
 }

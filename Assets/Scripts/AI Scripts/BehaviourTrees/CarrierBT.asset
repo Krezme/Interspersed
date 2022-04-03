@@ -19,6 +19,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Starts Attack Cooldown
@@ -42,6 +44,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Carrier Behaviour Tree
@@ -66,6 +70,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Prevents the rest of the branch from running if the IsCurrentlyDiveBombing
@@ -73,6 +79,56 @@ MonoBehaviour:
   drawGizmos: 0
   child: {fileID: -643098097557621263}
   playWhenDiveBombing: 0
+--- !u!114 &-7858215299435227169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Shoot
+  m_EditorClassIdentifier: Assembly-CSharp::Shoot
+  state: 0
+  started: 0
+  guid: 7b1c1f07681955947887de997fc25249
+  position: {x: -684.00006, y: 1586}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &-6845448331957155131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e2f6e04b0f1884fa76eb0f26e80cba, type: 3}
+  m_Name: Shoot
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: f819f99c1b94fbd4a9a18f22dfb559e9
+  position: {x: -709.0001, y: 1557.55}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
 --- !u!114 &-6822423698691781376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +148,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Targets the player's position to prepare for a dive bomb
@@ -117,6 +175,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: waits a periot of time
@@ -141,6 +201,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 
@@ -165,6 +227,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Checking if the Carrier's attack cooldown is over
@@ -189,6 +253,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Sets the blackboard's IsCurrentlyDiveBombing to true
@@ -213,6 +279,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Randomising the enemy new move to position, moving to that position,
@@ -228,37 +296,6 @@ MonoBehaviour:
   - {fileID: 1624504726580573287}
   - {fileID: 1624504726580573287}
   - {fileID: -6243395997554961687}
---- !u!114 &-4069093174454492025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
-  m_Name: Sequencer
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: d78fc0e9b90e07c499aae24192d25461
-  position: {x: -284, y: 1429}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    directionToTarget: {x: 0, y: 0, z: 0}
-    isCurrentlyDiveBombing: 0
-  description: 
-  drawGizmos: 0
-  children:
-  - {fileID: -5081344128281495518}
-  - {fileID: -6822423698691781376}
-  - {fileID: -6154249636194599097}
-  - {fileID: -1774270439108305391}
-  - {fileID: -1857664690686070117}
-  - {fileID: -1730454168573294921}
-  - {fileID: -9081740822762776036}
 --- !u!114 &-3941586025795901423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +315,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Checking if the targer (Player) is not obstructed by anything
@@ -307,6 +346,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Runs the Left most runable child
@@ -339,6 +380,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 'Wander Branch
@@ -368,6 +411,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Moving to the blackboard's move to position
@@ -400,6 +445,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Starts Attack Cooldown
@@ -423,6 +470,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 
@@ -447,6 +496,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Following the player's position as the enemy divebombs
@@ -472,11 +523,46 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Sets the blackboard's IsCurrentlyDiveBombing to false
   drawGizmos: 0
   isDiveBombing: 0
+--- !u!114 &-868178784541340268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
+  m_Name: Sequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 3a99c0bd1eeadaf4aacdc3ca18c1d127
+  position: {x: -307.84995, y: 1428.3502}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: -5081344128281495518}
+  - {fileID: -6822423698691781376}
+  - {fileID: -6154249636194599097}
+  - {fileID: -1774270439108305391}
+  - {fileID: -1857664690686070117}
+  - {fileID: -1730454168573294921}
+  - {fileID: -9081740822762776036}
 --- !u!114 &-643098097557621263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,6 +582,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Following the player's position and add a height offset to make the
@@ -522,6 +610,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 'Interaction with the player.
@@ -553,7 +643,6 @@ MonoBehaviour:
   nodes:
   - {fileID: -8511410832265660733}
   - {fileID: 8298048546186481316}
-  - {fileID: -4233336839160371223}
   - {fileID: 8093224043324595051}
   - {fileID: 1624504726580573287}
   - {fileID: -6243395997554961687}
@@ -567,12 +656,9 @@ MonoBehaviour:
   - {fileID: -6091861694583057463}
   - {fileID: 4739288410195177322}
   - {fileID: -3941586025795901423}
-  - {fileID: 7694526077247617424}
-  - {fileID: 8841828693097003059}
   - {fileID: -2303665082843928284}
   - {fileID: 146322992806252240}
   - {fileID: -8021375742938082245}
-  - {fileID: -4069093174454492025}
   - {fileID: -5081344128281495518}
   - {fileID: -2895495857267230650}
   - {fileID: -6154249636194599097}
@@ -583,9 +669,14 @@ MonoBehaviour:
   - {fileID: -9081740822762776036}
   - {fileID: 1366547610882318116}
   - {fileID: -1857664690686070117}
+  - {fileID: 7113278445307429864}
+  - {fileID: -868178784541340268}
+  - {fileID: -6845448331957155131}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
 --- !u!114 &146322992806252240
@@ -607,6 +698,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 
@@ -633,6 +726,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Repeating the wander branch.
@@ -659,6 +754,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 
@@ -684,13 +781,16 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Selector to manually set odds for each connected node
   drawGizmos: 0
   children:
-  - {fileID: 8841828693097003059}
-  - {fileID: -4069093174454492025}
+  - {fileID: 7113278445307429864}
+  - {fileID: -868178784541340268}
+  - {fileID: 0}
   numberOfChildrenAndTheirOdds: 0400000001000000
 --- !u!114 &1624504726580573287
 MonoBehaviour:
@@ -711,6 +811,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Moving to the blackboard's move to position
@@ -743,6 +845,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 
@@ -768,6 +872,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 
@@ -793,6 +899,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 
@@ -819,6 +927,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 'Left - Follow Player
@@ -848,12 +958,42 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: 
   drawGizmos: 0
   child: {fileID: 0}
   heightAboveTarget: 10
+--- !u!114 &7113278445307429864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
+  m_Name: Sequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: da04aeb3ad3f8e544b84633ce10e6386
+  position: {x: -544.85004, y: 1432.8501}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: -6845448331957155131}
+  - {fileID: -2303665082843928284}
 --- !u!114 &7694526077247617424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,10 +1013,37 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Calls the ShootProjectile function from CarrierAttacksManager to shoot
     a projectile
+  drawGizmos: 0
+--- !u!114 &7872280296223929968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e2f6e04b0f1884fa76eb0f26e80cba, type: 3}
+  m_Name: Shoot
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d3dc95c676db09640b88e57e80e22ca6
+  position: {x: -732, y: 1555}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
   drawGizmos: 0
 --- !u!114 &8093224043324595051
 MonoBehaviour:
@@ -897,6 +1064,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Randomising the enemy new move to position
@@ -922,6 +1091,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Keeping the Behaviour Tree running in all cases
@@ -948,6 +1119,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Moving to the blackboard's move to position
@@ -961,32 +1134,6 @@ MonoBehaviour:
     changeSpeedMultiplier: 1
     rotationSpeed: 1
     stoppingDistance: 3
---- !u!114 &8841828693097003059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
-  m_Name: Sequencer
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 7fcd523ae0d5f64489bb81b60bf64406
-  position: {x: -524, y: 1429}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    directionToTarget: {x: 0, y: 0, z: 0}
-    isCurrentlyDiveBombing: 0
-  description: 
-  drawGizmos: 0
-  children:
-  - {fileID: 7694526077247617424}
-  - {fileID: -2303665082843928284}
 --- !u!114 &9001438468420264184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,6 +1153,8 @@ MonoBehaviour:
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
   description: Moving to the blackboard's move to position
