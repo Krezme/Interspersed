@@ -114,60 +114,6 @@ MonoBehaviour:
   children:
   - {fileID: -7581596552879077135}
   - {fileID: 7818105569483602971}
---- !u!114 &-5703040215286822600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
-  m_Name: Sequencer
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: fc1c27721efe52b40993cdb6015d6e0e
-  position: {x: -379.0001, y: 417.56467}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    playerInAttackRange: 0
-    distance: 0
-    directionToTarget: {x: 0, y: 0, z: 0}
-    isCurrentlyDiveBombing: 0
-  description: 
-  drawGizmos: 0
-  children:
-  - {fileID: 6972929228210767284}
-  - {fileID: 837993108924165611}
---- !u!114 &-5586686421024376060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5134d9de14153468b48928d3e7359a, type: 3}
-  m_Name: Wait
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 2057e515775236f4cb26b81629cac8c5
-  position: {x: -226.00003, y: 1394.6667}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    playerInAttackRange: 0
-    distance: 0
-    directionToTarget: {x: 0, y: 0, z: 0}
-    isCurrentlyDiveBombing: 0
-  description: 
-  drawGizmos: 0
-  duration: 3
 --- !u!114 &-5350338930759541797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +258,33 @@ MonoBehaviour:
   - {fileID: 1049096335504134270}
   - {fileID: -8260667221276984856}
   - {fileID: -1731868273971172780}
+--- !u!114 &-3008317618830420747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e933ddbdbdfb0d4fb2876d5e347548c, type: 3}
+  m_Name: HasSeenTarget
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: bf6c5790d89d7ed4bb80bffc9072cbfd
+  position: {x: -378.40002, y: 416}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 837993108924165611}
+  playOnFoundTarget: 1
 --- !u!114 &-2283337567911965520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +311,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   children:
-  - {fileID: -5703040215286822600}
+  - {fileID: -3008317618830420747}
   - {fileID: -5119590184305143602}
 --- !u!114 &-1731868273971172780
 MonoBehaviour:
@@ -391,7 +364,7 @@ MonoBehaviour:
     isCurrentlyDiveBombing: 0
   description: Checks to see if the AI is in shooting Range
   drawGizmos: 0
-  child: {fileID: -109026692776886203}
+  child: {fileID: 6149753954380366012}
   attackRange: 5
 --- !u!114 &-109026692776886203
 MonoBehaviour:
@@ -408,7 +381,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: d8cf11dde1092844881ceaaf0196f8e8
-  position: {x: -376, y: 1222.0925}
+  position: {x: -376, y: 1493.0775}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -421,7 +394,7 @@ MonoBehaviour:
   children:
   - {fileID: 5103886155290198241}
   - {fileID: 2772124654679550828}
-  - {fileID: -5586686421024376060}
+  - {fileID: 1365643779281144265}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,10 +424,7 @@ MonoBehaviour:
   - {fileID: -5845354817107686501}
   - {fileID: -3814708544313344020}
   - {fileID: 9156471003910233207}
-  - {fileID: -5586686421024376060}
   - {fileID: 837993108924165611}
-  - {fileID: -5703040215286822600}
-  - {fileID: 6972929228210767284}
   - {fileID: 5103886155290198241}
   - {fileID: -4079860040819962201}
   - {fileID: 6930914015782250000}
@@ -464,6 +434,10 @@ MonoBehaviour:
   - {fileID: -8260667221276984856}
   - {fileID: -1731868273971172780}
   - {fileID: 2772124654679550828}
+  - {fileID: 2357495203017565896}
+  - {fileID: -3008317618830420747}
+  - {fileID: 6149753954380366012}
+  - {fileID: 1365643779281144265}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -515,6 +489,31 @@ MonoBehaviour:
   started: 0
   guid: 41221beea76d1c0499bdd4886f8eb60e
   position: {x: -1075.3333, y: 1394.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &1365643779281144265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fb2f131cecd1b4789e18a994e384b6, type: 3}
+  m_Name: StartCarrierAttackCooldown
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 3ccf8c3c6b9c3664bbf1583f3d1d84b0
+  position: {x: -217.99991, y: 1652}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -576,6 +575,37 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   wanderRange: 10
+--- !u!114 &2357495203017565896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5f72abb111ae941848795b05df939d, type: 3}
+  m_Name: IsTargetUnobstructed
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b3ecd95170cfb484e800440f38835538
+  position: {x: -384.80008, y: 1358.4}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: Checks to see if the view of the player is obstructed
+  drawGizmos: 0
+  child: {fileID: -109026692776886203}
+  raycastLenght: 100
+  targetPositionOffset: {x: 0, y: 1, z: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &2609447219643541474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,7 +647,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 1b541d1955e0b754bb575b4e70a06df1
-  position: {x: -375.54996, y: 1395.0001}
+  position: {x: -376, y: 1652.2775}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -642,7 +672,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 07b3e5f6ebafb524aa3bed686cb93d3c
-  position: {x: -529.33344, y: 1394.6667}
+  position: {x: -530.3999, y: 1652.2775}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     isFollowingPlayer: 0
@@ -652,6 +682,32 @@ MonoBehaviour:
     isCurrentlyDiveBombing: 0
   description: 
   drawGizmos: 0
+--- !u!114 &6149753954380366012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef5c52ea979cbd4c98cb753ab700b4d, type: 3}
+  m_Name: IsCarrierAttackCooldownOver
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d0a65949993e26a42a7490d7e3b4d8c2
+  position: {x: -412.0327, y: 1221.6}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 2357495203017565896}
 --- !u!114 &6930914015782250000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,31 +735,6 @@ MonoBehaviour:
   drawGizmos: 0
   child: {fileID: -3747793173166864671}
   attackRange: 1
---- !u!114 &6972929228210767284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd2e662f24b323b4d98a7a16cbefc558, type: 3}
-  m_Name: HasSeenPlayer
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 5ef9f9169b022914a9c58116e0fd311a
-  position: {x: -573.91345, y: 591.12506}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    playerInAttackRange: 0
-    distance: 0
-    directionToTarget: {x: 0, y: 0, z: 0}
-    isCurrentlyDiveBombing: 0
-  description: Checks to see if Player is visible to AI
-  drawGizmos: 0
 --- !u!114 &7647925052245068975
 MonoBehaviour:
   m_ObjectHideFlags: 0

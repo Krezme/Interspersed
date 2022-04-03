@@ -23,7 +23,7 @@ public class EnemyAttacksManager : MonoBehaviour
 
     public void ShootProjectile(Vector3 direction) {
         GameObject currentProjectile = Instantiate(projectile, projectileSpawnPos.position, Quaternion.LookRotation(direction, Vector3.up));
-        currentProjectile.GetComponent<EnemyBulletProjectile>().SetProjectileStatistics(enemyStatisticsManager.currentStats.damage);
+        currentProjectile.GetComponent<EnemyProjectile>().SetProjectileStatistics(enemyStatisticsManager.currentStats.damage);
     }
 
 }

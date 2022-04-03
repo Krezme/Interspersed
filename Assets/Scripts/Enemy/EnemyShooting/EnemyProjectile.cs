@@ -41,6 +41,10 @@ public class EnemyProjectile : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    public void SetProjectileStatistics(float damage)
+    {
+        statistics.damage = damage;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
