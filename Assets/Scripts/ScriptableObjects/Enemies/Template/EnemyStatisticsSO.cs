@@ -9,4 +9,6 @@ public class EnemyStatisticsSO : ScriptableObject
     public float health;
     public string description;
     public float damage;
+    public float knockbackStrength;
+    public float knockbackHeight;
 }

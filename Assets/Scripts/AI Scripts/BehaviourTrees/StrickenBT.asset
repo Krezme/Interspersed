@@ -1,0 +1,929 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9092695605095890007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5e8427576fe02419a7c61b0ca5cde6, type: 3}
+  m_Name: LookAtPlayer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: a759b54586cb89a458cfab95216592f3
+  position: {x: -1225.3333, y: 1394.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &-8260667221276984856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fadd0fecd8dcb4bae3999f87c1f330, type: 3}
+  m_Name: Animation
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 5c801110259e1384f9121722eea323ce
+  position: {x: -925.33344, y: 1394.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: Melee animation
+  drawGizmos: 0
+  floatEntry: 0
+  intEntry: 0
+  boolEntry: 0
+  setFloat: 0
+  setInt: 0
+  setBool: 0
+  setTrigger: 1
+  floatName: 
+  intName: 
+  boolName: 
+  triggerName: isAttacking
+--- !u!114 &-7581596552879077135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e9e2c7277522048bdf13868c5820ba, type: 3}
+  m_Name: GetPlayerPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: f60ad8d910326684aa4ba2196d5428ea
+  position: {x: -83.665985, y: 1070.0835}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &-6810346059467752332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fadd0fecd8dcb4bae3999f87c1f330, type: 3}
+  m_Name: Animation
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: af7e4ab7689919348a789eeaa414bf6f
+  position: {x: -447.2, y: 1652}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: Start Shooting animation
+  drawGizmos: 0
+  floatEntry: 0
+  intEntry: 0
+  boolEntry: 0
+  setFloat: 0
+  setInt: 0
+  setBool: 0
+  setTrigger: 1
+  floatName: 
+  intName: 
+  boolName: 
+  triggerName: isShooting
+--- !u!114 &-5845354817107686501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
+  m_Name: Sequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b1dcc0a251805544ebfc1be27709a947
+  position: {x: 18.457232, y: 937.39764}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: Chases the player
+  drawGizmos: 0
+  children:
+  - {fileID: -7581596552879077135}
+  - {fileID: 7818105569483602971}
+--- !u!114 &-5350338930759541797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: Repeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 1
+  guid: 8489b0d0a0747154791d9fa08363e96b
+  position: {x: 1.2000122, y: 108.79997}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: -2283337567911965520}
+  restartOnSuccess: 1
+  restartOnFailure: 0
+--- !u!114 &-5119590184305143602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
+  m_Name: Sequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 3089909eec0ec674e8628f60afb0d207
+  position: {x: 282.4001, y: 416.1583}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: The sequence lets the AI wander around the environment
+  drawGizmos: 0
+  children:
+  - {fileID: 2109234638992504062}
+  - {fileID: 7647925052245068975}
+  - {fileID: 1498742840824364835}
+--- !u!114 &-4079860040819962201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: Repeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d4424a0563e3a5d4795048ad891c4b69
+  position: {x: -775.3818, y: 934.6665}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 6930914015782250000}
+  restartOnSuccess: 1
+  restartOnFailure: 0
+--- !u!114 &-3814708544313344020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bf77e26564daa41815cba042a730aa, type: 3}
+  m_Name: InterruptSelector
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: c6765e9481c11a64b99ee4b8b884f2a7
+  position: {x: -378.39996, y: 740}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: -4079860040819962201}
+  - {fileID: 9156471003910233207}
+  - {fileID: -5845354817107686501}
+--- !u!114 &-3747793173166864671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
+  m_Name: Sequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 5ba9cfe08077270499ba4b2b5aeecb3d
+  position: {x: -775.33325, y: 1221.9998}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: The sequence that lets the AI melee attack the player
+  drawGizmos: 0
+  children:
+  - {fileID: -9092695605095890007}
+  - {fileID: 1049096335504134270}
+  - {fileID: -8260667221276984856}
+  - {fileID: -1731868273971172780}
+--- !u!114 &-3344741376977404617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef5c52ea979cbd4c98cb753ab700b4d, type: 3}
+  m_Name: IsAttackCooldownOver
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d3eabb543d3abf74d83b67d2a20f6de8
+  position: {x: -388.96744, y: 1230.0001}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 2357495203017565896}
+--- !u!114 &-3008317618830420747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e933ddbdbdfb0d4fb2876d5e347548c, type: 3}
+  m_Name: HasSeenTarget
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: bf6c5790d89d7ed4bb80bffc9072cbfd
+  position: {x: -378.40002, y: 416}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: 837993108924165611}
+  playOnFoundTarget: 1
+--- !u!114 &-2283337567911965520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bf77e26564daa41815cba042a730aa, type: 3}
+  m_Name: InterruptSelector
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 1
+  guid: 52e30ed57f3843a4da55f1bb7ae9efa7
+  position: {x: 0.000038146973, y: 236.8791}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: -3008317618830420747}
+  - {fileID: -5119590184305143602}
+--- !u!114 &-1731868273971172780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5134d9de14153468b48928d3e7359a, type: 3}
+  m_Name: Wait
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: dee20ba5ffc6eb240b2df80f24ee85fd
+  position: {x: -775.33344, y: 1394.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  duration: 1
+--- !u!114 &-1344580897900635814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a416bc9bfde0a524790d95e1a7b6ae0b, type: 3}
+  m_Name: IsInAttackRange
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 4dfbfc01c17bd1b41adb9e724aff69e9
+  position: {x: -376, y: 1068}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: Checks to see if the AI is in shooting Range
+  drawGizmos: 0
+  child: {fileID: -3344741376977404617}
+  attackRange: 5
+--- !u!114 &-1069854046570391582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fadd0fecd8dcb4bae3999f87c1f330, type: 3}
+  m_Name: Animation
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: a050e4ef4647d2146948c6a941bbbba8
+  position: {x: 178.66663, y: 1652.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  floatEntry: 0
+  intEntry: 0
+  boolEntry: 0
+  setFloat: 0
+  setInt: 0
+  setBool: 0
+  setTrigger: 1
+  floatName: 
+  intName: 
+  boolName: 
+  triggerName: isReloading
+--- !u!114 &-109026692776886203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
+  m_Name: Sequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d8cf11dde1092844881ceaaf0196f8e8
+  position: {x: -376, y: 1493.0775}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: The sequence that lets the AI shoot at the player
+  drawGizmos: 0
+  children:
+  - {fileID: 5103886155290198241}
+  - {fileID: -6810346059467752332}
+  - {fileID: 7581486147483797441}
+  - {fileID: 2772124654679550828}
+  - {fileID: 6742053364536575628}
+  - {fileID: -1069854046570391582}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: StrickenBT
+  m_EditorClassIdentifier: 
+  rootNode: {fileID: 2609447219643541474}
+  treeState: 0
+  nodes:
+  - {fileID: 2609447219643541474}
+  - {fileID: 2109234638992504062}
+  - {fileID: 7647925052245068975}
+  - {fileID: 1498742840824364835}
+  - {fileID: -2283337567911965520}
+  - {fileID: -5119590184305143602}
+  - {fileID: -5350338930759541797}
+  - {fileID: 7818105569483602971}
+  - {fileID: -109026692776886203}
+  - {fileID: -1344580897900635814}
+  - {fileID: -7581596552879077135}
+  - {fileID: -5845354817107686501}
+  - {fileID: -3814708544313344020}
+  - {fileID: 9156471003910233207}
+  - {fileID: 837993108924165611}
+  - {fileID: 5103886155290198241}
+  - {fileID: -4079860040819962201}
+  - {fileID: 6930914015782250000}
+  - {fileID: -3747793173166864671}
+  - {fileID: -9092695605095890007}
+  - {fileID: 1049096335504134270}
+  - {fileID: -8260667221276984856}
+  - {fileID: -1731868273971172780}
+  - {fileID: 2772124654679550828}
+  - {fileID: 2357495203017565896}
+  - {fileID: -3008317618830420747}
+  - {fileID: -3344741376977404617}
+  - {fileID: 6742053364536575628}
+  - {fileID: -6810346059467752332}
+  - {fileID: 7581486147483797441}
+  - {fileID: -1069854046570391582}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+--- !u!114 &837993108924165611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: Repeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 9755e7cd7941aff4c86c9002af3c9d5e
+  position: {x: -377.95834, y: 588}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: -3814708544313344020}
+  restartOnSuccess: 1
+  restartOnFailure: 0
+--- !u!114 &1049096335504134270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38666b0bd2292b6498a467ac6a3ce2c5, type: 3}
+  m_Name: Stop
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 41221beea76d1c0499bdd4886f8eb60e
+  position: {x: -1075.3333, y: 1394.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &1498742840824364835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5134d9de14153468b48928d3e7359a, type: 3}
+  m_Name: Wait
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 433155ed032a0134ea9f2e7a52f15ff6
+  position: {x: 493.5369, y: 638.13556}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  duration: 1
+--- !u!114 &2109234638992504062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27524e2edbca3c4eb8ee9e843d7a8b5, type: 3}
+  m_Name: RandomLocalPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 05a13d543a7a40e408baed4f5d93e859
+  position: {x: 74.53682, y: 638.13556}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  wanderRange: 10
+--- !u!114 &2357495203017565896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5f72abb111ae941848795b05df939d, type: 3}
+  m_Name: IsTargetUnobstructed
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b3ecd95170cfb484e800440f38835538
+  position: {x: -381.33322, y: 1358.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: Checks to see if the view of the player is obstructed
+  drawGizmos: 0
+  child: {fileID: -109026692776886203}
+  raycastLenght: 100
+  targetPositionOffset: {x: 0, y: 1, z: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &2609447219643541474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163c147d123e4a945b688eddc64e3ea5, type: 3}
+  m_Name: RootNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 1
+  guid: ce60c63956da79f439373d8fa9b8af3d
+  position: {x: 0, y: 0}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: Root Node for Stricken Behaviour Tree
+  drawGizmos: 0
+  child: {fileID: -5350338930759541797}
+--- !u!114 &2772124654679550828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e2f6e04b0f1884fa76eb0f26e80cba, type: 3}
+  m_Name: Shoot
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 1b541d1955e0b754bb575b4e70a06df1
+  position: {x: -138.9158, y: 1652.6667}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &5103886155290198241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5e8427576fe02419a7c61b0ca5cde6, type: 3}
+  m_Name: LookAtPlayer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 07b3e5f6ebafb524aa3bed686cb93d3c
+  position: {x: -596.80005, y: 1652}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &6742053364536575628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fb2f131cecd1b4789e18a994e384b6, type: 3}
+  m_Name: StartAttackCooldown
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 384821ad01415454c8a25a9bfd90cbee
+  position: {x: 15.750892, y: 1652}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+--- !u!114 &6930914015782250000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a416bc9bfde0a524790d95e1a7b6ae0b, type: 3}
+  m_Name: IsInAttackRange
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b898c734b7abca541bfa3f68298857b6
+  position: {x: -775.3818, y: 1067.9998}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: Checks to see if player is in melee range
+  drawGizmos: 0
+  child: {fileID: -3747793173166864671}
+  attackRange: 1.5
+--- !u!114 &7581486147483797441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5134d9de14153468b48928d3e7359a, type: 3}
+  m_Name: Wait
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 1f62420ea87a6334186d1e942f7cb96e
+  position: {x: -297.33325, y: 1652}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  duration: 1.2
+--- !u!114 &7647925052245068975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4489e3e257543504c8fc9f891246af6c, type: 3}
+  m_Name: MoveToPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 003fd10e8bc08ce448d5cdfef2c49b3a
+  position: {x: 280.53683, y: 638.13556}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  speed: 5
+  stoppingDistance: 0.1
+  updateRotation: 1
+  acceleration: 40
+  tolerance: 1
+--- !u!114 &7818105569483602971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4489e3e257543504c8fc9f891246af6c, type: 3}
+  m_Name: MoveToPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: bb2159c22b1b39a4cb58c135cab4ba92
+  position: {x: 121.16698, y: 1070.4791}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  speed: 5
+  stoppingDistance: 5
+  updateRotation: 1
+  acceleration: 40
+  tolerance: 5
+--- !u!114 &9156471003910233207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: Repeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: f16bb1e9ad3317945a6c41d5059c79f5
+  position: {x: -375.9999, y: 934.7165}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+  description: 
+  drawGizmos: 0
+  child: {fileID: -1344580897900635814}
+  restartOnSuccess: 1
+  restartOnFailure: 0

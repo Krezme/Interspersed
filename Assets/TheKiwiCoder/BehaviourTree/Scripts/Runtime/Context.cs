@@ -19,12 +19,18 @@ namespace TheKiwiCoder {
         public BoxCollider boxCollider;
         public CapsuleCollider capsuleCollider;
         public CharacterController characterController;
+        
         // Add other game specific systems here
 
-        public FieldOfView fieldOfView;
+        public FieldOfView fieldOfView; /// AI's view cone
+        public EnemyShoot enemyshoot; /// Script that lets an AI shoot projectiles
 
-        public GameObject playerObject;
+        public GameObject playerObject; /// The Player (good to get components from)
+      
+        public InAirPathFinding characterInAirPathFinding;
 
+        public EnemyAttacksManager enemyAttacksManager;
+        
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
             Context context = new Context();
@@ -41,8 +47,13 @@ namespace TheKiwiCoder {
             // Add whatever else you need here...
 
             context.fieldOfView = gameObject.GetComponent<FieldOfView>();
+            context.enemyshoot = gameObject.GetComponent<EnemyShoot>();
 
             context.playerObject = GameObject.FindGameObjectWithTag("Player");
+
+            context.characterInAirPathFinding = gameObject.GetComponent<InAirPathFinding>();
+            
+            context.enemyAttacksManager = gameObject.GetComponent<EnemyAttacksManager>();
 
             return context;
         }

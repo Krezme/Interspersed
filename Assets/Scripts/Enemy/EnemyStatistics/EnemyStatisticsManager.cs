@@ -7,11 +7,12 @@ using TheKiwiCoder;
 public class CurrentStats {
     public float health;
     public float damage;
+    public float knockbackStrength;
+    public float knockbackHeight;
 }
 
 public class EnemyStatisticsManager : MonoBehaviour
 {
-
     public EnemyStatisticsSO statisticsSO;
 
     public CurrentStats currentStats;
@@ -37,12 +38,16 @@ public class EnemyStatisticsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        behaviourTreeRunner.context.animator.SetFloat("speed", behaviourTreeRunner.context.agent.velocity.magnitude);
+        if (behaviourTreeRunner.context.agent != null) {
+            behaviourTreeRunner.context.animator.SetFloat("speed", behaviourTreeRunner.context.agent.velocity.magnitude);
+        }
     }
 
     public void SetStatsFromSO () {
         currentStats.health = statisticsSO.health;
         currentStats.damage = statisticsSO.damage;
+        currentStats.knockbackStrength = statisticsSO.knockbackStrength;
+        currentStats.knockbackHeight = statisticsSO.knockbackHeight;
     }
 
     public void TakeDamage (float damage) {
@@ -66,6 +71,8 @@ public class EnemyStatisticsManager : MonoBehaviour
         healthBarCanvas.SetActive(false);
         if (ragdollController != null) {
             ragdollController.RagdollOn();
+        }else {
+            Destroy(this.gameObject);
         }
         WarplingDeath.PlayRandomClip();
     }

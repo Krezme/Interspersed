@@ -12,8 +12,8 @@ public class HasSeenPlayer : ActionNode
     }
 
     protected override State OnUpdate() {
-
-        if (context.fieldOfView.targetvisible)
+        
+        if (context.fieldOfView.targetvisible) /// Checks to see if the player is visible using the field of view script (attatched to the AI object)
         {
             return State.Success;
         }
@@ -21,6 +21,5 @@ public class HasSeenPlayer : ActionNode
         {
             return State.Failure;
         }
-        
     }
 }
