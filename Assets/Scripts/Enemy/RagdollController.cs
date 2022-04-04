@@ -12,9 +12,9 @@ public class RagdollController : MonoBehaviour
 
     private Transform rigPositionOffset; 
 
-    //[HideInInspector]
+    [HideInInspector]
     public Collider[] ragdollColliders; // all colliders used for the ragdoll in the joints
-    //[HideInInspector]
+    [HideInInspector]
     public Rigidbody[] ragdollRigidbodies; // all rigidbodies used for the ragdoll in the joints
 
     public GameObject rig; // rig of the character
