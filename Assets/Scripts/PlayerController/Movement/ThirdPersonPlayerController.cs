@@ -342,7 +342,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
         }
 
-        Debug.Log("has grounded = " + isGrounded);
     }
 
     /// <summary>

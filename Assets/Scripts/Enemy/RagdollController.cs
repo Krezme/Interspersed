@@ -12,9 +12,9 @@ public class RagdollController : MonoBehaviour
 
     private Transform rigPositionOffset; 
 
-    [HideInInspector]
+    //[HideInInspector]
     public Collider[] ragdollColliders; // all colliders used for the ragdoll in the joints
-    [HideInInspector]
+    //[HideInInspector]
     public Rigidbody[] ragdollRigidbodies; // all rigidbodies used for the ragdoll in the joints
 
     public GameObject rig; // rig of the character
@@ -22,6 +22,7 @@ public class RagdollController : MonoBehaviour
     public bool ragdolling; // if it is currently ragdolling
     public EnemyStatisticsManager enemyStatisticsManager; // The enemy statistics manager attacked to the root game object
     public MonoBehaviour[] monoBehaviourToggle; // scripts to toggle (on and off) when ragdolling
+    public bool objectMovesWithRigidbodyPhysics;
 
     public GameObject rigCentre; // the centre of the rig
 
@@ -40,15 +41,15 @@ public class RagdollController : MonoBehaviour
 
     void Update()
     {
-        //thisRigidbody.isKinematic = false;
+        //thisRigidbody.isKinematic = true;
     }
 
     /// <summary>
     /// Finding all colliders and rigidbodies used for the ragdolling and saves them
     /// </summary>
     private void GatherRagdollColliders () {
-        ragdollColliders = GetComponentsInChildren<Collider>();
-        ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
+        ragdollColliders = rig.GetComponentsInChildren<Collider>();
+        ragdollRigidbodies = rig.GetComponentsInChildren<Rigidbody>();
     }
 
     /// <summary>
@@ -70,7 +71,7 @@ public class RagdollController : MonoBehaviour
         }
         if (thisRigidbody != null) {
             thisRigidbody.useGravity = false;
-            thisRigidbody.isKinematic = false;
+            thisRigidbody.isKinematic = !objectMovesWithRigidbodyPhysics;
         }
         if (thisAnimatior != null) {
             thisAnimatior.enabled = true;
