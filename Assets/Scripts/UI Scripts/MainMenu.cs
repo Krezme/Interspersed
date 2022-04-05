@@ -73,8 +73,7 @@ public class MainMenu : MonoBehaviour
     public void Credits()
     {
         EventSystem.current.SetSelectedGameObject(creditsBackButton);
-        creditsCanvas.SetActive(true);
-        mainMenuCanvas.SetActive(false);
+        SceneManager.LoadScene("Credits");
     }
 
     public void ReturnToMainMenu()
