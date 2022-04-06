@@ -29,7 +29,7 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
 
     private LayerMask layers;
     public UnityEvent OnEnter;
-    private InventoryController.InventoryChecker[] inventoryChecks; //Anything referring to this is essentially a redundant dependency from another script of mine, hence why I made it private - Currently cba to write it out since it works
+    
 
     void OnTriggerEnter(Collider other)
     {
@@ -69,9 +69,5 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
     protected virtual void ExecuteOnEnter(Collider other)
     {
         OnEnter.Invoke();
-        /* for (var i = 0; i < inventoryChecks.Length; i++)
-        {
-            inventoryChecks[i].CheckInventory(other.GetComponentInChildren<InventoryController>());
-        } */
     }
 }
