@@ -18,6 +18,7 @@ public class CursorManager : MonoBehaviour
 
     public bool cursorLocked = true;
     public bool isESC;
+    public bool lockOnFocus = true;
 
     /// <summary>
     /// Sets the cursor state to cursorLocked variable
@@ -34,9 +35,12 @@ public class CursorManager : MonoBehaviour
 	{
         if (!isESC)
         {
-            SetCursorState(isFocused);
+            if (lockOnFocus)
+            {
+                SetCursorState(isFocused);
+            }
         }
-	}
+    }
 
     /// <summary>
     /// Sets the state of the curser true = locked, false = unlocked

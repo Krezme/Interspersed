@@ -9,7 +9,6 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsCanvas;
     public GameObject mainMenuCanvas;
     public GameObject controlsCanvas;
-    public GameObject creditsCanvas;
 
     public GameObject cutScene1;
     public GameObject cutScene2;
@@ -25,7 +24,6 @@ public class MainMenu : MonoBehaviour
         mainMenuCanvas.SetActive(true);
         optionsCanvas.SetActive(false);
         controlsCanvas.SetActive(false);
-        creditsCanvas.SetActive(false);
     }
 
     public void StartGame()
@@ -81,7 +79,6 @@ public class MainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(startButton);
         optionsCanvas.SetActive(false);
         controlsCanvas.SetActive(false);
-        creditsCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
     }
 
