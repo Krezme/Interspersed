@@ -69,7 +69,6 @@ public class BulletProjectile : MonoBehaviour
     {
         Vector3 hitPos = transform.position;
         if (!hasCollided) {
-            Debug.Log(other.gameObject.name + "------------------------------------------------------------------------------- ");
             BulletImpact.PlayRandomClip();
 
             if (other.tag == "Enemy") { 

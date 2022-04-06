@@ -93,7 +93,10 @@ public class SlimeArm : PlayerAbility
                                 grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                             }
 
-                            if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) {
+                            if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) { // ! This is the reason why the enemies cannot go into a parent game object
+                                if (grabbedRagdoll.rig.TryGetComponent<PhysicsDamageableObject>(out PhysicsDamageableObject grabbedPhysicsDamageableObject)) {
+                                    // ! FINISH THIS TO REMOVE THE PHYSICSDAMAGEABLEOBJECT
+                                }
                                 grabbedRagdoll.pickedUpByPlayer = true;
                                 Debug.Log("Running Ragdoll");
                                 grabbedRagdoll.RagdollOn();
@@ -234,7 +237,7 @@ public class SlimeArm : PlayerAbility
                 changedRigidBodies = new List<Rigidbody>();
                 currentRBDefaultAngularFriction = new List<float>();
                 currentRBDefaultLayerMask = new List<LayerMask>();
-                grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>(); // ? Maybe add this component to the chest of the enemy, if grabbedRagdoll is not null, so the actual object that needs to collide is the chest and NOT the grabbed one
+                grabbedRagdoll.rig.AddComponent<PhysicsDamageableObject>(); // ? Maybe add this component to the chest of the enemy, if grabbedRagdoll is not null, so the actual object that needs to collide is the chest and NOT the grabbed one
                 grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
