@@ -237,7 +237,7 @@ public class SlimeArm : PlayerAbility
                 changedRigidBodies = new List<Rigidbody>();
                 currentRBDefaultAngularFriction = new List<float>();
                 currentRBDefaultLayerMask = new List<LayerMask>();
-                grabbedRagdoll.rig.AddComponent<PhysicsDamageableObject>(); // ? Maybe add this component to the chest of the enemy, if grabbedRagdoll is not null, so the actual object that needs to collide is the chest and NOT the grabbed one
+                grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>(); // ? Maybe add this component to the chest of the enemy, if grabbedRagdoll is not null, so the actual object that needs to collide is the chest and NOT the grabbed one
                 grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
