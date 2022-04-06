@@ -11,23 +11,14 @@ public class TriggerAfterEnemiesDead : MonoBehaviour
     public LayerMask layers;
     public UnityEvent OnExit;
 
-    private int EnemyCount = 5;
-
-
-    /* void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            EnemyCount++; //Count how many enemies have entered the area
-        }
-    } */
+    [HideInInspector]
+    public int EnemyCount = 5;
 
     void OnTriggerExit(Collider other)
     {
-        //if (other.gameObject.tag == "Enemy")
-        //{
-            EnemyCount--; //Count how mant enemies have left the area / died
-        //}
+        EnemyCount--; //Count how mant enemies have left the area / died
+        Debug.Log("Enemies left: " + EnemyCount);
+
 
         if (EnemyCount <= 0)
         {
@@ -35,20 +26,7 @@ public class TriggerAfterEnemiesDead : MonoBehaviour
         }
     }
 
-    void update()
-    {
-        Debug.Log("Enemy Count: " + EnemyCount);
-    }
-
-    /* void Update()
-    {
-        if (EnemyCount <= 0)
-        {
-            ExecuteOnExit(other); //Execute the ExecuteOnExit function when all enemies have gone
-        }
-    } */
-
-    protected virtual void ExecuteOnExit(Collider other)
+        protected virtual void ExecuteOnExit(Collider other)
     {
         OnExit.Invoke();
     }
