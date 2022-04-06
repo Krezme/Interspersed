@@ -109,7 +109,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
     #endregion
 
     // Current player stats (at the exact moment of the movement)
-    private float speed;
+
+    [HideInInspector]
+    public float speed;
     private float speedOnSlope;
     private float originalHeight;
     private float targetRotation = 0.0f;
