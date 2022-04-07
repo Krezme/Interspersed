@@ -35,6 +35,9 @@ public class EnemyStatisticsManager : MonoBehaviour
     void Start()
     {
         SetStatsFromSO();
+        if (EnemyManager.instance != null) {
+            EnemyManager.instance.enemyStatisticsManagers.Add(this);
+        }
     }
 
     // Update is called once per frame
