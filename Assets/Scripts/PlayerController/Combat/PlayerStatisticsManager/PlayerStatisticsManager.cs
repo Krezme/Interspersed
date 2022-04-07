@@ -65,4 +65,10 @@ public class PlayerStatisticsManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
+
+    public void HealthRestore(float health) {
+        currentStatistics.health += health;
+
+        Healthbar.instance.slider.value = currentStatistics.health;
+    }
 }
