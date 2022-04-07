@@ -95,7 +95,7 @@ public class SlimeArm : PlayerAbility
 
                             if (grabbedRB.gameObject.transform.root.TryGetComponent<RagdollController>(out grabbedRagdoll)) { // ! This is the reason why the enemies cannot go into a parent game object
                                 if (grabbedRagdoll.rig.TryGetComponent<PhysicsDamageableObject>(out PhysicsDamageableObject grabbedPhysicsDamageableObject)) {
-                                    // ! FINISH THIS TO REMOVE THE PHYSICSDAMAGEABLEOBJECT
+                                    Destroy(grabbedPhysicsDamageableObject); // Removing the PhysicsDamageableObject when the object is grabbed so it is not used as a weapon while held
                                 }
                                 grabbedRagdoll.pickedUpByPlayer = true;
                                 Debug.Log("Running Ragdoll");
@@ -237,12 +237,14 @@ public class SlimeArm : PlayerAbility
                 changedRigidBodies = new List<Rigidbody>();
                 currentRBDefaultAngularFriction = new List<float>();
                 currentRBDefaultLayerMask = new List<LayerMask>();
-                grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>(); // ? Maybe add this component to the chest of the enemy, if grabbedRagdoll is not null, so the actual object that needs to collide is the chest and NOT the grabbed one
-                grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 if (grabbedRagdoll != null) { 
                     grabbedRagdoll.pickedUpByPlayer = false;
+                    grabbedRagdoll.rig.AddComponent<PhysicsDamageableObject>(); // Adding the PhysicsDamageableObject to the rig when there is a ragdoll on the grabbed object
                     grabbedRagdoll = null;
+                }else {
+                    grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>(); // Adding a PhysicsDamageableObject to the grabbed object when there is no ragdoll
                 }
+                grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
                 Destroy(slimeBallInstance);
                 slimeBallInstance = null;
                 grabbedRB = null;
