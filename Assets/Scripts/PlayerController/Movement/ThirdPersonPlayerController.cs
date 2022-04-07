@@ -88,8 +88,10 @@ public class ThirdPersonPlayerController : MonoBehaviour
     #region Public Cinemachine Vars
     [Header("Cinemachine")]
     public GameObject playerCameraRoot; // the camera root under the player object
-    public float topClamp = 90f; // The top vertical camera rotation limit
+    public float topClamp = 85f; // The top vertical camera rotation limit
     public float bottomClamp = -50f; // The bottom vertical camera rotation limit
+    public float topClampAiming = 85f; // The top vertical camera rotation limit
+    public float bottomClampAiming = -70f; // The bottom vertical camera rotation limit
     public bool isCameraLocked; // if the camera is locked 
     #endregion
 
@@ -442,8 +444,14 @@ public class ThirdPersonPlayerController : MonoBehaviour
             camTargetPitch += OnPlayerInput.instance.looking.y * Time.deltaTime;
         }
 
-        camTargetYaw = ClampAngle(camTargetYaw, float.MinValue, float.MaxValue);
-        camTargetPitch = ClampAngle(camTargetPitch, bottomClamp, topClamp);
+        if (!OnPlayerInput.instance.onFire2) {
+            camTargetYaw = ClampAngle(camTargetYaw, float.MinValue, float.MaxValue);
+            camTargetPitch = ClampAngle(camTargetPitch, bottomClamp, topClamp);
+        }
+        else {
+            camTargetYaw = ClampAngle(camTargetYaw, float.MinValue, float.MaxValue);
+            camTargetPitch = ClampAngle(camTargetPitch, bottomClampAiming, topClampAiming);
+        }
 
         playerCameraRoot.transform.rotation = Quaternion.Euler(camTargetPitch, camTargetYaw, 0.0f);
     }
