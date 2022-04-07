@@ -29,6 +29,8 @@ public class EnemyStatisticsManager : MonoBehaviour
 
     public RandomAudioPlayer WarplingDeath;
 
+    private bool healthBarCanvasTurnedOnOnce = false; // if the canvas has been turned on once it will not turn on again
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,13 +55,14 @@ public class EnemyStatisticsManager : MonoBehaviour
     public void TakeDamage (float damage) {
         currentStats.health -= damage;
         WarplingDamaged.PlayRandomClip();
-        if(currentStats.health < statisticsSO.health)
+        if(currentStats.health < statisticsSO.health && !healthBarCanvasTurnedOnOnce)
         {
             healthBarCanvas.SetActive(true);
+            healthBarCanvasTurnedOnOnce = true;
         }
         enemyHealthbar.SetEnemyHealth(currentStats.health / statisticsSO.health);
         if (currentStats.health <= 0) {
-            healthBarCanvas.SetActive(false);
+            Destroy(healthBarCanvas);
             Death();
         }
         
@@ -68,7 +71,6 @@ public class EnemyStatisticsManager : MonoBehaviour
     void Death() {
         RagdollController ragdollController;
         TryGetComponent<RagdollController>(out ragdollController);
-        healthBarCanvas.SetActive(false);
         if (ragdollController != null) {
             ragdollController.RagdollOn();
         }else {

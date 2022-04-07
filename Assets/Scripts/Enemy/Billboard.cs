@@ -7,11 +7,15 @@ public class Billboard : MonoBehaviour
 
     private GameObject cam;
 
+    public bool needsToFlash = false;
+
     void Start () 
     {
         cam = FindObjectOfType<Camera>().gameObject;
-        InvokeRepeating("FlashOff", 2.0f, 2.0f);
-        InvokeRepeating("FlashOn", 1.5f, 1.5f);
+        if (needsToFlash) {
+            InvokeRepeating("FlashOff", 2.0f, 2.0f);
+            InvokeRepeating("FlashOn", 1.5f, 1.5f);
+        }
     }
    
     void LateUpdate()
