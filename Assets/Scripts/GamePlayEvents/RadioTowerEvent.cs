@@ -33,17 +33,30 @@ public class RadioTowerEvent : MonoBehaviour
 
     public Transform [] EnemySpawns; //Rhys - Creating array to store spawn points
 
+    public Transform [] InterludeSpawns;
+
+    public GameObject Rift1;
+    public GameObject Rift2;
+    public GameObject Rift3;
+
+    public bool Rift1Destroyed = false;
+    public bool Rift2Destroyed = false;
+    public bool Rift3Destroyed = false;
+
+
+
     public int EnemiesInstantiated = 0;
 
-    private int WaveCount = 0;
+    private float WaveCount = 0f;
 
     public GameObject RadioAnnouncerSavedDX;
 
     private bool CanPlay = true;
 
+    //private float RiftTimer = 0f;
+
     
-
-
+    
 
 
     void Start()
@@ -76,19 +89,63 @@ public class RadioTowerEvent : MonoBehaviour
 
     void Update()
     {
+        /* RiftTimer += Time.deltaTime;
+        if (RiftTimer >= 1f)
+        {
+            RiftTimer = 0;
+        } */
+
+        if (Rift1.activeSelf == false)
+        {
+            Rift1Destroyed = true;
+        }
+
+        if (Rift2.activeSelf == false)
+        {
+            Rift2Destroyed = true;
+        }
+
+        if (Rift3.activeSelf == false)
+        {
+            Rift3Destroyed = true;
+        }
+
+
+
+
+
         if (EnemiesAlive.Count <= 0 && WaveCount == 1) //Checking that all enemies are dead & that wave one has happened
         {
-            WaveTwo();
-            WaveCount++;
+            InterludeOne();
+            WaveCount = 1.5f; //Interludes are between rounds so I thought I'd symbolise that within the wave number aswell
         }
 
-        if (EnemiesAlive.Count <= 0 && WaveCount == 2)
+        if (EnemiesAlive.Count <= 0 && WaveCount == 1.5f && Rift1Destroyed == true) //Checking that all enemies are dead & that wave one has happened
+        {
+            WaveTwo();
+            WaveCount = 2;
+        }
+
+        if (EnemiesAlive.Count <= 0 && WaveCount == 2) //Checking that all enemies are dead & that wave one has happened
+        {
+            InterludeTwo();
+            WaveCount = 2.5f; //Interludes are between rounds so I thought I'd symbolise that within the wave number aswell
+        }
+
+        if (EnemiesAlive.Count <= 0 && WaveCount == 2.5f && Rift1Destroyed == true && Rift2Destroyed == true)
         {
             WaveThree();
-            WaveCount++;
+            WaveCount = 3;
         }
 
-        if (CanPlay == true && EnemiesAlive.Count <= 0 && WaveCount == 3)
+        if (EnemiesAlive.Count <= 0 && WaveCount == 3) //Checking that all enemies are dead & that wave one has happened
+        {
+            InterludeThree();
+            WaveCount = 3.5f; //Interludes are between rounds so I thought I'd symbolise that within the wave number aswell
+        }
+
+
+        if (CanPlay == true && EnemiesAlive.Count <= 0 && WaveCount == 3.5 && Rift1Destroyed == true && Rift2Destroyed == true && Rift3Destroyed == true)
         {
             RadioAnnouncerSavedDX.SetActive(true); //Activating RadioAnnouncerSaved dialogue which leasds into the credits
             CanPlay = false; //Preventing the dialogue from looping
@@ -120,6 +177,17 @@ public class RadioTowerEvent : MonoBehaviour
     }
 
 
+
+    void InterludeOne() //Rifts open up after each wave, these spawn warplings at a constant rate until the portal has been destroyed
+    {
+        Rift1Destroyed = false;
+        Rift1.SetActive(true);
+        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        EnemiesInstantiated++; 
+    }
+
+
+
     void WaveTwo() //Should start when the first wave of enemies has been defeated
     {
         EnemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
@@ -139,6 +207,19 @@ public class RadioTowerEvent : MonoBehaviour
     }
 
 
+    void InterludeTwo() //Now 2 rifts open up and more enemies spawn until both rifts are destroyed
+    {
+        Rift1Destroyed = false;
+        Rift1.SetActive(true);
+        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        EnemiesInstantiated++; 
+
+        Rift2Destroyed = false;
+        Rift2.SetActive(true);
+        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[1].transform.position,InterludeSpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        EnemiesInstantiated++; 
+    }
+
 
     void WaveThree() //Should start when the second wave of enemies has been defeated //!MORE SPAWN POINTS SHOULD BE MADE FOR DIFFERENT ENEMY TYPES AND SHOULD PROBS BE MOVED IN GENERAL
     {
@@ -157,4 +238,23 @@ public class RadioTowerEvent : MonoBehaviour
         EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[4].transform.position,EnemySpawns[4].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
     } 
+
+
+    void InterludeThree() //Finally, All three rifts are enabled and all hell breaks loose - May god have mercy on your soul
+    {
+        Rift1Destroyed = false;
+        Rift1.SetActive(true);
+        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        EnemiesInstantiated++; 
+
+        Rift2Destroyed = false;
+        Rift2.SetActive(true);
+        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[1].transform.position,InterludeSpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        EnemiesInstantiated++; 
+
+        Rift3Destroyed = false;
+        Rift3.SetActive(true);
+        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[2].transform.position,InterludeSpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        EnemiesInstantiated++; 
+    }
 }
