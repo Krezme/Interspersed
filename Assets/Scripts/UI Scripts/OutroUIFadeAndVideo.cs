@@ -51,7 +51,10 @@ public class OutroUIFadeAndVideo : MonoBehaviour
         else
         {
             FadeToBlack.SetActive(true);
-            HUD.SetActive(false);
+            if (HUD != null)
+            {
+                HUD.SetActive(false);
+            }
         }
 
         if (FadeTimer > 1.1f)
@@ -77,7 +80,10 @@ public class OutroUIFadeAndVideo : MonoBehaviour
 
         if (FadeTimer > 52)
         {
-            HUD.SetActive(true);
+            if (HUD != null)
+            {
+                HUD.SetActive(true);
+            }
             CursorManager.instance.SetCursorState(false);
             //SceneManager.LoadScene(1);
             UnpausedMixerSnapshot.TransitionTo(UnpausedTransitionTime);

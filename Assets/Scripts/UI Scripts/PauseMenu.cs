@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuCanvas;
+    public GameObject pauseMenuCanvas, optionsMenuCanvas, controlsMenuCanvas;
     public GameObject hudCanvas;
     public OnPlayerInput playerInput;
 
@@ -77,6 +77,30 @@ public class PauseMenu : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
+    public void Options()
+    {
+        optionsMenuCanvas.SetActive(true);
+        pauseMenuCanvas.SetActive(false);
+    }
+
+    public void Controls()
+    {
+        controlsMenuCanvas.SetActive(true);
+        pauseMenuCanvas.SetActive(false);
+    }
+
+    public void BackToPauseMenu()
+    {
+        pauseMenuCanvas.SetActive(true);
+        controlsMenuCanvas.SetActive(false);
+        optionsMenuCanvas.SetActive(false);
     }
 
 }
