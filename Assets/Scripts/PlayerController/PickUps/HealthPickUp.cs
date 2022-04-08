@@ -14,7 +14,10 @@ public class HealthPickUp : MonoBehaviour
             if (other.gameObject.TryGetComponent<PlayerStatisticsManager>(out PlayerStatisticsManager playerStatisticsManager)) { 
                 if (playerStatisticsManager.maxStatistics.health > playerStatisticsManager.currentStatistics.health) {
                     playerStatisticsManager.HealthRestore(heal);
-                    SFXHealthPickup.Play(); 
+                    try {
+                        SFXHealthPickup.Play(); 
+                    } 
+                    catch (System.Exception) {}
                     Destroy(this.gameObject);
                 }
             }
