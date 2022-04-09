@@ -24,7 +24,7 @@ public class BarrelLiquidSound : MonoBehaviour
             if (CanPlay == true)
             {
             LiquidSounds.PlayRandomClip();
-            Debug.Log("Stopped");
+            //Debug.Log("Stopped");
             CanPlay = false;
             }   
         }

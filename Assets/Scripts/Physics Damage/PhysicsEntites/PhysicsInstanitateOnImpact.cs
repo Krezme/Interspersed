@@ -6,7 +6,9 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
 {
     public float forceRequired;
 
-    public GameObject toInstantiate;
+    public GameObject Smoke;
+
+    public GameObject Fire;
 
     private Rigidbody thisRigidBody;
 
@@ -38,7 +40,10 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
 
 
             
-            Instantiate(toInstantiate, pos, rot);
+            Instantiate(Smoke, pos, rot);
+
+            Instantiate(Fire, pos, rot);
+
 
             Instantiate(ExplosionSFXSource, pos, rot);
 

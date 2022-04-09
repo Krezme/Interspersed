@@ -12,7 +12,7 @@ public class RemoveObjectGravity : MonoBehaviour
             other.GetComponent<Rigidbody>().useGravity = false;
             other.GetComponent<Rigidbody>().drag = 0;
 
-            Debug.Log("Object Gravity Removed");
+            //Debug.Log("Object Gravity Removed");
         }
     }
 }
