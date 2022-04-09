@@ -43,17 +43,17 @@ using UnityEngine;
             {
                 //CollisionTimer += Time.deltaTime;
                 Collisions ++;
-                Debug.Log("Collisions" + Collisions);
+                //Debug.Log("Collisions" + Collisions);
               
                 if (Collisions > 2)
                 {
 
-                    Debug.Log("Ragdoll sound avoided");
+                    //Debug.Log("Ragdoll sound avoided");
                 }
                 else
                 {
                     player.PlayRandomClip();
-                    Debug.Log("Ragdoll sound played");
+                    //Debug.Log("Ragdoll sound played");
                     
                 }
                 //player.PlayRandomClip();

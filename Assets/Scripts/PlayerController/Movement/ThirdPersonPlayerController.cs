@@ -271,7 +271,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
             if ((OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && !onOverLimitSlope) || (OnPlayerInput.instance.jumped && jumpCooldownCurrent <= 0.0f && delayedJumpCurrentTime < delayedJumpTime && !hasJumped)) {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2 * gravity);   // H * -2 * G to calculate how much velocity is required to reach the desired height
                 delayedJumpCurrentTime = delayedJumpTime;
-                Debug.Log("Has jumped and is it over time ");
+                //Debug.Log("Has jumped and is it over time ");
                 hasJumped = true;
                 animator.SetBool("Jump", true);
             }

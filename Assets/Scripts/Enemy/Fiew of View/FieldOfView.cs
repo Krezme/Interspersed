@@ -24,7 +24,6 @@ public class FieldOfView : MonoBehaviour
     void OnEnable()
     {
         StartCoroutine("FindTargetsWithDelay", 0.2f);
-        Debug.Log("Hello --------------------------------------------------------------");
     }
 
     /* void OnDisable() {
