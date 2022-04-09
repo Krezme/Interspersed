@@ -105,8 +105,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
     #endregion
 
     #region Private Cinemachine Vars
-    private float camTargetYaw; // current target for the camera horizontal rotation
-    private float camTargetPitch; // current target fot the camera vertical rotation
+    public float camTargetYaw; // current target for the camera horizontal rotation
+    public float camTargetPitch; // current target fot the camera vertical rotation
     private float camMoveThreshold; // threshold for minimum mouse movement required to move the camera
     #endregion
 
@@ -152,8 +152,6 @@ public class ThirdPersonPlayerController : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         controller = GetComponent<CharacterController>();
         originalHeight = controller.height;
-            
-       
 
         //initialRequiredForceToMove = frictionStatic * (playerCharacterMass * -gravity);
         //secondaryRequiredForceToMove = frictionSlide * (playerCharacterMass * -gravity);
