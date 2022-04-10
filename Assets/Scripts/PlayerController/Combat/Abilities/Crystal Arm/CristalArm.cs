@@ -239,7 +239,6 @@ public class CristalArm : PlayerAbility
                     {
                         //audioSource.PlayOneShot(ElectricShot);
                         Electric.PlayRandomClip();
-                        Debug.Log("Electric");
                     }
 
                 }

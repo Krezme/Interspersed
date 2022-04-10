@@ -23,17 +23,24 @@ public class EnemyStatisticsManager : MonoBehaviour
 
     public BehaviourTreeRunner behaviourTreeRunner;
 
-    public RandomAudioPlayer WarplingDamaged;
+    public RandomAudioPlayer enemyDamaged;
 
-    public RandomAudioPlayer WarplingAttack;
+    public RandomAudioPlayer enemyAttack;
 
-    public RandomAudioPlayer WarplingDeath;
+    public RandomAudioPlayer enemyDeath;
+
+    [HideInInspector]
+    public SettlementDetection thisEnemySettlement;
+
+    [HideInInspector]
+    public FieldOfView fieldOfView;
 
     private bool healthBarCanvasTurnedOnOnce = false; // if the canvas has been turned on once it will not turn on again
 
     // Start is called before the first frame update
     void Start()
     {
+        TryGetComponent<FieldOfView>(out fieldOfView);
         SetStatsFromSO();
         if (EnemyManager.instance != null) {
             EnemyManager.instance.enemyStatisticsManagers.Add(this);
@@ -55,9 +62,18 @@ public class EnemyStatisticsManager : MonoBehaviour
         currentStats.knockbackHeight = statisticsSO.knockbackHeight;
     }
 
-    public void TakeDamage (float damage) {
+    public void TakeDamage (float damage, bool hasTakenDamageFromPlayer) {
         currentStats.health -= damage;
-        WarplingDamaged.PlayRandomClip();
+        if (hasTakenDamageFromPlayer) {
+            try {
+                fieldOfView.TargetSpoted();
+            }catch (System.Exception){}
+        }
+        try {
+            enemyDamaged.PlayRandomClip();
+        }catch (System.Exception) {
+            Debug.LogWarning("Sound not assigned");
+        }
         if(currentStats.health < statisticsSO.health && !healthBarCanvasTurnedOnOnce)
         {
             healthBarCanvas.SetActive(true);
@@ -68,7 +84,6 @@ public class EnemyStatisticsManager : MonoBehaviour
             Destroy(healthBarCanvas);
             Death();
         }
-        
     }
 
     void Death() {
@@ -79,6 +94,11 @@ public class EnemyStatisticsManager : MonoBehaviour
         }else {
             Destroy(this.gameObject);
         }
-        WarplingDeath.PlayRandomClip();
+
+        try {
+            enemyDeath.PlayRandomClip();
+        }catch (System.Exception) {
+            Debug.LogWarning("Sound not assigned");
+        }
     }
 }

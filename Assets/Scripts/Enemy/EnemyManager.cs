@@ -27,7 +27,13 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Invoke(nameof(SetAllSettlementsEmemies), 0.001f);
+    }
+
+    void SetAllSettlementsEmemies() {
+        foreach (SettlementDetection sd in settlementDetectionScripts) {
+            sd.GetAllSettlementEnemies();
+        }
     }
 
     // Update is called once per frame

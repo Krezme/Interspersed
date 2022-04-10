@@ -19,6 +19,7 @@ public class SettlementDetection : MonoBehaviour
         if (EnemyManager.instance != null) {
             foreach (EnemyStatisticsManager esm in EnemyManager.instance.enemyStatisticsManagers) {
                 if (Vector3.Distance(esm.transform.position, this.transform.position) <= settlementRadius) {
+                    esm.thisEnemySettlement = this;
                     thisSettlementEnemyStatisticsManagers.Add(esm);
                 }
             }

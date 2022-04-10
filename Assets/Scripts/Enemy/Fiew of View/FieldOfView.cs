@@ -14,11 +14,14 @@ public class FieldOfView : MonoBehaviour
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
+    private EnemyStatisticsManager enemyStatisticsManager;
+
     public bool targetvisible = false;
 
     private void Start()
     {
         //StartCoroutine("FindTargetsWithDelay", 0.2f);
+        TryGetComponent<EnemyStatisticsManager>(out enemyStatisticsManager);
     }
 
     void OnEnable()
@@ -56,12 +59,22 @@ public class FieldOfView : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) /// if the raycast doesn't hit an obstacle blocking the target
                 {
                     visibleTargets.Add(target); /// adds the target to the visible targets list
-                    targetvisible = true;
+                    TargetSpoted();
                 }
             }
         }
     }
 
+    public void TargetSpoted() {
+        targetvisible = true;
+        try {
+            foreach (EnemyStatisticsManager esm in enemyStatisticsManager.thisEnemySettlement.thisSettlementEnemyStatisticsManagers) {
+                if (!esm.fieldOfView.targetvisible) {
+                    esm.fieldOfView.TargetSpoted();
+                }
+            }
+        } catch (System.Exception) {}
+    }
     
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {

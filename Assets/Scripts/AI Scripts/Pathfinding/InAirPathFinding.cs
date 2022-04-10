@@ -104,7 +104,7 @@ public class InAirPathFinding : MonoBehaviour
             // ! Trigger Ragdoll when it hits a obsitcle with enough speed
             if (((currentMovementStatistics.minSpeed + currentMovementStatistics.maxSpeed) / 2) <= currentMovementStatistics.currentSpeed) {
                 gameObject.GetComponent<RagdollController>().RagdollOn();
-                enemyStatisticsManager.TakeDamage(enemyStatisticsManager.currentStats.damage * 2);
+                enemyStatisticsManager.TakeDamage(enemyStatisticsManager.currentStats.damage * 2, false);
             }
             //Debug.Log("Hit");
         }

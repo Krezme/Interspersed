@@ -47,7 +47,7 @@ public class WaterController : MonoBehaviour
             if (tickTimer >= waterProperties.tickDamageTime) {
                 tickTimer = 0;
                 for (int i = 0; i < currentlyAffectedEnemies.Count; i++) {
-                    currentlyAffectedEnemies[i].GetComponent<EnemyStatisticsManager>().TakeDamage(waterProperties.damage * waterProperties.tickDamageTime);
+                    currentlyAffectedEnemies[i].GetComponent<EnemyStatisticsManager>().TakeDamage(waterProperties.damage * waterProperties.tickDamageTime, true);
                 }
             }
         }
@@ -67,7 +67,9 @@ public class WaterController : MonoBehaviour
             if (waterProperties.numberOfProjectiles == 1){
                 electricSparks.SetActive(true);
                 //ElectrifiedPuddle.PlayRandomClip(); //Rhys enables pubble source to play
-                audiosource.PlayOneShot(PuddleBuzz);
+                try {
+                    audiosource.PlayOneShot(PuddleBuzz);
+                }catch (System.Exception) {}
             }
             
         }
