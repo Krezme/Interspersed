@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3081312118002139951}
   - component: {fileID: -5907498208458474684}
   - component: {fileID: 7987946670251150779}
+  - component: {fileID: -7134286050017408201}
   m_Layer: 0
   m_Name: SFX BarrelExplosion
   m_TagString: Untagged
@@ -57,7 +58,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 50
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -204,3 +205,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectToDestroy: {fileID: 7096663096741661266}
   SourceToWatch: {fileID: 918468718371483185}
+--- !u!169 &-7134286050017408201
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7096663096741661266}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.8891976
+      outSlope: -1.8891976
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5952381
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
