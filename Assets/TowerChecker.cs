@@ -12,12 +12,12 @@ public class TowerChecker : MonoBehaviour
     public LayerMask playerLayer;
     public Transform rayCastStartPosition;
     public GameObject player;
-    
+    public bool throwingEnabled;
 
     public void Start()
     {
         playerLook = GameObject.FindGameObjectWithTag("Player");
-       
+        throwingEnabled = true;
     }
     private void Update()
     {
@@ -28,9 +28,11 @@ public class TowerChecker : MonoBehaviour
          RaycastHit hit;
             if (Physics.Raycast(rayCastStartPosition.position, -transform.forward, out hit, playerLayer))
             {
-
-            cooldowntimertowerthrow();
-                                    
+              if (throwingEnabled == true)
+              {
+                 cooldowntimertowerthrow();
+                  throwingEnabled = false;
+            }                      
             }
             
         
@@ -43,21 +45,26 @@ public class TowerChecker : MonoBehaviour
         _tower.transform.rotation = towerSpawnPoint.transform.rotation;       
 
     }
-    
 
-     IEnumerator ShootingAtPlayercooldown()
+
+    IEnumerator ShootingAtPlayercooldown()
     {
         yield return new WaitForSeconds(2f);
-        
+        ShootAtPlayer();
+    }
+
+    IEnumerator DestroyGigachu()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(this.gameObject);
     }
 
      void cooldowntimertowerthrow()
     {
         
         StartCoroutine(ShootingAtPlayercooldown());
-        ShootAtPlayer();
-        StartCoroutine(ShootingAtPlayercooldown());
-        Destroy(this.gameObject);
+        StartCoroutine(DestroyGigachu());
+        
 
     }
 
