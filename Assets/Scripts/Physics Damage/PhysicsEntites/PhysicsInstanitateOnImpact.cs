@@ -10,6 +10,9 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
 
     public GameObject Fire;
 
+
+    public GameObject InstantiatedSphereCol;
+
     private Rigidbody thisRigidBody;
 
 
@@ -18,6 +21,10 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
     //public RandomAudioPlayer ExplosionSFX;
 
     public GameObject ExplosionSFXSource;
+
+
+
+   
 
 
 
@@ -38,7 +45,7 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
             if (Mathf.Abs(thisRigidBody.velocity.x) + Mathf.Abs(thisRigidBody.velocity.y) + Mathf.Abs(thisRigidBody.velocity.z) >= forceRequired)
         {
 
-
+            Instantiate(InstantiatedSphereCol, pos, rot);
             
             Instantiate(Smoke, pos, rot);
 
