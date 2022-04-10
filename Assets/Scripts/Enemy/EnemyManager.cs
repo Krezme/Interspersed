@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SimplifiedMonoBehaviour;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class EnemyManager : MonoBehaviour
 #endregion
 
     public List<EnemyStatisticsManager> enemyStatisticsManagers = new List<EnemyStatisticsManager>();
+
+    public List<SettlementDetection> settlementDetectionScripts = new List<SettlementDetection>();
 
     public float maxEnemyActiveDistance = 1000; // To make sure that default all enemies will be active
 
