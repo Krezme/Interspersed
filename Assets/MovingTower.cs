@@ -32,7 +32,7 @@ public class MovingTower : MonoBehaviour
     
     IEnumerator updateSetOff()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4f);
         updateon = false;
         addTowerRigidBody();
     }
