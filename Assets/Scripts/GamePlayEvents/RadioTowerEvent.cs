@@ -40,11 +40,11 @@ public class RadioTowerEvent : MonoBehaviour
     public GameObject Rift3;
 
     public bool Rift1Destroyed = false;
-    public BoxCollider Rift1Collider;
+    //!public BoxCollider Rift1Collider;
     public bool Rift2Destroyed = false;
-    public BoxCollider Rift2Collider;
+    //!public BoxCollider Rift2Collider;
     public bool Rift3Destroyed = false;
-    public BoxCollider Rift3Collider;
+    //!public BoxCollider Rift3Collider;
     
     
 
