@@ -105,6 +105,14 @@ public Light ElectricGlow;
             }*/
     }
 
+    public void EnableAbility(int index) {
+        areAbilitiesActive[index].isActive = true;
+    }
+
+    public void DisableAbility(int index) {
+        areAbilitiesActive[index].isActive = false;
+    }
+
     void OnValidate () {
         for (int i = 0; i < areAbilitiesActive.Length; i++) {
             areAbilitiesActive[i].Validate();
