@@ -7,19 +7,26 @@ public class MeleeStats {
     public float damage;
 }
 
+[System.Serializable]
+public class AreAbilitiesActive {
+    [HideInInspector]
+    public string name;
+    public PlayerAbility playerAbility;
+    public bool isActive;
+ 
+    public void Validate()
+    {
+        name = (playerAbility) ? playerAbility + " (Active: " + isActive + ")" : "No PlayerAbility";
+    }
+} 
 
 public class PlayerAbilitiesController : MonoBehaviour
-
 {
 public Light CrystalGlow;
 
 public Light SlimeGlow;
 
 public Light ElectricGlow;
-
-
-
-
 
 #region Singleton
 
@@ -42,6 +49,8 @@ public Light ElectricGlow;
 
     public int selectedAbility;
     public List<PlayerAbility> abilities;
+
+    public AreAbilitiesActive[] areAbilitiesActive;
 
     [Header("Aiming")]
     public LayerMask aimColliderLayerMask = new LayerMask();
@@ -88,5 +97,11 @@ public Light ElectricGlow;
                 SlimeGlow.GetComponent<Light>().enabled = false;
                 ElectricGlow.GetComponent<Light>().enabled = true;
             }*/
+    }
+
+    void OnValidate () {
+        for (int i = 0; i < areAbilitiesActive.Length; i++) {
+            areAbilitiesActive[i].Validate();
+        }
     }
 }
