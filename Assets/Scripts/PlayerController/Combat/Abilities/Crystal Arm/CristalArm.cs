@@ -27,6 +27,21 @@ public class CrystalArmShotgunStatistics{
 
 public class CristalArm : PlayerAbility
 {
+
+    /* #region Singleton
+    public static CristalArm insance;
+    void Awake() {
+        if (insance != null) {
+            Debug.LogError("THERE ARE TWO OR MORE CristalArm INSTANCES! PLEASE KEEP ONLY ONE instance OF THIS SCRIPT");
+        }
+        else {
+            insance = this;
+        }
+    } 
+
+    #endregion*/
+    public ArmAbilities[] armAbilities = new ArmAbilities[3] { new ArmAbilities() {abilityName = "Single Shot", isActive = true}, new ArmAbilities() {abilityName = "Electric Shot"}, new ArmAbilities() {abilityName = "Shotgun"}};
+
     public CrystalArmStatistics statistics;
 
     public CrystalArmShotgunStatistics shotgunStatistics;
@@ -79,6 +94,16 @@ public class CristalArm : PlayerAbility
 
     public RandomAudioPlayer ShotgunSwapFalse; //Rhys - Swapping from shotgun;
 
+    /// <summary>
+    /// Hard Coding the armAbilities array
+    /// </summary>
+    void Start () {
+        armAbilities = new ArmAbilities[3] {  
+            new ArmAbilities() {abilityName = "Single Shot", isActive = true},
+            new ArmAbilities() {abilityName = "Electric Shot", isActive = armAbilities[1].isActive}, 
+            new ArmAbilities() {abilityName = "Shotgun", isActive = armAbilities[2].isActive}
+        };
+    }
 
     void Update () {
         ElectricChargeCooldown();
@@ -188,15 +213,19 @@ public class CristalArm : PlayerAbility
 
     void ChangeMode() {
         if (OnPlayerInput.instance.onArmMode) {
-            if ((int)crystalArmModes == Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Max()){ // if the current item is the last item possible
-                crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min(); //set it to first item
-                ShotgunSwapFalse.PlayRandomClip();
-            }
-            else {
-                crystalArmModes = (CrystalArmModes)((int)crystalArmModes+1); /* set it to the next item. */ // ! -----------IT DOES NOT WORK IF WE ASSIGN RANDOM IDs TO THE ENUM ITEMS-----------
-                ShotgunSwapTrue.PlayRandomClip();
-            }
+            NextMode();
             OnPlayerInput.instance.onArmMode = false; //stop the button from being pressed and trigger the statement on the same press
+        }
+    }
+
+    void NextMode() {
+        if ((int)crystalArmModes == Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Max()){ // if the current item is the last item possible
+            crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min(); //set it to first item
+            ShotgunSwapFalse.PlayRandomClip();
+        }
+        else {
+            crystalArmModes = (CrystalArmModes)((int)crystalArmModes+1); /* set it to the next item. */ // ! -----------IT DOES NOT WORK IF WE ASSIGN RANDOM IDs TO THE ENUM ITEMS-----------
+            ShotgunSwapTrue.PlayRandomClip();
         }
     }
 
@@ -287,6 +316,12 @@ public class CristalArm : PlayerAbility
             if (cooldownBetweenShots < 0) {
                 cooldownBetweenShots = 0;
             }
+        }
+    }
+
+    void OnValidate() {
+        for (int i = 0; i < armAbilities.Length; i++) {
+            armAbilities[i].Validate();
         }
     }
 }

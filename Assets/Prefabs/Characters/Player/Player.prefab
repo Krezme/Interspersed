@@ -3133,6 +3133,16 @@ MonoBehaviour:
   centerScreenToWorldPosition: {x: 0, y: 0, z: 0}
   aimVirtualCamera: {fileID: 0}
   aimingRotationSpeed: 20
+  armAbilities:
+  - name: 'Ability: Single shot (Active: True)'
+    abilityName: Single shot
+    isActive: 1
+  - name: 'Ability: Electric Shot (Active: False)'
+    abilityName: Electric Shot
+    isActive: 0
+  - name: 'Ability: Shotgun (Active: False)'
+    abilityName: Shotgun
+    isActive: 0
   statistics:
     damage: 10
     maxElectricShots: 3
@@ -3187,6 +3197,13 @@ MonoBehaviour:
   centerScreenToWorldPosition: {x: 0, y: 0, z: 0}
   aimVirtualCamera: {fileID: 0}
   aimingRotationSpeed: 20
+  armAbilities:
+  - name: 'Ability: Pick Up (Active: True)'
+    abilityName: Pick Up
+    isActive: 1
+  - name: 'Ability: Shield (Active: False)'
+    abilityName: Shield
+    isActive: 0
   cooldownMaxTime: 5
   cooldownTimer: 0
   changeToArm: {fileID: 4028415373917518356}
@@ -3584,7 +3601,7 @@ MonoBehaviour:
   SlimeGlow: {fileID: 409374626}
   ElectricGlow: {fileID: 8568516285947840211}
   selectedAbility: 0
-  areAbilitiesActive:
+  playerAbilitiesRef:
   - name: 'PlayerAbilities (CristalArm) (Active: True)'
     playerAbility: {fileID: 2966370538525935677}
     isActive: 1

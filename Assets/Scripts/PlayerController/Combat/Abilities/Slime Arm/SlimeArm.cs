@@ -5,6 +5,22 @@ using Cinemachine;
 
 public class SlimeArm : PlayerAbility
 {
+
+    /* #region Singleton
+    public static SlimeArm insance;
+    void Awake() {
+        if (insance != null) {
+            Debug.LogError("THERE ARE TWO OR MORE SlimeArm INSTANCES! PLEASE KEEP ONLY ONE instance OF THIS SCRIPT");
+        }
+        else {
+            insance = this;
+        }
+    }
+
+    #endregion */
+
+    public ArmAbilities[] armAbilities = new ArmAbilities[2] {new ArmAbilities() {abilityName = "Pick Up", isActive = true}, new ArmAbilities() {abilityName = "Shield"}};
+
     //Cooldown variables
     public float cooldownMaxTime = 1;
     public float cooldownTimer = 0;
@@ -44,6 +60,13 @@ public class SlimeArm : PlayerAbility
 
     private bool isShielding = false;
     private bool unShield = false;
+
+    void Start () {
+        armAbilities = new ArmAbilities[2] {  
+            new ArmAbilities() {abilityName = "Pick Up", isActive = true},
+            new ArmAbilities() {abilityName = "Shield", isActive = armAbilities[1].isActive}
+        };
+    }
     
     void Update () {
         
@@ -304,5 +327,11 @@ public class SlimeArm : PlayerAbility
         //after the cooldown time, set the cooldown timer to 0 allowing the ability to be cast again
         yield return new WaitForSeconds(cooldownMaxTime);
         cooldownTimer = 0;
+    }
+
+    void OnValidate() {
+        for (int i = 0; i < armAbilities.Length; i++) {
+            armAbilities[i].Validate();
+        }
     }
 }

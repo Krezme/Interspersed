@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+[System.Serializable]
+public class ArmAbilities{
+    [HideInInspector]
+    public string name;
+    public string abilityName;
+    public bool isActive;
+
+    public void Validate()
+    {
+        name = (!string.IsNullOrEmpty(abilityName) && !string.IsNullOrWhiteSpace(abilityName)) ? "Ability: " + abilityName + " (Active: " + isActive + ")" : "EMPTY";
+    }
+}
+
 public class PlayerAbility : MonoBehaviour
 {
     //public PlayerAbilityStats stats;

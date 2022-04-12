@@ -8,7 +8,7 @@ public class MeleeStats {
 }
 
 [System.Serializable]
-public class AreAbilitiesActive {
+public class PlayerAbilitiesReferences {
     [HideInInspector]
     public string name;
     public PlayerAbility playerAbility;
@@ -52,7 +52,7 @@ public Light ElectricGlow;
     // ? Old list used for referring to the abilities
     //public List<PlayerAbility> abilities;
 
-    public AreAbilitiesActive[] areAbilitiesActive;
+    public PlayerAbilitiesReferences[] playerAbilitiesRef;
 
     [Header("Aiming")]
     public LayerMask aimColliderLayerMask = new LayerMask();
@@ -64,8 +64,8 @@ public Light ElectricGlow;
     public bool isAbilityActive;
 
     public void ChangeArm() {
-        for (int i = 0; i < areAbilitiesActive.Length; i++) {
-            areAbilitiesActive[i].playerAbility.MorthToTarget(); // ! This is PlaceHolder FUNCTIONALITY NEEDS TO BE CHANGED ONLY FOR MID-TERM-REVIEW
+        for (int i = 0; i < playerAbilitiesRef.Length; i++) {
+            playerAbilitiesRef[i].playerAbility.MorthToTarget(); // ! This is PlaceHolder FUNCTIONALITY NEEDS TO BE CHANGED ONLY FOR MID-TERM-REVIEW
         }
     }
 
@@ -76,7 +76,7 @@ public Light ElectricGlow;
         //abilities[selectedAbility].Ability(); // Uses the ability depending on selected arm
 
         // ? New way of chaning arms
-        areAbilitiesActive[selectedAbility].playerAbility.Ability();
+        playerAbilitiesRef[selectedAbility].playerAbility.Ability();
 
         if (selectedAbility == 0)
             {
@@ -106,16 +106,16 @@ public Light ElectricGlow;
     }
 
     public void EnableAbility(int index) {
-        areAbilitiesActive[index].isActive = true;
+        playerAbilitiesRef[index].isActive = true;
     }
 
     public void DisableAbility(int index) {
-        areAbilitiesActive[index].isActive = false;
+        playerAbilitiesRef[index].isActive = false;
     }
 
     void OnValidate () {
-        for (int i = 0; i < areAbilitiesActive.Length; i++) {
-            areAbilitiesActive[i].Validate();
+        for (int i = 0; i < playerAbilitiesRef.Length; i++) {
+            playerAbilitiesRef[i].Validate();
         }
     }
 }
