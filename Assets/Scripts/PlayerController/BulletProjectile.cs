@@ -90,6 +90,8 @@ public class BulletProjectile : MonoBehaviour
             else if (other.tag == "SlimeObsticle" && statistics.isShotgunProjectile) {
                 Destroy(other.gameObject);
             }
+            else if (other.tag == "EventTriggers") {
+            }
             else if (other.gameObject.layer != this.gameObject.layer) // Resterts the age and lets it sit in the colided spot for a short time 
             {
                 hasCollided = true; // Effectively dissables the OnTriggerEnter
