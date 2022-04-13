@@ -28,7 +28,7 @@ public class CrystalArmShotgunStatistics{
 public class CristalArm : PlayerAbility
 {
 
-    /* #region Singleton
+    #region Singleton
     public static CristalArm insance;
     void Awake() {
         if (insance != null) {
@@ -39,7 +39,7 @@ public class CristalArm : PlayerAbility
         }
     } 
 
-    #endregion*/
+    #endregion
     public ArmAbilities[] armAbilities = new ArmAbilities[3] { new ArmAbilities() {abilityName = "Single Shot", isActive = true}, new ArmAbilities() {abilityName = "Electric Shot"}, new ArmAbilities() {abilityName = "Shotgun"}};
 
     public CrystalArmStatistics statistics;

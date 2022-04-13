@@ -12,7 +12,7 @@ public class HealthPickUp : MonoBehaviour
         if (other.gameObject.tag == "Player") {
             Debug.Log(other);
             if (other.gameObject.TryGetComponent<PlayerStatisticsManager>(out PlayerStatisticsManager playerStatisticsManager)) { 
-                if (playerStatisticsManager.maxStatistics.health > playerStatisticsManager.currentStatistics.health) {
+                if (playerStatisticsManager.maxStatistics.resourcesStatistics.health > playerStatisticsManager.currentStatistics.resourcesStatistics.health) {
                     playerStatisticsManager.HealthRestore(heal);
                     try {
                         SFXHealthPickup.Play(); 

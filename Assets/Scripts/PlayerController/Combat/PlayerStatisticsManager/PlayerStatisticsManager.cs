@@ -5,16 +5,37 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public class PlayerCurrentStatistics {
+public class PlayerResourcesStatistics {
     public float health;
     public float energy;
 }
 
 [System.Serializable]
+public class PlayerCombatStatistics {
+    public float meleeDamage;
+    
+    public float[] chargeShotsDamage;
+
+    public void Validate () {
+        //chargeShotsDamage = new float[CristalArm.insance.chargeStages.Length];
+    }
+}
+
+[System.Serializable]
+public class PlayerCurrentStatistics {
+
+    public PlayerResourcesStatistics resourcesStatistics;
+
+    public PlayerCombatStatistics combatStatistics;
+
+}
+
+[System.Serializable]
 public class PlayerMaxStatistics
 {
-    public float health;
-    public float energy;
+    public PlayerResourcesStatistics resourcesStatistics;
+
+    public PlayerCombatStatistics combatStatistics;
 }
 
 public class PlayerStatisticsManager : MonoBehaviour
@@ -40,35 +61,39 @@ public class PlayerStatisticsManager : MonoBehaviour
 
     public void SetSliderValues()
     {
-        Healthbar.instance.slider.maxValue = maxStatistics.health;
-        Energybar.instance.slider.maxValue = maxStatistics.energy;
+        Healthbar.instance.slider.maxValue = maxStatistics.resourcesStatistics.health;
+        Energybar.instance.slider.maxValue = maxStatistics.resourcesStatistics.energy;
 
-        Healthbar.instance.slider.value = maxStatistics.health;
-        Energybar.instance.slider.value = maxStatistics.energy;
+        Healthbar.instance.slider.value = maxStatistics.resourcesStatistics.health;
+        Energybar.instance.slider.value = maxStatistics.resourcesStatistics.energy;
     }
 
     public void ResetPlayerStatistics()
     {
-        currentStatistics.health = maxStatistics.health;
-        currentStatistics.energy = maxStatistics.energy;
+        currentStatistics.resourcesStatistics.health = maxStatistics.resourcesStatistics.health;
+        currentStatistics.resourcesStatistics.energy = maxStatistics.resourcesStatistics.energy;
     }
 
     public void TakeDamage(float damage)
     {
-        currentStatistics.health -= damage;
+        currentStatistics.resourcesStatistics.health -= damage;
 
-        Healthbar.instance.slider.value = currentStatistics.health;
+        Healthbar.instance.slider.value = currentStatistics.resourcesStatistics.health;
 
         PlayerDamaged.PlayRandomClip();
 
-        if (currentStatistics.health <= 0) {
+        if (currentStatistics.resourcesStatistics.health <= 0) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
     public void HealthRestore(float health) {
-        currentStatistics.health += health;
+        currentStatistics.resourcesStatistics.health += health;
 
-        Healthbar.instance.slider.value = currentStatistics.health;
+        Healthbar.instance.slider.value = currentStatistics.resourcesStatistics.health;
+    }
+
+    public void OnValidate() {
+        //maxStatistics.combatStatistics.Validate();
     }
 }
