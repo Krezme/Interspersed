@@ -56,6 +56,8 @@ public class FootstepMaster_Events : MonoBehaviour {
 	public AudioClip[] stone = new AudioClip[0];
 	public AudioClip[] water = new AudioClip[0];
 	public AudioClip[] wood = new AudioClip[0];
+
+	public AudioClip[] hard_metal = new AudioClip[0];
 	
 	[Space(5.0f)]
 	[Tooltip("Choose ONE")]
@@ -201,6 +203,8 @@ public class FootstepMaster_Events : MonoBehaviour {
 			Invoke ("PlaySnow", 0);
 		if (floor.tag == ("WaterPuddle"))
 			Invoke ("PlayWater", 0);
+		if (floor.tag == ("Surface_HardMetal"))
+			Invoke ("PlayHardMetal", 0);
 		if (floor.tag == ("Untagged"))
 			Invoke ("PlayDefault", 0);
 		if (floor.tag == ("Terrain")) {
@@ -332,6 +336,16 @@ public class FootstepMaster_Events : MonoBehaviour {
 			mySound.PlayOneShot (metal [Random.Range (0, metal.Length)], currentVolume);
 		} else Debug.LogError ("trying to play metal sound, but no metal sounds in array!");
 	}
+
+	void PlayHardMetal(){
+		currentVolume = (volume + UnityEngine.Random.Range(-volumeVariance, volumeVariance));
+		pitch = (1.0f + Random.Range(-pitchVariance, pitchVariance));
+		mySound.pitch = pitch;
+		if (metal.Length > 0) {
+			mySound.PlayOneShot (hard_metal [Random.Range (0, hard_metal.Length)], currentVolume);
+		} else Debug.LogError ("trying to play hard metal sound, but no hard metal sounds in array!");
+	}
+
 
 	void PlayDefault(){
 		currentVolume = (volume + UnityEngine.Random.Range(-volumeVariance, volumeVariance));
