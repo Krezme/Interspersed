@@ -144,10 +144,14 @@ public class CristalArm : PlayerAbility
     public override void AimingAbility ()
     {
         if (crystalArmModes == CrystalArmModes.Default) { 
-            ChargeSingleShotAimingAbility();
+            if (armAbilities[0].isActive) { // Locking the Single Shot ability
+                ChargeSingleShotAimingAbility();
+            }
         }
-        else if (crystalArmModes == CrystalArmModes.Shotgun) { 
-            ShotgunShotAimingAbility();
+        else if (crystalArmModes == CrystalArmModes.Shotgun) {
+            if (armAbilities[2].isActive) { // Locking the Shotgun ability
+                ShotgunShotAimingAbility();
+            }
         }
     }
 
@@ -202,8 +206,10 @@ public class CristalArm : PlayerAbility
     // Switching between modes
     public override void AditionalAbilities() {
         ChangeMode();
-        if (crystalArmModes == CrystalArmModes.Default) {
+        if (armAbilities[1].isActive) {
             ChargeShot();
+        }
+        if (crystalArmModes == CrystalArmModes.Default) {
             FiringTheProjectile();
         }
         if (crystalArmModes == CrystalArmModes.Shotgun) {
@@ -220,34 +226,51 @@ public class CristalArm : PlayerAbility
 
     void NextMode() {
         if ((int)crystalArmModes == Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Max()){ // if the current item is the last item possible
-            crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min(); //set it to first item
-            ShotgunSwapFalse.PlayRandomClip();
+            DefaultMode(); //set it to first item
         }
         else {
             crystalArmModes = (CrystalArmModes)((int)crystalArmModes+1); /* set it to the next item. */ // ! -----------IT DOES NOT WORK IF WE ASSIGN RANDOM IDs TO THE ENUM ITEMS-----------
-            ShotgunSwapTrue.PlayRandomClip();
+            bool isNextLocked = false;
+            for (int i = 0; i < armAbilities.Length; i++) {
+                if (crystalArmModes.ToString() == armAbilities[i].abilityName && !armAbilities[i].isActive) {
+                    isNextLocked = true;
+                    break;
+                }
+            }
+            if (isNextLocked) {
+                NextMode();
+            }else {
+                ShotgunSwapTrue.PlayRandomClip();
+            }
+        }
+    }
+
+    void DefaultMode() {
+        crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min(); //set it to first item
+        if (armAbilities[2].isActive) {
+            ShotgunSwapFalse.PlayRandomClip();
         }
     }
 
     void ChargeShot() {
-        if (OnPlayerInput.instance.onAbility1 && statistics.currentElectricShots > 0) { // Toggle the electric ability
-            statistics.isElectric = !statistics.isElectric;
-            OnPlayerInput.instance.onAbility1 = false;
+        if (OnPlayerInput.instance.onFire2) {
+            if (OnPlayerInput.instance.onAbility1 && statistics.currentElectricShots > 0) { // Toggle the electric ability
+                DefaultMode();
+                statistics.isElectric = !statistics.isElectric;
+                OnPlayerInput.instance.onAbility1 = false;
 
-
-            //audioSource.PlayOneShot(ChargeSwap);
-            if (statistics.isElectric == true)
-            {
-                ChargeOn.PlayRandomClip(); //Rhys - Plays charge on sound when is.Electric == True
+                //audioSource.PlayOneShot(ChargeSwap);
+                if (statistics.isElectric == true)
+                {
+                    ChargeOn.PlayRandomClip(); //Rhys - Plays charge on sound when is.Electric == True
+                }
+                else
+                {
+                    //isElectric = false;
+                    ChargeOff.PlayRandomClip(); //Rhys - Plays charge off sound when is.Electric == false
+                }
             }
-            else
-            {
-                //isElectric = false;
-                ChargeOff.PlayRandomClip(); //Rhys - Plays charge off sound when is.Electric == false
-            }
-
-
-        } 
+        }
     }
 
     void FiringTheProjectile() {
@@ -317,6 +340,14 @@ public class CristalArm : PlayerAbility
                 cooldownBetweenShots = 0;
             }
         }
+    }
+
+    public void EnableAbility(int index) {
+        armAbilities[index].isActive = true;
+    }
+
+    public void DisableAbility(int index) {
+        armAbilities[index].isActive = false;
     }
 
     void OnValidate() {
