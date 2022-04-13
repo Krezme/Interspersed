@@ -16,33 +16,39 @@ public class PlayerCombatStatistics {
     
     public float[] chargeShotsDamage;
 
-    public void Validate () {
-        //chargeShotsDamage = new float[CristalArm.insance.chargeStages.Length];
-    }
+    public float[] chargeStages;
+
 }
 
 [System.Serializable]
-public class PlayerCurrentStatistics {
+public class PlayerStatistics {
 
     public PlayerResourcesStatistics resourcesStatistics;
 
     public PlayerCombatStatistics combatStatistics;
 
-}
-
-[System.Serializable]
-public class PlayerMaxStatistics
-{
-    public PlayerResourcesStatistics resourcesStatistics;
-
-    public PlayerCombatStatistics combatStatistics;
 }
 
 public class PlayerStatisticsManager : MonoBehaviour
 {
 
-    public PlayerCurrentStatistics currentStatistics;
-    public PlayerMaxStatistics maxStatistics;
+    #region Singleton
+
+    public static PlayerStatisticsManager instance;
+
+    void Awake() {
+        if (instance != null) {
+            Debug.LogError("THERE ARE TWO OR MORE PlayerStatisticsManager INSTANCES! PLEASE KEEP ONLY ONE instance OF THIS SCRIPT");
+        }
+        else {
+            instance = this;
+        }
+    }
+    #endregion
+
+    public PlayerStatistics currentStatistics;
+
+    public PlayerStatistics maxStatistics;
 
     public RandomAudioPlayer PlayerDamaged;
 
@@ -70,8 +76,7 @@ public class PlayerStatisticsManager : MonoBehaviour
 
     public void ResetPlayerStatistics()
     {
-        currentStatistics.resourcesStatistics.health = maxStatistics.resourcesStatistics.health;
-        currentStatistics.resourcesStatistics.energy = maxStatistics.resourcesStatistics.energy;
+        currentStatistics = maxStatistics;
     }
 
     public void TakeDamage(float damage)
@@ -91,9 +96,5 @@ public class PlayerStatisticsManager : MonoBehaviour
         currentStatistics.resourcesStatistics.health += health;
 
         Healthbar.instance.slider.value = currentStatistics.resourcesStatistics.health;
-    }
-
-    public void OnValidate() {
-        //maxStatistics.combatStatistics.Validate();
     }
 }

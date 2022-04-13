@@ -29,13 +29,13 @@ public class CristalArm : PlayerAbility
 {
 
     #region Singleton
-    public static CristalArm insance;
+    public static CristalArm instance;
     void Awake() {
-        if (insance != null) {
+        if (instance != null) {
             Debug.LogError("THERE ARE TWO OR MORE CristalArm INSTANCES! PLEASE KEEP ONLY ONE instance OF THIS SCRIPT");
         }
         else {
-            insance = this;
+            instance = this;
         }
     } 
 
@@ -62,7 +62,7 @@ public class CristalArm : PlayerAbility
 
     public Slider crosshair;
 
-    public float[] chargeStages;
+    //!public float[] chargeStages;                         REMOVE ME
 
     public float projectileDamage; // This is a temp variable and will be changed when we decide if we are going with scritable objects or an other method
 
@@ -158,10 +158,10 @@ public class CristalArm : PlayerAbility
     void ChargeSingleShotAimingAbility() {
         timePassed += Time.deltaTime;
         if (crosshair != null) {
-            crosshair.value = timePassed / chargeStages[chargeStages.Length - 1]; //Calculates the crosshair fill depending on the charges. It is chargeStages.Length - 1, because the first charge is default
+            crosshair.value = timePassed / PlayerStatisticsManager.instance.currentStatistics.combatStatistics.chargeStages[PlayerStatisticsManager.instance.currentStatistics.combatStatistics.chargeStages.Length - 1]; //Calculates the crosshair fill depending on the charges. It is chargeStages.Length - 1, because the first charge is default
         }
-        for (int i = chargeStages.Length -1; i >= 0; i--) {
-            if (chargeStages[i] <= timePassed) { //checking for the time and then setting the correct bullet prefab 
+        for (int i = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.chargeStages.Length -1; i >= 0; i--) {
+            if (PlayerStatisticsManager.instance.currentStatistics.combatStatistics.chargeStages[i] <= timePassed) { //checking for the time and then setting the correct bullet prefab 
                 currentBullet = pfBulletProjectileDef[i+1];
                 currentChargeStage = i;
                 // finctionality depending on different charge stage
@@ -281,7 +281,7 @@ public class CristalArm : PlayerAbility
                 Vector3 aimDir = (centerScreenToWorldPosition - spawnBulletPosition.position).normalized;
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 BulletProjectile newBulletProjectile = bullet.GetComponent<BulletProjectile>();
-                newBulletProjectile.statistics.damage = projectileDamage * (currentChargeStage +1);
+                newBulletProjectile.statistics.damage = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.chargeShotsDamage[((int)currentChargeStage)];
                 newBulletProjectile.statistics.chargeStage = currentChargeStage + 1;
                 newBulletProjectile.statistics.isElectric = statistics.isElectric; // setting the projectile to electric 
                 if (statistics.isElectric) { // Decreasing charged shots
@@ -294,8 +294,6 @@ public class CristalArm : PlayerAbility
                     }
 
                 }
-
-
 
                 if (statistics.isElectric == false) //Rhys - Plays electric shot if isElectric == false - I used to have an if/else statement here however it seemed to ignore the else and only played the regular sound, so I seperated the sounds into 2 if statements for now
                 {
@@ -311,7 +309,7 @@ public class CristalArm : PlayerAbility
             if (crosshair != null){
                 crosshair.value = 0;
             }
-            projectileDamage = statistics.damage;
+            //!projectileDamage = statistics.damage;                               REMOVE ME
             timePassed = 0;
         }
 

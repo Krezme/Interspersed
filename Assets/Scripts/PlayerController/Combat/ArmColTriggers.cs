@@ -20,7 +20,7 @@ public class ArmColTriggers : MonoBehaviour
                     }
                 }
                 if (otherEnemyStatisticsManager.currentStats.health > 0) {
-                    otherEnemyStatisticsManager.TakeDamage(PlayerAbilitiesController.instance.meleeStats.damage, true);
+                    otherEnemyStatisticsManager.TakeDamage(PlayerStatisticsManager.instance.currentStatistics.combatStatistics.meleeDamage, true);
                     enemiesHit.Add(other.gameObject);
                 }
             }
