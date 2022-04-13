@@ -27,9 +27,9 @@ public class RadioTowerEvent : MonoBehaviour
     public LayerMask layers;
     public UnityEvent OnEnter;
 
-    /* public GameObject[] EnemiesAlive; //Rhys - Creating array to store instantiated enemies */
+    /* public GameObject[] enemiesAlive; //Rhys - Creating array to store instantiated enemies */
 
-    public List<EnemyStatisticsManager> EnemiesAlive;
+    public List<EnemyStatisticsManager> enemiesAlive;
 
     public Transform [] EnemySpawns; //Rhys - Creating array to store spawn points
 
@@ -52,7 +52,7 @@ public class RadioTowerEvent : MonoBehaviour
 
     public int EnemiesInstantiated = 0;
 
-    private float WaveCount = 0f;
+    public float WaveCount = 0f;
 
     public GameObject RadioAnnouncerSavedDX;
 
@@ -71,8 +71,8 @@ public class RadioTowerEvent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        boxCollider.enabled = false;
-        if (WaveCount == 0)
+        //boxCollider.enabled = false;
+        if (WaveCount == 0 && other.gameObject.tag == "Player")
         {
             WaveOne();
             WaveCount++;
@@ -82,11 +82,11 @@ public class RadioTowerEvent : MonoBehaviour
 
     void FixedUpdate()
     {
-        foreach(EnemyStatisticsManager esm in EnemiesAlive)
+        foreach(EnemyStatisticsManager esm in enemiesAlive)
         {
             if (esm.currentStats.health <= 0)
             {
-                EnemiesAlive.Remove(esm); //Ensures that dead enemies are removed from the list
+                enemiesAlive.Remove(esm); //Ensures that dead enemies are removed from the list
             }
         }
     }
@@ -119,38 +119,38 @@ public class RadioTowerEvent : MonoBehaviour
 
 
 
-        if (EnemiesAlive.Count <= 0 && WaveCount == 1) //Checking that all enemies are dead & that wave one has happened
+        if (enemiesAlive.Count <= 0 && WaveCount == 1) //Checking that all enemies are dead & that wave one has happened
         {
             InterludeOne();
             WaveCount = 1.5f; //Interludes are between rounds so I thought I'd symbolise that within the wave number aswell
         }
 
-        if (EnemiesAlive.Count <= 0 && WaveCount == 1.5f && Rift1Destroyed == true) //Checking that all enemies are dead & that wave one has happened
+        if (enemiesAlive.Count <= 0 && WaveCount == 1.5f && Rift1Destroyed == true) //Checking that all enemies are dead & that wave one has happened
         {
             WaveTwo();
             WaveCount = 2;
         }
 
-        if (EnemiesAlive.Count <= 0 && WaveCount == 2) //Checking that all enemies are dead & that wave one has happened
+        if (enemiesAlive.Count <= 0 && WaveCount == 2) //Checking that all enemies are dead & that wave one has happened
         {
             InterludeTwo();
             WaveCount = 2.5f; //Interludes are between rounds so I thought I'd symbolise that within the wave number aswell
         }
 
-        if (EnemiesAlive.Count <= 0 && WaveCount == 2.5f && Rift1Destroyed == true && Rift2Destroyed == true)
+        if (enemiesAlive.Count <= 0 && WaveCount == 2.5f && Rift1Destroyed == true && Rift2Destroyed == true)
         {
             WaveThree();
             WaveCount = 3;
         }
 
-        if (EnemiesAlive.Count <= 0 && WaveCount == 3) //Checking that all enemies are dead & that wave one has happened
+        if (enemiesAlive.Count <= 0 && WaveCount == 3) //Checking that all enemies are dead & that wave one has happened
         {
             InterludeThree();
             WaveCount = 3.5f; //Interludes are between rounds so I thought I'd symbolise that within the wave number aswell
         }
 
 
-        if (CanPlay == true && EnemiesAlive.Count <= 0 && WaveCount == 3.5 && Rift1Destroyed == true && Rift2Destroyed == true && Rift3Destroyed == true)
+        if (CanPlay == true && enemiesAlive.Count <= 0 && WaveCount == 3.5 && Rift1Destroyed == true && Rift2Destroyed == true && Rift3Destroyed == true)
         {
             RadioAnnouncerSavedDX.SetActive(true); //Activating RadioAnnouncerSaved dialogue which leasds into the credits
             CanPlay = false; //Preventing the dialogue from looping
@@ -162,22 +162,22 @@ public class RadioTowerEvent : MonoBehaviour
     void WaveOne() //Starts when the player enters the area of the radio tower & the dialogue starts
     {
         
-        /* EnemiesAlive[EnemiesInstantiated] = Instantiate(WarplingPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation);
+        /* enemiesAlive[EnemiesInstantiated] = Instantiate(WarplingPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation);
         EnemiesInstantiated++; */
 
-        EnemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>()); //Instantiating the stated prefabs and ensuring its EnemyStatisticsManager is associated with each object individually to track their health
+        enemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>()); //Instantiating the stated prefabs and ensuring its EnemyStatisticsManager is associated with each object individually to track their health
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[1].transform.position,EnemySpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[1].transform.position,EnemySpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[2].transform.position,EnemySpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[2].transform.position,EnemySpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[3].transform.position,EnemySpawns[3].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[3].transform.position,EnemySpawns[3].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[4].transform.position,EnemySpawns[4].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[4].transform.position,EnemySpawns[4].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
     }
 
@@ -187,7 +187,7 @@ public class RadioTowerEvent : MonoBehaviour
     {
         Rift1Destroyed = false;
         Rift1.SetActive(true);
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++; 
     }
 
@@ -195,19 +195,19 @@ public class RadioTowerEvent : MonoBehaviour
 
     void WaveTwo() //Should start when the first wave of enemies has been defeated
     {
-        EnemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[1].transform.position,EnemySpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(WarplingPrefab,EnemySpawns[1].transform.position,EnemySpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[2].transform.position,EnemySpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[2].transform.position,EnemySpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[3].transform.position,EnemySpawns[3].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[3].transform.position,EnemySpawns[3].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[4].transform.position,EnemySpawns[4].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[4].transform.position,EnemySpawns[4].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++; 
     }
 
@@ -216,31 +216,31 @@ public class RadioTowerEvent : MonoBehaviour
     {
         Rift1Destroyed = false;
         Rift1.SetActive(true);
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++; 
 
         Rift2Destroyed = false;
         Rift2.SetActive(true);
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[1].transform.position,InterludeSpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[1].transform.position,InterludeSpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++; 
     }
 
 
     void WaveThree() //Should start when the second wave of enemies has been defeated //!MORE SPAWN POINTS SHOULD BE MADE FOR DIFFERENT ENEMY TYPES AND SHOULD PROBS BE MOVED IN GENERAL
     {
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[0].transform.position,EnemySpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[1].transform.position,EnemySpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[1].transform.position,EnemySpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[2].transform.position,EnemySpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[2].transform.position,EnemySpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[3].transform.position,EnemySpawns[3].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[3].transform.position,EnemySpawns[3].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
 
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[4].transform.position,EnemySpawns[4].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,EnemySpawns[4].transform.position,EnemySpawns[4].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++;
     } 
 
@@ -249,17 +249,17 @@ public class RadioTowerEvent : MonoBehaviour
     {
         Rift1Destroyed = false;
         Rift1.SetActive(true);
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[0].transform.position,InterludeSpawns[0].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++; 
 
         Rift2Destroyed = false;
         Rift2.SetActive(true);
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[1].transform.position,InterludeSpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[1].transform.position,InterludeSpawns[1].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++; 
 
         Rift3Destroyed = false;
         Rift3.SetActive(true);
-        EnemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[2].transform.position,InterludeSpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
+        enemiesAlive.Add(Instantiate(StrickenPrefab,InterludeSpawns[2].transform.position,InterludeSpawns[2].transform.rotation).GetComponent<EnemyStatisticsManager>());
         EnemiesInstantiated++; 
     }
 }
