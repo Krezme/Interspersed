@@ -5,6 +5,8 @@ using UnityEngine;
 public class StrickenMeleeDamageController : MonoBehaviour
 {
     public EnemyStatisticsManager statisticsManager; /// holds the statistics for the enemy
+    
+    public RandomAudioPlayer meleeSoundBank;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +17,8 @@ public class StrickenMeleeDamageController : MonoBehaviour
 
             /// knocksback the player with values from the AI's statistics
             ThirdPersonPlayerController.instance.ApplyKnockback(statisticsManager.transform.position, statisticsManager.currentStats.knockbackStrength, statisticsManager.currentStats.knockbackHeight);
+
+            meleeSoundBank.PlayRandomClip();
         }
     }
 }

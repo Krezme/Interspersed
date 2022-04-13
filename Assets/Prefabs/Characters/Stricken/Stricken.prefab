@@ -5409,7 +5409,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 30
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -5496,18 +5496,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 0.3
-  maxVolume: 0.3
+  minVolume: 0.5
+  maxVolume: 0.5
   minPitch: 1
   maxPitch: 1
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: c6c2ce2f68cfee64d97cecc96c886a3e, type: 3}
-    - {fileID: 8300000, guid: f604ac7493c5ca348b1b7460957f9cf7, type: 3}
-    - {fileID: 8300000, guid: 2324bda02b960ec40a33f3495c051e04, type: 3}
-    - {fileID: 8300000, guid: 5de0a638f1af94846aacae353d71a615, type: 3}
+    - {fileID: 8300000, guid: a364579a45a0cb642ab8a7d56134785f, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -5589,7 +5586,7 @@ GameObject:
   - component: {fileID: 265746663442438188}
   - component: {fileID: 7497289731834933227}
   m_Layer: 8
-  m_Name: DX WarplingAttack
+  m_Name: SFX Stricken Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7026,6 +7023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statisticsManager: {fileID: 4496885122599576943}
+  meleeSoundBank: {fileID: 265746663442438188}
 --- !u!1 &7388445169500594918
 GameObject:
   m_ObjectHideFlags: 0
@@ -7874,7 +7872,7 @@ GameObject:
   - component: {fileID: 9118717884079340121}
   - component: {fileID: 1248810893261348838}
   m_Layer: 8
-  m_Name: SFX StrickenFire
+  m_Name: SFX StrickenShoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7916,7 +7914,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 30
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -8003,18 +8001,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 0.3
-  maxVolume: 0.3
+  minVolume: 0.5
+  maxVolume: 0.5
   minPitch: 1
   maxPitch: 1
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: c6c2ce2f68cfee64d97cecc96c886a3e, type: 3}
-    - {fileID: 8300000, guid: f604ac7493c5ca348b1b7460957f9cf7, type: 3}
-    - {fileID: 8300000, guid: 2324bda02b960ec40a33f3495c051e04, type: 3}
-    - {fileID: 8300000, guid: 5de0a638f1af94846aacae353d71a615, type: 3}
+    - {fileID: 8300000, guid: 936c257207ef92943a4d9cd80ee7bc75, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
@@ -8611,6 +8606,7 @@ GameObject:
   - component: {fileID: 7579930391636117346}
   - component: {fileID: 1721361088}
   - component: {fileID: 186710363}
+  - component: {fileID: 5275988441248466091}
   m_Layer: 0
   m_Name: Stricken
   m_TagString: Enemy
@@ -8824,6 +8820,20 @@ MonoBehaviour:
   enemyStatisticsManager: {fileID: 4496885122599576943}
   attackCooldown: 5
   attackCurrentCooldown: 0
+--- !u!114 &5275988441248466091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055298318155760197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ccc86b4dbb55f1469141a428d5dfbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shoot: {fileID: 9118717884079340121}
+  reload: {fileID: 4106155994671842635}
 --- !u!1 &9123327231069454796
 GameObject:
   m_ObjectHideFlags: 0
