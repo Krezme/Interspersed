@@ -86,6 +86,7 @@ public class SlimeArm : PlayerAbility
     }
     public override void AditionalAbilities()
     {
+        OnPlayerInput.instance.onArmMode = false; // ! This makes sure that while the Slime arm is active the onArmMode button will not do anything
         base.AditionalAbilities();
         PickUpAbility();
         Shielding();
