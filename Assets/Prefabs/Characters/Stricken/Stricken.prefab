@@ -8607,6 +8607,7 @@ GameObject:
   - component: {fileID: 1721361088}
   - component: {fileID: 186710363}
   - component: {fileID: 5275988441248466091}
+  - component: {fileID: -3999885299899829219}
   m_Layer: 0
   m_Name: Stricken
   m_TagString: Enemy
@@ -8834,6 +8835,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shoot: {fileID: 9118717884079340121}
   reload: {fileID: 4106155994671842635}
+--- !u!114 &-3999885299899829219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055298318155760197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8993f42f270674197a8d6c9420e5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  incomingForceFloat: 0
+  minimumForceRequired: 3
+  physicsDamageMultiplier: 20
 --- !u!1 &9123327231069454796
 GameObject:
   m_ObjectHideFlags: 0
@@ -9144,12 +9160,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 705ceed53821941408876e489d8298cf, type: 3}
---- !u!1 &26215070960992372 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 738447431269838430, guid: 705ceed53821941408876e489d8298cf,
-    type: 3}
-  m_PrefabInstance: {fileID: 748262130146815530}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7223153504368395042 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7953242209463577864, guid: 705ceed53821941408876e489d8298cf,
@@ -9162,6 +9172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a49c75861c0554aa23722cccd5a2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &26215070960992372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 738447431269838430, guid: 705ceed53821941408876e489d8298cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 748262130146815530}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &26215070960992371 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 738447431269838425, guid: 705ceed53821941408876e489d8298cf,
