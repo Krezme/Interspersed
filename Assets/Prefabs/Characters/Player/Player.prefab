@@ -3256,17 +3256,10 @@ MonoBehaviour:
     abilityName: Shotgun
     isActive: 1
   statistics:
-    damage: 10
     maxElectricShots: 3
     currentElectricShots: 3
-    rechargeTime: 10
     currentRechrge: 0
     isElectric: 0
-  shotgunStatistics:
-    damagePerPellet: 3
-    projectileCount: 25
-    projectileDispersion: {x: 0.1, y: 0.1}
-    shotgunCooldown: 1
   crystalArmModes: 0
   spawnBulletPosition: {fileID: 7083428543582369535}
   pfBulletProjectileDef:
@@ -3279,11 +3272,6 @@ MonoBehaviour:
   audioSource: {fileID: 4433144296201853455}
   changeToArm: {fileID: 8745843780549627091}
   crosshair: {fileID: 0}
-  chargeStages:
-  - 0.2
-  - 0.35
-  - 0.5
-  projectileDamage: 10
   ChargeOn: {fileID: 5912012086594059417}
   ChargeOff: {fileID: 1556543491740539852}
   ChargingPlayer: {fileID: 8188284837993904461}
@@ -3745,23 +3733,39 @@ MonoBehaviour:
       energy: 0
     combatStatistics:
       meleeDamage: 0
-      chargeShotsDamage: []
-      chargeStages: []
+      crystalArmStats:
+        chargeShotsDamage: []
+        chargeShotStages: []
+        electricRechargeTime: 0
+      crystalArmShotgunStats:
+        damagePerPellet: 0
+        projectileCount: 0
+        projectileDispersionX: 0
+        projectileDispersionY: 0
+        shotgunCooldown: 0
   maxStatistics:
     resourcesStatistics:
       health: 200
       energy: 100
     combatStatistics:
       meleeDamage: 10
-      chargeShotsDamage:
-      - 10
-      - 15
-      - 20
-      - 30
-      chargeStages:
-      - 0.2
-      - 0.35
-      - 0.5
+      crystalArmStats:
+        chargeShotsDamage:
+        - 10
+        - 15
+        - 20
+        - 30
+        chargeShotStages:
+        - 0.2
+        - 0.35
+        - 0.5
+        electricRechargeTime: 10
+      crystalArmShotgunStats:
+        damagePerPellet: 3
+        projectileCount: 25
+        projectileDispersionX: 0.1
+        projectileDispersionY: 0.1
+        shotgunCooldown: 1
   PlayerDamaged: {fileID: 912553396}
 --- !u!114 &1956974271675083317
 MonoBehaviour:

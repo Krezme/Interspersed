@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MeleeStats {
-    public float damage;
-}
-
-[System.Serializable]
 public class PlayerAbilitiesReferences {
     [HideInInspector]
     public string name;
@@ -57,8 +52,6 @@ public Light ElectricGlow;
     [Header("Aiming")]
     public LayerMask aimColliderLayerMask = new LayerMask();
     public Transform rayBitch;
-
-    public MeleeStats meleeStats;
 
     [HideInInspector]
     public bool isAbilityActive;

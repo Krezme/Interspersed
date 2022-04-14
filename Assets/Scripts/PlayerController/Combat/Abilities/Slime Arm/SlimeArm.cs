@@ -22,7 +22,6 @@ public class SlimeArm : PlayerAbility
     public ArmAbilities[] armAbilities = new ArmAbilities[2] {new ArmAbilities() {abilityName = "Pick Up", isActive = true}, new ArmAbilities() {abilityName = "Shield"}};
 
     //Cooldown variables
-    public float cooldownMaxTime = 1;
     public float cooldownTimer = 0;
 
     public GameObject changeToArm; 
@@ -43,7 +42,6 @@ public class SlimeArm : PlayerAbility
 
     //Functionality Variables
     [SerializeField] Camera cam;
-    [SerializeField] float maxGrabDistance = 10f, throwforce = 20f;
     [SerializeField] Transform objectHolder;
     [SerializeField] Transform objectHolderShielding;
     
@@ -104,7 +102,7 @@ public class SlimeArm : PlayerAbility
                         if (!grabbedRB) {
                             RaycastHit hit;
                             Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-                            if (Physics.Raycast(ray, out hit, maxGrabDistance))
+                            if (Physics.Raycast(ray, out hit, PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.maxGrabDistance))
                             {   
                                 if (hit.collider.gameObject.TryGetComponent<GrabbedEnviromentReplacer>(out GrabbedEnviromentReplacer grabbedEnviromentReplacer)) {
                                     grabbedRB = grabbedEnviromentReplacer.Replace();
@@ -127,7 +125,7 @@ public class SlimeArm : PlayerAbility
                                     grabbedRagdoll.pickedUpByPlayer = true;
                                     Debug.Log("Running Ragdoll");
                                     grabbedRagdoll.RagdollOn();
-                                    if (Physics.Raycast(ray, out hit, maxGrabDistance))
+                                    if (Physics.Raycast(ray, out hit, PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.maxGrabDistance))
                                     {
                                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
                                         grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
@@ -176,7 +174,7 @@ public class SlimeArm : PlayerAbility
                         }
 
                         //start the cooldown 
-                        cooldownTimer = cooldownMaxTime;
+                        cooldownTimer = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.grabbingCooldown;
                         StartCoroutine(Ability1Cooldown());
                     }
                 }
@@ -274,7 +272,7 @@ public class SlimeArm : PlayerAbility
                 }else {
                     grabbedRB.gameObject.AddComponent<PhysicsDamageableObject>(); // Adding a PhysicsDamageableObject to the grabbed object when there is no ragdoll
                 }
-                grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * throwforce, ForceMode.VelocityChange);
+                grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.throwforce, ForceMode.VelocityChange);
                 Destroy(slimeBallInstance);
                 slimeBallInstance = null;
                 grabbedRB = null;
@@ -333,7 +331,7 @@ public class SlimeArm : PlayerAbility
     private IEnumerator Ability1Cooldown()
     {
         //after the cooldown time, set the cooldown timer to 0 allowing the ability to be cast again
-        yield return new WaitForSeconds(cooldownMaxTime);
+        yield return new WaitForSeconds(PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.grabbingCooldown);
         cooldownTimer = 0;
     }
 

@@ -3,6 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+
+public static class Extensions
+{
+    public static T DeepClone<T>(this T obj)
+    {
+        using (MemoryStream stream = new MemoryStream())
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, obj);
+            stream.Position = 0;
+ 
+            return (T) formatter.Deserialize(stream);
+        }
+    }
+}
+
+[System.Serializable]
+public class PlayerStatistics {
+
+    public PlayerResourcesStatistics resourcesStatistics;
+
+    public PlayerCombatStatistics combatStatistics;
+
+}
 
 [System.Serializable]
 public class PlayerResourcesStatistics {
@@ -13,20 +39,38 @@ public class PlayerResourcesStatistics {
 [System.Serializable]
 public class PlayerCombatStatistics {
     public float meleeDamage;
-    
-    public float[] chargeShotsDamage;
 
-    public float[] chargeStages;
+    public CrystalArmSingleShotStats crystalArmStats;
+
+    public CrystalArmShotgunStats crystalArmShotgunStats;
+
+    public SlimeArmStats slimeArmStats;
 
 }
 
 [System.Serializable]
-public class PlayerStatistics {
+public class CrystalArmSingleShotStats {
+    public float[] chargeShotsDamage;
 
-    public PlayerResourcesStatistics resourcesStatistics;
+    public float[] chargeShotStages;
 
-    public PlayerCombatStatistics combatStatistics;
+    public float electricRechargeTime;
+}
 
+[System.Serializable]
+public class CrystalArmShotgunStats{
+    public float damagePerPellet;
+    public int projectileCount;
+    public float shotgunCooldown;
+    public float projectileDispersionX; //The spread of the projectiles horizontally
+    public float projectileDispersionY; //The spread of the projectiles vertically
+}
+
+[System.Serializable]
+public class SlimeArmStats {
+    public float grabbingCooldown = 1;
+    public float maxGrabDistance = 10f;
+    public float throwforce = 20f;
 }
 
 public class PlayerStatisticsManager : MonoBehaviour
@@ -76,7 +120,7 @@ public class PlayerStatisticsManager : MonoBehaviour
 
     public void ResetPlayerStatistics()
     {
-        currentStatistics = maxStatistics;
+        currentStatistics = maxStatistics.DeepClone();
     }
 
     public void TakeDamage(float damage)
