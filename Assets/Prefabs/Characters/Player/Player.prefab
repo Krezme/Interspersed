@@ -3304,7 +3304,6 @@ MonoBehaviour:
   - name: 'Ability: Shield (Active: True)'
     abilityName: Shield
     isActive: 1
-  cooldownMaxTime: 5
   cooldownTimer: 0
   changeToArm: {fileID: 4028415373917518356}
   scaleSlimeBall: {fileID: 3318853465249050936, guid: a8f90c1732517f14c85656b0f18edf02,
@@ -3315,8 +3314,6 @@ MonoBehaviour:
   FadeIn: {fileID: 6264151297823542628}
   FadeOut: {fileID: 6132722104436321070}
   cam: {fileID: 0}
-  maxGrabDistance: 10
-  throwforce: 100
   objectHolder: {fileID: 0}
   objectHolderShielding: {fileID: 0}
   grabbedFollowForce: 20
@@ -3712,8 +3709,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 577
   rayBitch: {fileID: 0}
-  meleeStats:
-    damage: 10
   isAbilityActive: 0
 --- !u!114 &5179330393754652006
 MonoBehaviour:
@@ -3740,9 +3735,13 @@ MonoBehaviour:
       crystalArmShotgunStats:
         damagePerPellet: 0
         projectileCount: 0
+        shotgunCooldown: 0
         projectileDispersionX: 0
         projectileDispersionY: 0
-        shotgunCooldown: 0
+      slimeArmStats:
+        grabbingCooldown: 1
+        maxGrabDistance: 10
+        throwforce: 20
   maxStatistics:
     resourcesStatistics:
       health: 200
@@ -3763,9 +3762,13 @@ MonoBehaviour:
       crystalArmShotgunStats:
         damagePerPellet: 3
         projectileCount: 25
+        shotgunCooldown: 1
         projectileDispersionX: 0.1
         projectileDispersionY: 0.1
-        shotgunCooldown: 1
+      slimeArmStats:
+        grabbingCooldown: 1
+        maxGrabDistance: 10
+        throwforce: 100
   PlayerDamaged: {fileID: 912553396}
 --- !u!114 &1956974271675083317
 MonoBehaviour:

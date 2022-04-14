@@ -70,7 +70,7 @@ public class CrystalArmShotgunStats{
 public class SlimeArmStats {
     public float grabbingCooldown = 1;
     public float maxGrabDistance = 10f;
-    public float throwforce = 20f;
+    public float throwforce = 100f;
 }
 
 public class PlayerStatisticsManager : MonoBehaviour
