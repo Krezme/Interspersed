@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 public class RagdollController : MonoBehaviour
 {
     private Collider thisCollider; // The Collider in the parent game object
@@ -25,6 +26,8 @@ public class RagdollController : MonoBehaviour
     public bool objectMovesWithRigidbodyPhysics;
 
     public GameObject rigCentre; // the centre of the rig
+    public Renderer meshRenderer;
+    public float slimeSphereSizeMultyplier = 1;
 
     void Start()
     {

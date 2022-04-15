@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5427562114605909879}
   m_Layer: 0
   m_Name: Carrier_Joint_Body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 1474419551694194856}
   m_Layer: 0
   m_Name: Carrier_Joint_Wing_RIght_2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 8444812700025033796}
   m_Layer: 0
   m_Name: Carrier_Joint_Wing_RIght_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 8182160292268413587}
   m_Layer: 0
   m_Name: Carrier_Joint_Wing_Left_2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -726,6 +726,8 @@ MonoBehaviour:
   - {fileID: 8822345999312976658}
   objectMovesWithRigidbodyPhysics: 1
   rigCentre: {fileID: 732295446532836068}
+  meshRenderer: {fileID: 6316152070111884661}
+  slimeSphereSizeMultyplier: 1
 --- !u!95 &2802150705486111954
 Animator:
   serializedVersion: 3
@@ -1013,7 +1015,7 @@ GameObject:
   - component: {fileID: 2647344895146972312}
   m_Layer: 0
   m_Name: Carrier_Joint_Wing_Left_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
