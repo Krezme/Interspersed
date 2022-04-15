@@ -24,7 +24,7 @@ public class SkinnedMeshToMesh : MonoBehaviour
 
     IEnumerator UpdateVFXGraph()
     {
-        while (gameObject.activeSelf)
+        while (this.isActiveAndEnabled)
         {
             Mesh m = new Mesh();
             skinnedMesh.BakeMesh(m);
@@ -42,6 +42,4 @@ public class SkinnedMeshToMesh : MonoBehaviour
             yield return new WaitForSeconds (refreshRate);
         }
     }
-
-
 }

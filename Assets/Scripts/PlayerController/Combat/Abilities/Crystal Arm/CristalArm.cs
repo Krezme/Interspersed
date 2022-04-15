@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 [System.Serializable]
 public class CrystalArmStatistics
@@ -47,6 +48,10 @@ public class CristalArm : PlayerAbility
     //public AudioClip CrystalShot; //Rhys - These have been commented out as I have upgraded the audio system to be handled by seperate RandomAudioPlayer objects
 
     public GameObject changeToArm;
+
+    public VisualEffect lightningVFXEffect;
+
+    public SkinnedMeshToMesh lightningMeshToMesh;
 
     public Slider crosshair;
 
@@ -237,24 +242,24 @@ public class CristalArm : PlayerAbility
     }
 
     void ChargeShot() {
-        if (OnPlayerInput.instance.onFire2) {
-            if (OnPlayerInput.instance.onAbility1 && statistics.currentElectricShots > 0) { // Toggle the electric ability
-                if (crystalArmModes == CrystalArmModes.Shotgun) {
-                    DefaultMode();
-                }
-                statistics.isElectric = !statistics.isElectric;
-                OnPlayerInput.instance.onAbility1 = false;
+        if (OnPlayerInput.instance.onAbility1 && statistics.currentElectricShots > 0) { // Toggle the electric ability
+            if (crystalArmModes == CrystalArmModes.Shotgun) {
+                DefaultMode();
+            }
+            lightningVFXEffect.enabled = !statistics.isElectric;
+            lightningMeshToMesh.enabled = !statistics.isElectric;
+            statistics.isElectric = !statistics.isElectric;
+            OnPlayerInput.instance.onAbility1 = false;
 
-                //audioSource.PlayOneShot(ChargeSwap);
-                if (statistics.isElectric == true)
-                {
-                    ChargeOn.PlayRandomClip(); //Rhys - Plays charge on sound when is.Electric == True
-                }
-                else
-                {
-                    //isElectric = false;
-                    ChargeOff.PlayRandomClip(); //Rhys - Plays charge off sound when is.Electric == false
-                }
+            //audioSource.PlayOneShot(ChargeSwap);
+            if (statistics.isElectric == true)
+            {
+                ChargeOn.PlayRandomClip(); //Rhys - Plays charge on sound when is.Electric == True
+            }
+            else
+            {
+                //isElectric = false;
+                ChargeOff.PlayRandomClip(); //Rhys - Plays charge off sound when is.Electric == false
             }
         }
     }
@@ -287,7 +292,8 @@ public class CristalArm : PlayerAbility
                     Regular.PlayRandomClip();
                     IsHold = false; //Rhys - Resets IsHold so that charging sound will be played when fire key is held again
                 }
-
+                lightningVFXEffect.enabled = false;
+                lightningMeshToMesh.enabled = false;
                 statistics.isElectric = false;
                 OnPlayerInput.instance.onFire1 = false;
 
