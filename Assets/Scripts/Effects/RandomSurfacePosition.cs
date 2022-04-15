@@ -11,7 +11,7 @@ public class RandomSurfacePosition : MonoBehaviour
     private int currentTries;
 
     void OnEnable() {
-        InvokeRepeating(nameof(LookForSurface), 0, 1f);
+        InvokeRepeating(nameof(LookForSurface), 0, 0.5f);
     }
 
     void OnDisable() {
@@ -26,7 +26,11 @@ public class RandomSurfacePosition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = hit.point;
+        if (currentTries < 10) {
+            transform.position = hit.point;
+        }else {
+            transform.position = rayCastsDir.lightningDefaultTarget.transform.position;
+        }
         transform.rotation = Quaternion.Euler(hit.normal);
     }
 
@@ -43,9 +47,6 @@ public class RandomSurfacePosition : MonoBehaviour
                 currentTries++;
                 PerformRandomRayCast();
             }
-        }else{
-            // Turn off the effect
-            this.gameObject.SetActive(false);
         }
     }
 

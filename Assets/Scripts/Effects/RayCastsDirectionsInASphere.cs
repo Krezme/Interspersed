@@ -20,6 +20,8 @@ public class RayCastsDirectionsInASphere : MonoBehaviour
     [HideInInspector]
     public Vector3 spherecastOrigin;
 
+    public GameObject lightningDefaultTarget;
+
     private Vector3 direction;
 
     private Ray ray;
