@@ -24,7 +24,7 @@ public class SkinnedMeshToMesh : MonoBehaviour
 
     IEnumerator UpdateVFXGraph()
     {
-        while (this.isActiveAndEnabled)
+        while (this.isActiveAndEnabled && gameObject.activeSelf)
         {
             Mesh m = new Mesh();
             skinnedMesh.BakeMesh(m);
