@@ -59,6 +59,8 @@ public class SlimeArm : PlayerAbility
     private bool isShielding = false;
     private bool unShield = false;
 
+    private Renderer grabbedRenderer;
+
     /// <summary>
     /// Hard Coding the armAbilities array
     /// </summary>
@@ -144,7 +146,11 @@ public class SlimeArm : PlayerAbility
                                     }
                                 }
                                 else {
-                                    
+                                    try {
+                                        grabbedRB.TryGetComponent<Renderer>(out grabbedRenderer);
+                                    }catch (System.Exception) {
+                                        grabbedRenderer = null;
+                                    }
                                     if (grabbedRB.collisionDetectionMode == CollisionDetectionMode.Discrete) {
                                         grabbedRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
                                     }
@@ -236,10 +242,22 @@ public class SlimeArm : PlayerAbility
         if (grabbedRB)
         {
             if (!isShielding) {
-                grabbedRB.velocity = (objectHolder.transform.position - grabbedRB.transform.position).normalized * Vector3.Distance(objectHolder.transform.position, grabbedRB.transform.position) * grabbedFollowForce;
+                if (grabbedRenderer != null) {
+                    Vector3 newObjectHolderPosition = (objectHolder.transform.position + (grabbedRenderer.transform.position - grabbedRenderer.bounds.center));
+                    grabbedRB.velocity = (newObjectHolderPosition - grabbedRB.transform.position).normalized * Vector3.Distance(newObjectHolderPosition, grabbedRB.transform.position) * grabbedFollowForce;
+                }
+                else {
+                    grabbedRB.velocity = (objectHolder.transform.position - grabbedRB.transform.position).normalized * Vector3.Distance(objectHolder.transform.position, grabbedRB.transform.position) * grabbedFollowForce;
+                }
             }
             else{
-                grabbedRB.velocity = (objectHolderShielding.transform.position - grabbedRB.transform.position).normalized * Vector3.Distance(objectHolderShielding.transform.position, grabbedRB.transform.position) * grabbedFollowForce;
+                if (grabbedRenderer != null) {
+                    Vector3 newObjectHolderShieldingPosition = (objectHolderShielding.transform.position + (grabbedRenderer.transform.position - grabbedRenderer.bounds.center));
+                    grabbedRB.velocity = (newObjectHolderShieldingPosition - grabbedRB.transform.position).normalized * Vector3.Distance(newObjectHolderShieldingPosition, grabbedRB.transform.position) * grabbedFollowForce;
+                }
+                else {
+                    grabbedRB.velocity = (objectHolderShielding.transform.position - grabbedRB.transform.position).normalized * Vector3.Distance(objectHolderShielding.transform.position, grabbedRB.transform.position) * grabbedFollowForce;
+                }
             }
         }
     }
@@ -275,8 +293,10 @@ public class SlimeArm : PlayerAbility
                 }
                 grabbedRB.AddForce((PlayerAbilitiesController.instance.rayBitch.transform.position - grabbedRB.transform.position).normalized * PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.throwforce, ForceMode.VelocityChange);
                 Destroy(slimeBallInstance);
-                slimeBallInstance = null;
+                /* slimeBallInstance = null;
                 grabbedRB = null;
+                grabbedRenderer = null; */
+                RestartGrabbedState();
                 PlayerAbilitiesController.instance.isAbilityActive = false;
                 OnPlayerInput.instance.onFire1 = false;
             }
@@ -322,6 +342,7 @@ public class SlimeArm : PlayerAbility
     private void RestartGrabbedState(){
         grabbedRB = null;
         grabbedRagdoll = null;
+        grabbedRenderer = null;
         changedRigidBodies = new List<Rigidbody>();
         currentRBDefaultAngularFriction = new List<float>();
         currentRBDefaultLayerMask = new List<LayerMask>();
