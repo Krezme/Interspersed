@@ -14,8 +14,10 @@ GameObject:
   - component: {fileID: 5873398966161537559}
   - component: {fileID: 919132149330631047}
   - component: {fileID: 4212648482108081458}
-  - component: {fileID: 3720341927833779661}
-  - component: {fileID: 2545492946131444884}
+  - component: {fileID: 4391768568626416289}
+  - component: {fileID: 3057275954824416214}
+  - component: {fileID: 1974676484103720488}
+  - component: {fileID: 8045199894591361725}
   m_Layer: 0
   m_Name: lamp_post_destroyed
   m_TagString: Untagged
@@ -32,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 6720471169425540902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.010000003, y: 0.010000003, z: 0.01}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -97,10 +99,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 10.27
-  m_Height: 325.9505
+  m_Radius: 0.04
+  m_Height: 1.0568918
   m_Direction: 1
-  m_Center: {x: 0, y: -0.0000076293945, z: 0}
+  m_Center: {x: 0, y: -0.04484711, z: 0}
 --- !u!54 &919132149330631047
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -214,7 +216,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3720341927833779661
+--- !u!65 &4391768568626416289
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6720471169425540902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.22216097, y: 0.16293335, z: 0.20657769}
+  m_Center: {x: 0.0016740144, y: 0.57043475, z: 0}
+--- !u!65 &3057275954824416214
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6720471169425540902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2999684, y: 0.03891764, z: 0.051957924}
+  m_Center: {x: 0, y: 0.19718368, z: -0.00049244467}
+--- !u!114 &1974676484103720488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,20 +256,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minVolume: 0.3
   maxVolume: 0.3
-  minPitch: 1
-  maxPitch: 1
+  minPitch: 0.7
+  maxPitch: 0.8
   playDelay: 0
   defaultBank:
     name: 
     clips:
-    - {fileID: 8300000, guid: a185b21c90909f14793d79012937c8b5, type: 3}
-    - {fileID: 8300000, guid: f0450d3104e820f4e8ca677fb9d86080, type: 3}
-    - {fileID: 8300000, guid: d2ef0e07d5507d045b68194266c5fcd7, type: 3}
-    - {fileID: 8300000, guid: 57328599537f8ca4298f746e04cc44c1, type: 3}
+    - {fileID: 8300000, guid: e4bc569a0d25c254295ca295f0bec0e2, type: 3}
+    - {fileID: 8300000, guid: 7f48a6327e8061a438fa0042799be080, type: 3}
+    - {fileID: 8300000, guid: 0e0fd60ad3115b540a82707f10050e4b, type: 3}
+    - {fileID: 8300000, guid: d2df49723a3760f4bab2878328efa939, type: 3}
+    - {fileID: 8300000, guid: 3202e45b91414614a9feeae010c4f4ce, type: 3}
+    - {fileID: 8300000, guid: eed7d8d04ec368843bc758d47397c5f8, type: 3}
+    - {fileID: 8300000, guid: 176be1e7d06ba574981ec2554f90d76e, type: 3}
+    - {fileID: 8300000, guid: 78df7f83cf09032468e3a7c14f560287, type: 3}
+    - {fileID: 8300000, guid: de42263b920f73149b50004538abe90d, type: 3}
+    - {fileID: 8300000, guid: f128db803fbb7b14bb592dc55cb503ce, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
---- !u!114 &2545492946131444884
+--- !u!114 &8045199894591361725
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,7 +284,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6720471169425540902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11fe4a5b251323244acb154072c28af3, type: 3}
+  m_Script: {fileID: 11500000, guid: d2da29ea2ef654449b4bcbb618c286e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectedPlayer: {fileID: 3720341927833779661}
+  player: {fileID: 1974676484103720488}
+  RequiredVelocity: 3
