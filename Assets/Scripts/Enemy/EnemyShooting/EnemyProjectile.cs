@@ -59,6 +59,11 @@ public class EnemyProjectile : MonoBehaviour
                 PlayerStatisticsManager playerStatisticsManager = other.GetComponent<PlayerStatisticsManager>();
                 playerStatisticsManager.TakeDamage(statistics.damage); // does damage to the player
             }
+            else if (other.tag == "SlimeShield" && SlimeArm.insance.isShielding) {
+                other.gameObject.GetComponent<ShieldProjectilesAbsorption>().TakeDamage(statistics.damage);
+                Destroy(gameObject);
+            }
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) {}
             else if (other.gameObject.layer != this.gameObject.layer) // Restarts the age and lets it sit in the collided spot for a short time 
             {
                 hasCollided = true; // Effectively dissables the OnTriggerEnter

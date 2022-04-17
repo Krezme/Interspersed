@@ -5,12 +5,16 @@ using UnityEngine;
 public class ScaleToObjectSize : MonoBehaviour
 {
     public GameObject objectScaleTo; //object to scale in size to
-    private GameObject parent;
+    [HideInInspector]
+    public GameObject parent;
     public float scaleOffset = 1;
     public float scaleToSpeed; //speed at which it scales to the targeted Scale
     private Vector3 oldScale; //the previouse size it was scaled to
     public Vector3 parentSize; //the size the object should scale to currently
     public RagdollController ragdollControllerFound;
+
+    [SerializeField]
+    private ShieldProjectilesAbsorption shieldProjectilesAbsorption;
 
 
 
@@ -19,6 +23,7 @@ public class ScaleToObjectSize : MonoBehaviour
     {
         parent = transform.parent.gameObject;
         ragdollControllerFound = FindRagdollController(parent);
+        shieldProjectilesAbsorption.InstantiateStart();
         if (ragdollControllerFound != null){
             parentSize = ragdollControllerFound.meshRenderer.bounds.size;
             //gameObject.transform.position = ragdollControllerFound.meshRenderer.bounds.center;

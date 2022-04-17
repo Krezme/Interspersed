@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3318853465249050938}
   - component: {fileID: 3318853465249050939}
   - component: {fileID: -2325064884688327528}
+  - component: {fileID: 198467069473216675}
   m_Layer: 2
   m_Name: SlimeBallPlaceholder
   m_TagString: SlimeShield
@@ -96,9 +97,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectScaleTo: {fileID: 0}
+  parent: {fileID: 0}
   scaleOffset: 30
   scaleToSpeed: 0
   parentSize: {x: 0, y: 0, z: 0}
+  ragdollControllerFound: {fileID: 0}
+  shieldProjectilesAbsorption: {fileID: 198467069473216675}
 --- !u!135 &-2325064884688327528
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -112,3 +116,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &198467069473216675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3318853465249050936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7617b958d7565804699b204b5c8981e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleToObjectSize: {fileID: 3318853465249050939}
+  thisObjectShieldHealth: {fileID: 0}

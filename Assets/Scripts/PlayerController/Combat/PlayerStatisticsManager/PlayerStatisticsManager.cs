@@ -71,6 +71,7 @@ public class SlimeArmStats {
     public float grabbingCooldown = 1;
     public float maxGrabDistance = 10f;
     public float throwforce = 100f;
+    public float shieldHealth = 30; // the health of the shield when the object is used as a shield
 }
 
 public class PlayerStatisticsManager : MonoBehaviour

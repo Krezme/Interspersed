@@ -6,7 +6,7 @@ using Cinemachine;
 public class SlimeArm : PlayerAbility
 {
 
-    /* #region Singleton
+    #region Singleton
     public static SlimeArm insance;
     void Awake() {
         if (insance != null) {
@@ -17,7 +17,7 @@ public class SlimeArm : PlayerAbility
         }
     }
 
-    #endregion */
+    #endregion
 
     public ArmAbilities[] armAbilities = new ArmAbilities[2] {new ArmAbilities() {abilityName = "Pick Up", isActive = true}, new ArmAbilities() {abilityName = "Shield"}};
 
@@ -56,7 +56,7 @@ public class SlimeArm : PlayerAbility
     private List<float> currentRBDefaultAngularFriction = new List<float>(); //The current Rigidbodies' Default Angular friction amount
     private List<LayerMask> currentRBDefaultLayerMask = new List<LayerMask>();
 
-    private bool isShielding = false;
+    public bool isShielding = false;
     private bool unShield = false;
 
     private Renderer grabbedRenderer;
