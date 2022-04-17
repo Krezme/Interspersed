@@ -5,13 +5,14 @@ using UnityEngine;
 public class RandomSurfacePosition : MonoBehaviour
 {
     public RayCastsDirectionsInASphere rayCastsDir;
+    public float invokePeriod = 0.5f;
 
     private RaycastHit hit;
     
     private int currentTries;
 
     void OnEnable() {
-        InvokeRepeating(nameof(LookForSurface), 0, 0.5f);
+        InvokeRepeating(nameof(LookForSurface), 0, invokePeriod);
     }
 
     void OnDisable() {
