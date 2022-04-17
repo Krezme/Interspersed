@@ -74,8 +74,9 @@ public class BulletProjectile : MonoBehaviour
             if (other.tag == "Enemy") { 
                 hasCollided = true; // Effectively dissables the OnTriggerEnter
                 Destroy(gameObject);
-                EnemyStatisticsManager enemyStatisticsManager = other.gameObject.GetComponent<EnemyStatisticsManager>();
-                enemyStatisticsManager.TakeDamage(statistics.damage, true);
+                if (other.gameObject.TryGetComponent<EnemyStatisticsManager>(out EnemyStatisticsManager enemyStatisticsManager)) {
+                    enemyStatisticsManager.TakeDamage(statistics.damage, true);
+                }
             }
             else if (other.tag == "Chargeable" && statistics.isElectric) {
                 other.gameObject.GetComponent<ChargableManager>().OnCharged();

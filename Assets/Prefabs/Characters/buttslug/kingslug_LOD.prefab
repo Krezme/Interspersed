@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 782928456}
   - component: {fileID: 782928457}
   - component: {fileID: 782928458}
+  - component: {fileID: 7325983445532881034}
   m_Layer: 0
   m_Name: FoodTrigger
   m_TagString: EventTriggers
@@ -383,6 +384,22 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   inventoryChecks: []
+--- !u!114 &7325983445532881034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782928455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23137eebeeaf6a7489ab48c0dd98d96a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowchart: {fileID: 0}
+  triggerName: KingSlugMissionComplete
+  blockName: KingSlugMissionComplete
+  player: {fileID: 0}
 --- !u!1 &1650723502
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,8 +426,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650723502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.20900089, y: -4.49, z: 21.072428}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.23, y: -4.49, z: 19.91}
+  m_LocalScale: {x: 1, y: 1, z: 6.7046328}
   m_Children: []
   m_Father: {fileID: 6358192154431091618}
   m_RootOrder: 6
@@ -985,7 +1002,7 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.7989692
+  - screenRelativeHeight: 0.3480614
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 6358192153739483582}
