@@ -33,7 +33,16 @@ public class PlayerStatistics {
 [System.Serializable]
 public class PlayerResourcesStatistics {
     public float health;
-    public float energy;
+    public float cystalEnergy;
+    public float slimeEnergy;
+
+    public PlayerRechargeEnergyStatistics energyRechargeStatistics;
+}
+
+[System.Serializable]
+public class PlayerRechargeEnergyStatistics {
+    public float crystalEnergyRechargeOverOneSecond;
+    public float slimeEnergyRechargeOverOneSecond;
 }
 
 [System.Serializable]
@@ -52,6 +61,8 @@ public class PlayerCombatStatistics {
 public class CrystalArmSingleShotStats {
     public float[] chargeShotsDamage;
 
+    public float[] chargeShotsEnergyCost;
+
     public float[] chargeShotStages;
 
     public float electricRechargeTime;
@@ -61,6 +72,7 @@ public class CrystalArmSingleShotStats {
 public class CrystalArmShotgunStats{
     public float damagePerPellet;
     public int projectileCount;
+    public float shotgunEnergyCost;
     public float shotgunCooldown;
     public float projectileDispersionX; //The spread of the projectiles horizontally
     public float projectileDispersionY; //The spread of the projectiles vertically
@@ -72,6 +84,8 @@ public class SlimeArmStats {
     public float maxGrabDistance = 10f;
     public float throwforce = 100f;
     public float shieldHealth = 30; // the health of the shield when the object is used as a shield
+    public float holdObjectEnergyCost;
+    public float throwEnergyCost;
 }
 
 public class PlayerStatisticsManager : MonoBehaviour
@@ -101,22 +115,33 @@ public class PlayerStatisticsManager : MonoBehaviour
     void Start()
     {
         ResetPlayerStatistics();
-        SetSliderValues();
+        SetSlidersValues();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        CrystalEnergyRecharge(currentStatistics.resourcesStatistics.energyRechargeStatistics.crystalEnergyRechargeOverOneSecond * Time.deltaTime);
+        SlimeEnergyRecharge(currentStatistics.resourcesStatistics.energyRechargeStatistics.slimeEnergyRechargeOverOneSecond * Time.deltaTime);
     }
 
-    public void SetSliderValues()
+    public void SetSlidersValues()
     {
-        Healthbar.instance.slider.maxValue = maxStatistics.resourcesStatistics.health;
-        Energybar.instance.slider.maxValue = maxStatistics.resourcesStatistics.energy;
+        SetSlidersMaxValue();
 
+        ResetSlidersValue();
+    }
+
+    public void SetSlidersMaxValue() {
+        Healthbar.instance.slider.maxValue = maxStatistics.resourcesStatistics.health;
+        CrystalEnergybar.instance.slider.maxValue = maxStatistics.resourcesStatistics.cystalEnergy;
+        SlimeEnergybar.instance.slider.maxValue = maxStatistics.resourcesStatistics.slimeEnergy;
+    }
+
+    public void ResetSlidersValue() {
         Healthbar.instance.slider.value = maxStatistics.resourcesStatistics.health;
-        Energybar.instance.slider.value = maxStatistics.resourcesStatistics.energy;
+        CrystalEnergybar.instance.slider.value = maxStatistics.resourcesStatistics.cystalEnergy;
+        SlimeEnergybar.instance.slider.value = maxStatistics.resourcesStatistics.slimeEnergy;
     }
 
     public void ResetPlayerStatistics()
@@ -141,5 +166,28 @@ public class PlayerStatisticsManager : MonoBehaviour
         currentStatistics.resourcesStatistics.health += health;
 
         Healthbar.instance.slider.value = currentStatistics.resourcesStatistics.health;
+    }
+
+    public void CrystalEnergyRecharge(float energy) {
+        currentStatistics.resourcesStatistics.cystalEnergy += energy;
+
+        if (currentStatistics.resourcesStatistics.cystalEnergy > maxStatistics.resourcesStatistics.cystalEnergy) {
+            currentStatistics.resourcesStatistics.cystalEnergy = maxStatistics.resourcesStatistics.cystalEnergy;
+        }
+        else if (currentStatistics.resourcesStatistics.cystalEnergy < 0) {
+            currentStatistics.resourcesStatistics.cystalEnergy = 0;
+        }
+        
+        CrystalEnergybar.instance.slider.value = currentStatistics.resourcesStatistics.cystalEnergy;
+    }
+
+    public void SlimeEnergyRecharge(float energy) {
+        currentStatistics.resourcesStatistics.slimeEnergy += energy;
+
+        if (currentStatistics.resourcesStatistics.slimeEnergy > maxStatistics.resourcesStatistics.slimeEnergy) {
+            currentStatistics.resourcesStatistics.slimeEnergy = maxStatistics.resourcesStatistics.slimeEnergy;
+        }
+
+        SlimeEnergybar.instance.slider.value = currentStatistics.resourcesStatistics.cystalEnergy;
     }
 }

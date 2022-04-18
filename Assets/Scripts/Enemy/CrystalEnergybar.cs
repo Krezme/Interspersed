@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Energybar : MonoBehaviour
+public class CrystalEnergybar : MonoBehaviour
 {
     #region Singleton
 
-    public static Energybar instance;
+    public static CrystalEnergybar instance;
     private void Awake()
     {
         if (instance != null)
         {
             Destroy(instance);
-            Debug.LogError("There is a second instance of energy bar. Please remove.");
+            Debug.LogError("There is a second instance of CrystalEnergybar. Please remove.");
         }
         instance = this;
     }

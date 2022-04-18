@@ -3895,16 +3895,22 @@ MonoBehaviour:
   currentStatistics:
     resourcesStatistics:
       health: 0
-      energy: 0
+      cystalEnergy: 0
+      slimeEnergy: 0
+      energyRechargeStatistics:
+        crystalEnergyRechargeOverOneSecond: 0
+        slimeEnergyRechargeOverOneSecond: 0
     combatStatistics:
       meleeDamage: 0
       crystalArmStats:
         chargeShotsDamage: []
+        chargeShotsEnergyCost: []
         chargeShotStages: []
         electricRechargeTime: 0
       crystalArmShotgunStats:
         damagePerPellet: 0
         projectileCount: 0
+        shotgunEnergyCost: 0
         shotgunCooldown: 0
         projectileDispersionX: 0
         projectileDispersionY: 0
@@ -3913,10 +3919,16 @@ MonoBehaviour:
         maxGrabDistance: 10
         throwforce: 20
         shieldHealth: 30
+        holdObjectEnergyCost: 0
+        throwEnergyCost: 0
   maxStatistics:
     resourcesStatistics:
       health: 200
-      energy: 100
+      cystalEnergy: 100
+      slimeEnergy: 100
+      energyRechargeStatistics:
+        crystalEnergyRechargeOverOneSecond: 5
+        slimeEnergyRechargeOverOneSecond: 5
     combatStatistics:
       meleeDamage: 10
       crystalArmStats:
@@ -3925,6 +3937,11 @@ MonoBehaviour:
         - 15
         - 20
         - 30
+        chargeShotsEnergyCost:
+        - 5
+        - 7
+        - 9
+        - 10
         chargeShotStages:
         - 0.2
         - 0.35
@@ -3933,6 +3950,7 @@ MonoBehaviour:
       crystalArmShotgunStats:
         damagePerPellet: 3
         projectileCount: 25
+        shotgunEnergyCost: 15
         shotgunCooldown: 1
         projectileDispersionX: 0.1
         projectileDispersionY: 0.1
@@ -3941,6 +3959,8 @@ MonoBehaviour:
         maxGrabDistance: 10
         throwforce: 100
         shieldHealth: 30
+        holdObjectEnergyCost: 2
+        throwEnergyCost: 10
   PlayerDamaged: {fileID: 912553396}
 --- !u!114 &1956974271675083317
 MonoBehaviour:
