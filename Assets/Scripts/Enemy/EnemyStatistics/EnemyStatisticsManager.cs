@@ -118,4 +118,8 @@ public class EnemyStatisticsManager : MonoBehaviour
             Debug.LogWarning("Sound not assigned");
         }
     }
+
+    void OnDestroy() {
+        EnemyManager.instance.enemyStatisticsManagers.Remove(this);
+    }
 }
