@@ -23,11 +23,19 @@ public class EnemyStatisticsManager : MonoBehaviour
 
     public BehaviourTreeRunner behaviourTreeRunner;
 
-    public RandomAudioPlayer enemyDamaged;
+    /* public RandomAudioPlayer enemyDamaged;
 
     public RandomAudioPlayer enemyAttack;
 
     public RandomAudioPlayer enemyDeath;
+ */
+
+
+    public RandomAudioPlayerV2 warplingBank;
+
+
+
+
 
     [HideInInspector]
     public SettlementDetection thisEnemySettlement;
@@ -70,7 +78,8 @@ public class EnemyStatisticsManager : MonoBehaviour
             }catch (System.Exception){}
         }
         try {
-            enemyDamaged.PlayRandomClip();
+            //enemyDamaged.PlayRandomClip();
+            warplingBank.PlayRandomClip(defaultBankIndex: 1);
         }catch (System.Exception) {
             Debug.LogWarning("Sound not assigned");
         }
@@ -103,7 +112,8 @@ public class EnemyStatisticsManager : MonoBehaviour
         }
 
         try {
-            enemyDeath.PlayRandomClip();
+            //enemyDeath.PlayRandomClip();
+            warplingBank.PlayRandomClip(defaultBankIndex: 2);
         }catch (System.Exception) {
             Debug.LogWarning("Sound not assigned");
         }

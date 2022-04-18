@@ -8,12 +8,17 @@ public class ShieldProjectilesAbsorption : MonoBehaviour
 
     public ShieldHealth thisObjectShieldHealth;
 
+
+    private RandomAudioPlayerV2 shieldSource;
+
+
     public void InstantiateStart() {
         try {
             thisObjectShieldHealth = GetShieldHealth(scaleToObjectSize.ragdollControllerFound.gameObject);
         } catch (System.Exception) {
             thisObjectShieldHealth = GetShieldHealth(scaleToObjectSize.parent);
         }
+         shieldSource = thisObjectShieldHealth.GetComponentInChildren<RandomAudioPlayerV2>();
     }
 
     ShieldHealth GetShieldHealth(GameObject gO) {
@@ -29,8 +34,17 @@ public class ShieldProjectilesAbsorption : MonoBehaviour
 
     public void TakeDamage(float damage) {
         thisObjectShieldHealth.health -= damage;
+
+
+
+
         if (thisObjectShieldHealth.health <= 0) {
+            SlimeArm.insance.shieldSoundBank.PlayRandomClip(defaultBankIndex: 1);
             Destroy(thisObjectShieldHealth.gameObject);
+        }
+        else
+        {
+            SlimeArm.insance.shieldSoundBank.PlayRandomClip(defaultBankIndex: 0);
         }
     }
 

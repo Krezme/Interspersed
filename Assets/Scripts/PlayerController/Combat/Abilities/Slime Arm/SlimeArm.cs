@@ -39,6 +39,8 @@ public class SlimeArm : PlayerAbility
 
     public GameObject FadeOut;
 
+    public RandomAudioPlayerV2 shieldSoundBank;
+
 
     //Functionality Variables
     [SerializeField] Camera cam;
