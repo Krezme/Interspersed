@@ -15,5 +15,6 @@ namespace TheKiwiCoder {
         public float distance; /// the distance between the AI and the player
         public Vector3 directionToTarget;
         public bool isCurrentlyDiveBombing;
+        public bool isCurrentlyShooting;
     }
 }
