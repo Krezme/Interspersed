@@ -188,29 +188,9 @@ public class SlimeArm : PlayerAbility
                     }
                 }
                 else {
+                    Debug.Log("Let go?");
                     if (PlayerAbilitiesController.instance.isAbilityActive) {
-                        grabbedRB.isKinematic = false;
-                        grabbedRB.useGravity = true;
-                        grabbedRB.constraints = RigidbodyConstraints.None;
-                        for (int i = 0; i < changedRigidBodies.Count; i++) {
-                            changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
-                            changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
-                        }
-                        UnShieldWithGrabbed();
-                        changedRigidBodies = new List<Rigidbody>();
-                        currentRBDefaultAngularFriction = new List<float>();
-                        currentRBDefaultLayerMask = new List<LayerMask>();
-                        if (grabbedRagdoll != null) { 
-                            grabbedRagdoll.pickedUpByPlayer = false;
-                            grabbedRagdoll = null;
-                        }
-                        Destroy(slimeBallInstance);
-                        slimeBallInstance = null;
-                        grabbedRB = null;
-                        PlayerAbilitiesController.instance.isAbilityActive = false;
-                        Drop.PlayRandomClip(); //Plays sound when held object is dropped without throwing
-                        FadeIn.SetActive(false);
-                        FadeOut.SetActive(true);
+                        LetGoOffTheObject();
                     }
                 }
             }catch (System.Exception) {
@@ -241,8 +221,7 @@ public class SlimeArm : PlayerAbility
     }
 
     private void GrabbedFollowing(){
-        if (grabbedRB)
-        {
+        if (grabbedRB && PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy >= PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.holdObjectEnergyCost * Time.deltaTime){
             if (!isShielding) {
                 if (grabbedRenderer != null) {
                     Vector3 newObjectHolderPosition = (objectHolder.transform.position + (grabbedRenderer.transform.position - grabbedRenderer.bounds.center));
@@ -261,6 +240,13 @@ public class SlimeArm : PlayerAbility
                     grabbedRB.velocity = (objectHolderShielding.transform.position - grabbedRB.transform.position).normalized * Vector3.Distance(objectHolderShielding.transform.position, grabbedRB.transform.position) * grabbedFollowForce;
                 }
             }
+            PlayerStatisticsManager.instance.SlimeEnergyRecharge(-(PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.energyRechargeStatistics.slimeEnergyRechargeOverOneSecond + PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.holdObjectEnergyCost) * Time.deltaTime);
+        }
+        else if (PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy < PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.holdObjectEnergyCost * Time.deltaTime) {
+            LetGoOffTheObject();
+        }
+        else {
+            RestartGrabbedState();
         }
     }
 
@@ -270,7 +256,7 @@ public class SlimeArm : PlayerAbility
     private void LaunchGrabbed() {
         if (grabbedRB)
         {
-            if (OnPlayerInput.instance.onFire1)
+            if (OnPlayerInput.instance.onFire1 && PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy >= PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.throwEnergyCost)
             {
                 Throw.PlayRandomClip(); //Rhys - Plays sound when held object is thrown
                 FadeIn.SetActive(false);
@@ -299,6 +285,7 @@ public class SlimeArm : PlayerAbility
                 grabbedRB = null;
                 grabbedRenderer = null; */
                 RestartGrabbedState();
+                PlayerStatisticsManager.instance.SlimeEnergyRecharge(-PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.throwEnergyCost);
                 PlayerAbilitiesController.instance.isAbilityActive = false;
                 OnPlayerInput.instance.onFire1 = false;
             }
@@ -350,6 +337,34 @@ public class SlimeArm : PlayerAbility
         currentRBDefaultLayerMask = new List<LayerMask>();
         isShielding = false;
         unShield = false;
+        if (slimeBallInstance != null) {
+            Destroy(slimeBallInstance);
+        }
+    }
+
+    private void LetGoOffTheObject () {
+        grabbedRB.isKinematic = false;
+        grabbedRB.useGravity = true;
+        grabbedRB.constraints = RigidbodyConstraints.None;
+        for (int i = 0; i < changedRigidBodies.Count; i++) {
+            changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
+            changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
+        }
+        UnShieldWithGrabbed();
+        changedRigidBodies = new List<Rigidbody>();
+        currentRBDefaultAngularFriction = new List<float>();
+        currentRBDefaultLayerMask = new List<LayerMask>();
+        if (grabbedRagdoll != null) { 
+            grabbedRagdoll.pickedUpByPlayer = false;
+            grabbedRagdoll = null;
+        }
+        Destroy(slimeBallInstance);
+        slimeBallInstance = null;
+        grabbedRB = null;
+        PlayerAbilitiesController.instance.isAbilityActive = false;
+        Drop.PlayRandomClip(); //Plays sound when held object is dropped without throwing
+        FadeIn.SetActive(false);
+        FadeOut.SetActive(true);
     }
 
     private IEnumerator Ability1Cooldown()
