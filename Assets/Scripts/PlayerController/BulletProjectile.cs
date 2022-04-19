@@ -38,11 +38,9 @@ public class BulletProjectile : MonoBehaviour
 
     public RandomAudioPlayer BulletImpact; //Rhys - Adds functionality for bullet to play impact sound, also opens up the possibility of different surface impact sounds
 
-
-
     private void Start()
     {
-        bulletRigidbody.velocity = transform.forward * (statistics.speed * statistics.chargeStage);
+        bulletRigidbody.velocity = transform.forward * statistics.speed;
         if (statistics.isElectric) {
             electricSparks.SetActive(true);
         }

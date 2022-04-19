@@ -55,7 +55,7 @@ public class CristalArm : PlayerAbility
 
     public Slider crosshair;
 
-    private float timePassed;
+    private float timePassed = -1;
 
     private float cooldownBetweenShots;
 
@@ -145,21 +145,33 @@ public class CristalArm : PlayerAbility
     }
 
     void ChargeSingleShotAimingAbility() {
-        if (PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsEnergyCost[0] < PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.cystalEnergy) {
-            timePassed += Time.deltaTime;
+        if (PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsEnergyCost[0] <= PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.cystalEnergy) {
+            if (timePassed < 0) {
+                timePassed = 0;
+            }
+            
+            try {
+                if (PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.cystalEnergy >= PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsEnergyCost[(int)currentChargeStage + 1]) {
+                    timePassed += Time.deltaTime;
+                }
+                else {
+                    timePassed = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotStages[(int)currentChargeStage];
+                }
+            }
+            catch (System.Exception) {
+                timePassed = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotStages[PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotStages.Length - 1];
+            }
             
             if (crosshair != null) {
                 crosshair.value = timePassed / PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotStages[PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotStages.Length - 1]; //Calculates the crosshair fill depending on the charges. It is chargeStages.Length - 1, because the first charge is default
             }
+            // when the first charge is not in the array
             for (int i = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotStages.Length -1; i >= 0; i--) {
                 if (PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotStages[i] <= timePassed) { //checking for the time and then setting the correct bullet prefab 
-                    currentBullet = pfBulletProjectileDef[i+1];
+                    currentBullet = pfBulletProjectileDef[i];
                     currentChargeStage = i;
                     // finctionality depending on different charge stage
-                    return;
-                }else {
-                    currentBullet = pfBulletProjectileDef[0];
-                    currentChargeStage = 0;
+                    break;
                 }
             }
         }
@@ -272,13 +284,15 @@ public class CristalArm : PlayerAbility
         //When the button is realiced ...
         if (!OnPlayerInput.instance.onFire1) {
             // ... but it has been pressed for some amount of time. Fire the according projectile
-            if (timePassed > 0) {
+            if (timePassed >= 0) {
                 Vector3 aimDir = (centerScreenToWorldPosition - spawnBulletPosition.position).normalized;
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 BulletProjectile newBulletProjectile = bullet.GetComponent<BulletProjectile>();
-                newBulletProjectile.statistics.damage = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsDamage[((int)currentChargeStage)];
-                newBulletProjectile.statistics.chargeStage = currentChargeStage + 1;
+                newBulletProjectile.statistics.damage = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsDamage[(int)currentChargeStage];
+                newBulletProjectile.statistics.chargeStage = currentChargeStage;
+                newBulletProjectile.statistics.speed = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsSpeed[(int)currentChargeStage];
                 newBulletProjectile.statistics.isElectric = statistics.isElectric; // setting the projectile to electric 
+                PlayerStatisticsManager.instance.CrystalEnergyRecharge(-PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsEnergyCost[(int)currentChargeStage]);
                 if (statistics.isElectric) { // Decreasing charged shots
                     statistics.currentElectricShots--;
 
@@ -305,7 +319,8 @@ public class CristalArm : PlayerAbility
             if (crosshair != null){
                 crosshair.value = 0;
             }
-            timePassed = 0;
+            timePassed = -1;
+            currentChargeStage = 0;
         }
 
 

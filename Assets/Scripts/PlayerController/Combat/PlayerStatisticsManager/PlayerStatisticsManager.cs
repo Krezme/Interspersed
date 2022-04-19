@@ -61,6 +61,8 @@ public class PlayerCombatStatistics {
 public class CrystalArmSingleShotStats {
     public float[] chargeShotsDamage;
 
+    public float[] chargeShotsSpeed;
+
     public float[] chargeShotsEnergyCost;
 
     public float[] chargeShotStages;
@@ -188,6 +190,6 @@ public class PlayerStatisticsManager : MonoBehaviour
             currentStatistics.resourcesStatistics.slimeEnergy = maxStatistics.resourcesStatistics.slimeEnergy;
         }
 
-        SlimeEnergybar.instance.slider.value = currentStatistics.resourcesStatistics.cystalEnergy;
+        SlimeEnergybar.instance.slider.value = currentStatistics.resourcesStatistics.slimeEnergy;
     }
 }
