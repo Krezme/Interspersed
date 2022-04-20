@@ -43,6 +43,8 @@ public class EnemyStatisticsManager : MonoBehaviour
     [HideInInspector]
     public FieldOfView fieldOfView;
 
+    public EnemyDrops enemyDrops;
+
     private bool healthBarCanvasTurnedOnOnce = false; // if the canvas has been turned on once it will not turn on again
 
     // Start is called before the first frame update
@@ -90,6 +92,7 @@ public class EnemyStatisticsManager : MonoBehaviour
         }
         enemyHealthbar.SetEnemyHealth(currentStats.health / statisticsSO.health);
         if (currentStats.health <= 0) {
+            enemyDrops.RandomiseDrops();
             DestroyComponentsPreDeath();
             Death();
         }
