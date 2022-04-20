@@ -8608,6 +8608,7 @@ GameObject:
   - component: {fileID: 186710363}
   - component: {fileID: 5275988441248466091}
   - component: {fileID: -3999885299899829219}
+  - component: {fileID: 5674502235912468835}
   m_Layer: 0
   m_Name: Stricken
   m_TagString: Enemy
@@ -8755,6 +8756,7 @@ MonoBehaviour:
   warplingBank: {fileID: 0}
   thisEnemySettlement: {fileID: 0}
   fieldOfView: {fileID: 0}
+  enemyDrops: {fileID: 5674502235912468835}
 --- !u!114 &7579930391636117346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8850,6 +8852,26 @@ MonoBehaviour:
   incomingForceFloat: 0
   minimumForceRequired: 3
   physicsDamageMultiplier: 20
+--- !u!114 &5674502235912468835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055298318155760197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8a35a6481408444a0bcb091d0946f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPool: {fileID: 11400000, guid: 18f3b9506f244c441b7dedebc8bbb5e5, type: 2}
+  numberOfDrops:
+  - numberOfDrops: 0
+    numberOfEntries: 40
+  - numberOfDrops: 1
+    numberOfEntries: 20
+  - numberOfDrops: 2
+    numberOfEntries: 1
 --- !u!1 &9123327231069454796
 GameObject:
   m_ObjectHideFlags: 0
