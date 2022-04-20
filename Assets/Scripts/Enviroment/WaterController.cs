@@ -47,7 +47,9 @@ public class WaterController : MonoBehaviour
             if (tickTimer >= waterProperties.tickDamageTime) {
                 tickTimer = 0;
                 for (int i = 0; i < currentlyAffectedEnemies.Count; i++) {
-                    currentlyAffectedEnemies[i].GetComponent<EnemyStatisticsManager>().TakeDamage(waterProperties.damage * waterProperties.tickDamageTime, true);
+                    if (currentlyAffectedEnemies[i].TryGetComponent<EnemyStatisticsManager>(out EnemyStatisticsManager thatEnemyStatisticsManager)) {
+                        thatEnemyStatisticsManager.TakeDamage(waterProperties.damage * waterProperties.tickDamageTime, true);
+                    }
                 }
             }
         }

@@ -47,7 +47,7 @@ public class ScaleToObjectSize : MonoBehaviour
     }
 
     RagdollController FindRagdollController(GameObject newGameObject) {
-        if (newGameObject.tag == "Enemy") {
+        if (newGameObject.tag == "EnemyBodyPart" || newGameObject.tag == "Enemy") {
             if (newGameObject.TryGetComponent<RagdollController>(out RagdollController ragdollController)) {
                 return ragdollController;
             }else{
