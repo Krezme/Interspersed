@@ -27,6 +27,10 @@ public class GeneratorCoumter : MonoBehaviour
 
     public GameObject towerLight4;
 
+    public AudioSource completedThunder; //Rhys -To play thunder sound when all generators are on
+
+    private bool thunderPlay = true;
+
 
 
     private int genCount = 0; //Rhys - Represents the number of activated generators
@@ -79,6 +83,12 @@ public class GeneratorCoumter : MonoBehaviour
         if (genCount == 4)
         {
             towerLight4.SetActive(true);
+
+            if (thunderPlay)
+            {
+            completedThunder.Play();
+            thunderPlay = false;
+            } 
         }
     }
 
