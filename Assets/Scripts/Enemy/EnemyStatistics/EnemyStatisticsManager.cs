@@ -97,6 +97,7 @@ public class EnemyStatisticsManager : MonoBehaviour
 
     void DestroyComponentsPreDeath() {
         Destroy(healthBarCanvas);
+        Destroy(this);
         if (TryGetComponent<Collider>(out Collider thisCol)){
             Destroy(thisCol);
         }
