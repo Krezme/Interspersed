@@ -212,7 +212,7 @@ public class CristalArm : PlayerAbility
     public override void AditionalAbilities() {
         ChangeMode();
         if (armAbilities[1].isActive) {
-            ChargeShot();
+            ElectricShot();
         }
         if (crystalArmModes == CrystalArmModes.Default) {
             FiringTheProjectile();
@@ -245,6 +245,7 @@ public class CristalArm : PlayerAbility
             if (isNextLocked) {
                 NextMode();
             }else {
+                SetIsElectric(false);
                 ShotgunSwapTrue.PlayRandomClip();
             }
         }
@@ -257,26 +258,30 @@ public class CristalArm : PlayerAbility
         }
     }
 
-    void ChargeShot() {
+    void ElectricShot() {
         if (OnPlayerInput.instance.onAbility1 && statistics.currentElectricShots > 0) { // Toggle the electric ability
             if (crystalArmModes == CrystalArmModes.Shotgun) {
                 DefaultMode();
             }
-            lightningVFXEffect.enabled = !statistics.isElectric;
-            lightningMeshToMesh.enabled = !statistics.isElectric;
-            statistics.isElectric = !statistics.isElectric;
-            OnPlayerInput.instance.onAbility1 = false;
+            SetIsElectric(!statistics.isElectric);
+        }
+    }
 
-            //audioSource.PlayOneShot(ChargeSwap);
-            if (statistics.isElectric == true)
-            {
-                ChargeOn.PlayRandomClip(); //Rhys - Plays charge on sound when is.Electric == True
-            }
-            else
-            {
-                //isElectric = false;
-                ChargeOff.PlayRandomClip(); //Rhys - Plays charge off sound when is.Electric == false
-            }
+    void SetIsElectric (bool state) {
+        lightningVFXEffect.enabled = state;
+        lightningMeshToMesh.enabled = state;
+        statistics.isElectric = state;
+        OnPlayerInput.instance.onAbility1 = false;
+
+        //audioSource.PlayOneShot(ChargeSwap);
+        if (statistics.isElectric == true)
+        {
+            ChargeOn.PlayRandomClip(); //Rhys - Plays charge on sound when is.Electric == True
+        }
+        else
+        {
+            //isElectric = false;
+            ChargeOff.PlayRandomClip(); //Rhys - Plays charge off sound when is.Electric == false
         }
     }
 
