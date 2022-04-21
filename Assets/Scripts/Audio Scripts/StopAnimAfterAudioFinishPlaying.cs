@@ -27,7 +27,7 @@ public class StopAnimAfterAudioFinishPlaying : MonoBehaviour
                 nextSource.SetActive(true);
             }
             catch{}
-            PlayingSource.gameObject.SetActive(false);
+            //PlayingSource.gameObject.SetActive(false);
             CrystalArmTalkFlickerTrigger.instance.FlickerTriggerToggle(false);
         }
         else
