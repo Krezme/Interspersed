@@ -135,9 +135,7 @@ public class SlimeArm : PlayerAbility
                                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
                                         grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
                                         Debug.Log(grabbedRB.constraints);
-                                        Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
-                                        FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
-                                        FadeOut.SetActive(false);                               
+                                                                       
                                     }
                                     foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
                                         changedRigidBodies.Add(rb);
@@ -162,11 +160,16 @@ public class SlimeArm : PlayerAbility
                                     grabbedRB.angularDrag = grabbedNewAngularFriction;
                                     grabbedRB.gameObject.layer = 2;
                                 }
+
+                                Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
+                                FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
+                                FadeOut.SetActive(false);
+
                                 if (grabbedRagdoll != null) {
                                     slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
                                     slimeBallInstance.GetComponent<ScaleToObjectSize>().objectScaleTo = grabbedRagdoll.rigCentre;
-                                    FadeIn.SetActive(true);
-                                    FadeOut.SetActive(false);
+                                    /* FadeIn.SetActive(true);
+                                    FadeOut.SetActive(false); */
                                 }
                                 else {
                                     slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
