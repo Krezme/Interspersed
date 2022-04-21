@@ -94,17 +94,17 @@ MonoBehaviour:
   OnEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8829287095410793692}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 961375942}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -117,6 +117,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CrystalArmTalkFlickerTrigger, Assembly-CSharp
+        m_MethodName: FlickerTriggerToggle
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   OnExit:
     m_PersistentCalls:
@@ -186,17 +198,17 @@ MonoBehaviour:
   OnEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8829287095410793692}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
+      - m_Target: {fileID: 8829287095410793690}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 961375942}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -210,17 +222,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 961375942}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CrystalArmTalkFlickerTrigger, Assembly-CSharp
+        m_MethodName: FlickerTriggerToggle
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
+          m_StringArgument: isTalking
+          m_BoolArgument: 1
         m_CallState: 2
   OnExit:
     m_PersistentCalls:
@@ -289,17 +301,17 @@ MonoBehaviour:
   OnEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8829287095178763509}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
+      - m_Target: {fileID: 8829287095178763507}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1698843429}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -336,6 +348,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CrystalArmTalkFlickerTrigger, Assembly-CSharp
+        m_MethodName: FlickerTriggerToggle
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   OnExit:
     m_PersistentCalls:
@@ -2283,7 +2307,7 @@ GameObject:
   - component: {fileID: 8829287094043799622}
   - component: {fileID: 1850799367}
   m_Layer: 0
-  m_Name: DX Generator Activated (4)
+  m_Name: DX Generator Activated (4) E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4997,8 +5021,9 @@ GameObject:
   - component: {fileID: 8829287094746084155}
   - component: {fileID: 8829287094746084156}
   - component: {fileID: 1776438866}
+  - component: {fileID: 1524905467}
   m_Layer: 0
-  m_Name: DX Generator Activated (5)
+  m_Name: DX Generator Activated (5) C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5122,13 +5147,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8829287094746084154}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2404a8b8872025f4484a994f8f001103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayingSource: {fileID: 8829287094746084156}
   ObjectToEnable: {fileID: 8829287095220955072}
+--- !u!114 &1524905467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829287094746084154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d32550e9b61654cbc5b661ffad66cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayingSource: {fileID: 8829287094746084156}
+  nextSource: {fileID: 8829287095220955072}
 --- !u!1 &8829287094746662786
 GameObject:
   m_ObjectHideFlags: 0
@@ -5507,8 +5546,9 @@ GameObject:
   - component: {fileID: 8829287094927219921}
   - component: {fileID: 8829287094927219922}
   - component: {fileID: 259212708}
+  - component: {fileID: 1276456129}
   m_Layer: 0
-  m_Name: DX Generator Activated (3)
+  m_Name: DX Generator Activated (3) C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5632,13 +5672,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8829287094927219920}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2404a8b8872025f4484a994f8f001103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayingSource: {fileID: 8829287094927219922}
   ObjectToEnable: {fileID: 8829287094043799620}
+--- !u!114 &1276456129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829287094927219920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d32550e9b61654cbc5b661ffad66cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayingSource: {fileID: 8829287094927219922}
+  nextSource: {fileID: 8829287094043799620}
 --- !u!1 &8829287094985738688
 GameObject:
   m_ObjectHideFlags: 0
@@ -6176,13 +6230,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8829287095178763508}
   - component: {fileID: 8829287095178763509}
+  - component: {fileID: 1847803034}
   m_Layer: 0
   m_Name: DX See Generator (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8829287095178763508
 Transform:
   m_ObjectHideFlags: 0
@@ -6209,7 +6264,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5607111975853839039, guid: 31aebf588b2608e4d89ebdb64b43369f,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 11c35d179da53b347b3fb9c1315cbbbd, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -6294,6 +6349,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1847803034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829287095178763507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d32550e9b61654cbc5b661ffad66cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayingSource: {fileID: 8829287095178763509}
+  nextSource: {fileID: 0}
 --- !u!1 &8829287095205203269
 GameObject:
   m_ObjectHideFlags: 0
@@ -6434,7 +6503,7 @@ GameObject:
   - component: {fileID: 8829287095220955074}
   - component: {fileID: 1376016290}
   m_Layer: 0
-  m_Name: DX Generator Activated (6)
+  m_Name: DX Generator Activated (6) E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6576,8 +6645,9 @@ GameObject:
   - component: {fileID: 8829287095313599757}
   - component: {fileID: 8829287095313599758}
   - component: {fileID: 430342048}
+  - component: {fileID: 430342050}
   m_Layer: 0
-  m_Name: DX Generator Activated (1)
+  m_Name: DX Generator Activated (1) C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6701,13 +6771,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8829287095313599756}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2404a8b8872025f4484a994f8f001103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayingSource: {fileID: 8829287095313599758}
   ObjectToEnable: {fileID: 8829287095534348417}
+--- !u!114 &430342050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829287095313599756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d32550e9b61654cbc5b661ffad66cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayingSource: {fileID: 8829287095313599758}
+  nextSource: {fileID: 8829287095534348417}
 --- !u!1 &8829287095406423478
 GameObject:
   m_ObjectHideFlags: 0
@@ -6718,8 +6802,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8829287095406423479}
   - component: {fileID: 8829287095406423480}
+  - component: {fileID: 35321723}
   m_Layer: 0
-  m_Name: DX Generator Activated (7)
+  m_Name: DX Generator Activated (7) C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6836,6 +6921,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &35321723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829287095406423478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d32550e9b61654cbc5b661ffad66cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayingSource: {fileID: 8829287095406423480}
+  nextSource: {fileID: 0}
 --- !u!1 &8829287095408533984
 GameObject:
   m_ObjectHideFlags: 0
@@ -6974,13 +7073,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8829287095410793691}
   - component: {fileID: 8829287095410793692}
+  - component: {fileID: 1334592133}
   m_Layer: 0
   m_Name: DX See Floating Islands (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8829287095410793691
 Transform:
   m_ObjectHideFlags: 0
@@ -7007,7 +7107,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5607111975853839039, guid: 31aebf588b2608e4d89ebdb64b43369f,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 2902c9c6f018b5a45b8a3b7fbd6e3922, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -7092,6 +7192,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1334592133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829287095410793690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d32550e9b61654cbc5b661ffad66cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayingSource: {fileID: 8829287095410793692}
+  nextSource: {fileID: 0}
 --- !u!1 &8829287095456769544
 GameObject:
   m_ObjectHideFlags: 0
@@ -7232,7 +7346,7 @@ GameObject:
   - component: {fileID: 8829287095534348419}
   - component: {fileID: 1059864042}
   m_Layer: 0
-  m_Name: DX Generator Activated (2)
+  m_Name: DX Generator Activated (2) E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
