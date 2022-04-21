@@ -6,6 +6,7 @@ using UnityEngine;
 public class NumberOfDropsChance{ 
     public int numberOfDrops;
     public int numberOfEntries;
+    
 }
 
 public class EnemyDrops : MonoBehaviour
@@ -16,6 +17,8 @@ public class EnemyDrops : MonoBehaviour
     private List<GameObject> itemsWithEntries = new List<GameObject>();
 
     private List<int> numberOfDropsChance = new List<int>();
+
+    public RandomAudioPlayer enemyDropSource;
 
     void Start () {
         foreach (GameObjectPool gOPool in itemPool.pool) {
@@ -33,6 +36,7 @@ public class EnemyDrops : MonoBehaviour
     public void RandomiseDrops() {
         int rndNumberOfDrops = numberOfDropsChance[Random.Range(0, numberOfDropsChance.Count)];
         for (int i = 0; i < rndNumberOfDrops; i++) {
+            enemyDropSource.PlayRandomClip();
             Instantiate(RandomItem(), this.gameObject.transform.position, Quaternion.identity);
         }
     }
