@@ -27,7 +27,6 @@ public class RiftToTeleportPlayer : MonoBehaviour
     }
 
     void FixedUpdate() {
-        Debug.Log("FixedUpdate " + ThirdPersonPlayerController.instance.transform.position);
         if (needsTeleportation) {
             Teleport();
         }

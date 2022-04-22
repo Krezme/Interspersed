@@ -191,7 +191,6 @@ public class SlimeArm : PlayerAbility
                     }
                 }
                 else {
-                    Debug.Log("Let go?");
                     if (PlayerAbilitiesController.instance.isAbilityActive) {
                         LetGoOffTheObject();
                     }

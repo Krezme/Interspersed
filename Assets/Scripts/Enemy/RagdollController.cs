@@ -29,6 +29,11 @@ public class RagdollController : MonoBehaviour
     public Renderer meshRenderer;
     public float slimeSphereSizeMultyplier = 1;
 
+    public LayerMask groundLayerMasks;
+    public bool needsGround;
+
+    private int standUpTries;
+
     void Start()
     {
         // Finding and assigning all required components
@@ -60,7 +65,8 @@ public class RagdollController : MonoBehaviour
     /// This is so the enemy can function properly and in one piece when the ragdoll is OFF
     /// </summary>
     [ContextMenu("RagdollOff")]
-    public void RagdollOff(){
+    public void RagdollOff(Vector3 standUpPosition = new Vector3()){
+        standUpTries = 0;
         for (int i = 0; i < ragdollColliders.Length; i++) {
             ragdollColliders[i].enabled = false;
             ragdollRigidbodies[i].useGravity = false;
@@ -83,7 +89,12 @@ public class RagdollController : MonoBehaviour
             agent.enabled = true;
         }
         ragdolling = false;
-        transform.position = rig.transform.position;
+        if (standUpPosition != new Vector3()) {
+            transform.position = standUpPosition;
+            Debug.Log("Works");
+        }else {
+            transform.position = rig.transform.position;
+        }
     }
 
     /// <summary>
@@ -131,17 +142,46 @@ public class RagdollController : MonoBehaviour
                 yield return new WaitForSeconds(5f);
             }
             if (!pickedUpByPlayer && ragdolling) {
-                RagdollOff();
+                if (needsGround) {
+                    CheckForGround();
+                }else {
+                    RagdollOff();
+                }
                 break;
             }
             else if (!ragdolling) {
                 break;
             }
-            if (ragdolling && pickedUpByPlayer && !PlayerAbilitiesController.instance.isAbilityActive) {
-                pickedUpByPlayer = false;
-                RagdollOff();
-                break;
-            }
         }
     } 
+
+    void CheckForGround() {
+        Debug.Log("CheckForGround");
+        if (Physics.Raycast(rig.transform.position, Vector3.down, out RaycastHit hit, 2f, groundLayerMasks, QueryTriggerInteraction.UseGlobal)) {
+            Debug.Log("CheckForGround 1");
+            if (NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 3.0f, NavMesh.AllAreas)) {
+                Debug.Log("CheckForGround 2");
+                RagdollOff(standUpPosition: navHit.position);
+            }else {
+                standUpTries++;
+                Debug.Log("CheckForGround -1 " + standUpTries);
+                if (standUpTries <= 10){
+                    StartCoroutine(PauseBeforeRagdollOff());
+                }
+                else {
+                    Destroy(this.gameObject);
+                }
+            }
+        }
+        else{
+            standUpTries++;
+            Debug.Log("CheckForGround -2 " + standUpTries);
+            if (standUpTries <= 10){
+                StartCoroutine(PauseBeforeRagdollOff());
+            }
+            else {
+                Destroy(this.gameObject);
+            }
+        }
+    }
 }
