@@ -6,7 +6,7 @@ public class HealthPickUp : MonoBehaviour
 {
     public float heal;
 
-    public AudioSource SFXHealthPickup;
+    public GameObject SFXHealthPickup;
 
     public void OnTriggerEnter (Collider other) {
         if (other.gameObject.tag == "Player") {
@@ -14,7 +14,7 @@ public class HealthPickUp : MonoBehaviour
                 if (playerStatisticsManager.maxStatistics.resourcesStatistics.health > playerStatisticsManager.currentStatistics.resourcesStatistics.health) {
                     playerStatisticsManager.HealthRestore(heal);
                     try {
-                        SFXHealthPickup.Play(); 
+                        Instantiate(SFXHealthPickup);
                     } 
                     catch (System.Exception) {}
                     Destroy(this.gameObject);
