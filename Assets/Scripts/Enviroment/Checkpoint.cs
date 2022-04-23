@@ -35,7 +35,7 @@ public class Checkpoint : MonoBehaviour
     }
 
     public void SelectDefaultCheckpoint () {
-        CheckpointManager.instance.currentCheckpointIndex = Array.IndexOf(CheckpointManager.instance.checkpoints, this);
+        CheckpointManager.instance.currentCheckpointIndex = CheckpointManager.instance.checkpoints.IndexOf(this);
         foreach (Light light in lights) {
             light.enabled = true;
         }
@@ -43,13 +43,13 @@ public class Checkpoint : MonoBehaviour
     }
 
     public void SelectCheckpoint () {
-        CheckpointManager.instance.currentCheckpointIndex = Array.IndexOf(CheckpointManager.instance.checkpoints, this);
+        CheckpointManager.instance.currentCheckpointIndex = CheckpointManager.instance.checkpoints.IndexOf(this);
         foreach (Light light in lights) {
             light.enabled = true;
         }
         this.gameObject.GetComponent<Collider>().enabled = false;
         doorAnimation.SetTrigger("OpenDoor");
-
+        SaveData.instance.RecordState();
         Bell.PlayRandomClip(); //Rhys - Plays Telephone ring sound within the selected Phone Box on activation
         Tune.PlayRandomClip(); //Rhys - Plays checkpoint activation melody
     }
