@@ -14,6 +14,8 @@ public class RiftToTeleportPlayer : MonoBehaviour
 
     private IEnumerator coroutine;
 
+    public AudioSource sfxTeleport;
+
     void OnTriggerEnter(Collider other) {
         
         if (other.tag == "Player") {
@@ -61,6 +63,7 @@ public class RiftToTeleportPlayer : MonoBehaviour
         ThirdPersonPlayerController.instance.verticalVelocity = 0;
         isInTeleporter = false;
         Debug.Log("player pos 2 " + ThirdPersonPlayerController.instance.transform.position);
+        sfxTeleport.Play();
     }
 
 
