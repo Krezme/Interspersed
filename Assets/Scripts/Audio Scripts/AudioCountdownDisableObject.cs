@@ -13,6 +13,20 @@ public class AudioCountdownDisableObject : MonoBehaviour
     public float countDownFrom = 3.0f;
     public GameObject gameObjectToDisable;
 
+    private float chosenTime = 3.0f;
+
+    void Start()
+    {
+        chosenTime = countDownFrom;
+    }
+
+
+    void OnAwake()
+    {
+        countDownFrom = chosenTime;
+    }
+
+
     void Update()
     {
         countDownFrom -= Time.deltaTime;
@@ -20,6 +34,7 @@ public class AudioCountdownDisableObject : MonoBehaviour
         {
             gameObjectToDisable.SetActive(false);
             gameObject.SetActive(false);
+            countDownFrom = chosenTime;
         }
     }
 }

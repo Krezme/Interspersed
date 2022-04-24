@@ -15,6 +15,8 @@ public class Checkpoint : MonoBehaviour
     public RandomAudioPlayer Bell;
     public RandomAudioPlayer Tune;
 
+    public GameObject checkpointUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,7 @@ public class Checkpoint : MonoBehaviour
         SaveData.instance.RecordState();
         Bell.PlayRandomClip(); //Rhys - Plays Telephone ring sound within the selected Phone Box on activation
         Tune.PlayRandomClip(); //Rhys - Plays checkpoint activation melody
+        checkpointUI.SetActive(true);
     }
 
     public void DeselectCheckpoint () {
