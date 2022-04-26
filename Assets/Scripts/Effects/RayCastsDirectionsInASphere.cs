@@ -22,6 +22,11 @@ public class RayCastsDirectionsInASphere : MonoBehaviour
 
     public GameObject lightningDefaultTarget;
 
+    [Header("Target Game Object Instantiate")]
+    public bool willInstantiateObjectAtTarget = false;
+
+    public GameObject objectToInstantiateAtTarget;
+
     private Vector3 direction;
 
     private Ray ray;

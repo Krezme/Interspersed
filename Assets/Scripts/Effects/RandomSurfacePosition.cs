@@ -43,7 +43,11 @@ public class RandomSurfacePosition : MonoBehaviour
     void PerformRandomRayCast() {
         if (currentTries < 10) {
             int rnd = Random.Range(0, rayCastsDir.rayDirections.Count);
-            if (Physics.Raycast(rayCastsDir.spherecastOrigin, rayCastsDir.rayDirections[rnd], out hit, rayCastsDir.maxRadius, rayCastsDir.layerMask, QueryTriggerInteraction.UseGlobal)) {}
+            if (Physics.Raycast(rayCastsDir.spherecastOrigin, rayCastsDir.rayDirections[rnd], out hit, rayCastsDir.maxRadius, rayCastsDir.layerMask, QueryTriggerInteraction.UseGlobal)) {
+                if (rayCastsDir.willInstantiateObjectAtTarget) {
+                    Instantiate(rayCastsDir.objectToInstantiateAtTarget, hit.point, Quaternion.identity);
+                }
+            }
             else{
                 currentTries++;
                 PerformRandomRayCast();

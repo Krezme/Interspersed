@@ -40,6 +40,8 @@ public class SaveData : MonoBehaviour
     public static EventState[] savedEventsState;
     public static int lastCheckpoint;
     public static bool needsLoading = false;
+    [HideInInspector]
+    public bool inTheMiddleOfAnEvent;
     private EventManager[] eventManagers = new EventManager[] {};
 
     // Start is called before the first frame update
