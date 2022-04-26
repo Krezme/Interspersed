@@ -9,6 +9,8 @@ public class RiftToTeleportPlayer : MonoBehaviour
 
     public float teleportDelay;
 
+    public bool enableRift;
+
     private bool isInTeleporter = false;
 
     private bool needsTeleportation;
@@ -46,6 +48,9 @@ public class RiftToTeleportPlayer : MonoBehaviour
     }
 
     void Teleport() {
+        if (enableRift) {
+            riftDestination.SetActive(true);
+        }
         ThirdPersonPlayerController.instance.gameObject.transform.position = riftDestination.transform.position;
         ThirdPersonPlayerController.instance.verticalVelocity = 0;
         isInTeleporter = false;
