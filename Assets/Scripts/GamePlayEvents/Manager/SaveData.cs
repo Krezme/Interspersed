@@ -5,17 +5,11 @@ using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class EventState{
+
     public string name;
     public bool eventTackled = false;
     public bool eventComplete = false;
-    public GameObject[] eventGameObjects;
 
-}
-
-public class EventUnlocks {
-    public bool doesUnlockArm = false;
-    public bool doesUnlockAbility = false;
-    
 }
 
 public class SaveData : MonoBehaviour
@@ -32,39 +26,56 @@ public class SaveData : MonoBehaviour
         else {
             instance = this;
         }
+        eventManagers = FindObjectsOfType<EventManager>();
+        if (needsLoading) {
+            LoadState();
+            TriggerEventManagerAwakes();
+        }
     }
+
     #endregion
 
     [SerializeField]
-    public EventState[] events;
-    public static EventState[] staticEvents;
+    public EventState[] currentEventsState;
+    public static EventState[] savedEventsState;
     public static int lastCheckpoint;
     public static bool needsLoading = false;
+    private EventManager[] eventManagers = new EventManager[] {};
 
     // Start is called before the first frame update
     void Start()
     {
-        if (needsLoading) {
-            needsLoading = false;
-        }
+        
     }
 
     public void RecordState() {
-        staticEvents = events.DeepClone();
+        savedEventsState = currentEventsState.DeepClone();
         lastCheckpoint = CheckpointManager.instance.currentCheckpointIndex;
         needsLoading = true;
     }
 
-    void LoadWorldState() {
+    public void LoadState() {
+        currentEventsState = savedEventsState.DeepClone();
         CheckpointManager.instance.currentCheckpointIndex = lastCheckpoint;
-        foreach (EventState es in staticEvents) {
+        needsLoading = false;
+    }
+
+    void TriggerEventManagerAwakes() {
+        foreach (EventManager em in eventManagers) {
+            em.TriggerMyAwake();
+        }
+    }
+
+    /* void LoadWorldState() {
+        CheckpointManager.instance.currentCheckpointIndex = lastCheckpoint;
+        foreach (EventState es in savedEventsState) {
             if (es.eventComplete) {
                 foreach (GameObject go in es.eventGameObjects) {
                     go.SetActive(false);
                 }
             }
         }
-    }
+    } */
 
     [ContextMenu("ReloadScene")]
     public void ReloadScene() {

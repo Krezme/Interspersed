@@ -10,21 +10,32 @@ public class RiftToTeleportPlayer : MonoBehaviour
     public float teleportDelay;
 
     private bool isInTeleporter = false;
+
     private bool needsTeleportation;
 
-    private IEnumerator coroutine;
-
-    public AudioSource sfxTeleport;
+    private float teleportTimePassed;
 
     void OnTriggerEnter(Collider other) {
-        
         if (other.tag == "Player") {
             isInTeleporter = true;
-            Debug.Log("Teleport Start");
-            //Teleport();
-            needsTeleportation = true;
-            //coroutine = StartTeleportationWait();
-            //StartCoroutine(coroutine);
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
+        if (other.tag == "Player") {
+            isInTeleporter = false;
+            needsTeleportation = false;
+        }
+    }
+
+    void Update () {
+        if (isInTeleporter) {
+            teleportTimePassed += Time.deltaTime;
+            if (teleportTimePassed >= teleportDelay) {
+                needsTeleportation = true;
+            }
+        }else {
+            teleportTimePassed = 0;
         }
     }
 
@@ -34,37 +45,11 @@ public class RiftToTeleportPlayer : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider other) {
-        if (other.tag == "Player") {
-            if (needsTeleportation) {
-                Teleport();
-            }
-        }
-    }
-
-    void OnTriggerExit(Collider other) {
-        if (other.tag == "Player") {
-            Debug.Log("Debug 46");
-            isInTeleporter = false;
-            needsTeleportation = false;
-        }
-    }
-
-    /* IEnumerator StartTeleportationWait () {
-        yield return new WaitForSeconds(teleportDelay);
-        if (isInTeleporter) 
-            Teleport();
-    } */
-
     void Teleport() {
-        Debug.Log("Teleport " + riftDestination.transform.position);
-        Debug.Log("player pos " + ThirdPersonPlayerController.instance.transform.position);
         ThirdPersonPlayerController.instance.gameObject.transform.position = riftDestination.transform.position;
         ThirdPersonPlayerController.instance.verticalVelocity = 0;
         isInTeleporter = false;
-        Debug.Log("player pos 2 " + ThirdPersonPlayerController.instance.transform.position);
-        sfxTeleport.Play();
+        riftDestination.GetComponent<WarpCloseSequence>().ToggleFadeOut(true);
+        Destroy(this.gameObject);
     }
-
-
 }
