@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6933476602792098481}
   - component: {fileID: -6300201750208476175}
   - component: {fileID: 4705163074619882725}
+  - component: {fileID: 5834969335043304330}
+  - component: {fileID: -1971271479935639851}
   m_Layer: 0
   m_Name: SFX LightningTarget
   m_TagString: Untagged
@@ -41,21 +43,22 @@ AudioSource:
   m_GameObject: {fileID: 2116735010613948476}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5924138822915904487, guid: 31aebf588b2608e4d89ebdb64b43369f,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: a185b21c90909f14793d79012937c8b5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -88,7 +91,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -142,3 +145,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectToDestroy: {fileID: 2116735010613948476}
   SourceToWatch: {fileID: -6300201750208476175}
+--- !u!114 &5834969335043304330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116735010613948476}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da84b2fc2044e6b47b3573da8b310b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: -1971271479935639851}
+  stopOnDisable: 0
+--- !u!114 &-1971271479935639851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116735010613948476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minVolume: 0.1
+  maxVolume: 0.1
+  minPitch: 1
+  maxPitch: 1
+  playDelay: 0
+  defaultBank:
+    name: 
+    clips:
+    - {fileID: 8300000, guid: a185b21c90909f14793d79012937c8b5, type: 3}
+    - {fileID: 8300000, guid: f0450d3104e820f4e8ca677fb9d86080, type: 3}
+    - {fileID: 8300000, guid: d2ef0e07d5507d045b68194266c5fcd7, type: 3}
+    - {fileID: 8300000, guid: 57328599537f8ca4298f746e04cc44c1, type: 3}
+  overrides: []
+  playing: 0
+  canPlay: 0

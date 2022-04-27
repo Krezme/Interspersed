@@ -33,6 +33,7 @@ public class EnemyStatisticsManager : MonoBehaviour
 
     public RandomAudioPlayerV2 warplingBank;
 
+    public GameObject carrieFlapSourcePH;
 
 
 
@@ -116,6 +117,7 @@ public class EnemyStatisticsManager : MonoBehaviour
         }
 
         try {
+            carrieFlapSourcePH.SetActive(false);
             //enemyDeath.PlayRandomClip();
             warplingBank.PlayRandomClip(defaultBankIndex: 2);
         }catch (System.Exception) {
