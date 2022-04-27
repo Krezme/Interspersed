@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4408779744457512370}
   - component: {fileID: 4408779744457512368}
   - component: {fileID: 1134700721030547823}
+  - component: {fileID: 3216846654429440734}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -75,3 +76,41 @@ MonoBehaviour:
   enemyStatisticsManagers: []
   settlementDetectionScripts: []
   maxEnemyActiveDistance: 120
+--- !u!114 &3216846654429440734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408779744457512371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6d0396e35d6d674a9ae08118df9c310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEventsState:
+  - name: Thunder Rock Event
+    eventTackled: 0
+    eventComplete: 0
+  - name: The Tip Event
+    eventTackled: 0
+    eventComplete: 0
+  - name: Shotgun Event
+    eventTackled: 0
+    eventComplete: 0
+  - name: Meet The SlugKing
+    eventTackled: 0
+    eventComplete: 0
+  - name: Bakery Bread Bank Event
+    eventTackled: 0
+    eventComplete: 0
+  - name: The Feeding
+    eventTackled: 0
+    eventComplete: 0
+  - name: Stranger In Danger
+    eventTackled: 0
+    eventComplete: 0
+  - name: Toolbox
+    eventTackled: 0
+    eventComplete: 0
+  inTheMiddleOfAnEvent: 0

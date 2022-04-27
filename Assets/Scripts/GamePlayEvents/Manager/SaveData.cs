@@ -84,6 +84,10 @@ public class SaveData : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void SetEventToComplete(int index) {
+        currentEventsState[index].eventComplete = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
