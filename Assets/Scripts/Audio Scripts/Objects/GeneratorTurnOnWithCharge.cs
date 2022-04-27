@@ -35,34 +35,38 @@ public class GeneratorTurnOnWithCharge : MonoBehaviour
     {
         if (other.tag == "PlayerBullet" && other.GetComponent<BulletProjectile>().statistics.isElectric)
         {
-            Digit = Random.Range(0, 101);
+            EnableGenerator(other);
+        }
+    }
 
-            if (Digit <= 3)
-            {
-                EngineStartUpLayer.SetActive(true); /*- NiceTry at hiding*/
-                LightSpin.enabled = true;
-                Shake.enabled = true;
-                GreasedLightning.SetActive(true);
-                BellLightBulbA.SetActive(true);
-                BellLightBulbB.SetActive(true);
-                Collider.enabled = false;
-                Debug.Log("Generator Charged");
-                
-                ExecuteOnEnter(other);
-            }
-            else
-            {
-                EngineStartUp.SetActive(true);
-                LightSpin.enabled = true;
-                Shake.enabled = true;
-                GreasedLightning.SetActive(true);
-                BellLightBulbA.SetActive(true);
-                BellLightBulbB.SetActive(true);
-                Collider.enabled = false;
-                Debug.Log("Generator Charged");      
+    public void EnableGenerator(Collider other) {
+        Digit = Random.Range(0, 101);
 
-                ExecuteOnEnter(other);
-            }
+        if (Digit <= 3)
+        {
+            EngineStartUpLayer.SetActive(true); /*- NiceTry at hiding*/
+            LightSpin.enabled = true;
+            Shake.enabled = true;
+            GreasedLightning.SetActive(true);
+            BellLightBulbA.SetActive(true);
+            BellLightBulbB.SetActive(true);
+            Collider.enabled = false;
+            Debug.Log("Generator Charged");
+            
+            ExecuteOnEnter(other);
+        }
+        else
+        {
+            EngineStartUp.SetActive(true);
+            LightSpin.enabled = true;
+            Shake.enabled = true;
+            GreasedLightning.SetActive(true);
+            BellLightBulbA.SetActive(true);
+            BellLightBulbB.SetActive(true);
+            Collider.enabled = false;
+            Debug.Log("Generator Charged");      
+
+            ExecuteOnEnter(other);
         }
     }
 

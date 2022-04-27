@@ -8,7 +8,9 @@ public class EventManager : MonoBehaviour
     [Tooltip("This index is from the SaveData script referring to the currentEventState and savedEventsState")]
     public int eventDataIndex;
 
-    public List<GameObject> eventGameObjects;
+    public List<GameObject> eventGameObjectsToDissable;
+
+    public List<GameObject> eventGameObjectsToEnable;
     
     [Header("Arm unlocking")]
     public bool doesUnlockArm;
@@ -25,13 +27,14 @@ public class EventManager : MonoBehaviour
 
     public void TriggerMyAwake() {
         if (SaveData.savedEventsState[eventDataIndex].eventComplete) {
-            DissableEvent();
+            ToggleEvent(eventGameObjectsToDissable , false);
+            ToggleEvent(eventGameObjectsToEnable , true);
             AquireArm();
             AquireAbility();
         }
     }
 
-    public void DissableEvent() {
+    public void ToggleEvent(List<GameObject> eventGameObjects, bool state) {
         foreach (GameObject go in eventGameObjects) {
             go.SetActive(false);
         }
