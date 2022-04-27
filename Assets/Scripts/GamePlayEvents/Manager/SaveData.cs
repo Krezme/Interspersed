@@ -42,6 +42,9 @@ public class SaveData : MonoBehaviour
     public static bool needsLoading = false;
     [HideInInspector]
     public bool inTheMiddleOfAnEvent;
+    
+
+    public bool saveChanged = false;
     private EventManager[] eventManagers = new EventManager[] {};
 
     // Start is called before the first frame update
@@ -50,12 +53,14 @@ public class SaveData : MonoBehaviour
         
     }
 
+    [ContextMenu("RecordState")]
     public void RecordState() {
         savedEventsState = currentEventsState.DeepClone();
         lastCheckpoint = CheckpointManager.instance.currentCheckpointIndex;
-        needsLoading = true;
+        saveChanged = false;
     }
 
+    [ContextMenu("LoadState")]
     public void LoadState() {
         currentEventsState = savedEventsState.DeepClone();
         CheckpointManager.instance.currentCheckpointIndex = lastCheckpoint;
@@ -68,24 +73,20 @@ public class SaveData : MonoBehaviour
         }
     }
 
-    /* void LoadWorldState() {
-        CheckpointManager.instance.currentCheckpointIndex = lastCheckpoint;
-        foreach (EventState es in savedEventsState) {
-            if (es.eventComplete) {
-                foreach (GameObject go in es.eventGameObjects) {
-                    go.SetActive(false);
-                }
-            }
-        }
-    } */
-
     [ContextMenu("ReloadScene")]
     public void ReloadScene() {
+        needsLoading = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    [ContextMenu("DebugTheEventStates")]
+    public void DebugTheEventStates() {
+        Debug.Log(currentEventsState == savedEventsState);
     }
 
     public void SetEventToComplete(int index) {
         currentEventsState[index].eventComplete = true;
+        saveChanged = true;
     }
 
     // Update is called once per frame

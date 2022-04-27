@@ -27,11 +27,22 @@ public class Checkpoint : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
-            SelectCheckpoint();
-            foreach(Checkpoint checkpoint in CheckpointManager.instance.checkpoints) {
-                if (checkpoint != this) {
-                    checkpoint.DeselectCheckpoint();
+            if (SaveData.instance != null) {
+                if (SaveData.instance.saveChanged || CheckpointManager.instance.currentCheckpointIndex != CheckpointManager.instance.checkpoints.IndexOf(this)) {
+                    EnteredCheckPoint();
+                    SaveGame();
                 }
+            }else {
+                EnteredCheckPoint();
+            }
+        }
+    }
+    
+    void EnteredCheckPoint() {
+        SelectCheckpoint();
+        foreach(Checkpoint checkpoint in CheckpointManager.instance.checkpoints) {
+            if (checkpoint != this) {
+                checkpoint.DeselectCheckpoint();
             }
         }
     }
@@ -41,7 +52,7 @@ public class Checkpoint : MonoBehaviour
         foreach (Light light in lights) {
             light.enabled = true;
         }
-        this.gameObject.GetComponent<Collider>().enabled = false;
+        ToggleTriggerCollider(false);
     }
 
     public void SelectCheckpoint () {
@@ -49,7 +60,7 @@ public class Checkpoint : MonoBehaviour
         foreach (Light light in lights) {
             light.enabled = true;
         }
-        this.gameObject.GetComponent<Collider>().enabled = false;
+        ToggleTriggerCollider(false);
         doorAnimation.SetTrigger("OpenDoor");
         SaveData.instance.RecordState();
         Bell.PlayRandomClip(); //Rhys - Plays Telephone ring sound within the selected Phone Box on activation
@@ -61,6 +72,16 @@ public class Checkpoint : MonoBehaviour
         foreach (Light light in lights) {
             light.enabled = false;
         }
-        this.gameObject.GetComponent<Collider>().enabled = true;
+        ToggleTriggerCollider(true);
+    }
+
+    void ToggleTriggerCollider(bool state) {
+        if (SaveData.instance == null) {
+            this.gameObject.GetComponent<Collider>().enabled = state;
+        }
+    }
+
+    void SaveGame() {
+        SaveData.instance.RecordState();
     }
 }
