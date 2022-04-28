@@ -91,6 +91,8 @@ public class BulletProjectile : MonoBehaviour
             }
             else if (other.tag == "EventTriggers") {
             }
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) {
+            }
             else if (other.gameObject.layer != this.gameObject.layer) // Resterts the age and lets it sit in the colided spot for a short time 
             {
                 hasCollided = true; // Effectively dissables the OnTriggerEnter

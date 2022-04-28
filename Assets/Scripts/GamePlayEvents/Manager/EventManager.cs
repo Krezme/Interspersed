@@ -27,8 +27,8 @@ public class EventManager : MonoBehaviour
 
     public void TriggerMyAwake() {
         if (SaveData.savedEventsState[eventDataIndex].eventComplete) {
-            ToggleEvent(eventGameObjectsToDissable , false);
-            ToggleEvent(eventGameObjectsToEnable , true);
+            ToggleEvent(eventGameObjectsToDissable, false);
+            ToggleEvent(eventGameObjectsToEnable, true);
             AquireArm();
             AquireAbility();
         }
@@ -36,7 +36,7 @@ public class EventManager : MonoBehaviour
 
     public void ToggleEvent(List<GameObject> eventGameObjects, bool state) {
         foreach (GameObject go in eventGameObjects) {
-            go.SetActive(false);
+            go.SetActive(state);
         }
     }
 

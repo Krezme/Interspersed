@@ -526,6 +526,76 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &2353283111590268634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 68801137723378903}
+  - component: {fileID: 3465186449946539086}
+  - component: {fileID: 6311596144662422303}
+  m_Layer: 2
+  m_Name: Checkpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &68801137723378903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353283111590268634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8702454829218665061}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3465186449946539086
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353283111590268634}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 500
+  m_Center: {x: 0, y: 150, z: 0}
+--- !u!114 &6311596144662422303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353283111590268634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a3cae04968c14429b2970b4624570b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSpawnpoint: 0
+  lights:
+  - {fileID: 4977223823218185725}
+  - {fileID: 6615988318857330378}
+  - {fileID: 3062069328623972226}
+  - {fileID: 6322841838963505230}
+  - {fileID: 4323587175378704540}
+  playerSpawnPos: {fileID: 5228885197733321943}
+  offset: {x: 0, y: 1, z: 0}
+  doorAnimation: {fileID: 70815463487794388}
+  Bell: {fileID: 898962847}
+  Tune: {fileID: 1901556505}
+  checkpointUI: {fileID: 0}
 --- !u!1 &2928536789254358552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,8 +1518,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8702454829218665061}
-  - component: {fileID: 3941805384424650271}
-  - component: {fileID: 6835915931143883680}
   - component: {fileID: 5103275957978892426}
   - component: {fileID: 1655081674063538742}
   m_Layer: 9
@@ -1484,46 +1552,10 @@ Transform:
   - {fileID: 5798014891991028089}
   - {fileID: 5228885197733321943}
   - {fileID: 895005188}
+  - {fileID: 68801137723378903}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3941805384424650271
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8326738050600552671}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 500
-  m_Center: {x: 0, y: 150, z: 0}
---- !u!114 &6835915931143883680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8326738050600552671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a3cae04968c14429b2970b4624570b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSpawnpoint: 0
-  lights:
-  - {fileID: 4977223823218185725}
-  - {fileID: 6615988318857330378}
-  - {fileID: 3062069328623972226}
-  - {fileID: 6322841838963505230}
-  - {fileID: 4323587175378704540}
-  playerSpawnPos: {fileID: 5228885197733321943}
-  offset: {x: 0, y: 1, z: 0}
-  doorAnimation: {fileID: 70815463487794388}
-  Bell: {fileID: 898962847}
-  Tune: {fileID: 1901556505}
 --- !u!65 &5103275957978892426
 BoxCollider:
   m_ObjectHideFlags: 0
