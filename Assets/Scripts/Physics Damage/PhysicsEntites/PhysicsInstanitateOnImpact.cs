@@ -41,8 +41,8 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
         Vector3 pos = contact.point;
 
 
-            //if the force of this object is higher than the force required on impact
-            if (Mathf.Abs(thisRigidBody.velocity.x) + Mathf.Abs(thisRigidBody.velocity.y) + Mathf.Abs(thisRigidBody.velocity.z) >= forceRequired)
+        //if the force of this object is higher than the force required on impact
+        if (Mathf.Abs(thisRigidBody.velocity.x) + Mathf.Abs(thisRigidBody.velocity.y) + Mathf.Abs(thisRigidBody.velocity.z) >= forceRequired)
         {
 
             Instantiate(InstantiatedSphereCol, pos, rot);
