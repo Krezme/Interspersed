@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 6933476602792098481}
   - component: {fileID: -6300201750208476175}
   - component: {fileID: 4705163074619882725}
-  - component: {fileID: 5834969335043304330}
-  - component: {fileID: -1971271479935639851}
+  - component: {fileID: -9020996309569237941}
   m_Layer: 0
   m_Name: SFX LightningTarget
   m_TagString: Untagged
@@ -145,21 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectToDestroy: {fileID: 2116735010613948476}
   SourceToWatch: {fileID: -6300201750208476175}
---- !u!114 &5834969335043304330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2116735010613948476}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da84b2fc2044e6b47b3573da8b310b58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: -1971271479935639851}
-  stopOnDisable: 0
---- !u!114 &-1971271479935639851
+--- !u!114 &-9020996309569237941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,21 +153,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2116735010613948476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 21e54656b3ee98d49afceb0faa963ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minTimeToWait: 0
+  maxTimeToWait: 0
   minVolume: 0.1
   maxVolume: 0.1
   minPitch: 1
   maxPitch: 1
-  playDelay: 0
-  defaultBank:
-    name: 
-    clips:
-    - {fileID: 8300000, guid: a185b21c90909f14793d79012937c8b5, type: 3}
-    - {fileID: 8300000, guid: f0450d3104e820f4e8ca677fb9d86080, type: 3}
-    - {fileID: 8300000, guid: d2ef0e07d5507d045b68194266c5fcd7, type: 3}
-    - {fileID: 8300000, guid: 57328599537f8ca4298f746e04cc44c1, type: 3}
-  overrides: []
-  playing: 0
-  canPlay: 0
+  AudioClips:
+  - {fileID: 8300000, guid: 57328599537f8ca4298f746e04cc44c1, type: 3}
+  - {fileID: 8300000, guid: a185b21c90909f14793d79012937c8b5, type: 3}
+  - {fileID: 8300000, guid: f0450d3104e820f4e8ca677fb9d86080, type: 3}
+  - {fileID: 8300000, guid: d2ef0e07d5507d045b68194266c5fcd7, type: 3}
+  AltTransforms: []
