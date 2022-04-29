@@ -9,9 +9,17 @@ public class DestroyGameObjectOnAudioSourceFinish : MonoBehaviour
 
   public AudioSource SourceToWatch;
 
+  private bool HasPlayed = false;
+
     void Update()
     {
-        if (!SourceToWatch.isPlaying)
+        if (SourceToWatch.isPlaying)
+        {
+            HasPlayed = true;
+        }
+
+
+        if (!SourceToWatch.isPlaying && HasPlayed)
         {
             Destroy(this.gameObject);
         }
