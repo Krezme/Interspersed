@@ -34,6 +34,11 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    void Start () {
+        AquireArm();
+        AquireAbility();
+    }
+
     public void ToggleEvent(List<GameObject> eventGameObjects, bool state) {
         foreach (GameObject go in eventGameObjects) {
             go.SetActive(state);
@@ -55,6 +60,7 @@ public class EventManager : MonoBehaviour
         if (doesUnlockAbility) {
             if (arm == Arms.CrystalArm) {
                 CristalArm.instance.EnableAbility(abilityIndex);
+                Debug.Log("CristalArm.instance.EnableAbility");
             }else if (arm == Arms.SlimeArm) {
                 SlimeArm.insance.EnableAbility(abilityIndex);
             }

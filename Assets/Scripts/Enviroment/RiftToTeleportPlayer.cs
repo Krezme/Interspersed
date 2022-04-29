@@ -11,6 +11,8 @@ public class RiftToTeleportPlayer : MonoBehaviour
 
     public bool enableRift;
 
+    public bool teleportingToAnEvent;
+
     private bool isInTeleporter = false;
 
     private bool needsTeleportation;
@@ -51,6 +53,7 @@ public class RiftToTeleportPlayer : MonoBehaviour
         if (enableRift) {
             riftDestination.SetActive(true);
         }
+        SaveData.instance.ToggleInMiddleOfAnEvent(teleportingToAnEvent);
         ThirdPersonPlayerController.instance.gameObject.transform.position = riftDestination.transform.position;
         ThirdPersonPlayerController.instance.verticalVelocity = 0;
         isInTeleporter = false;

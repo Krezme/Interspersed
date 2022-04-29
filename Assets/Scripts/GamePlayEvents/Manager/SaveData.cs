@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class EventState{
 
     public string name;
-    public bool eventTackled = false;
     public bool eventComplete = false;
 
 }
@@ -82,6 +81,10 @@ public class SaveData : MonoBehaviour
     [ContextMenu("DebugTheEventStates")]
     public void DebugTheEventStates() {
         Debug.Log(currentEventsState == savedEventsState);
+    }
+
+    public void ToggleInMiddleOfAnEvent(bool state) {
+        inTheMiddleOfAnEvent = state;
     }
 
     public void SetEventToComplete(int index) {

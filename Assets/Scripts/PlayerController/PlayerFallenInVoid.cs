@@ -11,8 +11,12 @@ public class PlayerFallenInVoid : MonoBehaviour
     {
         if (ThirdPersonPlayerController.instance.gameObject.transform.position.y <= verticalFallingDistance)
         {
-            ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[CheckpointManager.instance.currentCheckpointIndex].playerSpawnPos.position + CheckpointManager.instance.checkpoints[CheckpointManager.instance.currentCheckpointIndex].offset;
-            ThirdPersonPlayerController.instance.verticalVelocity = 0;
+            if (SaveData.instance.inTheMiddleOfAnEvent) {
+                SaveData.instance.ReloadScene();
+            }else {
+                ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[CheckpointManager.instance.currentCheckpointIndex].playerSpawnPos.position + CheckpointManager.instance.checkpoints[CheckpointManager.instance.currentCheckpointIndex].offset;
+                ThirdPersonPlayerController.instance.verticalVelocity = 0;
+            }
         }
     }
 }

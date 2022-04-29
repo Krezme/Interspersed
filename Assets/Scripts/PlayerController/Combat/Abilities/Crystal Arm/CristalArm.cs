@@ -31,7 +31,7 @@ public class CristalArm : PlayerAbility
     } 
 
     #endregion
-    public ArmAbilities[] armAbilities = new ArmAbilities[3] { new ArmAbilities() {abilityName = "Single Shot", isActive = true}, new ArmAbilities() {abilityName = "Electric Shot"}, new ArmAbilities() {abilityName = "Shotgun"}};
+    public ArmAbilities[] armAbilities;
 
     public CrystalArmStatistics statistics;
 
@@ -87,11 +87,6 @@ public class CristalArm : PlayerAbility
     /// Hard Coding the armAbilities array
     /// </summary>
     void Start () {
-        armAbilities = new ArmAbilities[3] {  
-            new ArmAbilities() {abilityName = "Single Shot", isActive = true},
-            new ArmAbilities() {abilityName = "Electric Shot", isActive = armAbilities[1].isActive}, 
-            new ArmAbilities() {abilityName = "Shotgun", isActive = armAbilities[2].isActive}
-        };
     }
 
     void Update () {
