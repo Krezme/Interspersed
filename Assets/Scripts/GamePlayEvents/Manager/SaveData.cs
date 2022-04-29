@@ -49,7 +49,7 @@ public class SaveData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     [ContextMenu("RecordState")]
@@ -63,6 +63,7 @@ public class SaveData : MonoBehaviour
     public void LoadState() {
         currentEventsState = savedEventsState.DeepClone();
         CheckpointManager.instance.currentCheckpointIndex = lastCheckpoint;
+        MovePlayerToLastCheckPoint();
         needsLoading = false;
     }
 
@@ -70,6 +71,10 @@ public class SaveData : MonoBehaviour
         foreach (EventManager em in eventManagers) {
             em.TriggerMyAwake();
         }
+    }
+
+    void MovePlayerToLastCheckPoint () {
+        ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[lastCheckpoint].playerSpawnPos.position + CheckpointManager.instance.checkpoints[lastCheckpoint].offset;
     }
 
     [ContextMenu("ReloadScene")]
@@ -92,9 +97,4 @@ public class SaveData : MonoBehaviour
         saveChanged = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

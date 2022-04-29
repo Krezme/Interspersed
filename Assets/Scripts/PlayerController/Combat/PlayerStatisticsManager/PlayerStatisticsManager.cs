@@ -160,7 +160,12 @@ public class PlayerStatisticsManager : MonoBehaviour
         PlayerDamaged.PlayRandomClip();
 
         if (currentStatistics.resourcesStatistics.health <= 0) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (SaveData.instance != null) {
+                SaveData.instance.RecordState();
+            }
+            else {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 

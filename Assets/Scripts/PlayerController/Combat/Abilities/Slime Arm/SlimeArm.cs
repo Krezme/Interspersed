@@ -280,7 +280,6 @@ public class SlimeArm : PlayerAbility
                 FadeOut.SetActive(true);
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
-                Debug.Log("This?");
                 for (int i = 0; i < changedRigidBodies.Count; i++) {
                     changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
                     changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
@@ -362,7 +361,6 @@ public class SlimeArm : PlayerAbility
 
     private void LetGoOffTheObject () {
         grabbedRB.isKinematic = false;
-        Debug.Log("This? 2");
         grabbedRB.useGravity = true;
         grabbedRB.constraints = RigidbodyConstraints.None;
         for (int i = 0; i < changedRigidBodies.Count; i++) {
