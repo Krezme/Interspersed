@@ -42,21 +42,23 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
 
 
         //if the force of this object is higher than the force required on impact
-        if (Mathf.Abs(thisRigidBody.velocity.x) + Mathf.Abs(thisRigidBody.velocity.y) + Mathf.Abs(thisRigidBody.velocity.z) >= forceRequired)
-        {
+        try {
+            if (Mathf.Abs(thisRigidBody.velocity.x) + Mathf.Abs(thisRigidBody.velocity.y) + Mathf.Abs(thisRigidBody.velocity.z) >= forceRequired)
+            {
 
-            Instantiate(InstantiatedSphereCol, pos, rot);
-            
-            Instantiate(Smoke, pos, rot);
+                Instantiate(InstantiatedSphereCol, pos, rot);
+                
+                Instantiate(Smoke, pos, rot);
 
-            Instantiate(Fire, pos, rot);
-
-
-            Instantiate(ExplosionSFXSource, pos, rot);
+                Instantiate(Fire, pos, rot);
 
 
-            Destroy(this.gameObject);
-        }
+                Instantiate(ExplosionSFXSource, pos, rot);
+
+
+                Destroy(this.gameObject);
+            }
+        }catch (System.Exception) {}
     }
 
 
