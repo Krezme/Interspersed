@@ -91,7 +91,6 @@ public class RagdollController : MonoBehaviour
         ragdolling = false;
         if (standUpPosition != new Vector3()) {
             transform.position = standUpPosition;
-            Debug.Log("Works");
         }else {
             transform.position = rig.transform.position;
         }
@@ -156,15 +155,11 @@ public class RagdollController : MonoBehaviour
     } 
 
     void CheckForGround() {
-        Debug.Log("CheckForGround");
         if (Physics.Raycast(rig.transform.position, Vector3.down, out RaycastHit hit, 2f, groundLayerMasks, QueryTriggerInteraction.UseGlobal)) {
-            Debug.Log("CheckForGround 1");
             if (NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 3.0f, NavMesh.AllAreas)) {
-                Debug.Log("CheckForGround 2");
                 RagdollOff(standUpPosition: navHit.position);
             }else {
                 standUpTries++;
-                Debug.Log("CheckForGround -1 " + standUpTries);
                 if (standUpTries <= 10){
                     StartCoroutine(PauseBeforeRagdollOff());
                 }
@@ -176,7 +171,7 @@ public class RagdollController : MonoBehaviour
         else{
             standUpTries++;
             Debug.Log("CheckForGround -2 " + standUpTries);
-            if (standUpTries <= 10){
+            if (standUpTries <= 5){
                 StartCoroutine(PauseBeforeRagdollOff());
             }
             else {

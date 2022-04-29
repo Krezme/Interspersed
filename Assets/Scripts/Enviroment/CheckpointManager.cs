@@ -12,7 +12,6 @@ public class CheckpointManager : MonoBehaviour
     public static CheckpointManager instance;
 
     void Awake () {
-        Debug.Log(instance);
         if (instance != null) {
             Debug.LogError("There are two or more CheckpointManager scripts. Please leave only one CheckpointManager!");
         }else {

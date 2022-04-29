@@ -121,7 +121,6 @@ public class EnemyStatisticsManager : MonoBehaviour
             //enemyDeath.PlayRandomClip();
             warplingBank.PlayRandomClip(defaultBankIndex: 2);
         }catch (System.Exception) {
-            Debug.LogWarning("Sound not assigned");
         }
     }
 

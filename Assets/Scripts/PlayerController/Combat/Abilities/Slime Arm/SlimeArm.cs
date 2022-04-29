@@ -128,22 +128,36 @@ public class SlimeArm : PlayerAbility
                                         Destroy(grabbedPhysicsDamageableObject); // Removing the PhysicsDamageableObject when the object is grabbed so it is not used as a weapon while held
                                     }
                                     grabbedRagdoll.pickedUpByPlayer = true;
-                                    Debug.Log("Running Ragdoll");
+                                    
                                     grabbedRagdoll.RagdollOn();
                                     if (Physics.Raycast(ray, out hit, PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.maxGrabDistance))
                                     {
-                                        grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
-                                        grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
-                                        Debug.Log(grabbedRB.constraints);
-                                                                       
+                                        if (hit.transform.gameObject.tag == "EnemyBodyPart") {
+                                            Debug.Log("Running Ragdoll " + grabbedRB.gameObject.name);
+                                            grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
+                                            grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
+                                            foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
+                                                changedRigidBodies.Add(rb);
+                                                currentRBDefaultAngularFriction.Add(rb.angularDrag);
+                                                currentRBDefaultLayerMask.Add(rb.gameObject.layer);
+                                                rb.angularDrag = grabbedNewAngularFriction;
+                                                rb.gameObject.layer = 2;
+                                            }
+                                        }
+                                        else {
+                                            Debug.Log("Running Ragdoll " + grabbedRB.gameObject.name);
+                                            grabbedRagdoll.pickedUpByPlayer = false;
+                                            grabbedRagdoll.RagdollOff();
+                                            RestartGrabbedState();
+                                        }
                                     }
-                                    foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
-                                        changedRigidBodies.Add(rb);
-                                        currentRBDefaultAngularFriction.Add(rb.angularDrag);
-                                        currentRBDefaultLayerMask.Add(rb.gameObject.layer);
-                                        rb.angularDrag = grabbedNewAngularFriction;
-                                        rb.gameObject.layer = 2;
+                                    else {
+                                        Debug.Log("Running Ragdoll " + grabbedRB.gameObject.name);
+                                        grabbedRagdoll.pickedUpByPlayer = false;
+                                        grabbedRagdoll.RagdollOff();
+                                        RestartGrabbedState();
                                     }
+                                    
                                 }
                                 else {
                                     try {
@@ -161,9 +175,7 @@ public class SlimeArm : PlayerAbility
                                     grabbedRB.gameObject.layer = 2;
                                 }
 
-                                Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
-                                FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
-                                FadeOut.SetActive(false);
+                                
 
                                 if (grabbedRagdoll != null) {
                                     slimeBallInstance = Instantiate(scaleSlimeBall, grabbedRB.transform);
@@ -178,6 +190,9 @@ public class SlimeArm : PlayerAbility
                                 
                                 if (grabbedRB)
                                 {
+                                    Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
+                                    FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
+                                    FadeOut.SetActive(false);
                                     grabbedRB.useGravity = false;
                                     PlayerAbilitiesController.instance.isAbilityActive = true;
                                 }
@@ -265,6 +280,7 @@ public class SlimeArm : PlayerAbility
                 FadeOut.SetActive(true);
                 grabbedRB.isKinematic = false;
                 grabbedRB.useGravity = true;
+                Debug.Log("This?");
                 for (int i = 0; i < changedRigidBodies.Count; i++) {
                     changedRigidBodies[i].angularDrag = currentRBDefaultAngularFriction[i];
                     changedRigidBodies[i].gameObject.layer = currentRBDefaultLayerMask[i];
@@ -346,6 +362,7 @@ public class SlimeArm : PlayerAbility
 
     private void LetGoOffTheObject () {
         grabbedRB.isKinematic = false;
+        Debug.Log("This? 2");
         grabbedRB.useGravity = true;
         grabbedRB.constraints = RigidbodyConstraints.None;
         for (int i = 0; i < changedRigidBodies.Count; i++) {
