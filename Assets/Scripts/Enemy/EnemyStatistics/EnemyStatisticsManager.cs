@@ -94,17 +94,17 @@ public class EnemyStatisticsManager : MonoBehaviour
         enemyHealthbar.SetEnemyHealth(currentStats.health / statisticsSO.health);
         if (currentStats.health <= 0) {
             enemyDrops.RandomiseDrops();
-            DestroyComponentsPreDeath();
             Death();
+            DestroyComponentsPreDeath();
         }
     }
 
     void DestroyComponentsPreDeath() {
         Destroy(healthBarCanvas);
-        Destroy(this);
         if (TryGetComponent<Collider>(out Collider thisCol)){
             Destroy(thisCol);
         }
+        Destroy(this);
     }
 
     void Death() {
