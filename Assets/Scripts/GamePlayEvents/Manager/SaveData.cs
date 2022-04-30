@@ -33,7 +33,6 @@ public class SaveData : MonoBehaviour
         else {
             instance = this;
         }
-        eventManagers = FindObjectsOfType<EventManager>();
         if (needsLoading) {
             LoadState();
             TriggerEventManagerAwakes();
@@ -52,7 +51,7 @@ public class SaveData : MonoBehaviour
     
 
     public bool saveChanged = false;
-    private EventManager[] eventManagers = new EventManager[] {};
+    public EventManager[] eventManagers;
 
     // Start is called before the first frame update
     void Start()
