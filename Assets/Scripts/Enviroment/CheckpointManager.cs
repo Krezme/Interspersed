@@ -33,7 +33,12 @@ public class CheckpointManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (SaveData.instance != null) {
+            if (SaveData.hasLoaded) {
+                currentCheckpointIndex  = SaveData.lastCheckpoint;
+                SaveData.instance.MovePlayerToLastCheckPoint();
+            }
+        }
     }
 
     // Update is called once per frame

@@ -39,7 +39,7 @@ public class SaveData : MonoBehaviour
     public static EventState[] savedEventsState;
     public static int lastCheckpoint;
     public static bool needsLoading = false;
-    
+    public static bool hasLoaded = false;
     public bool inTheMiddleOfAnEvent;
     
 
@@ -49,7 +49,9 @@ public class SaveData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        /* if (!hasLoaded) { 
+            RecordState();
+        } */
     }
 
     [ContextMenu("RecordState")]
@@ -63,8 +65,8 @@ public class SaveData : MonoBehaviour
     public void LoadState() {
         currentEventsState = savedEventsState.DeepClone();
         CheckpointManager.instance.currentCheckpointIndex = lastCheckpoint;
-        MovePlayerToLastCheckPoint();
         needsLoading = false;
+        hasLoaded = true;
     }
 
     void TriggerEventManagerAwakes() {
@@ -73,13 +75,14 @@ public class SaveData : MonoBehaviour
         }
     }
 
-    void MovePlayerToLastCheckPoint () {
+    public void MovePlayerToLastCheckPoint () {
         ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[lastCheckpoint].playerSpawnPos.position + CheckpointManager.instance.checkpoints[lastCheckpoint].offset;
     }
 
     [ContextMenu("ReloadScene")]
     public void ReloadScene() {
         needsLoading = true;
+        Debug.Log(lastCheckpoint);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

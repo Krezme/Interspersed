@@ -20,6 +20,11 @@ public class Checkpoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SaveData.instance != null) {
+            if (SaveData.hasLoaded && CheckpointManager.instance.currentCheckpointIndex == CheckpointManager.instance.checkpoints.IndexOf(this)) {
+                EnableThisCheckpoint();
+            }
+        }
         if (defaultSpawnpoint) {
             SelectDefaultCheckpoint();
         }
@@ -48,6 +53,19 @@ public class Checkpoint : MonoBehaviour
     }
 
     public void SelectDefaultCheckpoint () {
+        if (SaveData.instance != null) {
+            if (!SaveData.hasLoaded) {
+                EnableThisCheckpoint();
+                SaveData.lastCheckpoint = CheckpointManager.instance.currentCheckpointIndex;
+                SaveData.instance.RecordState();
+            }
+        }
+        else {
+            EnableThisCheckpoint();
+        }
+    }
+    
+    void EnableThisCheckpoint () {
         CheckpointManager.instance.currentCheckpointIndex = CheckpointManager.instance.checkpoints.IndexOf(this);
         foreach (Light light in lights) {
             light.enabled = true;
