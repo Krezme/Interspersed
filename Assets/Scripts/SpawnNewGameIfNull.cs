@@ -13,12 +13,15 @@ public class SpawnNewGameIfNull : MonoBehaviour
 
     private GameObject spawnedGameObject;
 
+    public RandomAudioPlayer spawnSfx;
+
     // Update is called once per frame
     void FixedUpdate()
     {
         if (spawnedGameObject == null || Vector3.Distance(spawnedGameObject.transform.position, this.gameObject.transform.position) >= distanceToSpawnNew) {
             if (hasAnimator) {
                 animator.SetTrigger("play");
+                spawnSfx.PlayRandomClip();
             }
             spawnedGameObject = Instantiate(gameObjectToSpawn, spawnPos.transform.position, Quaternion.identity);
         }
