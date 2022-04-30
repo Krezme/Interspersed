@@ -35,7 +35,7 @@ public class Checkpoint : MonoBehaviour
             if (SaveData.instance != null) {
                 if (SaveData.instance.saveChanged || CheckpointManager.instance.currentCheckpointIndex != CheckpointManager.instance.checkpoints.IndexOf(this)) {
                     EnteredCheckPoint();
-                    SaveGame();
+                    SaveData.instance.RecordState();
                 }
             }else {
                 EnteredCheckPoint();
@@ -65,7 +65,7 @@ public class Checkpoint : MonoBehaviour
         }
     }
     
-    void EnableThisCheckpoint () {
+    public void EnableThisCheckpoint () {
         CheckpointManager.instance.currentCheckpointIndex = CheckpointManager.instance.checkpoints.IndexOf(this);
         foreach (Light light in lights) {
             light.enabled = true;
@@ -97,9 +97,5 @@ public class Checkpoint : MonoBehaviour
         if (SaveData.instance == null) {
             this.gameObject.GetComponent<Collider>().enabled = state;
         }
-    }
-
-    void SaveGame() {
-        SaveData.instance.RecordState();
     }
 }

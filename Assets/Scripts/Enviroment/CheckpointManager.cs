@@ -35,7 +35,8 @@ public class CheckpointManager : MonoBehaviour
     {
         if (SaveData.instance != null) {
             if (SaveData.hasLoaded) {
-                currentCheckpointIndex  = SaveData.lastCheckpoint;
+                currentCheckpointIndex = SaveData.lastCheckpoint;
+                checkpoints[currentCheckpointIndex].EnableThisCheckpoint();
                 SaveData.instance.MovePlayerToLastCheckPoint();
             }
         }
