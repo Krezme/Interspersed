@@ -6,8 +6,16 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class EventState{
 
+    
     public string name;
+    
+    /* public Events eventName; */
     public bool eventComplete = false;
+/* 
+    public void Validate (int index) {
+        eventName = (Events)index;
+        name = eventName.ToString();
+    } */
 
 }
 
@@ -100,4 +108,33 @@ public class SaveData : MonoBehaviour
         saveChanged = true;
     }
 
+/*     void FixedUpdate() {
+#if !UNITY_EDITOR
+        for (int i = 0; i < currentEventsState.Length; i++) {
+            currentEventsState[i].Validate(i);
+        }
+#endif
+    }
+
+#if UNITY_EDITOR
+    void OnValidate() {
+        for (int i = 0; i < currentEventsState.Length; i++) {
+            currentEventsState[i].Validate(i);
+        }
+    }
+#endif */
+
+
 }
+
+/* public enum Events {
+    ThunderRockEvent,
+    TheTipEvent,
+    ShotgunEvent,
+    MeetTheSlugKing,
+    BakeryBreadBankEvent,
+    TheFeeding,
+    StrangerInDanger,
+    Toolbox,
+    BaguetteMode
+} */
