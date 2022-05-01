@@ -160,7 +160,7 @@ public class RagdollController : MonoBehaviour
                 RagdollOff(standUpPosition: navHit.position);
             }else {
                 standUpTries++;
-                if (standUpTries <= 10){
+                if (standUpTries <= 5){
                     StartCoroutine(PauseBeforeRagdollOff());
                 }
                 else {
