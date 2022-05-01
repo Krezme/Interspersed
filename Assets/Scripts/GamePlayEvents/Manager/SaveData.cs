@@ -36,6 +36,7 @@ public class SaveData : MonoBehaviour
         if (needsLoading) {
             LoadState();
             TriggerEventManagerAwakes();
+            questMarkerController.targetTransform = FindFirstEnabledQuestMarkerTransform();
         }
     }
 
@@ -48,10 +49,15 @@ public class SaveData : MonoBehaviour
     public static bool needsLoading = false;
     public static bool hasLoaded = false;
     public bool inTheMiddleOfAnEvent;
-    
 
     public bool saveChanged = false;
+    
     public EventManager[] eventManagers;
+    public QuestMarkerController questMarkerController; //! This is because of script execution order Do not use the Singleton in this script
+    public Transform[] questMarkerTransformsInOrder;
+
+    private float timeToUpdateQuestMarker = 0.25f;
+    private float currentTimePassed;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +87,17 @@ public class SaveData : MonoBehaviour
             em.TriggerMyAwake();
         }
     }
+    
+    Transform FindFirstEnabledQuestMarkerTransform () {
+        foreach (Transform questMarkerTransform in questMarkerTransformsInOrder) {
+            if (questMarkerTransform != null) {
+                if (questMarkerTransform.gameObject.activeSelf) {
+                    return questMarkerTransform;
+                }
+            }
+        }
+        return null;
+    }
 
     public void MovePlayerToLastCheckPoint () {
         ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[lastCheckpoint].playerSpawnPos.position + CheckpointManager.instance.checkpoints[lastCheckpoint].offset;
@@ -106,6 +123,16 @@ public class SaveData : MonoBehaviour
         currentEventsState[index].eventComplete = true;
         saveChanged = true;
     }
+
+    void Update () {
+        currentTimePassed += Time.deltaTime;
+        if (currentTimePassed >= timeToUpdateQuestMarker) {
+            questMarkerController.targetTransform = FindFirstEnabledQuestMarkerTransform();
+            currentTimePassed = 0;
+        }
+    }
+
+//! This will make the quest system more user error secure IMPLEMENT IF THERE IS TIME AT THE END OF THE PROJECT
 
 /*     void FixedUpdate() {
 #if !UNITY_EDITOR

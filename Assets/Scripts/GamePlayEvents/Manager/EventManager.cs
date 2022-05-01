@@ -66,7 +66,6 @@ public class EventManager : MonoBehaviour
             }
         }
     }
-
 }
 
 public enum Arms {

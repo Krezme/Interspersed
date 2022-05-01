@@ -28,11 +28,15 @@ public class QuestMarkerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 newImagePosition = Camera.main.WorldToScreenPoint(targetTransform.position);
-        if (Mathf.Abs(newImagePosition.z) / newImagePosition.z > 0) {
-            image.rectTransform.position = new Vector3(Mathf.Clamp(newImagePosition.x, Camera.main.pixelWidth / clampPositionRatio.x, Camera.main.pixelWidth - (Camera.main.pixelWidth / clampPositionRatio.x)), Camera.main.pixelHeight - (Camera.main.pixelHeight / clampPositionRatio.y), 0);
+        if (targetTransform != null) {
+            image.enabled = true;
+            Vector3 newImagePosition = Camera.main.WorldToScreenPoint(targetTransform.position);
+            if (Mathf.Abs(newImagePosition.z) / newImagePosition.z > 0) {
+                image.rectTransform.position = new Vector3(Mathf.Clamp(newImagePosition.x, Camera.main.pixelWidth / clampPositionRatio.x, Camera.main.pixelWidth - (Camera.main.pixelWidth / clampPositionRatio.x)), Camera.main.pixelHeight - (Camera.main.pixelHeight / clampPositionRatio.y), 0);
+            }
         }
-        
-        
+        else {
+            image.enabled = false;
+        }
     }
 }
