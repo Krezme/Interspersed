@@ -116,11 +116,19 @@ public class EnemyStatisticsManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        try {
+        try 
+        {
             carrieFlapSourcePH.SetActive(false);
             //enemyDeath.PlayRandomClip();
-            warplingBank.PlayRandomClip(defaultBankIndex: 2);
         }catch (System.Exception) {
+
+        try
+        {
+            warplingBank.PlayRandomClip(defaultBankIndex: 2);
+        }
+        catch{}
+
+
         }
     }
 
