@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 9100785309241350919}
   - component: {fileID: 5427562114605909880}
   - component: {fileID: 5427562114605909879}
+  - component: {fileID: 4721946705817919546}
+  - component: {fileID: 372443768421820569}
+  - component: {fileID: 918343982291095938}
   m_Layer: 0
   m_Name: Carrier_Joint_Body
   m_TagString: EnemyBodyPart
@@ -63,6 +66,172 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.18396011, y: 0.29969093, z: 0.22}
   m_Center: {x: -0.06917263, y: -0.06515408, z: -0.0000000017578983}
+--- !u!82 &4721946705817919546
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732295446532836068}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 3285992558489356639, guid: 31aebf588b2608e4d89ebdb64b43369f,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 30
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.009331513
+      value: 1
+      inSlope: -1.7712313
+      outSlope: -1.7712313
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.66433185
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.0437738
+      outSlope: -0.0437738
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.24331534
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.204
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &372443768421820569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732295446532836068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minVolume: 1
+  maxVolume: 1
+  minPitch: 1
+  maxPitch: 1
+  playDelay: 0
+  defaultBank:
+    name: 
+    clips:
+    - {fileID: 8300000, guid: a4f577b8aa6a6e243a330c488dd2e8e7, type: 3}
+    - {fileID: 8300000, guid: 7f3d4cbaddf3faa4ea292c33e7383afd, type: 3}
+    - {fileID: 8300000, guid: d1be3701afdfd074a9cb1f3ddf0bdad7, type: 3}
+    - {fileID: 8300000, guid: 64d45b3d43454e042ad79b95f5f1bb3f, type: 3}
+    - {fileID: 8300000, guid: 138eabd732540a84cb4706ea013c6ab0, type: 3}
+    - {fileID: 8300000, guid: 9b9ed909c2468cf47a5613a930e26360, type: 3}
+    - {fileID: 8300000, guid: 61fd414514ef30544b070edc6511a2ad, type: 3}
+    - {fileID: 8300000, guid: 796b5ab2610c9b145a39ec71656a1144, type: 3}
+    - {fileID: 8300000, guid: 1286fe2a9e8e4634bb524fdf29bc566b, type: 3}
+    - {fileID: 8300000, guid: 0dd2391aba6948f48abcade9296bb6d4, type: 3}
+    - {fileID: 8300000, guid: d06efa2e879700e43b7b010eea9539ac, type: 3}
+    - {fileID: 8300000, guid: 0aef98376c92c094496668025d600ab2, type: 3}
+  overrides: []
+  playing: 0
+  canPlay: 0
+--- !u!169 &918343982291095938
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732295446532836068}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.0141026
+      outSlope: -1.0141026
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.0131811
+      outSlope: -1.0131811
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.9952153
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &806989893721729491
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +704,7 @@ GameObject:
   - component: {fileID: 473081140537259286}
   - component: {fileID: 2802150705486111954}
   - component: {fileID: 1092706361910866460}
+  - component: {fileID: 1999220130249536169}
   m_Layer: 0
   m_Name: Carrier
   m_TagString: Enemy
@@ -775,6 +945,21 @@ MonoBehaviour:
   - numberOfDrops: 1
     numberOfEntries: 20
   enemyDropSource: {fileID: 4784861378624381327}
+--- !u!114 &1999220130249536169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5182386303817562247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ccc86b4dbb55f1469141a428d5dfbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shoot: {fileID: 0}
+  reload: {fileID: 0}
+  soundBank: {fileID: 2744250418273228065}
 --- !u!1 &5491556653301394203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,7 +1229,7 @@ GameObject:
   - component: {fileID: 2744250418273228065}
   - component: {fileID: 7069501167005855117}
   m_Layer: 14
-  m_Name: SFX WarplingBank
+  m_Name: SFX CarrierBank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1181,31 +1366,30 @@ MonoBehaviour:
   defaultBank:
   - name: Attack (0)
     clips:
-    - {fileID: 8300000, guid: 00d8a0a4d0da2fb47a58f1dfee4c1845, type: 3}
-    - {fileID: 8300000, guid: 6e9ce74c5d853924baaf90c89bacc57a, type: 3}
+    - {fileID: 8300000, guid: 5cbc2ae2773d6454d9309d1ab1a466fb, type: 3}
+    - {fileID: 8300000, guid: e4996b4b14723f44bb02e8c04c38d71e, type: 3}
+    - {fileID: 8300000, guid: 0edb05f865bc3414799618594195ba40, type: 3}
+    - {fileID: 8300000, guid: 05dfcf21272d6844fb87f7f7a925f561, type: 3}
+    - {fileID: 8300000, guid: 78d7418a8fa3c5b4895da432f9d90bc8, type: 3}
+    - {fileID: 8300000, guid: 74cf67bfda67d5247bc1dd02df6c566a, type: 3}
   - name: Damaged (1)
     clips:
-    - {fileID: 8300000, guid: c6c2ce2f68cfee64d97cecc96c886a3e, type: 3}
-    - {fileID: 8300000, guid: f604ac7493c5ca348b1b7460957f9cf7, type: 3}
-    - {fileID: 8300000, guid: 2324bda02b960ec40a33f3495c051e04, type: 3}
-    - {fileID: 8300000, guid: 5de0a638f1af94846aacae353d71a615, type: 3}
+    - {fileID: 8300000, guid: aafca5df5677b0046b3bcefbc59090ad, type: 3}
+    - {fileID: 8300000, guid: 9771b93117217ee49892f2c62017d94d, type: 3}
+    - {fileID: 8300000, guid: 0cd4b68ae80ebc7418314b0b9df8eb9c, type: 3}
+    - {fileID: 8300000, guid: 4aea80dd78fb3a74eaffe5d7d88a51e6, type: 3}
+    - {fileID: 8300000, guid: 84b387848ff52864aab938966052e908, type: 3}
+    - {fileID: 8300000, guid: 5b6f88deab2850c4c95c0fc14d097c6e, type: 3}
+    - {fileID: 8300000, guid: 725affeb9f5c44e4a9aeef3515f39878, type: 3}
   - name: Death (2)
     clips:
-    - {fileID: 8300000, guid: ccb196dbd8017fc40b1346cedd602c4d, type: 3}
-    - {fileID: 8300000, guid: cf7311f1a8d85a440b8760147b2e806b, type: 3}
-    - {fileID: 8300000, guid: c77a49acaefa3b04c934dee79b0e6bd4, type: 3}
-    - {fileID: 8300000, guid: ee879e7a505287b4198b115808c5d8c4, type: 3}
-  - name: AsShield Damaged (3)
-    clips:
-    - {fileID: 8300000, guid: dd4f2bf7a67a77344ae4ce1dad6cb14e, type: 3}
-    - {fileID: 8300000, guid: 304aca73aa33c214a9fcbdf05615f6a5, type: 3}
-    - {fileID: 8300000, guid: 6a90f46b55b2a554fbe7c240f4136044, type: 3}
-    - {fileID: 8300000, guid: 0306c86b45da4404e88b913108127977, type: 3}
-    - {fileID: 8300000, guid: 9efe3af924ce5ec45b971a2fa9725e68, type: 3}
-    - {fileID: 8300000, guid: ff93fc519dde2434d99bc9843583b4cb, type: 3}
-  - name: AsShield Break (4)
-    clips:
-    - {fileID: 8300000, guid: ea91f011675c2ab42a0555e1a033e348, type: 3}
+    - {fileID: 8300000, guid: d4e1f94ce2d69854eae51ec773b2c654, type: 3}
+    - {fileID: 8300000, guid: 93e0bdff59e44f04cb7aec96f2c814d0, type: 3}
+    - {fileID: 8300000, guid: 0d3cba4a775445441a653a16ba418419, type: 3}
+    - {fileID: 8300000, guid: a846243e15da3df4b98e94155d0198a9, type: 3}
+    - {fileID: 8300000, guid: 54a81711ce89248478d177c9a8fe6e7f, type: 3}
+    - {fileID: 8300000, guid: c54856d620d023f47ae22888ec2010f3, type: 3}
+    - {fileID: 8300000, guid: 143eb23651a99d541a3da5162e75f4b6, type: 3}
   overrides: []
   playing: 0
   canPlay: 0
