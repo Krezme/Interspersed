@@ -161,7 +161,7 @@ public class PlayerStatisticsManager : MonoBehaviour
 
         if (currentStatistics.resourcesStatistics.health <= 0) {
             if (SaveData.instance != null) {
-                SaveData.instance.RecordState();
+                SaveData.instance.ReloadScene();
             }
             else {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
