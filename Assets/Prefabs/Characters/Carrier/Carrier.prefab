@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4721946705817919546}
   - component: {fileID: 372443768421820569}
   - component: {fileID: 918343982291095938}
+  - component: {fileID: 8318707732673901154}
   m_Layer: 0
   m_Name: Carrier_Joint_Body
   m_TagString: EnemyBodyPart
@@ -175,8 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
+  minVolume: 0.5
+  maxVolume: 0.5
   minPitch: 1
   maxPitch: 1
   playDelay: 0
@@ -232,6 +233,20 @@ AudioLowPassFilter:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8318707732673901154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732295446532836068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e2b62d85517c1e4b8777cc19f511e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 372443768421820569}
+  RequiredVelocity: 3
 --- !u!1 &806989893721729491
 GameObject:
   m_ObjectHideFlags: 0
