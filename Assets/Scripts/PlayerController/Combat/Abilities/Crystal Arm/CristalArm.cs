@@ -83,6 +83,8 @@ public class CristalArm : PlayerAbility
 
     public RandomAudioPlayer ShotgunSwapFalse; //Rhys - Swapping from shotgun;
 
+    public GameObject disPointForCalculation;
+
     /// <summary>
     /// Hard Coding the armAbilities array
     /// </summary>
@@ -180,10 +182,11 @@ public class CristalArm : PlayerAbility
                 // The new Spawn Sosition of the pellet direction empty gameobject
                 Vector3 newSpawnPos = new Vector3(UnityEngine.Random.Range(-1.0f * PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmShotgunStats.projectileDispersionX, 1.0f * PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmShotgunStats.projectileDispersionX), 
                     UnityEngine.Random.Range(-1.0f * PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmShotgunStats.projectileDispersionY, 1.0f * PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmShotgunStats.projectileDispersionY), 0);
-
-                GameObject dispersionPoint = Instantiate(new GameObject(), spawnBulletPosition); //Spawning the empty gamebject that acts as the ditection spawn point of the object
+                
+                GameObject dispersionPoint = Instantiate(disPointForCalculation, spawnBulletPosition); //Spawning the empty gamebject that acts as the ditection spawn point of the object
                 dispersionPoint.transform.localPosition = newSpawnPos; // Sets the local postion, of the direction gameobject, to the exact local posion related to the spawnBulletPosition
                 dispersionPoint.transform.position += spawnBulletPosition.transform.forward*2; // Moves the direction gameobject forward to scale down the dispersion multiplication
+                Debug.Log(dispersionPoint.transform.position);
                 Vector3 newSpreadPoint = (dispersionPoint.transform.position - spawnBulletPosition.transform.position).normalized; //saves the new direction point
                 Destroy(dispersionPoint);
                 GameObject pellet = Instantiate(pfPelletProjectileShotgun, spawnBulletPosition.position, Quaternion.LookRotation(newSpreadPoint, Vector3.up)); // Instantiating the pellet going to the direction point
