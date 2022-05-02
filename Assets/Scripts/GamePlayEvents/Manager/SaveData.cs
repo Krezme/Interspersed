@@ -37,6 +37,8 @@ public class SaveData : MonoBehaviour
             LoadState();
             TriggerEventManagerAwakes();
             questMarkerController.targetTransform = FindFirstEnabledQuestMarkerTransform();
+            checkpointManager.GetCheckPointFromSaveData();
+            MovePlayerToLastCheckPoint();
         }
     }
 
@@ -55,6 +57,7 @@ public class SaveData : MonoBehaviour
     public bool saveChanged = false;
     
     public EventManager[] eventManagers;
+    public CheckpointManager checkpointManager;
     public QuestMarkerController questMarkerController; //! This is because of script execution order Do not use the Singleton in this script
     public Transform[] questMarkerTransformsInOrder;
 
@@ -62,6 +65,9 @@ public class SaveData : MonoBehaviour
     private float currentTimePassed;
 
     public bool isInMenu = false;
+
+    [HideInInspector]
+    public bool needsToMovePlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -75,7 +81,7 @@ public class SaveData : MonoBehaviour
     public void RecordState() {
         savedEventsState = currentEventsState.DeepClone();
         savedPlayerStatistics = PlayerStatisticsManager.instance.maxStatistics.DeepClone();
-        lastCheckpoint = CheckpointManager.instance.currentCheckpointIndex;
+        lastCheckpoint = checkpointManager.currentCheckpointIndex;
         saveChanged = false;
         saveAvailable = true;
     }
@@ -84,7 +90,8 @@ public class SaveData : MonoBehaviour
     public void LoadState() {
         currentEventsState = savedEventsState.DeepClone();
         PlayerStatisticsManager.instance.maxStatistics = savedPlayerStatistics.DeepClone();
-        CheckpointManager.instance.currentCheckpointIndex = lastCheckpoint;
+        checkpointManager.currentCheckpointIndex = lastCheckpoint;
+        Debug.Log(checkpointManager.currentCheckpointIndex);
         needsLoading = false;
         hasLoaded = true;
     }
@@ -107,7 +114,10 @@ public class SaveData : MonoBehaviour
     }
 
     public void MovePlayerToLastCheckPoint () {
-        ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[lastCheckpoint].playerSpawnPos.position + CheckpointManager.instance.checkpoints[lastCheckpoint].offset;
+        if (needsToMovePlayer) {
+            ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[lastCheckpoint].playerSpawnPos.position + CheckpointManager.instance.checkpoints[lastCheckpoint].offset;
+            needsToMovePlayer = false;
+        }
     }
 
     [ContextMenu("ReloadScene")]
@@ -158,6 +168,7 @@ public class SaveData : MonoBehaviour
                 questMarkerController.targetTransform = FindFirstEnabledQuestMarkerTransform();
                 currentTimePassed = 0;
             }
+            //MovePlayerToLastCheckPoint();
         }
     }
 

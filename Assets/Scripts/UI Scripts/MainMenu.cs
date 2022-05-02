@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -22,10 +23,18 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         EventSystem.current.SetSelectedGameObject(startButton);
-        mainMenuCanvas.SetActive(true);
+        if (mainMenuCanvas != null) {
+            mainMenuCanvas.SetActive(true);
+        }
+        if (optionsCanvas != null){
         optionsCanvas.SetActive(false);
+        }
+        if (controlsCanvas != null){
         controlsCanvas.SetActive(false);
+        }
+        if (confirmStartNewGame != null) {
         confirmStartNewGame.SetActive(false);
+        }
     }
 
     public void StartGame()
@@ -45,6 +54,10 @@ public class MainMenu : MonoBehaviour
         }else {
             LoadCutScene1();
         }
+    }
+    
+    public void SetTextToLoading(Text text) {
+        text.text = "Loading...";
     }
 
     /// <summary>
