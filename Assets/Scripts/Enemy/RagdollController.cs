@@ -170,7 +170,6 @@ public class RagdollController : MonoBehaviour
         }
         else{
             standUpTries++;
-            Debug.Log("CheckForGround -2 " + standUpTries);
             if (standUpTries <= 5){
                 StartCoroutine(PauseBeforeRagdollOff());
             }

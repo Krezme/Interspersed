@@ -133,7 +133,6 @@ public class SlimeArm : PlayerAbility
                                     if (Physics.Raycast(ray, out hit, PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.maxGrabDistance))
                                     {
                                         if (hit.transform.gameObject.tag == "EnemyBodyPart") {
-                                            Debug.Log("Running Ragdoll " + grabbedRB.gameObject.name);
                                             grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>(); 
                                             grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
                                             foreach (Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
@@ -145,14 +144,12 @@ public class SlimeArm : PlayerAbility
                                             }
                                         }
                                         else {
-                                            Debug.Log("Running Ragdoll " + grabbedRB.gameObject.name);
                                             grabbedRagdoll.pickedUpByPlayer = false;
                                             grabbedRagdoll.RagdollOff();
                                             RestartGrabbedState();
                                         }
                                     }
                                     else {
-                                        Debug.Log("Running Ragdoll " + grabbedRB.gameObject.name);
                                         grabbedRagdoll.pickedUpByPlayer = false;
                                         grabbedRagdoll.RagdollOff();
                                         RestartGrabbedState();

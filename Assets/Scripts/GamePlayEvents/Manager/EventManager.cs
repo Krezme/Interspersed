@@ -60,7 +60,6 @@ public class EventManager : MonoBehaviour
         if (doesUnlockAbility) {
             if (arm == Arms.CrystalArm) {
                 CristalArm.instance.EnableAbility(abilityIndex);
-                Debug.Log("CristalArm.instance.EnableAbility");
             }else if (arm == Arms.SlimeArm) {
                 SlimeArm.insance.EnableAbility(abilityIndex);
             }
