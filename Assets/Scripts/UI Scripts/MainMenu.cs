@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     public GameObject optionsCanvas;
     public GameObject mainMenuCanvas;
     public GameObject controlsCanvas;
+    public GameObject confirmStartNewGame;
 
     public GameObject cutScene1;
     public GameObject cutScene2;
@@ -21,14 +23,41 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         EventSystem.current.SetSelectedGameObject(startButton);
-        mainMenuCanvas.SetActive(true);
+        if (mainMenuCanvas != null) {
+            mainMenuCanvas.SetActive(true);
+        }
+        if (optionsCanvas != null){
         optionsCanvas.SetActive(false);
+        }
+        if (controlsCanvas != null){
         controlsCanvas.SetActive(false);
+        }
+        if (confirmStartNewGame != null) {
+        confirmStartNewGame.SetActive(false);
+        }
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene("NewLevelConcept");
+    }
+
+    public void StartNewGame () {
+        if (SaveData.instance != null) {
+            if (SaveData.saveAvailable) {
+                mainMenuCanvas.SetActive(false);
+                confirmStartNewGame.SetActive(true);
+            }
+            else {
+                LoadCutScene1();
+            }
+        }else {
+            LoadCutScene1();
+        }
+    }
+    
+    public void SetTextToLoading(Text text) {
+        text.text = "Loading...";
     }
 
     /// <summary>
