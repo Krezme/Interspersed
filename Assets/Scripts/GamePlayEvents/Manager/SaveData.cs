@@ -138,6 +138,10 @@ public class SaveData : MonoBehaviour
         return false;
     }
 
+    public void NeedsToLoad(bool state) {
+        needsLoading = state;
+    }
+
     public void RestartSaveState() {
         savedEventsState = currentEventsState.DeepClone();
         savedPlayerStatistics = new PlayerStatistics();

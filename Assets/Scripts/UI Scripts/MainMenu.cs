@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsCanvas;
     public GameObject mainMenuCanvas;
     public GameObject controlsCanvas;
+    public GameObject confirmStartNewGame;
 
     public GameObject cutScene1;
     public GameObject cutScene2;
@@ -24,11 +25,26 @@ public class MainMenu : MonoBehaviour
         mainMenuCanvas.SetActive(true);
         optionsCanvas.SetActive(false);
         controlsCanvas.SetActive(false);
+        confirmStartNewGame.SetActive(false);
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene("NewLevelConcept");
+    }
+
+    public void StartNewGame () {
+        if (SaveData.instance != null) {
+            if (SaveData.saveAvailable) {
+                mainMenuCanvas.SetActive(false);
+                confirmStartNewGame.SetActive(true);
+            }
+            else {
+                LoadCutScene1();
+            }
+        }else {
+            LoadCutScene1();
+        }
     }
 
     /// <summary>
