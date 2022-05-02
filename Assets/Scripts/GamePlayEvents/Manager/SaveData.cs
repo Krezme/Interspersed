@@ -33,7 +33,7 @@ public class SaveData : MonoBehaviour
         else {
             instance = this;
         }
-        if (needsLoading) {
+        if (needsLoading && !isInMenu) {
             LoadState();
             TriggerEventManagerAwakes();
             questMarkerController.targetTransform = FindFirstEnabledQuestMarkerTransform();
@@ -43,11 +43,13 @@ public class SaveData : MonoBehaviour
     #endregion
 
     [SerializeField]
-    public EventState[] currentEventsState;
-    public static EventState[] savedEventsState;
+    public EventState[] currentEventsState; // ! DON'T FORGET TO PASTE THE CURRENT STATISTICS INTO THE MAIN MENU
+    public static EventState[] savedEventsState; 
+    public static PlayerStatistics savedPlayerStatistics;
     public static int lastCheckpoint;
     public static bool needsLoading = false;
     public static bool hasLoaded = false;
+    public static bool saveAvailable = false;
     public bool inTheMiddleOfAnEvent;
 
     public bool saveChanged = false;
@@ -58,6 +60,8 @@ public class SaveData : MonoBehaviour
 
     private float timeToUpdateQuestMarker = 0.25f;
     private float currentTimePassed;
+
+    public bool isInMenu = false;
 
     // Start is called before the first frame update
     void Start()
@@ -70,13 +74,16 @@ public class SaveData : MonoBehaviour
     [ContextMenu("RecordState")]
     public void RecordState() {
         savedEventsState = currentEventsState.DeepClone();
+        savedPlayerStatistics = PlayerStatisticsManager.instance.maxStatistics.DeepClone();
         lastCheckpoint = CheckpointManager.instance.currentCheckpointIndex;
         saveChanged = false;
+        saveAvailable = true;
     }
 
     [ContextMenu("LoadState")]
     public void LoadState() {
         currentEventsState = savedEventsState.DeepClone();
+        PlayerStatisticsManager.instance.maxStatistics = savedPlayerStatistics.DeepClone();
         CheckpointManager.instance.currentCheckpointIndex = lastCheckpoint;
         needsLoading = false;
         hasLoaded = true;
@@ -123,12 +130,30 @@ public class SaveData : MonoBehaviour
         currentEventsState[index].eventComplete = true;
         saveChanged = true;
     }
+    
+    public bool CheckIfSaveStateIsNotDef() {
+        if (saveAvailable) {
+            return true;
+        }
+        return false;
+    }
+
+    public void RestartSaveState() {
+        savedEventsState = currentEventsState.DeepClone();
+        savedPlayerStatistics = new PlayerStatistics();
+        lastCheckpoint = 0;
+        needsLoading = false;
+        hasLoaded = false;
+        saveAvailable = false;
+    }
 
     void Update () {
-        currentTimePassed += Time.deltaTime;
-        if (currentTimePassed >= timeToUpdateQuestMarker) {
-            questMarkerController.targetTransform = FindFirstEnabledQuestMarkerTransform();
-            currentTimePassed = 0;
+        if (!isInMenu) {
+            currentTimePassed += Time.deltaTime;
+            if (currentTimePassed >= timeToUpdateQuestMarker) {
+                questMarkerController.targetTransform = FindFirstEnabledQuestMarkerTransform();
+                currentTimePassed = 0;
+            }
         }
     }
 
