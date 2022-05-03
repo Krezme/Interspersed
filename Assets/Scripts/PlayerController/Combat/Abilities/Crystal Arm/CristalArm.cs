@@ -85,6 +85,8 @@ public class CristalArm : PlayerAbility
 
     public GameObject disPointForCalculation;
 
+    public AudioSource electricIdle;
+
     /// <summary>
     /// Hard Coding the armAbilities array
     /// </summary>
@@ -274,11 +276,13 @@ public class CristalArm : PlayerAbility
         if (statistics.isElectric == true)
         {
             ChargeOn.PlayRandomClip(); //Rhys - Plays charge on sound when is.Electric == True
+            electricIdle.Play();
         }
         else
         {
             //isElectric = false;
             ChargeOff.PlayRandomClip(); //Rhys - Plays charge off sound when is.Electric == false
+            electricIdle.Pause();
         }
     }
 
@@ -302,6 +306,7 @@ public class CristalArm : PlayerAbility
                     {
                         //audioSource.PlayOneShot(ElectricShot);
                         Electric.PlayRandomClip();
+                        electricIdle.Pause();
                     }
 
                 }
