@@ -113,6 +113,12 @@ public class PlayerStatisticsManager : MonoBehaviour
 
     public RandomAudioPlayer PlayerDamaged;
 
+    public bool isInvincible;
+
+    public void ToggleIsInvincible (bool state) {
+        isInvincible = state;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -153,18 +159,20 @@ public class PlayerStatisticsManager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentStatistics.resourcesStatistics.health -= damage;
+        if(!isInvincible){
+            currentStatistics.resourcesStatistics.health -= damage;
 
-        Healthbar.instance.slider.value = currentStatistics.resourcesStatistics.health;
+            Healthbar.instance.slider.value = currentStatistics.resourcesStatistics.health;
 
-        PlayerDamaged.PlayRandomClip();
+            PlayerDamaged.PlayRandomClip();
 
-        if (currentStatistics.resourcesStatistics.health <= 0) {
-            if (SaveData.instance != null) {
-                SaveData.instance.ReloadScene();
-            }
-            else {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (currentStatistics.resourcesStatistics.health <= 0) {
+                if (SaveData.instance != null) {
+                    SaveData.instance.ReloadScene();
+                }
+                else {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
             }
         }
     }

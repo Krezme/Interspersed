@@ -53,6 +53,13 @@ public class OnPlayerInput : MonoBehaviour
         looking = Vector2.zero;
     }
 
+    public void ToggleIsAllowedToMove(bool state) {
+        isAllowedToMove = state;
+        if (!state) {
+            ResetInput();
+        }
+    }
+
 #region Values
     [HideInInspector]
     public Vector2 playerMovement; //player movement for the X and Z axis
