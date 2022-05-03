@@ -87,6 +87,8 @@ public class CristalArm : PlayerAbility
 
     public AudioSource electricIdle;
 
+    public AudioSource ammoDepleted;
+
     /// <summary>
     /// Hard Coding the armAbilities array
     /// </summary>
@@ -173,6 +175,12 @@ public class CristalArm : PlayerAbility
                     break;
                 }
             }
+        
+        }
+        else
+        {  
+            ammoDepleted.Play();
+            OnPlayerInput.instance.onFire1 = false;
         }
     }
 
@@ -205,6 +213,16 @@ public class CristalArm : PlayerAbility
             OnPlayerInput.instance.onFire1 = false;
             cooldownBetweenShots = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmShotgunStats.shotgunCooldown;
         }
+        else if(PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.cystalEnergy < PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmShotgunStats.shotgunEnergyCost)
+        {
+            ammoDepleted.Play();
+            OnPlayerInput.instance.onFire1 = false;
+        }
+        /* else
+        {
+            !FOR SHOTGUN COOLDOWN SOUND
+        } */
+
     }
 
     // Switching between modes
