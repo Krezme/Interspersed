@@ -23,8 +23,14 @@ public class AsynchronousSceneLoader : MonoBehaviour
     void Start()
     {
         StartCoroutine(LoadScene());
-        Button btn = uibutton.GetComponent<Button>();
-        btn.onClick.AddListener(TaskOnClick);
+        Button btn; 
+        if (uibutton != null)
+        {
+            if (uibutton.TryGetComponent<Button>(out btn))
+            {
+                btn.onClick.AddListener(TaskOnClick);
+            }
+        }
     }
 
     void TaskOnClick()
