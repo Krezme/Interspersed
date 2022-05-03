@@ -18,6 +18,7 @@ MonoBehaviour:
   position: {x: -825.6003, y: 1654.011}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -26,7 +27,7 @@ MonoBehaviour:
     isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
-  attackRange: 5
+  attackRange: 15
 --- !u!114 &-8260667221276984856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,6 +46,7 @@ MonoBehaviour:
   position: {x: -753.60004, y: 1156.7999}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -79,9 +81,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: af7e4ab7689919348a789eeaa414bf6f
-  position: {x: -208.89328, y: 1655.1997}
+  position: {x: -356.5249, y: 1653.4791}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -101,6 +104,33 @@ MonoBehaviour:
   intName: 
   boolName: 
   triggerName: isShooting
+--- !u!114 &-6392151466094988163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5e8427576fe02419a7c61b0ca5cde6, type: 3}
+  m_Name: LookAtPlayer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 68a69a3398731254da2ad273e6958114
+  position: {x: -221.62221, y: 1407.9583}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
+  description: 
+  drawGizmos: 0
 --- !u!114 &-5474935708585464896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +149,7 @@ MonoBehaviour:
   position: {x: -910.4, y: 1156.7999}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -146,6 +177,7 @@ MonoBehaviour:
   position: {x: 1.2000122, y: 108.79997}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -175,6 +207,7 @@ MonoBehaviour:
   position: {x: 260.8, y: 555.8}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -205,6 +238,7 @@ MonoBehaviour:
   position: {x: -1210.4, y: 1156.7999}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -232,6 +266,7 @@ MonoBehaviour:
   position: {x: -378.39996, y: 740}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -262,6 +297,7 @@ MonoBehaviour:
   position: {x: -603.275, y: 934.4}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -294,6 +330,7 @@ MonoBehaviour:
   position: {x: -388.8, y: 933.6}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -303,6 +340,34 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: 2357495203017565896}
+--- !u!114 &-3263117586983931167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5583c56bf1e799846b5595878da39447, type: 3}
+  m_Name: IsRequiredToLookAtPlayer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 64ed20441ab36824a8c387e0fc124903
+  position: {x: -576.62213, y: 1408.9583}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
+  description: 
+  drawGizmos: 0
+  isRequiredToLookAtPlayer: 1
 --- !u!114 &-3008317618830420747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +386,7 @@ MonoBehaviour:
   position: {x: -378.40002, y: 416}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -349,6 +415,7 @@ MonoBehaviour:
   position: {x: -66.39998, y: 934.39996}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -377,6 +444,7 @@ MonoBehaviour:
   position: {x: 0.000038146973, y: 236.8791}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -406,6 +474,7 @@ MonoBehaviour:
   position: {x: -603.2, y: 1156.7999}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -415,6 +484,34 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   duration: 2
+--- !u!114 &-1456189391031203058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5583c56bf1e799846b5595878da39447, type: 3}
+  m_Name: IsRequiredToLookAtPlayer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 4166b46e6ac63b34cbae0e3cef27fa5c
+  position: {x: 571.6997, y: 1654.4791}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
+  description: 
+  drawGizmos: 0
+  isRequiredToLookAtPlayer: 0
 --- !u!114 &-109026692776886203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,9 +527,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: d8cf11dde1092844881ceaaf0196f8e8
-  position: {x: -376, y: 1394.4}
+  position: {x: -376.62225, y: 1407.9583}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -445,13 +543,13 @@ MonoBehaviour:
   - {fileID: -9189344917521564196}
   - {fileID: 73341454449590239}
   - {fileID: 5534542089041710977}
-  - {fileID: 3836013090316631649}
   - {fileID: -6810346059467752332}
   - {fileID: 7581486147483797441}
   - {fileID: 2772124654679550828}
   - {fileID: 6742053364536575628}
   - {fileID: 6927319233480612366}
   - {fileID: 4612056190491286806}
+  - {fileID: -1456189391031203058}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,7 +589,6 @@ MonoBehaviour:
   - {fileID: 5534542089041710977}
   - {fileID: 5600395847482440820}
   - {fileID: -9189344917521564196}
-  - {fileID: 3836013090316631649}
   - {fileID: -5474935708585464896}
   - {fileID: -3873793936764401104}
   - {fileID: 468230231221038488}
@@ -499,8 +596,13 @@ MonoBehaviour:
   - {fileID: -2797613100396331388}
   - {fileID: 73341454449590239}
   - {fileID: 6927319233480612366}
+  - {fileID: 5404382766162783024}
+  - {fileID: -6392151466094988163}
+  - {fileID: -3263117586983931167}
+  - {fileID: -1456189391031203058}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -525,6 +627,7 @@ MonoBehaviour:
   position: {x: -675.1999, y: 1654.4}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -552,6 +655,7 @@ MonoBehaviour:
   position: {x: 260.8, y: 416}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -580,6 +684,7 @@ MonoBehaviour:
   position: {x: -1060, y: 1156.7999}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -606,6 +711,7 @@ MonoBehaviour:
   position: {x: 473.59998, y: 754.19995}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -633,6 +739,7 @@ MonoBehaviour:
   position: {x: 54.399963, y: 754.19995}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -660,6 +767,7 @@ MonoBehaviour:
   position: {x: -383.99994, y: 1156}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -668,7 +776,7 @@ MonoBehaviour:
     isCurrentlyShooting: 0
   description: Checks to see if the view of the player is obstructed
   drawGizmos: 0
-  child: {fileID: -109026692776886203}
+  child: {fileID: 5404382766162783024}
   raycastLenght: 100
   targetPositionOffset: {x: 0, y: 1, z: 0}
   targetLayer:
@@ -692,6 +800,7 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -716,9 +825,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 1b541d1955e0b754bb575b4e70a06df1
-  position: {x: 99.10664, y: 1655.1997}
+  position: {x: -48.524883, y: 1653.4791}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -727,33 +837,6 @@ MonoBehaviour:
     isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
---- !u!114 &3836013090316631649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d62b0ea18e475844c83c1645dcf1270c, type: 3}
-  m_Name: ToggleAgentRotation
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 75128eb8c5328034c996c1091c3543f0
-  position: {x: -365.59985, y: 1654.4}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    isFollowingPlayer: 0
-    playerInAttackRange: 0
-    distance: 0
-    directionToTarget: {x: 0, y: 0, z: 0}
-    isCurrentlyDiveBombing: 0
-    isCurrentlyShooting: 0
-  description: 
-  drawGizmos: 0
-  isUpdatingRotation: 0
 --- !u!114 &4612056190491286806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,9 +852,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: ae74c7f7432b1334f80c94f241387ba3
-  position: {x: 569.0385, y: 1655.2002}
+  position: {x: 421.47507, y: 1653.4791}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -780,7 +864,38 @@ MonoBehaviour:
     isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
-  duration: 2
+  duration: 1.5
+--- !u!114 &5404382766162783024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2932073b8a6c3b34391576c45d359457, type: 3}
+  m_Name: Parallel
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b6ede17af3206064fb4fe0559b2e1f42
+  position: {x: -376.76453, y: 1282.3037}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
+    isFollowingPlayer: 0
+    playerInAttackRange: 0
+    distance: 0
+    directionToTarget: {x: 0, y: 0, z: 0}
+    isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: -3263117586983931167}
+  - {fileID: -109026692776886203}
+  - {fileID: -6392151466094988163}
 --- !u!114 &5534542089041710977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,6 +914,7 @@ MonoBehaviour:
   position: {x: -514.3999, y: 1654.4}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -825,6 +941,7 @@ MonoBehaviour:
   position: {x: -66.79999, y: 1049.3999}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -849,9 +966,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 384821ad01415454c8a25a9bfd90cbee
-  position: {x: 254.30672, y: 1655.1997}
+  position: {x: 106.47515, y: 1653.4791}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -875,9 +993,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: a878c9b4a1eb60844a075a17e5a39a56
-  position: {x: 418.63843, y: 1654.4003}
+  position: {x: 271.47504, y: 1652.4791}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -902,9 +1021,10 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 1f62420ea87a6334186d1e942f7cb96e
-  position: {x: -59.293243, y: 1655.1997}
+  position: {x: -206.5249, y: 1653.4791}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -932,6 +1052,7 @@ MonoBehaviour:
   position: {x: 260.8, y: 754.19995}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -963,6 +1084,7 @@ MonoBehaviour:
   position: {x: -66.79999, y: 1183}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
@@ -972,7 +1094,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   speed: 5
-  stoppingDistance: 5
+  stoppingDistance: 15
   updateRotation: 1
   acceleration: 40
-  tolerance: 5
+  tolerance: 15

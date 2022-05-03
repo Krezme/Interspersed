@@ -18,11 +18,13 @@ MonoBehaviour:
   position: {x: -129.77138, y: 1557.332}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Targets the player's position to prepare for a dive bomb
   drawGizmos: 0
   child: {fileID: -7153348440730223626}
@@ -45,11 +47,13 @@ MonoBehaviour:
   position: {x: -107, y: 1676}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Moving to the blackboard's move to position
   drawGizmos: 0
   distanceThreshold: 1000000
@@ -79,11 +83,13 @@ MonoBehaviour:
   position: {x: -286.77136, y: 1556.332}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Sets the blackboard's IsCurrentlyDiveBombing to true
   drawGizmos: 0
   isDiveBombing: 1
@@ -105,11 +111,13 @@ MonoBehaviour:
   position: {x: -445.86923, y: 1427.7303}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Shooting a projectile
   drawGizmos: 0
   children:
@@ -133,11 +141,13 @@ MonoBehaviour:
   position: {x: -312, y: 989}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Checking if the Carrier's attack cooldown is over
   drawGizmos: 0
   child: {fileID: 2820279822570059626}
@@ -159,11 +169,13 @@ MonoBehaviour:
   position: {x: -91.80281, y: 990.46564}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Prevents the rest of the branch from running if the IsCurrentlyDiveBombing
     is true
   drawGizmos: 0
@@ -187,11 +199,13 @@ MonoBehaviour:
   position: {x: 282.9102, y: 633.0001}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Repeating the wander branch
   drawGizmos: 0
   child: {fileID: 1934453653265027513}
@@ -215,11 +229,13 @@ MonoBehaviour:
   position: {x: -190, y: 659}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 'Left - Follow Player
 
 
@@ -246,11 +262,13 @@ MonoBehaviour:
   position: {x: 444.2286, y: 1563.332}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
   duration: 1
@@ -272,11 +290,13 @@ MonoBehaviour:
   position: {x: -300, y: 846}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
   child: {fileID: -4253363581905046232}
@@ -300,11 +320,13 @@ MonoBehaviour:
   position: {x: -84.50529, y: 856.00006}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
   child: {fileID: -3870660819646751820}
@@ -328,11 +350,13 @@ MonoBehaviour:
   position: {x: -191, y: 436}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 'Interaction with the player.
 
 
@@ -363,11 +387,13 @@ MonoBehaviour:
   position: {x: -613.35486, y: 1556.68}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
 --- !u!114 &11400000
@@ -419,11 +445,13 @@ MonoBehaviour:
   - {fileID: 5602786523418048151}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
 --- !u!114 &275884186597715343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,11 +470,13 @@ MonoBehaviour:
   position: {x: -451.35498, y: 1556.68}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Starts Attack Cooldown
   drawGizmos: 0
 --- !u!114 &702138346295645541
@@ -467,11 +497,13 @@ MonoBehaviour:
   position: {x: 283.35938, y: 445.80865}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 'Wander Branch
 
 
@@ -498,11 +530,13 @@ MonoBehaviour:
   position: {x: 599.22864, y: 1563.332}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Sets the blackboard's IsCurrentlyDiveBombing to false
   drawGizmos: 0
   isDiveBombing: 0
@@ -524,11 +558,13 @@ MonoBehaviour:
   position: {x: 282.9102, y: 765}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
   children:
@@ -553,11 +589,13 @@ MonoBehaviour:
   position: {x: -307.99994, y: 1116.0911}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Checking if the targer (Player) is not obstructed by anything
   drawGizmos: 0
   child: {fileID: 7673037589182088226}
@@ -584,11 +622,13 @@ MonoBehaviour:
   position: {x: 120.06651, y: 895.8203}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Randomising the enemy new move to position
   drawGizmos: 0
   wanderRadius: 10
@@ -611,11 +651,13 @@ MonoBehaviour:
   position: {x: 239.22859, y: 1560.332}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Following the player's position as the enemy divebombs
   drawGizmos: 0
   child: {fileID: 4739731341727455483}
@@ -638,11 +680,13 @@ MonoBehaviour:
   position: {x: -198, y: 1427}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Performing a divebomb
   drawGizmos: 0
   children:
@@ -671,11 +715,13 @@ MonoBehaviour:
   position: {x: 262.22858, y: 1696.332}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Moving to the blackboard's move to position
   drawGizmos: 0
   distanceThreshold: 3
@@ -705,11 +751,13 @@ MonoBehaviour:
   position: {x: 279.0665, y: 896.8204}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Moving to the blackboard's move to position
   drawGizmos: 0
   distanceThreshold: 3
@@ -739,11 +787,13 @@ MonoBehaviour:
   position: {x: 0, y: 103}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Keeping the Behaviour Tree running in all cases
   drawGizmos: 0
   child: {fileID: 8457722294906370437}
@@ -767,11 +817,13 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: 
   drawGizmos: 0
   child: {fileID: 5117190154184324227}
@@ -793,11 +845,13 @@ MonoBehaviour:
   position: {x: 752.22864, y: 1565.3322}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Starts Attack Cooldown
   drawGizmos: 0
 --- !u!114 &7093020055121289200
@@ -818,11 +872,13 @@ MonoBehaviour:
   position: {x: 81.228584, y: 1559.332}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Pause to let the Carrier aim towards the target
   drawGizmos: 0
   duration: 2
@@ -844,11 +900,13 @@ MonoBehaviour:
   position: {x: -111.74209, y: 1140}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Following the player's position and add a height offset to make the
     enemy circle above the player.
   drawGizmos: 0
@@ -872,11 +930,13 @@ MonoBehaviour:
   position: {x: -324, y: 1249}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Selector to manually set odds for each connected node
   drawGizmos: 0
   children:
@@ -901,11 +961,13 @@ MonoBehaviour:
   position: {x: 438.90784, y: 898.50995}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Waits a periot of time
   drawGizmos: 0
   duration: 1
@@ -927,11 +989,13 @@ MonoBehaviour:
   position: {x: 0, y: 220}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Runs the Left most runable child
   drawGizmos: 0
   children:
@@ -955,11 +1019,13 @@ MonoBehaviour:
   position: {x: -89.432945, y: 1290.8658}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+    requiredToLookAtPlayer: 0
     isFollowingPlayer: 0
     playerInAttackRange: 0
     distance: 0
     directionToTarget: {x: 0, y: 0, z: 0}
     isCurrentlyDiveBombing: 0
+    isCurrentlyShooting: 0
   description: Moving to the blackboard's move to position
   drawGizmos: 0
   distanceThreshold: 3

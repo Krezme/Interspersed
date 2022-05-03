@@ -102,29 +102,31 @@ public class RagdollController : MonoBehaviour
     /// </summary>
     [ContextMenu("RagdollOn")]
     public void RagdollOn(){
-        for (int i = 0; i < ragdollColliders.Length; i++) {
-            ragdollColliders[i].enabled = true;
-            ragdollRigidbodies[i].useGravity = true;
-            ragdollRigidbodies[i].isKinematic = false;
+        if (enemyStatisticsManager != null) {
+            for (int i = 0; i < ragdollColliders.Length; i++) {
+                ragdollColliders[i].enabled = true;
+                ragdollRigidbodies[i].useGravity = true;
+                ragdollRigidbodies[i].isKinematic = false;
+            }
+            for (int i = 0; i < monoBehaviourToggle.Length; i++) {
+                monoBehaviourToggle[i].enabled = false;
+            }
+            if (thisCollider != null) {
+                thisCollider.enabled = false;
+            }
+            if (thisRigidbody != null) {
+                thisRigidbody.useGravity = false;
+                thisRigidbody.isKinematic = true;
+            }
+            if (thisAnimatior != null) {
+                thisAnimatior.enabled = false;
+            }
+            if (agent != null) {
+                agent.enabled = false;
+            }
+            ragdolling = true;
+            StartCoroutine(PauseBeforeRagdollOff());
         }
-        for (int i = 0; i < monoBehaviourToggle.Length; i++) {
-            monoBehaviourToggle[i].enabled = false;
-        }
-        if (thisCollider != null) {
-            thisCollider.enabled = false;
-        }
-        if (thisRigidbody != null) {
-            thisRigidbody.useGravity = false;
-            thisRigidbody.isKinematic = true;
-        }
-        if (thisAnimatior != null) {
-            thisAnimatior.enabled = false;
-        }
-        if (agent != null) {
-            agent.enabled = false;
-        }
-        ragdolling = true;
-        StartCoroutine(PauseBeforeRagdollOff());
     }
 
     /// <summary>

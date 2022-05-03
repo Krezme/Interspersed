@@ -63,6 +63,7 @@ public class EnemyProjectile : MonoBehaviour
                 other.gameObject.GetComponent<ShieldProjectilesAbsorption>().TakeDamage(statistics.damage);
                 Destroy(gameObject);
             }
+            else if (other.gameObject.tag == "Enemy") {}
             else if (other.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) {}
             else if (other.gameObject.layer != this.gameObject.layer) // Restarts the age and lets it sit in the collided spot for a short time 
             {
