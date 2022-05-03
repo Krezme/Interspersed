@@ -63,6 +63,8 @@ public class SlimeArm : PlayerAbility
 
     private Renderer grabbedRenderer;
 
+    public AudioSource slimeDepleted;
+
     /// <summary>
     /// Hard Coding the armAbilities array
     /// </summary>
@@ -258,6 +260,7 @@ public class SlimeArm : PlayerAbility
         }
         else if (PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy < PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.holdObjectEnergyCost * Time.deltaTime) {
             LetGoOffTheObject();
+            slimeDepleted.Play();
         }
         else {
             RestartGrabbedState();
@@ -301,6 +304,11 @@ public class SlimeArm : PlayerAbility
                 RestartGrabbedState();
                 PlayerStatisticsManager.instance.SlimeEnergyRecharge(-PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.throwEnergyCost);
                 PlayerAbilitiesController.instance.isAbilityActive = false;
+                OnPlayerInput.instance.onFire1 = false;
+            }
+            else if(OnPlayerInput.instance.onFire1 && PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy < PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.throwEnergyCost)
+            {
+                slimeDepleted.Play();
                 OnPlayerInput.instance.onFire1 = false;
             }
         }
