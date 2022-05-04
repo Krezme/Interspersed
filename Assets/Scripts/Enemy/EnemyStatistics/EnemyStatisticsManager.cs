@@ -31,7 +31,7 @@ public class EnemyStatisticsManager : MonoBehaviour
  */
 
 
-    public RandomAudioPlayerV2 warplingBank;
+    public RandomAudioPlayerV2 enemyBank;
 
     public GameObject carrieFlapSourcePH;
 
@@ -82,7 +82,7 @@ public class EnemyStatisticsManager : MonoBehaviour
         }
         try {
             //enemyDamaged.PlayRandomClip();
-            warplingBank.PlayRandomClip(defaultBankIndex: 1);
+            enemyBank.PlayRandomClip(defaultBankIndex: 1);
         }catch (System.Exception) {
             Debug.LogWarning("Sound not assigned");
         }
@@ -124,7 +124,7 @@ public class EnemyStatisticsManager : MonoBehaviour
 
         try
         {
-            warplingBank.PlayRandomClip(defaultBankIndex: 2);
+            enemyBank.PlayRandomClip(defaultBankIndex: 2);
         }
         catch{}
 

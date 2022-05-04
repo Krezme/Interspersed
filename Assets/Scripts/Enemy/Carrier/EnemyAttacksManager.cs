@@ -10,6 +10,9 @@ public class EnemyAttacksManager : MonoBehaviour
 
     public EnemyStatisticsManager enemyStatisticsManager;
 
+    public EnemyAnimationEventAudio enemyAnimationEventAudio;
+    public int shootProjectileSoundIdex;
+
     public float attackCooldown;
 
     [HideInInspector]
@@ -22,6 +25,12 @@ public class EnemyAttacksManager : MonoBehaviour
     }
 
     public void ShootProjectile(Vector3 direction) {
+        try {
+            if(enemyAnimationEventAudio != null){
+                enemyAnimationEventAudio.soundBank.PlayRandomClip(defaultBankIndex: shootProjectileSoundIdex);
+            }
+        }
+        catch(System.Exception) {}
         GameObject currentProjectile = Instantiate(projectile, projectileSpawnPos.position, Quaternion.LookRotation(direction, Vector3.up));
         currentProjectile.GetComponent<EnemyProjectile>().SetProjectileStatistics(enemyStatisticsManager.currentStats.damage);
     }

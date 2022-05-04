@@ -30,6 +30,8 @@ namespace TheKiwiCoder {
         public InAirPathFinding characterInAirPathFinding;
 
         public EnemyAttacksManager enemyAttacksManager;
+
+        public EnemyAnimationEventAudio enemyAnimationEventAudio;
         
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
@@ -54,6 +56,8 @@ namespace TheKiwiCoder {
             context.characterInAirPathFinding = gameObject.GetComponent<InAirPathFinding>();
             
             context.enemyAttacksManager = gameObject.GetComponent<EnemyAttacksManager>();
+
+            context.enemyAnimationEventAudio = gameObject.GetComponent<EnemyAnimationEventAudio>();
 
             return context;
         }
