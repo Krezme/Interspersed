@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4782cf42f2644447b9631f6e522160b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 1
+  volume: 0
   loop: 1
   targetAudioSource: {fileID: 0}
   audioMode: 1
@@ -211,7 +211,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -520,7 +520,6 @@ GameObject:
   - component: {fileID: 345639110}
   - component: {fileID: 345639113}
   - component: {fileID: 345639112}
-  - component: {fileID: 345639111}
   - component: {fileID: 8814975674617263116}
   - component: {fileID: 1397732462284385186}
   - component: {fileID: 852514401126145334}
@@ -574,8 +573,7 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 345639112}
-  selectedCommands:
-  - {fileID: 8293794075574813900}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -603,14 +601,14 @@ MonoBehaviour:
     serializedVersion: 2
     x: 63
     y: 73
-    width: 173.71133
+    width: 178.86598
     height: 40
   tint: {r: 1, g: 0.8673225, b: 0, a: 1}
   useCustomTint: 1
   itemId: 0
   blockName: Radio Tower Direction
   description: 
-  eventHandler: {fileID: 345639111}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 8814975674617263116}
   - {fileID: 1397732462284385186}
@@ -619,21 +617,6 @@ MonoBehaviour:
   - {fileID: 375344259405741792}
   - {fileID: 8293794075574813900}
   suppressAllAutoSelections: 0
---- !u!114 &345639111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 345639109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 345639112}
-  suppressBlockAutoSelect: 0
-  waitForFrames: 1
 --- !u!114 &8814975674617263116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1580,8 +1563,7 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 950924928}
-  selectedCommands:
-  - {fileID: 2040798615984879196}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -2056,16 +2038,19 @@ GameObject:
   - component: {fileID: 1543176817}
   - component: {fileID: 1543176826}
   - component: {fileID: 1543176828}
-  - component: {fileID: 1543176824}
-  - component: {fileID: 1543176820}
-  - component: {fileID: 1543176827}
-  - component: {fileID: 1543176825}
-  - component: {fileID: 1543176823}
-  - component: {fileID: 1543176822}
-  - component: {fileID: 1543176821}
-  - component: {fileID: 1543176818}
-  - component: {fileID: 1543176819}
-  - component: {fileID: 1543176816}
+  - component: {fileID: 752084699}
+  - component: {fileID: 752084700}
+  - component: {fileID: 752084701}
+  - component: {fileID: 752084702}
+  - component: {fileID: 752084703}
+  - component: {fileID: 752084704}
+  - component: {fileID: 752084705}
+  - component: {fileID: 752084706}
+  - component: {fileID: 752084707}
+  - component: {fileID: 752084708}
+  - component: {fileID: 752084710}
+  - component: {fileID: 752084711}
+  - component: {fileID: 752084712}
   m_Layer: 0
   m_Name: 'KingSlug '
   m_TagString: Untagged
@@ -2107,7 +2092,7 @@ MonoBehaviour:
   scrollPos: {x: 195.5, y: 119.5}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 860
+  blockViewHeight: 576
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -2117,7 +2102,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 1543176817}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 752084700}
   variables: []
   description: 
   stepPause: 0
@@ -2154,17 +2140,11 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 1543176828}
   commandList:
-  - {fileID: 1543176827}
   - {fileID: 1543176826}
-  - {fileID: 1543176825}
-  - {fileID: 1543176824}
-  - {fileID: 1543176823}
-  - {fileID: 1543176822}
-  - {fileID: 1543176821}
-  - {fileID: 1543176820}
-  - {fileID: 1543176819}
-  - {fileID: 1543176818}
-  - {fileID: 1543176816}
+  - {fileID: 752084703}
+  - {fileID: 752084702}
+  - {fileID: 752084701}
+  - {fileID: 752084700}
   suppressAllAutoSelections: 0
 --- !u!114 &1543176826
 MonoBehaviour:
@@ -2184,14 +2164,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 0f16a508aa4a3b64b8ef0c108d5c9d16, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
   fadeWhenDone: 0
   waitForClick: 0
-  stopVoiceover: 1
-  waitForVO: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1543176828
 MonoBehaviour:
@@ -2210,7 +2190,115 @@ MonoBehaviour:
   tagFilter: []
   FireOn: 1
   colliderVar: {fileID: 0}
---- !u!114 &1543176824
+--- !u!114 &752084699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543176814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 13
+  indentLevel: 0
+  storyText: 'King Slug: "I have grown accustomed to victuals, of a yeasty variety..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 544e620903c9bf74f81f7baf72d26440, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543176814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 5
+  indentLevel: 0
+  storyText: 'King Slug: "Please, take it and go... I can give... no... more..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 686fd29052be10940bea7eafd2806f43, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543176814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  indentLevel: 0
+  storyText: 'King Slug: "... ... ... ..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 975b7c186e1ff11408d80cca6f5a6c62, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543176814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 3
+  indentLevel: 0
+  storyText: 'King Slug: "Now it''s time for me to obey mine..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: e227c40fa268b434fba54195d5e1df77, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2228,16 +2316,49 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 57f72899530ab2c49a4ec0a79395e4ec, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
   fadeWhenDone: 0
   waitForClick: 0
-  stopVoiceover: 1
-  waitForVO: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
---- !u!114 &1543176820
+--- !u!114 &752084704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543176814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 338.5
+    y: 136.5
+    width: 170
+    height: 40
+  tint: {r: 1, g: 0.6131327, b: 0, a: 1}
+  useCustomTint: 1
+  itemId: 14
+  blockName: KingSlugMissionStart
+  description: 
+  eventHandler: {fileID: 752084712}
+  commandList:
+  - {fileID: 752084711}
+  - {fileID: 752084699}
+  - {fileID: 752084710}
+  - {fileID: 752084708}
+  - {fileID: 752084707}
+  - {fileID: 752084706}
+  - {fileID: 752084705}
+  suppressAllAutoSelections: 0
+--- !u!114 &752084705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2247,123 +2368,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 3
-  indentLevel: 0
-  storyText: 'King Slug: "... ... ...."'
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 0
-  waitForClick: 0
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &1543176827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543176814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 4
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 2.46
-  durationOLD: 0
---- !u!114 &1543176825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543176814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 5
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 5.82
-  durationOLD: 0
---- !u!114 &1543176823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543176814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 6
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 3.95
-  durationOLD: 0
---- !u!114 &1543176822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543176814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 7
-  indentLevel: 0
-  storyText: 'King Slug: "Now it is time for me to obey mine..."'
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 0
-  waitForClick: 0
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &1543176821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543176814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 8
   indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 4.61
-  durationOLD: 0
---- !u!114 &1543176818
+  storyText: 'King Slug: "The gift... of slime..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 228aa06174b44154b9ddee05c04f8b30, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2377,20 +2399,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 9
   indentLevel: 0
-  storyText: 'King Slug: "Please, take it and go, I can give... no... more..."'
+  storyText: 'King Slug: "In return, my son... I will grant you the gift of my children..."'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: f9643994c3a7af24ebbcaa5b8c941600, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
+  fadeWhenDone: 0
   waitForClick: 0
-  stopVoiceover: 1
-  waitForVO: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
---- !u!114 &1543176819
+--- !u!114 &752084707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2399,16 +2421,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1543176814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 10
   indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 28.56
-  durationOLD: 0
---- !u!114 &1543176816
+  storyText: 'King Slug: "by feeding into it, a sheath of wheat..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 741c193e09fb20941a34b14aafedcb4d, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2417,42 +2448,96 @@ MonoBehaviour:
   m_GameObject: {fileID: 1543176814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 11
   indentLevel: 0
+  storyText: 'King Slug: "Go to the windmill and retrieve me a baguette..."'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: PlayerAbilitiesController, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: PlayerAbilitiesController
-  targetMethod: EnableAbility
-  targetMethodText: 'EnableAbility (Int32): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Int32
-      intValue: 1
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 263ecd46f0839bf498e7c38382970875, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543176814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  storyText: 'King Slug: "However, I''m stuck here sweltering on this floating rock...
+    "'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 5281bd85a832de641a802ee4fdc03f8f, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543176814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 7
+  indentLevel: 0
+  storyText: 'King Slug: "Greetings, Mortal... Listen to me..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 11b7b57dfd532034b96425b9fe7f69fb, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &752084712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543176814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98f5f89242e80d42865cdf1912beda3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 752084704}
+  suppressBlockAutoSelect: 0
+  tagFilter: []
+  FireOn: 1
+  colliderVar: {fileID: 0}
 --- !u!1 &1641672635
 GameObject:
   m_ObjectHideFlags: 0
@@ -3803,7 +3888,6 @@ GameObject:
   - component: {fileID: 410462684203754492}
   - component: {fileID: 1243917098775296982}
   - component: {fileID: 6170438864820903807}
-  - component: {fileID: 1072512673167350041}
   - component: {fileID: 6822740849809146858}
   - component: {fileID: 1707146334621312309}
   m_Layer: 0
@@ -3853,8 +3937,7 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 6170438864820903807}
-  selectedCommands:
-  - {fileID: 1707146334621312309}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -3889,26 +3972,11 @@ MonoBehaviour:
   itemId: 0
   blockName: Power Generator without arm unlocked
   description: 
-  eventHandler: {fileID: 1072512673167350041}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 6822740849809146858}
   - {fileID: 1707146334621312309}
   suppressAllAutoSelections: 0
---- !u!114 &1072512673167350041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6671826216093075604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 6170438864820903807}
-  suppressBlockAutoSelect: 0
-  waitForFrames: 1
 --- !u!114 &6822740849809146858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5145,7 +5213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7617052611287518349
 Transform:
   m_ObjectHideFlags: 0
@@ -6676,7 +6744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7617052612126495587
 Transform:
   m_ObjectHideFlags: 0
@@ -8275,7 +8343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 105
+  itemId: 107
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8320,7 +8388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 104
+  itemId: 108
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8365,7 +8433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 103
+  itemId: 109
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8410,7 +8478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 102
+  itemId: 110
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8455,7 +8523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 101
+  itemId: 111
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8500,7 +8568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 100
+  itemId: 112
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8545,7 +8613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 99
+  itemId: 113
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8590,7 +8658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 98
+  itemId: 114
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8635,7 +8703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 97
+  itemId: 115
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8680,7 +8748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 96
+  itemId: 116
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8725,7 +8793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 95
+  itemId: 117
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8770,7 +8838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 94
+  itemId: 118
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8815,7 +8883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 93
+  itemId: 119
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
@@ -8860,7 +8928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 106
+  itemId: 120
   indentLevel: 0
   description: 
   targetObject: {fileID: 0}
