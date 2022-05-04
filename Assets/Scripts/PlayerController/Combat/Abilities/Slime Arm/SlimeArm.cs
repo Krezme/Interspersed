@@ -189,6 +189,7 @@ public class SlimeArm : PlayerAbility
                                 
                                 if (grabbedRB)
                                 {
+                                    Debug.Log("sirjijsdfijsf1221212");
                                     Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
                                     FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
                                     FadeOut.SetActive(false);
@@ -206,7 +207,12 @@ public class SlimeArm : PlayerAbility
                 }
                 else {
                     if (PlayerAbilitiesController.instance.isAbilityActive) {
+                        
+                        Debug.Log(PlayerAbilitiesController.instance.isAbilityActive + " 0");
                         LetGoOffTheObject();
+                        RestartGrabbedState();
+                        Debug.Log(PlayerAbilitiesController.instance.isAbilityActive + " 1");
+                        
                     }
                 }
             }catch (System.Exception) {
@@ -340,7 +346,10 @@ public class SlimeArm : PlayerAbility
         if (grabbedRagdoll != null) {
             foreach(Rigidbody rb in grabbedRagdoll.ragdollRigidbodies) {
                 rb.constraints  = RigidbodyConstraints.None;
-                rb.GetComponent<Collider>().isTrigger = false;
+                try{
+                    rb.GetComponent<Collider>().isTrigger = false;
+                }
+                catch(System.Exception){}
             }
             grabbedRB.constraints = RigidbodyConstraints.FreezeRotation;
         }
@@ -351,6 +360,7 @@ public class SlimeArm : PlayerAbility
     }
 
     private void RestartGrabbedState(){
+        PlayerAbilitiesController.instance.isAbilityActive = false;
         grabbedRB = null;
         grabbedRagdoll = null;
         grabbedRenderer = null;
