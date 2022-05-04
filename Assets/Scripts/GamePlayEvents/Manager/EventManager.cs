@@ -35,6 +35,10 @@ public class EventManager : MonoBehaviour
     }
 
     void Start () {
+        if (SaveData.savedEventsState[eventDataIndex].eventComplete) {
+            AquireArm();
+            AquireAbility();
+        }
     }
 
     public void ToggleEvent(List<GameObject> eventGameObjects, bool state) {

@@ -24,10 +24,17 @@ public class Checkpoint : MonoBehaviour
             if (SaveData.hasLoaded && CheckpointManager.instance.currentCheckpointIndex == CheckpointManager.instance.checkpoints.IndexOf(this)) {
                 EnableThisCheckpoint();
             }
+            else if (defaultSpawnpoint) {
+                SelectDefaultCheckpoint();
+            }
         }
-        if (defaultSpawnpoint) {
-            SelectDefaultCheckpoint();
+        else {
+            Debug.Log("SaveData.instance == null");
+            if (defaultSpawnpoint) {
+                SelectDefaultCheckpoint();
+            }
         }
+        
     }
 
     void OnTriggerEnter(Collider other) {
