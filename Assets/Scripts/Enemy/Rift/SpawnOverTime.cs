@@ -24,7 +24,7 @@ public class SpawnOverTime : MonoBehaviour
     void Update() {
         timePassed += Time.deltaTime;
         if (timePassed >= delayBetweenSpawns) {
-            if (spawnedEnemyNumber < enemiesToSpawn[currentSpawnEnemyIndex].numberOfEnemies && currentSpawnEnemyIndex < enemiesToSpawn.Length) {
+            if (currentSpawnEnemyIndex < enemiesToSpawn.Length && spawnedEnemyNumber < enemiesToSpawn[currentSpawnEnemyIndex].numberOfEnemies) {
                 GameObject tempGO = Instantiate(enemiesToSpawn[currentSpawnEnemyIndex].enemy, spawnPosition.transform.position, Quaternion.identity);
                 if (waveEventManager != null) {
                     waveEventManager.enemies.Add(tempGO);
