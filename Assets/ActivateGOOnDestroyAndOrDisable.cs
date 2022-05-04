@@ -12,7 +12,7 @@ public class ActivateGOOnDestroyAndOrDisable : MonoBehaviour
     void OnDestroy() {
         if (onThisDestroy) {
             foreach (GameObject gO in gameObjects) {
-                gO.SetActive(false);
+                gO.SetActive(true);
             }
         }
     }
@@ -20,7 +20,7 @@ public class ActivateGOOnDestroyAndOrDisable : MonoBehaviour
     void OnDisable() {
         if (onThisDisable) {
             foreach (GameObject gO in gameObjects) {
-                gO.SetActive(false);
+                gO.SetActive(true);
             }
         }
     }
