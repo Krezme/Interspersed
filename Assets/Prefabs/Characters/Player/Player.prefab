@@ -3720,12 +3720,12 @@ MonoBehaviour:
   - name: 'Ability: Single shot (Active: True)'
     abilityName: Single shot
     isActive: 1
-  - name: 'Ability: Electric Shot (Active: True)'
+  - name: 'Ability: Electric Shot (Active: False)'
     abilityName: Electric Shot
-    isActive: 1
-  - name: 'Ability: Shotgun (Active: True)'
+    isActive: 0
+  - name: 'Ability: Shotgun (Active: False)'
     abilityName: Shotgun
-    isActive: 1
+    isActive: 0
   statistics:
     maxElectricShots: 3
     currentElectricShots: 3
@@ -3758,6 +3758,7 @@ MonoBehaviour:
   disPointForCalculation: {fileID: 8157951251013767041, guid: e1a7ac146c7d8be42aa20427607d6177,
     type: 3}
   electricIdle: {fileID: 1843504633}
+  ammoDepleted: {fileID: 0}
 --- !u!114 &1008479993094344304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3796,6 +3797,7 @@ MonoBehaviour:
   grabbedFollowForce: 20
   grabbedNewAngularFriction: 0.8
   isShielding: 0
+  slimeDepleted: {fileID: 0}
 --- !u!1 &4319043865533039097
 GameObject:
   m_ObjectHideFlags: 0
@@ -4278,6 +4280,7 @@ MonoBehaviour:
         holdObjectEnergyCost: 1
         throwEnergyCost: 10
   PlayerDamaged: {fileID: 912553396}
+  isInvincible: 0
 --- !u!114 &1956974271675083317
 MonoBehaviour:
   m_ObjectHideFlags: 0

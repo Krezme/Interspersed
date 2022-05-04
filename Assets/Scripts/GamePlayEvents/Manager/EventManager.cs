@@ -35,8 +35,6 @@ public class EventManager : MonoBehaviour
     }
 
     void Start () {
-        AquireArm();
-        AquireAbility();
     }
 
     public void ToggleEvent(List<GameObject> eventGameObjects, bool state) {

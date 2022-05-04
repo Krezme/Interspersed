@@ -376,6 +376,7 @@ public class CristalArm : PlayerAbility
     }
 
     public void EnableAbility(int index) {
+        Debug.Log("Activating??");
         armAbilities[index].isActive = true;
     }
 
