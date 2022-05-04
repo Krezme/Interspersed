@@ -108,10 +108,10 @@ public class InAirPathFinding : MonoBehaviour
             }
             //Debug.Log("Hit");
         }
-        if (other.tag == "Player") {
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) {}
+        else if (other.tag == "Player") {
             // ! Damage the Player with the Divebomb
             playerStatisticsManager.TakeDamage(enemyStatisticsManager.currentStats.damage * 2);
-            //Debug.Log("Hit Player");
         }
     }
 
