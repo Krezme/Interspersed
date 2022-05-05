@@ -16,11 +16,18 @@ public class StopAnimAfterAudioFinishPlaying : MonoBehaviour
 
     public GameObject nextSource;
 
+    private bool hasPlayed = false;
+
 
     // Update is called once per frame
     void Update()
     {
-        if (!PlayingSource.isPlaying)
+        if (PlayingSource.isPlaying)
+        {
+            hasPlayed = true;
+        }
+
+        if (!PlayingSource.isPlaying && hasPlayed == true)
         {
             try
             {
