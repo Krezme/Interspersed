@@ -35,9 +35,11 @@ public class EventManager : MonoBehaviour
     }
 
     void Start () {
-        if (SaveData.savedEventsState[eventDataIndex].eventComplete) {
-            AquireArm();
-            AquireAbility();
+        if (SaveData.hasLoaded == true) {
+            if (SaveData.savedEventsState[eventDataIndex].eventComplete) {
+                AquireArm();
+                AquireAbility();
+            }
         }
     }
 
