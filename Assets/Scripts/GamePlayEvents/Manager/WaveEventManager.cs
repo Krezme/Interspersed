@@ -16,6 +16,8 @@ public class WaveEventManager : MonoBehaviour
     
     public List<GameObject> enemies;
 
+    public List<GameObject> enemiesCurrentWave;
+
     private int currentWave;
 
     private bool wavesHaveBegan = false;
@@ -42,6 +44,11 @@ public class WaveEventManager : MonoBehaviour
                             }
                             currentWave++;
                         }else { 
+                            for (int i = 0; i < enemiesCurrentWave.Count; i++) {
+                                GameObject temp = enemiesCurrentWave[i].gameObject;
+                                enemiesCurrentWave.Remove(enemiesCurrentWave[i]);
+                                Destroy(temp);
+                            }
                             currentWave++;
                             ActivateRifts();
                         }
@@ -83,7 +90,6 @@ public class WaveEventManager : MonoBehaviour
             catch (System.Exception) {
                 enemies.Remove(enemies[i]);
             }
-            
         }
     }
 }

@@ -28,6 +28,7 @@ public class SpawnOverTime : MonoBehaviour
                 GameObject tempGO = Instantiate(enemiesToSpawn[currentSpawnEnemyIndex].enemy, spawnPosition.transform.position, Quaternion.identity);
                 if (waveEventManager != null) {
                     waveEventManager.enemies.Add(tempGO);
+                    waveEventManager.enemiesCurrentWave.Add(tempGO);
                 }
                 spawnedEnemyNumber++;
                 if (spawnedEnemyNumber == enemiesToSpawn[currentSpawnEnemyIndex].numberOfEnemies) {
