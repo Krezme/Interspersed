@@ -52,6 +52,8 @@ public class InAirPathFinding : MonoBehaviour
 
     public bool showGizmos = false; // if true it will draw gizmos (mostly for debugging purposes and showcase)
 
+    public GameObject gameObjectCollidedWith;
+
     private Vector3 blockedPathBackDir = new Vector3(); // The backwards position of the enemy when forward path is blocked
 
     private Rigidbody rb; // This rigid body that has all of the force
@@ -100,15 +102,18 @@ public class InAirPathFinding : MonoBehaviour
     /// </summary>
     /// <param name="other"> the other game object's collider </param>
     void OnTriggerEnter(Collider other) {
-        if (other.tag != "Player" && other.tag != "Enemy") {
+        if (other.tag == "EnemyBullet") {}
+        else if (other.tag == "EventTriggers") {}
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) {}
+        else if (other.tag != "Player" && other.tag != "Enemy") {
             // ! Trigger Ragdoll when it hits a obsitcle with enough speed
             if (((currentMovementStatistics.minSpeed + currentMovementStatistics.maxSpeed) / 2) <= currentMovementStatistics.currentSpeed) {
                 gameObject.GetComponent<RagdollController>().RagdollOn();
                 enemyStatisticsManager.TakeDamage(enemyStatisticsManager.currentStats.damage * 2, false);
+                gameObjectCollidedWith = other.gameObject;
             }
             //Debug.Log("Hit");
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) {}
         else if (other.tag == "Player") {
             // ! Damage the Player with the Divebomb
             playerStatisticsManager.TakeDamage(enemyStatisticsManager.currentStats.damage * 2);
