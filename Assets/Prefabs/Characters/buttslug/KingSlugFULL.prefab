@@ -103,6 +103,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjectToEnable: {fileID: 0}
+--- !u!95 &782644876
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6005551087472208911}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a937c835ee40cc14c87a565f9e43daae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1468106997197883347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,7 +143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 782928455, guid: 0b152e68185467441825ad024b2168ac, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 782928458, guid: 0b152e68185467441825ad024b2168ac, type: 3}
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.size
@@ -194,6 +213,10 @@ PrefabInstance:
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1065604148, guid: 0b152e68185467441825ad024b2168ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1065604150, guid: 0b152e68185467441825ad024b2168ac, type: 3}
       propertyPath: flowchart
       value: 
@@ -208,7 +231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1650723502, guid: 0b152e68185467441825ad024b2168ac, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1650723505, guid: 0b152e68185467441825ad024b2168ac, type: 3}
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -377,6 +400,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -106.53519
       objectReference: {fileID: 0}
+    - target: {fileID: 4445838404098434276, guid: 0b152e68185467441825ad024b2168ac,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18628046cc25c0e4caab3e3aa789d9dd, type: 2}
+    - target: {fileID: 4445838404606932417, guid: 0b152e68185467441825ad024b2168ac,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18628046cc25c0e4caab3e3aa789d9dd, type: 2}
     - target: {fileID: 4497483060862947263, guid: 0b152e68185467441825ad024b2168ac,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -632,6 +665,12 @@ PrefabInstance:
 --- !u!4 &5504266924348191857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6358192154431091618, guid: 0b152e68185467441825ad024b2168ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1468106997197883347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6005551087472208911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5118274370908924892, guid: 0b152e68185467441825ad024b2168ac,
     type: 3}
   m_PrefabInstance: {fileID: 1468106997197883347}
   m_PrefabAsset: {fileID: 0}
