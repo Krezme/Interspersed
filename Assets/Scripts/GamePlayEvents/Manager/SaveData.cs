@@ -114,6 +114,7 @@ public class SaveData : MonoBehaviour
 
     public void MovePlayerToLastCheckPoint () {
         if (needsToMovePlayer) {
+            Debug.Log("needsToMovePlayer");
             ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[lastCheckpoint].playerSpawnPos.position + CheckpointManager.instance.checkpoints[lastCheckpoint].offset;
             needsToMovePlayer = false;
         }
@@ -148,6 +149,7 @@ public class SaveData : MonoBehaviour
 
     public void NeedsToLoad(bool state) {
         needsLoading = state;
+        needsToMovePlayer = state;
     }
 
     public void RestartSaveState() {
