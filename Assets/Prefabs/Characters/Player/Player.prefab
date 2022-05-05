@@ -3720,9 +3720,9 @@ MonoBehaviour:
   - name: 'Ability: Single shot (Active: True)'
     abilityName: Single shot
     isActive: 1
-  - name: 'Ability: Electric Shot (Active: False)'
+  - name: 'Ability: Electric Shot (Active: True)'
     abilityName: Electric Shot
-    isActive: 0
+    isActive: 1
   - name: 'Ability: Shotgun (Active: False)'
     abilityName: Shotgun
     isActive: 0
@@ -4239,14 +4239,14 @@ MonoBehaviour:
       cystalEnergy: 100
       slimeEnergy: 50
       energyRechargeStatistics:
-        crystalEnergyRechargeOverOneSecond: 5.8
-        slimeEnergyRechargeOverOneSecond: 2
+        crystalEnergyRechargeOverOneSecond: 6.2
+        slimeEnergyRechargeOverOneSecond: 2.5
     combatStatistics:
-      meleeDamage: 20
+      meleeDamage: 15
       crystalArmStats:
         chargeShotsDamage:
-        - 6
-        - 15
+        - 8
+        - 17
         - 24
         - 50
         chargeShotsSpeed:
@@ -4256,20 +4256,20 @@ MonoBehaviour:
         - 40
         chargeShotsEnergyCost:
         - 6
-        - 9
-        - 12
-        - 15
+        - 14
+        - 19
+        - 29
         chargeShotStages:
         - 0
-        - 1
-        - 1.5
+        - 0.7
+        - 1.3
         - 2
         electricRechargeTime: 10
       crystalArmShotgunStats:
         damagePerPellet: 2
         projectileCount: 28
         shotgunEnergyCost: 20
-        shotgunCooldown: 1
+        shotgunCooldown: 1.3
         projectileDispersionX: 0.3
         projectileDispersionY: 0.3
       slimeArmStats:
@@ -5374,37 +5374,37 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: -0, y: 252.9155, z: 0}
+      - m_Value: {x: -0, y: 185.30002, z: 0}
         m_Name: TargetTransform_angles
         m_Overridden: 1
-      - m_Value: {x: 381.01917, y: 5.893, z: 193.5847}
+      - m_Value: {x: 376.0332, y: 7.7638807, z: 193.211}
         m_Name: TargetTransform_position
         m_Overridden: 1
       - m_Value: {x: 1, y: 1, z: 1}
         m_Name: TargetTransform_scale
         m_Overridden: 1
-      - m_Value: {x: 35.54041, y: 149.79596, z: 89.306984}
+      - m_Value: {x: 35.540405, y: 82.18046, z: 89.30698}
         m_Name: ArmTransform_angles
         m_Overridden: 1
-      - m_Value: {x: 381.3734, y: 6.79432, z: 192.01518}
+      - m_Value: {x: 377.61935, y: 8.665201, z: 192.94087}
         m_Name: ArmTransform_position
         m_Overridden: 1
       - m_Value: {x: 1, y: 1, z: 1}
         m_Name: ArmTransform_scale
         m_Overridden: 1
-      - m_Value: {x: -0, y: 252.9155, z: 0}
+      - m_Value: {x: -0, y: 185.30002, z: 0}
         m_Name: TargetTransform2_angles
         m_Overridden: 1
-      - m_Value: {x: 381.01917, y: 5.893, z: 193.5847}
+      - m_Value: {x: 376.0332, y: 7.7638807, z: 193.211}
         m_Name: TargetTransform2_position
         m_Overridden: 1
       - m_Value: {x: 1, y: 1, z: 1}
         m_Name: TargetTransform2_scale
         m_Overridden: 1
-      - m_Value: {x: -0, y: 252.9155, z: 0}
+      - m_Value: {x: -0, y: 185.30002, z: 0}
         m_Name: TargetTransform3_angles
         m_Overridden: 1
-      - m_Value: {x: 381.01917, y: 5.893, z: 193.5847}
+      - m_Value: {x: 376.0332, y: 7.7638807, z: 193.211}
         m_Name: TargetTransform3_position
         m_Overridden: 1
       - m_Value: {x: 1, y: 1, z: 1}
@@ -5412,7 +5412,7 @@ VisualEffect:
         m_Overridden: 1
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 1024, y: 772.0209, z: 0, w: 1}
+      - m_Value: {x: 1351.1758, y: 884.8877, z: 0, w: 1}
         m_Name: LightningColour
         m_Overridden: 1
     m_Uint:
