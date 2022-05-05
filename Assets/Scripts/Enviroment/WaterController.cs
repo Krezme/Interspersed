@@ -41,6 +41,11 @@ public class WaterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < currentlyAffectedEnemies.Count; i++) {
+            if (currentlyAffectedEnemies[i].TryGetComponent<EnemyStatisticsManager>(out EnemyStatisticsManager enemyStatisticsManager) == false || enemyStatisticsManager.currentStats.health <= 0) {
+                currentlyAffectedEnemies.Remove(currentlyAffectedEnemies[i]);
+            }
+        }
         if (currentlyAffectedEnemies.Count > 0 && waterProperties.numberOfProjectiles > 0) {
             tickTimer += Time.deltaTime;
 

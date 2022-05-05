@@ -22,6 +22,9 @@ public class WaveEventManager : MonoBehaviour
 
     private bool wavesHaveBegan = false;
 
+    [HideInInspector]
+    public bool hasEnded;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,28 +38,39 @@ public class WaveEventManager : MonoBehaviour
             CheckIfRiftsAreOpen();
             CheckIfEnemiesAreAlive();
             try {
-                if (waves[currentWave].rifts.Count == 0) {
-                    if (enemies.Count == 0) {
-                        
-                        if (waves[currentWave].needsToDestroyGOAfterEachWave) {
-                            foreach (GameObject gO in waves[currentWave].objectsToDestroy) {
-                                Destroy(gO);
-                            }
-                            currentWave++;
-                        }else { 
-                            for (int i = 0; i < enemiesCurrentWave.Count; i++) {
-                                GameObject temp = enemiesCurrentWave[i].gameObject;
-                                enemiesCurrentWave.Remove(enemiesCurrentWave[i]);
-                                Destroy(temp);
-                            }
-                            currentWave++;
-                            ActivateRifts();
+                if (waves[currentWave].rifts.Count <= 0) {
+                    if (enemies.Count <= 0) {
+                        if (currentWave >= waves.Length -1) {
+                            hasEnded = true;
+                            Debug.Log("HAS ENDED");
                         }
+                        else{        
+                            if (waves[currentWave].needsToDestroyGOAfterEachWave) {
+                                foreach (GameObject gO in waves[currentWave].objectsToDestroy) {
+                                    Destroy(gO);
+                                }
+                                currentWave++;
+                            }else { 
+                                for (int i = 0; i < enemiesCurrentWave.Count; i++) {
+                                    GameObject temp = enemiesCurrentWave[i];
+                                    enemiesCurrentWave.Remove(enemiesCurrentWave[i]);
+                                    Destroy(temp);
+                                }
+                                currentWave++;
+                                ActivateRifts();
+                            }
+                        } 
                     }
                 }
             }
             catch (System.Exception) {}
+            for (int i = 0; i < enemiesCurrentWave.Count; i++) {
+                if (enemiesCurrentWave[i] == null) {
+                    enemiesCurrentWave.Remove(enemiesCurrentWave[i]);
+                }
+            }
         }
+        
     }
 
     public void WaveStart () {
