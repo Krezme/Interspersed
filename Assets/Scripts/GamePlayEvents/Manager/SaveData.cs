@@ -91,7 +91,6 @@ public class SaveData : MonoBehaviour
         currentEventsState = savedEventsState.DeepClone();
         PlayerStatisticsManager.instance.maxStatistics = savedPlayerStatistics.DeepClone();
         checkpointManager.currentCheckpointIndex = lastCheckpoint;
-        Debug.Log(checkpointManager.currentCheckpointIndex);
         needsLoading = false;
         hasLoaded = true;
     }
@@ -123,7 +122,6 @@ public class SaveData : MonoBehaviour
     [ContextMenu("ReloadScene")]
     public void ReloadScene() {
         needsLoading = true;
-        Debug.Log(lastCheckpoint);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

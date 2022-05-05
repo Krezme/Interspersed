@@ -37,6 +37,8 @@ public class EventManager : MonoBehaviour
     void Start () {
         if (SaveData.hasLoaded == true) {
             if (SaveData.savedEventsState[eventDataIndex].eventComplete) {
+                ToggleEvent(eventGameObjectsToDissable, false);
+                ToggleEvent(eventGameObjectsToEnable, true);
                 AquireArm();
                 AquireAbility();
             }
@@ -45,6 +47,7 @@ public class EventManager : MonoBehaviour
 
     public void ToggleEvent(List<GameObject> eventGameObjects, bool state) {
         foreach (GameObject go in eventGameObjects) {
+            Debug.Log(go.name);
             go.SetActive(state);
         }
     }

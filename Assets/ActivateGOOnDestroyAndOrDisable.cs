@@ -12,7 +12,10 @@ public class ActivateGOOnDestroyAndOrDisable : MonoBehaviour
     void OnDestroy() {
         if (onThisDestroy) {
             foreach (GameObject gO in gameObjects) {
-                gO.SetActive(true);
+                try {
+                    gO.SetActive(true);
+                }
+                catch (System.Exception) {}
             }
         }
     }
