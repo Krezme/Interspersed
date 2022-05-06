@@ -161,15 +161,35 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     void Update()
     {
-        GroundCheckSphere();
-        GroundedCheck();
-        CheckingIfGoingUpOrDownASlope();
-        GetSurfaceAngleBelowPlayer();
-        PlayerJumpAndGravity();
-        Knockback();
-        PlayerMovement();
-        //PlayerSliding();
-        Attacking();
+        if (SaveData.instance != null) {
+            if (!SaveData.needsLoading && SaveData.instance.needsToMovePlayer && SaveData.instance.hasLoadedCheckpoint) {
+                Debug.Log("Please Just Work Please I need want to sleep");
+                SaveData.instance.MovePlayerToLastCheckPoint();
+            }
+            else if (!SaveData.needsLoading && !SaveData.instance.needsToMovePlayer && !SaveData.instance.hasLoadedCheckpoint) {
+                GroundCheckSphere();
+                GroundedCheck();
+                CheckingIfGoingUpOrDownASlope();
+                GetSurfaceAngleBelowPlayer();
+                PlayerJumpAndGravity();
+                Knockback();
+                PlayerMovement();
+                //PlayerSliding();
+                Attacking();
+            }
+        }
+        else {
+            Debug.Log("-----------------------------------------------------------------------------------------------------------------------------");
+            GroundCheckSphere();
+            GroundedCheck();
+            CheckingIfGoingUpOrDownASlope();
+            GetSurfaceAngleBelowPlayer();
+            PlayerJumpAndGravity();
+            Knockback();
+            PlayerMovement();
+            //PlayerSliding();
+            Attacking();
+        }
     }
 
     void LateUpdate() {
