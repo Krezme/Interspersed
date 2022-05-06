@@ -68,6 +68,7 @@ public class CrystalArmSingleShotStats {
     public float[] chargeShotStages;
 
     public float electricRechargeTime;
+    public float electricDamageAddition;
 }
 
 [System.Serializable]
