@@ -59,7 +59,6 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         playerInput.isAllowedToMove = true;
-        Debug.Log("Resume");
 
         UnpausedSnapshot.TransitionTo(TransitionTime);
 

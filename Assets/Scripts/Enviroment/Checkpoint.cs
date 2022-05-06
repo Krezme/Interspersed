@@ -20,6 +20,14 @@ public class Checkpoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SaveData.instance == null) {
+            DoThisOnStart();
+        }
+        
+    }
+
+    public void DoThisOnStart() {
+        Debug.Log("Hello????/");
         if (SaveData.instance != null) {
             if (SaveData.hasLoaded && CheckpointManager.instance.currentCheckpointIndex == CheckpointManager.instance.checkpoints.IndexOf(this)) {
                 EnableThisCheckpoint();
@@ -34,7 +42,6 @@ public class Checkpoint : MonoBehaviour
                 SelectDefaultCheckpoint();
             }
         }
-        
     }
 
     void OnTriggerEnter(Collider other) {

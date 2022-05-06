@@ -42,24 +42,24 @@ public class WaveEventManager : MonoBehaviour
                     if (enemies.Count <= 0) {
                         if (currentWave >= waves.Length -1) {
                             hasEnded = true;
-                            Debug.Log("HAS ENDED");
                         }
                         else{        
-                            if (waves[currentWave].needsToDestroyGOAfterEachWave) {
-                                foreach (GameObject gO in waves[currentWave].objectsToDestroy) {
-                                    Destroy(gO);
-                                }
-                                currentWave++;
-                            }else { 
-                                for (int i = 0; i < enemiesCurrentWave.Count; i++) {
-                                    GameObject temp = enemiesCurrentWave[i];
-                                    enemiesCurrentWave.Remove(enemiesCurrentWave[i]);
-                                    Destroy(temp);
-                                }
-                                currentWave++;
-                                ActivateRifts();
+                            
+                        }
+                        if (waves[currentWave].needsToDestroyGOAfterEachWave) {
+                            foreach (GameObject gO in waves[currentWave].objectsToDestroy) {
+                                Destroy(gO);
                             }
-                        } 
+                            currentWave++;
+                        }else { 
+                            for (int i = 0; i < enemiesCurrentWave.Count; i++) {
+                                GameObject temp = enemiesCurrentWave[i];
+                                enemiesCurrentWave.Remove(enemiesCurrentWave[i]);
+                                Destroy(temp);
+                            }
+                            currentWave++;
+                            ActivateRifts();
+                        }
                     }
                 }
             }

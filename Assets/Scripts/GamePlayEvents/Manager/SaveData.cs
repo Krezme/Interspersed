@@ -38,7 +38,9 @@ public class SaveData : MonoBehaviour
             TriggerEventManagerAwakes();
             questMarkerController.targetTransform = FindFirstEnabledQuestMarkerTransform();
             checkpointManager.GetCheckPointFromSaveData();
-            MovePlayerToLastCheckPoint();
+            //MovePlayerToLastCheckPoint();
+        }else if (!needsLoading && !isInMenu) {
+            checkpointManager.GetCheckPointFromSaveData();
         }
     }
 
@@ -58,6 +60,7 @@ public class SaveData : MonoBehaviour
     
     public EventManager[] eventManagers;
     public CheckpointManager checkpointManager;
+    public ThirdPersonPlayerController thirdPersonPlayerController;
     public QuestMarkerController questMarkerController; //! This is because of script execution order Do not use the Singleton in this script
     public Transform[] questMarkerTransformsInOrder;
 
@@ -68,6 +71,11 @@ public class SaveData : MonoBehaviour
 
     [HideInInspector]
     public bool needsToMovePlayer;
+    [HideInInspector]
+    public bool hasLoadedCheckpoint;
+
+    private float timesTeleported;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -91,7 +99,6 @@ public class SaveData : MonoBehaviour
         currentEventsState = savedEventsState.DeepClone();
         PlayerStatisticsManager.instance.maxStatistics = savedPlayerStatistics.DeepClone();
         checkpointManager.currentCheckpointIndex = lastCheckpoint;
-        Debug.Log(checkpointManager.currentCheckpointIndex);
         needsLoading = false;
         hasLoaded = true;
     }
@@ -115,15 +122,25 @@ public class SaveData : MonoBehaviour
 
     public void MovePlayerToLastCheckPoint () {
         if (needsToMovePlayer) {
-            ThirdPersonPlayerController.instance.gameObject.transform.position = CheckpointManager.instance.checkpoints[lastCheckpoint].playerSpawnPos.position + CheckpointManager.instance.checkpoints[lastCheckpoint].offset;
-            needsToMovePlayer = false;
+            Debug.Log("needsToMovePlayer");
+            Debug.Log(thirdPersonPlayerController.gameObject.transform.position);
+            thirdPersonPlayerController.gameObject.transform.position = CheckpointManager.instance.checkpoints[lastCheckpoint].playerSpawnPos.position + CheckpointManager.instance.checkpoints[lastCheckpoint].offset;
+            Debug.Log(thirdPersonPlayerController.gameObject.transform.position);
+            if (timesTeleported >= 2) {
+                timesTeleported = 0;
+                needsToMovePlayer = false;
+                hasLoadedCheckpoint = false;
+            }else {
+                timesTeleported++;
+            }
         }
     }
+
+
 
     [ContextMenu("ReloadScene")]
     public void ReloadScene() {
         needsLoading = true;
-        Debug.Log(lastCheckpoint);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -150,6 +167,7 @@ public class SaveData : MonoBehaviour
 
     public void NeedsToLoad(bool state) {
         needsLoading = state;
+        needsToMovePlayer = state;
     }
 
     public void RestartSaveState() {

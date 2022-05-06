@@ -854,6 +854,10 @@ GameObject:
   - component: {fileID: 381686416}
   - component: {fileID: 381686426}
   - component: {fileID: 381686425}
+  - component: {fileID: 1554351880621792374}
+  - component: {fileID: 8878632530485299590}
+  - component: {fileID: 8514218537907609491}
+  - component: {fileID: 2745859729134857308}
   m_Layer: 0
   m_Name: Player saves Radio Announcer
   m_TagString: Untagged
@@ -928,14 +932,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 67
-    y: 70
-    width: 139.6
+    x: 368
+    y: 188
+    width: 147
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 0
-  blockName: Aftermath of RA
+  blockName: AnnouncerSaved
   description: 
   eventHandler: {fileID: 0}
   commandList:
@@ -945,6 +949,10 @@ MonoBehaviour:
   - {fileID: 381686421}
   - {fileID: 381686420}
   - {fileID: 381686419}
+  - {fileID: 1554351880621792374}
+  - {fileID: 8878632530485299590}
+  - {fileID: 8514218537907609491}
+  - {fileID: 2745859729134857308}
   - {fileID: 381686416}
   - {fileID: 381686426}
   - {fileID: 381686425}
@@ -963,19 +971,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  storyText: 'Radio Announcer: "Whew! Thanks for helping me out, I really owe you
-    one."'
+  storyText: 'Radio Announcer: "Whew! Thanks for helping me out me, I really owe
+    you one."'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 3b2e1d6c8c65ed0459ed35049958aecc, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &381686423
 MonoBehaviour:
@@ -996,14 +1004,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: d3d9c763f5f74b844a4e69c6694edc86, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &381686422
 MonoBehaviour:
@@ -1019,18 +1027,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 3
   indentLevel: 0
-  storyText: 'Abyssal Arm: "I wouldn''t trust him."'
+  storyText: 'Abyssal Arm: "I wouldn''t trust him if I was you..."'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 3e186bd6360eebc4ab0eb2b4f8df475e, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &381686421
 MonoBehaviour:
@@ -1046,19 +1054,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 4
   indentLevel: 0
-  storyText: 'Radio Announcer: "Hey easy there, friend! You saved my life; I was
-    spared the worst of the Abyssal''s attack by hiding in my radio hut, see?"'
+  storyText: 'Radio Announcer: "Hey easy there mate! You saved my life; I was spared
+    the worst of the Abyssal''s attack by hiding in my radio hut"'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 64563f155846c3d42be5f6be7ab992ad, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &381686420
 MonoBehaviour:
@@ -1074,18 +1082,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 5
   indentLevel: 0
-  storyText: 'Abyssal Arm: "Keep moving, he''s only slowing us down."'
+  storyText: 'Abyssal Arm: "Don''t listen to this babbling idiot! He''ll only slow
+    us down!"'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 4be3006f4b017004989e9fe13263dc9b, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &381686419
 MonoBehaviour:
@@ -1101,20 +1110,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 6
   indentLevel: 0
-  storyText: 'Radio Announcer: "Your arm sure has a mouth on him! Okay, tell ya''
-    what bud. Why don''t you let me help you out? ''Least I could do for you in thanks
-    for saving mu life."'
+  storyText: 'Radio Announcer: "Ah yeah there- uhh your arm yeah there- that little
+    arm there... he has a little mouth on that guy my dude... yeah you''ve got a
+    little guy on your arm dude my guy"'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 4a5fae33c8ec5f144bf70660871b987a, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &381686416
 MonoBehaviour:
@@ -1134,14 +1143,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 2d6de51cc6ee33a4784a26983bba3561, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &381686426
 MonoBehaviour:
@@ -1157,19 +1166,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 8
   indentLevel: 0
-  storyText: 'Radio Announcer: "Well, it just so happens being in this tower I''ve
-    gotten a lay of the land; I can guide you to where you need to go."'
+  storyText: 'Radio Announcer: "Well, just so happens that being in this tower and
+    all, I''ve got a lil lay of the land you see my lil guy; I can guide you to where
+    you need to go, Anywhere! anywhere you wanna go!"'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: cc519674042a6174aba3245163181ab4, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &381686425
 MonoBehaviour:
@@ -1189,14 +1199,125 @@ MonoBehaviour:
   description: 
   character: {fileID: 7617052610769141185}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 9c5ffb5b8dd517642b3e238dcbad341a, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &1554351880621792374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381686414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 10
+  indentLevel: 0
+  storyText: 'Radio Announcer: "You lil gi- lil guy... lilugilu- you''ve got a lil
+    arm on your guy! I mean... You''ve got a lil guy on your arm dude!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: ff8cb8eb33a28bb409b2a00297a8bb74, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &8878632530485299590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381686414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  indentLevel: 0
+  storyText: 'Radio Announcer: "Yes. I am aware of my arm."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 3b86f989ee6e2f34896567c9447d818a, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &8514218537907609491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381686414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  storyText: 'Radio Announcer: "Yeah, well I- umm... I tell you what my bud,  my
+    lil guy... Why don''t you uh, let me help you... I''ll help you out my guy!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 2ad5b4183060daf4a80738e765857dcc, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &2745859729134857308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381686414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 13
+  indentLevel: 0
+  storyText: 'Radio Announcer: "It''s uhh, yes it''s uh- the least I can do for you
+    fuckin'' helping me out! Right? For saving my life!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: d7cd89f353980f547b09e50e6f070239, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!1 &406881393
 GameObject:
@@ -1516,6 +1637,8 @@ GameObject:
   - component: {fileID: 950924928}
   - component: {fileID: 3214364704410167487}
   - component: {fileID: 2040798615984879196}
+  - component: {fileID: 2340474340421687307}
+  - component: {fileID: 5144515987264676410}
   m_Layer: 0
   m_Name: Player finds Power Generator (Unlocked Electric Arm)
   m_TagString: Untagged
@@ -1562,7 +1685,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 950924928}
+  - {fileID: 2340474340421687307}
   selectedCommands: []
   variables: []
   description: 
@@ -1659,6 +1782,60 @@ MonoBehaviour:
   waitForClick: 1
   stopVoiceover: 1
   waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &2340474340421687307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950924926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 306.5
+    y: 320.5
+    width: 170
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 5
+  blockName: GeneratorArmLocked
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 5144515987264676410}
+  suppressAllAutoSelections: 0
+--- !u!114 &5144515987264676410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950924926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "You blithering idiot! You must imbue me... with electrification!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: ae300c6a1484a9a42933fc36bccc5a1d, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!1 &999824062
 GameObject:
@@ -2103,7 +2280,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1543176817}
   selectedCommands:
-  - {fileID: 752084700}
+  - {fileID: 752084702}
   variables: []
   description: 
   stepPause: 0
@@ -2129,7 +2306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 100
+    x: 99
     y: 133
     width: 197
     height: 40
@@ -2285,7 +2462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 3
   indentLevel: 0
-  storyText: 'King Slug: "Now it''s time for me to obey mine..."'
+  storyText: 'King Slug: "Now it is time for me to obey mine..."'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -2987,6 +3164,106 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!1 &2729286585829691883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758624157985956392}
+  - component: {fileID: 6445424705669032978}
+  m_Layer: 0
+  m_Name: Abyssal Arm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &758624157985956392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729286585829691883}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5375921112967533533}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6445424705669032978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729286585829691883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Abyssal Arm
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 0}
+  portraits: []
+  portraitsFace: 0
+  setSayDialog: {fileID: 0}
+  description: 
+--- !u!1 &2732823416163899316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6765633314919622104}
+  - component: {fileID: 3672936291145755076}
+  m_Layer: 0
+  m_Name: Radio Announcer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6765633314919622104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2732823416163899316}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5375921112967533533}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3672936291145755076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2732823416163899316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Radio Announcer
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 0}
+  portraits: []
+  portraitsFace: 0
+  setSayDialog: {fileID: 0}
+  description: 
 --- !u!1 &2876071161154783327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3048,7 +3325,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 8966256611814989586}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 5506892002939686683}
   variables: []
   description: 
   stepPause: 0
@@ -3074,9 +3352,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 67
-    y: 70
-    width: 143.6
+    x: 393
+    y: 187
+    width: 140
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3108,14 +3386,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 0d8ad3650c405ad4288496fa3737cbdd, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1988759344851050552
 MonoBehaviour:
@@ -3136,14 +3414,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: d924715e9789a7a4eaf3caf312a97742, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &8799592983257921405
 MonoBehaviour:
@@ -3164,14 +3442,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 2323003e37294d646a01dd70e5d672e6, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
   fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!1 &3901694031153825340
 GameObject:
@@ -3877,6 +4155,56 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!1 &5699002477106733273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1681638817177354008}
+  - component: {fileID: 5356986958128002234}
+  m_Layer: 0
+  m_Name: Edward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1681638817177354008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699002477106733273}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5375921112967533533}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5356986958128002234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699002477106733273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Edward
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 0}
+  portraits: []
+  portraitsFace: 0
+  setSayDialog: {fileID: 0}
+  description: 
 --- !u!1 &6671826216093075604
 GameObject:
   m_ObjectHideFlags: 0
@@ -4348,6 +4676,67 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!1 &7258685864234516424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1556597452083025663}
+  - component: {fileID: 3014488970197008882}
+  - component: {fileID: 8330112401396574650}
+  m_Layer: 0
+  m_Name: Intro Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1556597452083025663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7258685864234516424}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.06, z: -0.97}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5375921112967533533}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3014488970197008882
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7258685864234516424}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8330112401396574650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7258685864234516424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23137eebeeaf6a7489ab48c0dd98d96a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowchart: {fileID: 5519171930795412067}
+  triggerName: 
+  blockName: Intro Trigger
+  player: {fileID: 0}
 --- !u!1 &7363224291639466706
 GameObject:
   m_ObjectHideFlags: 0
@@ -5243,6 +5632,7 @@ Transform:
   - {fileID: 1543176829}
   - {fileID: 345639110}
   - {fileID: 410462684203754492}
+  - {fileID: 5375921112967533533}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6670,16 +7060,6 @@ GameObject:
   - component: {fileID: 7617052612126495585}
   - component: {fileID: 7617052612126495599}
   - component: {fileID: 7617052612126495597}
-  - component: {fileID: 7617052612126495594}
-  - component: {fileID: 7617052612126495595}
-  - component: {fileID: 7617052612126495592}
-  - component: {fileID: 7617052612126495593}
-  - component: {fileID: 7617052612126495509}
-  - component: {fileID: 7617052612126495589}
-  - component: {fileID: 7617052612126495588}
-  - component: {fileID: 1669769992}
-  - component: {fileID: 1669769991}
-  - component: {fileID: 1669769998}
   - component: {fileID: 997684689}
   - component: {fileID: 997684687}
   - component: {fileID: 997684686}
@@ -6696,55 +7076,26 @@ GameObject:
   - component: {fileID: 997684675}
   - component: {fileID: 997684674}
   - component: {fileID: 997684673}
-  - component: {fileID: 997684690}
-  - component: {fileID: 421069204}
-  - component: {fileID: 421069206}
-  - component: {fileID: 421069207}
-  - component: {fileID: 421069208}
-  - component: {fileID: 421069209}
-  - component: {fileID: 421069210}
-  - component: {fileID: 421069211}
-  - component: {fileID: 421069212}
-  - component: {fileID: 421069213}
-  - component: {fileID: 421069214}
-  - component: {fileID: 421069215}
-  - component: {fileID: 421069216}
-  - component: {fileID: 421069217}
-  - component: {fileID: 421069218}
-  - component: {fileID: 421069219}
-  - component: {fileID: 421069220}
-  - component: {fileID: 421069221}
-  - component: {fileID: 421069222}
-  - component: {fileID: 421069223}
-  - component: {fileID: 421069224}
-  - component: {fileID: 421069225}
-  - component: {fileID: 421069226}
-  - component: {fileID: 421069227}
-  - component: {fileID: 421069228}
-  - component: {fileID: 421069229}
-  - component: {fileID: 421069230}
   - component: {fileID: 421069190}
-  - component: {fileID: 604663026}
-  - component: {fileID: 604663027}
-  - component: {fileID: 604663028}
-  - component: {fileID: 604663029}
-  - component: {fileID: 604663030}
-  - component: {fileID: 604663031}
-  - component: {fileID: 604663032}
-  - component: {fileID: 604663033}
-  - component: {fileID: 604663034}
-  - component: {fileID: 604663035}
-  - component: {fileID: 604663036}
-  - component: {fileID: 604663037}
-  - component: {fileID: 604663038}
-  - component: {fileID: 604663039}
+  - component: {fileID: 604663011}
+  - component: {fileID: 604662970}
+  - component: {fileID: 604662969}
+  - component: {fileID: 604662968}
+  - component: {fileID: 604662967}
+  - component: {fileID: 604662972}
+  - component: {fileID: 604662971}
+  - component: {fileID: 604662974}
+  - component: {fileID: 604662973}
+  - component: {fileID: 604662976}
+  - component: {fileID: 604662975}
+  - component: {fileID: 604662996}
   m_Layer: 0
   m_Name: Game Intro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7617052612126495587
 Transform:
   m_ObjectHideFlags: 0
@@ -6789,7 +7140,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 7617052612126495508}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 604662976}
   variables: []
   description: 
   stepPause: 0
@@ -6826,60 +7178,20 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 421069190}
   commandList:
-  - {fileID: 7617052612126495588}
-  - {fileID: 421069218}
-  - {fileID: 604663038}
+  - {fileID: 604662996}
   - {fileID: 7617052612126495585}
-  - {fileID: 421069217}
-  - {fileID: 604663037}
-  - {fileID: 421069230}
   - {fileID: 7617052612126495599}
-  - {fileID: 421069216}
-  - {fileID: 604663036}
-  - {fileID: 421069229}
   - {fileID: 7617052612126495597}
-  - {fileID: 421069215}
-  - {fileID: 604663035}
-  - {fileID: 421069228}
-  - {fileID: 7617052612126495594}
-  - {fileID: 421069214}
-  - {fileID: 604663034}
-  - {fileID: 421069227}
-  - {fileID: 7617052612126495595}
-  - {fileID: 421069213}
-  - {fileID: 604663033}
-  - {fileID: 421069226}
-  - {fileID: 7617052612126495592}
-  - {fileID: 421069212}
-  - {fileID: 604663032}
-  - {fileID: 421069225}
-  - {fileID: 1669769992}
-  - {fileID: 421069211}
-  - {fileID: 604663031}
-  - {fileID: 421069224}
-  - {fileID: 1669769998}
-  - {fileID: 421069210}
-  - {fileID: 604663030}
-  - {fileID: 421069223}
-  - {fileID: 1669769991}
-  - {fileID: 421069209}
-  - {fileID: 604663029}
-  - {fileID: 421069222}
-  - {fileID: 7617052612126495593}
-  - {fileID: 421069208}
-  - {fileID: 604663028}
-  - {fileID: 421069221}
-  - {fileID: 7617052612126495509}
-  - {fileID: 421069207}
-  - {fileID: 604663027}
-  - {fileID: 421069220}
-  - {fileID: 7617052612126495589}
-  - {fileID: 421069206}
-  - {fileID: 604663026}
-  - {fileID: 421069219}
-  - {fileID: 997684690}
-  - {fileID: 421069204}
-  - {fileID: 604663039}
+  - {fileID: 604662970}
+  - {fileID: 604662969}
+  - {fileID: 604662968}
+  - {fileID: 604662967}
+  - {fileID: 604662972}
+  - {fileID: 604662971}
+  - {fileID: 604662974}
+  - {fileID: 604662973}
+  - {fileID: 604662976}
+  - {fileID: 604662975}
   suppressAllAutoSelections: 0
 --- !u!114 &7617052612126495585
 MonoBehaviour:
@@ -6899,14 +7211,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: d694cadb292edb54bbbce5653bd82e84, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &7617052612126495599
 MonoBehaviour:
@@ -6926,14 +7238,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: cd4c6e4338091994f90990c14a044b30, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &7617052612126495597
 MonoBehaviour:
@@ -6953,289 +7265,14 @@ MonoBehaviour:
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 51a3d02892bd4244492bbd447ecee68d, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &7617052612126495594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 7
-  indentLevel: 0
-  storyText: 'Edward: "Wh- What is this?"'
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &7617052612126495595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 8
-  indentLevel: 0
-  storyText: 'Abyssal Arm: "It seems you are my host. Do you remember what happened?"'
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &7617052612126495592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 9
-  indentLevel: 0
-  storyText: "Edward: \"No, I don\u2019t...\""
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &7617052612126495593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 10
-  indentLevel: 0
-  storyText: "Abyssal Arm: \"Well... you shouldn\u2019t. But I\u2019m your only chance
-    of getting out alive...\""
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &7617052612126495509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 13
-  indentLevel: 0
-  storyText: 'Edward: "Oh yeah so funny for you isn''t it? But I suppose I don''t
-    have any choice in the matter now..." '
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &7617052612126495589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 14
-  indentLevel: 0
-  storyText: 'Edward: "Please, point me in the right direction... and no funny business!"'
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &7617052612126495588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 16
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 7617052611287518347}
-  targetComponentAssemblyName: FungusPlayerRestricter, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: FungusPlayerRestricter
-  targetMethod: RestrictPlayerForFungus
-  targetMethodText: 'RestrictPlayerForFungus (): Void'
-  methodParameters: []
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &1669769992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 18
-  indentLevel: 0
-  storyText: "Edward: \"This is crazy. This is crazy... I\u2019m talking to my arm!\""
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &1669769991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 19
-  indentLevel: 0
-  storyText: "Edward: \"Why should I even trust you? I don\u2019t even know you -
-    or what - you are!\""
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &1669769998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 20
-  indentLevel: 0
-  storyText: 'Abyssal Arm: "Well it''s a new experience for me also, but now''s not
-    the time to dwell, We have things to do.." '
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &997684689
 MonoBehaviour:
@@ -7686,636 +7723,6 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
---- !u!114 &997684690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 40
-  indentLevel: 0
-  storyText: 'Abyssal Arm: "As you wish... Best we move forward then..."'
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &421069204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 67
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 7617052611287518347}
-  targetComponentAssemblyName: FungusPlayerRestricter, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: FungusPlayerRestricter
-  targetMethod: ReleasePlayerAfterFungus
-  targetMethodText: 'ReleasePlayerAfterFungus (): Void'
-  methodParameters: []
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &421069206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 68
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 69
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 70
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 71
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 72
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 73
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 74
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 75
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 76
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 77
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 78
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 79
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 80
-  indentLevel: 0
-  control: 0
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 81
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 82
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 83
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 84
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 85
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 86
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 87
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 88
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 89
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 90
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 91
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &421069230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 92
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
 --- !u!114 &421069190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8331,7 +7738,7 @@ MonoBehaviour:
   parentBlock: {fileID: 7617052612126495508}
   suppressBlockAutoSelect: 0
   waitForFrames: 1
---- !u!114 &604663026
+--- !u!114 &604663011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8340,43 +7747,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: f8ee1b6d68c66354aa6279595af64d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 107
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 1
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663027
+  eventIndex: 10
+--- !u!114 &604662970
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8385,43 +7760,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 108
+  itemId: 40
   indentLevel: 0
+  storyText: 'Edward: "Wh- What is this?"'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663028
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 6f169055f0fd8654aa98319c14c3ef95, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8430,43 +7787,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 109
+  itemId: 41
   indentLevel: 0
+  storyText: 'Abyssal Arm: "It seems you are my host... Do you remember what happened?"'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663029
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 20accecf31e71434faa63522becea135, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8475,43 +7814,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 110
+  itemId: 42
   indentLevel: 0
+  storyText: 'Edward: "No I- dont..."'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 1
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663030
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 05e1a4f8bf637a74b896b27abe5f4280, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8520,43 +7841,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 111
+  itemId: 43
   indentLevel: 0
+  storyText: 'Edward: "This is crazy... This is crazy, I''m talking to my arm"'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663031
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: fd31e6b19a50ab74c99cea56ed631aca, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8565,43 +7868,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 112
+  itemId: 44
   indentLevel: 0
+  storyText: 'Abyssal Arm: "Well it''s a new experience for me also... by now is
+    now the time to dwell... We have things to do..."'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 1
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663032
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 36f159785ee352441bc5a4bc6da4002a, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8610,43 +7896,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 113
+  itemId: 45
   indentLevel: 0
+  storyText: 'Edward: "Why should I even trust you? I don''t even know you... or
+    what- you are!"'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663033
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 9655030a4dceb7441b15723f31a57f05, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8655,43 +7924,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 114
+  itemId: 46
   indentLevel: 0
+  storyText: 'Abyssal Arm: "Well, you shouldn''t! But I''m your only chance of getting
+    out of here alive..."'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663034
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 24d56934e62d1854cbc36611e2fcbbd0, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8700,43 +7952,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 115
+  itemId: 47
   indentLevel: 0
+  storyText: 'Edward: "Oh yeah so funny for you isn''t it! But I suppose I don''t
+    have any choice in the matter now..."'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 1
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663035
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 3c85266b8a0a2ef42b8ce80b3c1ebb4c, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8745,43 +7980,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 116
+  itemId: 48
   indentLevel: 0
+  storyText: 'Edward: "Please, point me in the right direction... and no funny bussiness!"'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663036
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: dac62f15a63d147449457221f7e23a5d, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662975
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8790,43 +8007,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 117
+  itemId: 49
   indentLevel: 0
+  storyText: 'Abyssal Arm: "As you wish... Best we more forward then..."'
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 1
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663037
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 404487c995278d6419feb81d5a553f67, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &604662996
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8835,129 +8034,344 @@ MonoBehaviour:
   m_GameObject: {fileID: 7617052612126495507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 118
+  itemId: 50
   indentLevel: 0
-  description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663038
+  control: 0
+  _audioSource:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 0}
+  startVolume: 1
+  endVolume: 1
+  fadeDuration: 0
+  waitUntilFinished: 0
+  audioSourceOLD: {fileID: 0}
+--- !u!1 &8878896381557056852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5375921112967533533}
+  - component: {fileID: 5519171930795412067}
+  - component: {fileID: 507066413514235952}
+  - component: {fileID: 7193930245773060730}
+  - component: {fileID: 5388992656112760973}
+  - component: {fileID: 583303100691847767}
+  - component: {fileID: 7436025298378380199}
+  - component: {fileID: 4036300627710028540}
+  - component: {fileID: 6241674328712328356}
+  - component: {fileID: 5235347590848701255}
+  - component: {fileID: 8433345728222723795}
+  - component: {fileID: 8867666240315499144}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5375921112967533533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1681638817177354008}
+  - {fileID: 758624157985956392}
+  - {fileID: 1556597452083025663}
+  - {fileID: 6765633314919622104}
+  m_Father: {fileID: 7617052611287518349}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5519171930795412067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
+  m_GameObject: {fileID: 8878896381557056852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 119
-  indentLevel: 0
+  version: 1
+  scrollPos: {x: 195.5, y: 119.5}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
+  blockViewHeight: 576
+  zoom: 1
+  scrollViewRect:
+    serializedVersion: 2
+    x: -343
+    y: -340
+    width: 1114
+    height: 859
+  selectedBlocks:
+  - {fileID: 6241674328712328356}
+  selectedCommands:
+  - {fileID: 8867666240315499144}
+  variables: []
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 1
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
---- !u!114 &604663039
+  stepPause: 0
+  colorCommands: 1
+  hideComponents: 1
+  saveSelection: 1
+  localizationId: 
+  showLineNumbers: 0
+  hideCommands: []
+  luaEnvironment: {fileID: 0}
+  luaBindingName: flowchart
+--- !u!114 &507066413514235952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617052612126495507}
+  m_GameObject: {fileID: 8878896381557056852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 120
-  indentLevel: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 153.5
+    y: 68.5
+    width: 204
+    height: 40
+  tint: {r: 1, g: 0.6131327, b: 0, a: 1}
+  useCustomTint: 1
+  itemId: 14
+  blockName: ThunderRockElectricShock
   description: 
-  targetObject: {fileID: 0}
-  targetComponentAssemblyName: CrystalArmTalkFlickerTrigger, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: CrystalArmTalkFlickerTrigger
-  targetMethod: FlickerTriggerToggle
-  targetMethodText: 'FlickerTriggerToggle (Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
+  eventHandler: {fileID: 5388992656112760973}
+  commandList:
+  - {fileID: 7193930245773060730}
+  suppressAllAutoSelections: 0
+--- !u!114 &7193930245773060730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 7
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "AHH! That tower just shocked me... and it felt goooood!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 057ba1462f7eaa14aad48d1bae60c120, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &5388992656112760973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98f5f89242e80d42865cdf1912beda3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 507066413514235952}
+  suppressBlockAutoSelect: 0
+  tagFilter: []
+  FireOn: 1
+  colliderVar: {fileID: 0}
+--- !u!114 &583303100691847767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 163
+    y: 163
+    width: 184
+    height: 40
+  tint: {r: 1, g: 0.6131327, b: 0, a: 1}
+  useCustomTint: 1
+  itemId: 20
+  blockName: ThunderRockJumpStart
+  description: 
+  eventHandler: {fileID: 4036300627710028540}
+  commandList:
+  - {fileID: 7436025298378380199}
+  suppressAllAutoSelections: 0
+--- !u!114 &7436025298378380199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 16
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "Try re-channeling that energy I just absorbed to jump-start
+    that generator!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: bcce7465632db0240989b8f9e5f5ac0a, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &4036300627710028540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98f5f89242e80d42865cdf1912beda3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 583303100691847767}
+  suppressBlockAutoSelect: 0
+  tagFilter: []
+  FireOn: 1
+  colliderVar: {fileID: 0}
+--- !u!114 &6241674328712328356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 169
+    y: 265
+    width: 173
+    height: 40
+  tint: {r: 1, g: 0.6131327, b: 0, a: 1}
+  useCustomTint: 1
+  itemId: 21
+  blockName: ThunderRockFinished
+  description: 
+  eventHandler: {fileID: 8433345728222723795}
+  commandList:
+  - {fileID: 5235347590848701255}
+  - {fileID: 8867666240315499144}
+  suppressAllAutoSelections: 0
+--- !u!114 &5235347590848701255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 18
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "Ooo yes... OHH YES!!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 128164014512c3648ab4bf7c44533a94, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &8433345728222723795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98f5f89242e80d42865cdf1912beda3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 6241674328712328356}
+  suppressBlockAutoSelect: 0
+  tagFilter: []
+  FireOn: 1
+  colliderVar: {fileID: 0}
+--- !u!114 &8867666240315499144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878896381557056852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 19
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "I came here to absorb energy and kill warplings... and
+    I''m all out of warplings!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 52c3d3fb372f83140a4a990d443d09b6, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}

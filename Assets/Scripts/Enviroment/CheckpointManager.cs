@@ -17,11 +17,12 @@ public class CheckpointManager : MonoBehaviour
         }else {
             instance = this;
         }
-
-        if (checkpoints.Count <= 0) {
-            
-            checkpoints = new List<Checkpoint>(FindObjectsOfType<Checkpoint>());
-            checkpoints = checkpoints.OrderBy(go => go.transform.position.x + go.transform.position.z).ToList();
+        if (SaveData.instance == null) {
+            if (checkpoints.Count <= 0) {
+                
+                checkpoints = new List<Checkpoint>(FindObjectsOfType<Checkpoint>());
+                checkpoints = checkpoints.OrderBy(go => go.transform.position.x + go.transform.position.z).ToList();
+            }
         }
     }
 
@@ -38,10 +39,20 @@ public class CheckpointManager : MonoBehaviour
 
     public void GetCheckPointFromSaveData () {
         if (SaveData.instance != null) {
+            if (checkpoints.Count <= 0) {
+                checkpoints = new List<Checkpoint>(FindObjectsOfType<Checkpoint>());
+                checkpoints = checkpoints.OrderBy(go => go.transform.position.x + go.transform.position.z).ToList();
+            }
             if (SaveData.hasLoaded) {
                 currentCheckpointIndex = SaveData.lastCheckpoint;
                 checkpoints[currentCheckpointIndex].EnableThisCheckpoint();
                 SaveData.instance.needsToMovePlayer = true;
+            }
+            for (int i = 0; i < checkpoints.Count; i++) {
+                checkpoints[i].DoThisOnStart();
+            }
+            if (SaveData.instance.needsToMovePlayer) {
+                SaveData.instance.hasLoadedCheckpoint = true;
             }
         }
     }
