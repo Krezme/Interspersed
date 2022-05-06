@@ -24,11 +24,8 @@ public class OptionsMenu : MonoBehaviour
 
     public Toggle sprintToggle, walkToggle;
 
-    public GameObject backButton;
-
     void Start()
     {
-        EventSystem.current.SetSelectedGameObject(backButton);
 
         ///Setting the resolutions at the start
         resolutions = Screen.resolutions;

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -22,10 +23,16 @@ public class PauseMenu : MonoBehaviour
 
     private float TransitionTime = 0.01f;
 
+    public GameObject resumeButton;
+
+    public GameObject optionBackButton;
+    public GameObject controlsBackButton;
+
 
     // Start is called before the first frame update
     void Start()
     {
+
         hudCanvas.SetActive(true);
         pauseMenuCanvas.SetActive(false);
 
@@ -85,18 +92,21 @@ public class PauseMenu : MonoBehaviour
 
     public void Options()
     {
+        EventSystem.current.SetSelectedGameObject(optionBackButton);
         optionsMenuCanvas.SetActive(true);
         pauseMenuCanvas.SetActive(false);
     }
 
     public void Controls()
     {
+        EventSystem.current.SetSelectedGameObject(controlsBackButton);
         controlsMenuCanvas.SetActive(true);
         pauseMenuCanvas.SetActive(false);
     }
 
     public void BackToPauseMenu()
     {
+        EventSystem.current.SetSelectedGameObject(resumeButton);
         pauseMenuCanvas.SetActive(true);
         controlsMenuCanvas.SetActive(false);
         optionsMenuCanvas.SetActive(false);

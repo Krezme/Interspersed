@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     public GameObject cutScene4;
     public GameObject cutScene5;
 
-    public GameObject startButton, controlsBackButton, optionsBackButton, creditsBackButton;
+    public GameObject startButton, controlsBackButton, optionsBackButton;
 
     void Start()
     {
@@ -99,7 +99,6 @@ public class MainMenu : MonoBehaviour
 
     public void Credits()
     {
-        EventSystem.current.SetSelectedGameObject(creditsBackButton);
         SceneManager.LoadScene("Credits");
     }
 
