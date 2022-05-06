@@ -526,6 +526,15 @@ GameObject:
   - component: {fileID: 229194625462918064}
   - component: {fileID: 375344259405741792}
   - component: {fileID: 8293794075574813900}
+  - component: {fileID: 9176717096698594111}
+  - component: {fileID: 6027111746098720665}
+  - component: {fileID: 1856697367205386455}
+  - component: {fileID: 7218264783861605928}
+  - component: {fileID: 807339856375051843}
+  - component: {fileID: 8068284640855755987}
+  - component: {fileID: 3933593764799224783}
+  - component: {fileID: 876029852924561856}
+  - component: {fileID: 420616630251418894}
   m_Layer: 0
   m_Name: Arm hints towards Radio Tower
   m_TagString: Untagged
@@ -560,11 +569,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 16.144339, y: 7.7319613}
+  scrollPos: {x: 95.08768, y: 62.211365}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.97
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -572,8 +581,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 345639112}
-  selectedCommands: []
+  - {fileID: 9176717096698594111}
+  selectedCommands:
+  - {fileID: 420616630251418894}
   variables: []
   description: 
   stepPause: 0
@@ -601,7 +611,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 63
     y: 73
-    width: 178.86598
+    width: 175
     height: 40
   tint: {r: 1, g: 0.8673225, b: 0, a: 1}
   useCustomTint: 1
@@ -783,6 +793,257 @@ MonoBehaviour:
   waitForClick: 1
   stopVoiceover: 1
   waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &9176717096698594111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 343.3917
+    y: 356.28864
+    width: 116
+    height: 40
+  tint: {r: 1, g: 0.8673225, b: 0, a: 1}
+  useCustomTint: 1
+  itemId: 16
+  blockName: CliffRichard
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 6027111746098720665}
+  - {fileID: 1856697367205386455}
+  - {fileID: 7218264783861605928}
+  - {fileID: 807339856375051843}
+  - {fileID: 8068284640855755987}
+  - {fileID: 3933593764799224783}
+  - {fileID: 876029852924561856}
+  - {fileID: 420616630251418894}
+  suppressAllAutoSelections: 0
+--- !u!114 &6027111746098720665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 8
+  indentLevel: 0
+  storyText: "Edward: \u201CHmm, I wonder... How can I get to that tower over there?\u201D "
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: f30b752095b18ac4694b2d8b7858d5c3, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &1856697367205386455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 9
+  indentLevel: 0
+  storyText: "Abyssal Arm: \u201CWhy don't you try doing a bit of D-I-E ?\u201D "
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: a1bdcf41486d2654084596f821761a4c, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &7218264783861605928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 10
+  indentLevel: 0
+  storyText: "Edward: \u201CDidn't you mean to say D-I-Y ?\u201D "
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 47e21439115e8574d975f0c8f17e657f, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &807339856375051843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "No... I meant, Do-It-Exactly as I tell you!" '
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 9d6227086855ed449b0637a6019f240e, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &8068284640855755987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  storyText: "Abyssal Arm: \u201CNow build, my dim-witted flesh-bag... Haven't you
+    ever played Jenga before?\u201D "
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 724fbe885ff7275438eddb6a9b56754b, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &3933593764799224783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 13
+  indentLevel: 0
+  storyText: 'Edward: "What if I haven''t?"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 8e4d1c7716662f047b4c3be3d6df34b6, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &876029852924561856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 14
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "What if I haven''t?"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 8e4d1c7716662f047b4c3be3d6df34b6, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &420616630251418894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345639109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 15
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "You pre-pubescent Warpling turd of a man..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: a158c6492307a114195c88eabd0368fa, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!1 &366927887
 GameObject:
@@ -1640,7 +1901,7 @@ GameObject:
   - component: {fileID: 2340474340421687307}
   - component: {fileID: 5144515987264676410}
   m_Layer: 0
-  m_Name: Player finds Power Generator (Unlocked Electric Arm)
+  m_Name: Player finds Power Generator (Locked Electric Arm)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3468,6 +3729,14 @@ GameObject:
   - component: {fileID: 8837436503206849712}
   - component: {fileID: 3503090506480951497}
   - component: {fileID: 4261263106108142735}
+  - component: {fileID: 3766819745601975659}
+  - component: {fileID: 2030034120057843077}
+  - component: {fileID: 5210066934901040906}
+  - component: {fileID: 1410697077784776246}
+  - component: {fileID: 4063261000445119211}
+  - component: {fileID: 2074148034290458036}
+  - component: {fileID: 9178615087706541407}
+  - component: {fileID: 7101601643235822665}
   m_Layer: 0
   m_Name: 'Player Activates Power Generator '
   m_TagString: Untagged
@@ -3514,8 +3783,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 8554915647458624969}
-  selectedCommands: []
+  - {fileID: 3766819745601975659}
+  selectedCommands:
+  - {fileID: 2074148034290458036}
   variables: []
   description: 
   stepPause: 0
@@ -3543,7 +3813,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 66
     y: 72
-    width: 146.8
+    width: 145
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3724,6 +3994,233 @@ MonoBehaviour:
   waitForClick: 1
   stopVoiceover: 1
   waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &3766819745601975659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901694031153825340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 246
+    y: 266.5
+    width: 160
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 16
+  blockName: GeneratorActivated
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 2030034120057843077}
+  - {fileID: 5210066934901040906}
+  - {fileID: 1410697077784776246}
+  - {fileID: 9178615087706541407}
+  - {fileID: 7101601643235822665}
+  - {fileID: 4063261000445119211}
+  - {fileID: 2074148034290458036}
+  suppressAllAutoSelections: 0
+--- !u!114 &2030034120057843077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901694031153825340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 9
+  indentLevel: 0
+  storyText: "Abyssal Arm: \"What? Don\u2019t look at me like that! Haven't I been
+    nothing but cordial and helpful so far?\""
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: caf86e41cb98ffe4b85d62adc344e27b, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &5210066934901040906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901694031153825340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 10
+  indentLevel: 0
+  storyText: 'Edward: "I don''t understand why..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: ead03c876d6e8d34faf9f78e5aef1025, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &1410697077784776246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901694031153825340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "Oh I have my reasons..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: f74cf5f57b9cfb84fb7890b1e07bb867, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &4063261000445119211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901694031153825340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  storyText: 'Edward: "What''s stopping me from just cutting you off with the next
+    axe I find?"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 4d7110fe977668d42b147729053926b1, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &2074148034290458036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901694031153825340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 13
+  indentLevel: 0
+  storyText: "Abyssal Arm: \"We are linked... whether you like it or not, if you
+    damage me, you\u2019ll feel it too.\""
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: d983d0d2e7466b6479e5f29b78d1d8ee, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &9178615087706541407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901694031153825340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 14
+  indentLevel: 0
+  storyText: 'Edward: "I must be going crazy... this isn''t real... I''m talking
+    to my crystal arm!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: f74cf5f57b9cfb84fb7890b1e07bb867, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &7101601643235822665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901694031153825340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 15
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "Come on now, host, keep moving, I promise to keep you
+    alive once all this is over..."'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 9a568feaeb72c804a8050aae78074ac4, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!1 &4257666576041405340
 GameObject:
@@ -4218,8 +4715,11 @@ GameObject:
   - component: {fileID: 6170438864820903807}
   - component: {fileID: 6822740849809146858}
   - component: {fileID: 1707146334621312309}
+  - component: {fileID: 692988752}
+  - component: {fileID: 692988751}
+  - component: {fileID: 692988750}
   m_Layer: 0
-  m_Name: Player Finds Power Generator (Locked Electric Arm)
+  m_Name: Player Finds Power Generator (Unlocked Electric Arm)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4264,8 +4764,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 6170438864820903807}
-  selectedCommands: []
+  - {fileID: 692988752}
+  selectedCommands:
+  - {fileID: 692988750}
   variables: []
   description: 
   stepPause: 0
@@ -4291,8 +4792,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 68
-    y: 71
+    x: 287
+    y: 193
     width: 240
     height: 40
   tint: {r: 1, g: 0.907551, b: 0, a: 1}
@@ -4362,6 +4863,89 @@ MonoBehaviour:
   waitForClick: 1
   stopVoiceover: 1
   waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &692988752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6671826216093075604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 377.5
+    y: 418.5
+    width: 128
+    height: 40
+  tint: {r: 1, g: 0.907551, b: 0, a: 1}
+  useCustomTint: 1
+  itemId: 6
+  blockName: SeeGenerator
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 692988751}
+  - {fileID: 692988750}
+  suppressAllAutoSelections: 0
+--- !u!114 &692988751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6671826216093075604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "There! Activate that generator with your electrical charge!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 4f07914caa4e9e8469ee26ba27ae9610, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 0
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &692988750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6671826216093075604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 5
+  indentLevel: 0
+  storyText: 'Abyssal Arm: "It''ll restore the island''s gravitation pull and shift
+    those 2 islands back in place to give your little corporeal form a bridge!"'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 671d3460f238ac347850c30f3cc2c15d, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
   setSayDialog: {fileID: 0}
 --- !u!1 &7094692359171940966
 GameObject:
