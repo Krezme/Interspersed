@@ -33,8 +33,6 @@ public class FlowchartTrigger : MonoBehaviour
         }
     }
 
-
-
     void OnTriggerEnter(UnityEngine.Collider collider)
     {
         //hasleft is used to check that the player jhas left the trigger box before triggering it again

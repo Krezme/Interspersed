@@ -76,7 +76,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5348866509153871613}
-  - component: {fileID: 8157387146071704865}
   - component: {fileID: 6717176028323532566}
   - component: {fileID: 7133237878836859773}
   m_Layer: 2
@@ -100,19 +99,6 @@ Transform:
   m_Father: {fileID: 6381423064977643887}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8157387146071704865
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5963002554599775175}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 550
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6717176028323532566
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -255,7 +241,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8157387146071704865}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
