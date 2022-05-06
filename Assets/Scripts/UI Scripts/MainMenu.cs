@@ -20,6 +20,8 @@ public class MainMenu : MonoBehaviour
 
     public GameObject startButton, controlsBackButton, optionsBackButton;
 
+    public GameObject next1, next2, next3, next4, next5;
+
     void Start()
     {
         EventSystem.current.SetSelectedGameObject(startButton);
@@ -65,6 +67,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void LoadCutScene1() {
         SceneManager.LoadScene("CutScene1");
+        EventSystem.current.SetSelectedGameObject(next1);
     }
     
     public void LoadCutScene6() {
@@ -112,21 +115,25 @@ public class MainMenu : MonoBehaviour
 
     public void ToggleCS2()
     {
+        EventSystem.current.SetSelectedGameObject(next2);
         cutScene1.SetActive(false);
         cutScene2.SetActive(true);
     }
     public void ToggleCS3()
     {
+        EventSystem.current.SetSelectedGameObject(next3);
         cutScene2.SetActive(false);
         cutScene3.SetActive(true);
     }
     public void ToggleCS4()
     {
+        EventSystem.current.SetSelectedGameObject(next4);
         cutScene3.SetActive(false);
         cutScene4.SetActive(true);
     }
     public void ToggleCS5()
     {
+        EventSystem.current.SetSelectedGameObject(next5);
         cutScene4.SetActive(false);
         cutScene5.SetActive(true);
     }
