@@ -208,10 +208,8 @@ public class SlimeArm : PlayerAbility
                 else {
                     if (PlayerAbilitiesController.instance.isAbilityActive) {
                         
-                        Debug.Log(PlayerAbilitiesController.instance.isAbilityActive + " 0");
                         LetGoOffTheObject();
                         RestartGrabbedState();
-                        Debug.Log(PlayerAbilitiesController.instance.isAbilityActive + " 1");
                         
                     }
                 }
@@ -360,6 +358,8 @@ public class SlimeArm : PlayerAbility
     }
 
     private void RestartGrabbedState(){
+        FadeIn.SetActive(false);
+        FadeOut.SetActive(true);
         PlayerAbilitiesController.instance.isAbilityActive = false;
         grabbedRB = null;
         grabbedRagdoll = null;

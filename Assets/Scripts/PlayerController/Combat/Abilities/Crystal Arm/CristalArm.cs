@@ -313,6 +313,9 @@ public class CristalArm : PlayerAbility
                 GameObject bullet = Instantiate(currentBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 BulletProjectile newBulletProjectile = bullet.GetComponent<BulletProjectile>();
                 newBulletProjectile.statistics.damage = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsDamage[(int)currentChargeStage];
+                if (statistics.isElectric) {
+                    newBulletProjectile.statistics.damage += PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.electricDamageAddition;
+                }
                 newBulletProjectile.statistics.chargeStage = currentChargeStage;
                 newBulletProjectile.statistics.speed = PlayerStatisticsManager.instance.currentStatistics.combatStatistics.crystalArmStats.chargeShotsSpeed[(int)currentChargeStage];
                 newBulletProjectile.statistics.isElectric = statistics.isElectric; // setting the projectile to electric 
@@ -325,6 +328,7 @@ public class CristalArm : PlayerAbility
                         //audioSource.PlayOneShot(ElectricShot);
                         Electric.PlayRandomClip();
                         electricIdle.Pause();
+                        IsHold = false;
                     }
 
                 }
