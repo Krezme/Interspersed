@@ -1513,7 +1513,6 @@ GameObject:
   - component: {fileID: 1698843430}
   - component: {fileID: 1698843432}
   - component: {fileID: 1698843431}
-  - component: {fileID: 4291254733933926806}
   m_Layer: 2
   m_Name: 'See Generator - Trigger '
   m_TagString: EventTriggers
@@ -1626,25 +1625,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Fungus.Flowchart, Fungus
+        m_MethodName: ExecuteBlock
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SeeGenerator
+          m_BoolArgument: 1
+        m_CallState: 2
   OnExit:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4291254733933926806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698843429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23137eebeeaf6a7489ab48c0dd98d96a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flowchart: {fileID: 0}
-  triggerName: SeeGenerator
-  blockName: SeeGenerator
-  player: {fileID: 0}
 --- !u!1 &1705501775
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,7 +2830,6 @@ GameObject:
   - component: {fileID: 4771683047751083886}
   - component: {fileID: 3200654808586562803}
   - component: {fileID: 3686202044975242150}
-  - component: {fileID: 817842536842792176}
   m_Layer: 2
   m_Name: 'Need Electric - Trigger '
   m_TagString: EventTriggers
@@ -2936,25 +2930,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Fungus.Flowchart, Fungus
+        m_MethodName: ExecuteBlock
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GeneratorArmLocked
+          m_BoolArgument: 0
+        m_CallState: 2
   OnExit:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &817842536842792176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2237266237902390341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23137eebeeaf6a7489ab48c0dd98d96a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flowchart: {fileID: 0}
-  triggerName: GeneratorArmLocked
-  blockName: GeneratorArmLocked
-  player: {fileID: 0}
 --- !u!1 &4370579488796565806
 GameObject:
   m_ObjectHideFlags: 0
