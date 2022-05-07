@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 5963289772953553423}
   - component: {fileID: 8782126351424128419}
   - component: {fileID: 3234107748590943800}
-  - component: {fileID: 3234107748590943782}
-  - component: {fileID: 3234107748590943783}
   m_Layer: 2
   m_Name: IntroPortal
   m_TagString: EventTriggers
@@ -30,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 779757732118725527}
-  m_LocalRotation: {x: 0.49999973, y: 0.5000005, z: -0.50000036, w: 0.49999955}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 366.30704, y: 11.021129, z: 182.38803}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -99,8 +97,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5924138822915904487, guid: 31aebf588b2608e4d89ebdb64b43369f,
     type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: a2c2b22080f4a814296ecdbea96d1cbc, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
@@ -217,44 +215,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3234107748590943782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779757732118725527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7364b126541aab34882e12dfce28b3ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 1
-  maxPitch: 1
-  playDelay: 5
-  defaultBank:
-    name: 
-    clips:
-    - {fileID: 8300000, guid: a2c2b22080f4a814296ecdbea96d1cbc, type: 3}
-  overrides: []
-  playing: 0
-  canPlay: 0
---- !u!114 &3234107748590943783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779757732118725527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da84b2fc2044e6b47b3573da8b310b58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 3234107748590943782}
-  stopOnDisable: 0
 --- !u!1 &3234107748913880192
 GameObject:
   m_ObjectHideFlags: 0
