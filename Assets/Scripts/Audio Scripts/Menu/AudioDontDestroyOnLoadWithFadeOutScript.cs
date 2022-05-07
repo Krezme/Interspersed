@@ -18,6 +18,8 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
 
     public AudioClip TheLiberator;
 
+    public AudioClip MushroomSong;
+
     public AudioSource MenuMusicSource;
 
     public int MenuSelector;
@@ -27,6 +29,8 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
     public GameObject DistantValleysScene;
 
     public GameObject TheLiberatorScene;
+
+    public GameObject KingSlugScene;
 
     public GameObject Bus;
 
@@ -69,7 +73,7 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
     void SongSelector()
     {
 
-        MenuSelector = Random.Range(0, 3); //Generating a random digit which is assigned to a song and it's accompanying 3D background
+        MenuSelector = Random.Range(0, 4); //Generating a random digit which is assigned to a song and it's accompanying 3D background
 
         if (MenuSelector == 0)
         {
@@ -77,6 +81,7 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
             ValienteScene.SetActive(true);
             DistantValleysScene.SetActive(false);
             TheLiberatorScene.SetActive(false);
+            KingSlugScene.SetActive(false);
             Bus.SetActive(true);
         }
 
@@ -86,6 +91,7 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
             ValienteScene.SetActive(false);
             DistantValleysScene.SetActive(true);
             TheLiberatorScene.SetActive(false);
+            KingSlugScene.SetActive(false);
             Bus.SetActive(false);
         }
 
@@ -95,6 +101,17 @@ public class AudioDontDestroyOnLoadWithFadeOutScript : MonoBehaviour
             ValienteScene.SetActive(false);
             DistantValleysScene.SetActive(false);
             TheLiberatorScene.SetActive(true);
+            KingSlugScene.SetActive(false);
+            Bus.SetActive(false);
+        }
+
+        if (MenuSelector == 3)
+        {
+            MenuMusicSource.PlayOneShot(MushroomSong);
+            ValienteScene.SetActive(false);
+            DistantValleysScene.SetActive(false);
+            TheLiberatorScene.SetActive(false);
+            KingSlugScene.SetActive(true);
             Bus.SetActive(false);
         }
     }
