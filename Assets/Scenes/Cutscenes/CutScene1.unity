@@ -964,6 +964,7 @@ MonoBehaviour:
   optionsCanvas: {fileID: 0}
   mainMenuCanvas: {fileID: 0}
   controlsCanvas: {fileID: 0}
+  wannaQuitCanvas: {fileID: 0}
   confirmStartNewGame: {fileID: 0}
   cutScene1: {fileID: 1188740704}
   cutScene2: {fileID: 5977434127233304835}
@@ -973,6 +974,7 @@ MonoBehaviour:
   startButton: {fileID: 0}
   controlsBackButton: {fileID: 0}
   optionsBackButton: {fileID: 0}
+  yesButton: {fileID: 0}
   next1: {fileID: 876391611}
   next2: {fileID: 6671048321238843400}
   next3: {fileID: 8590948183889586985}
@@ -1365,7 +1367,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -18, y: 950}
-  m_SizeDelta: {x: 141.0688, y: 57.0405}
+  m_SizeDelta: {x: 200, y: 57.0405}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &847753731568585707
 MonoBehaviour:
@@ -1430,6 +1432,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1533348916}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: SetTextToLoading
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 847753731097033048}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3155,7 +3169,7 @@ PrefabInstance:
     - target: {fileID: 2723407502073554856, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 141.0688
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 2723407502073554856, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
@@ -3320,12 +3334,17 @@ PrefabInstance:
     - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
@@ -3339,7 +3358,17 @@ PrefabInstance:
       objectReference: {fileID: 587593986}
     - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1533348916}
+    - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
@@ -3349,8 +3378,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetTextToLoading
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: MainMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
@@ -3359,8 +3398,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 6603629981086289081}
+    - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723407502073554857, guid: 77217046dd7ec6948bf2662b28d7a018,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Text, UnityEngine.UI
       objectReference: {fileID: 0}
     - target: {fileID: 2723407502073554863, guid: 77217046dd7ec6948bf2662b28d7a018,
         type: 3}
@@ -3369,6 +3423,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77217046dd7ec6948bf2662b28d7a018, type: 3}
+--- !u!114 &6603629981086289081 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2723407501601985818, guid: 77217046dd7ec6948bf2662b28d7a018,
+    type: 3}
+  m_PrefabInstance: {fileID: 6603629981086289080}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &6671048320767292092
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3765,6 +3831,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1533348916}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: SetTextToLoading
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7348973613423242907}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!224 &7348973614029020201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3783,7 +3861,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -18, y: 950}
-  m_SizeDelta: {x: 141.0688, y: 57.0405}
+  m_SizeDelta: {x: 200, y: 57.0405}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &7348973614029020202
 CanvasRenderer:
@@ -4305,7 +4383,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -18, y: 950}
-  m_SizeDelta: {x: 141.0688, y: 57.0405}
+  m_SizeDelta: {x: 200, y: 57.0405}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &8761836659613395649
 MonoBehaviour:
@@ -4370,6 +4448,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1533348916}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: SetTextToLoading
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8761836660085545074}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
