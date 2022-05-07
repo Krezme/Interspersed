@@ -27,6 +27,7 @@ public class SlimeArm : PlayerAbility
     public GameObject changeToArm; 
 
     public GameObject scaleSlimeBall;
+    public Animator slimeArmAnimator;
     
     GameObject slimeBallInstance;
     public RandomAudioPlayer Pickup; //Rhys - RandomAudioPlayer for when the slime arm picks something up
@@ -190,6 +191,7 @@ public class SlimeArm : PlayerAbility
                                 if (grabbedRB)
                                 {
                                     Debug.Log("sirjijsdfijsf1221212");
+                                    slimeArmAnimator.SetBool("Grabbed", true);
                                     Pickup.PlayRandomClip(); //Rhys - Plays sound only once an object has been successfully been pickup up by the slime arm
                                     FadeIn.SetActive(true); //Rhys - Enables a script that fades in a looping sound that plays while an object is held                         
                                     FadeOut.SetActive(false);
@@ -279,6 +281,7 @@ public class SlimeArm : PlayerAbility
         {
             if (OnPlayerInput.instance.onFire1 && PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy >= PlayerStatisticsManager.instance.currentStatistics.combatStatistics.slimeArmStats.throwEnergyCost)
             {
+                slimeArmAnimator.SetBool("Grabbed", false);
                 Throw.PlayRandomClip(); //Rhys - Plays sound when held object is thrown
                 FadeIn.SetActive(false);
                 FadeOut.SetActive(true);
@@ -360,6 +363,7 @@ public class SlimeArm : PlayerAbility
     private void RestartGrabbedState(){
         FadeIn.SetActive(false);
         FadeOut.SetActive(true);
+        slimeArmAnimator.SetBool("Grabbed", false);
         PlayerAbilitiesController.instance.isAbilityActive = false;
         grabbedRB = null;
         grabbedRagdoll = null;
@@ -394,6 +398,7 @@ public class SlimeArm : PlayerAbility
         slimeBallInstance = null;
         grabbedRB = null;
         PlayerAbilitiesController.instance.isAbilityActive = false;
+        slimeArmAnimator.SetBool("Grabbed", false);
         Drop.PlayRandomClip(); //Plays sound when held object is dropped without throwing
         FadeIn.SetActive(false);
         FadeOut.SetActive(true);

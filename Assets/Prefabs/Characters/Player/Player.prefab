@@ -3138,7 +3138,7 @@ Animator:
   m_GameObject: {fileID: 2005050697395976456}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b37467c34752b904790ed3cb7dc347e9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3697,7 +3697,7 @@ Animator:
   m_GameObject: {fileID: 3136398702106619915}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fa6a36eb020ae0343908cd20929ae9de, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4866,12 +4866,12 @@ MonoBehaviour:
   - name: 'Ability: Single shot (Active: True)'
     abilityName: Single shot
     isActive: 1
-  - name: 'Ability: Electric Shot (Active: False)'
+  - name: 'Ability: Electric Shot (Active: True)'
     abilityName: Electric Shot
-    isActive: 0
-  - name: 'Ability: Shotgun (Active: False)'
+    isActive: 1
+  - name: 'Ability: Shotgun (Active: True)'
     abilityName: Shotgun
-    isActive: 0
+    isActive: 1
   statistics:
     maxElectricShots: 3
     currentElectricShots: 3
@@ -4891,6 +4891,7 @@ MonoBehaviour:
   lightningVFXEffect: {fileID: 1430635774}
   lightningMeshToMesh: {fileID: 1430635767}
   crosshair: {fileID: 0}
+  cystalArmAnimator: {fileID: 4015118366117729836}
   ChargeOn: {fileID: 5912012086594059417}
   ChargeOff: {fileID: 1556543491740539852}
   ChargingPlayer: {fileID: 8188284837993904461}
@@ -4931,6 +4932,7 @@ MonoBehaviour:
   changeToArm: {fileID: 2005050697395976456}
   scaleSlimeBall: {fileID: 3318853465249050936, guid: a8f90c1732517f14c85656b0f18edf02,
     type: 3}
+  slimeArmAnimator: {fileID: 722115169071863387}
   Pickup: {fileID: 8859838197119720049}
   Drop: {fileID: 7606833624183203884}
   Throw: {fileID: 6367442457232704566}
@@ -5423,9 +5425,9 @@ MonoBehaviour:
   - name: 'PlayerAbilities (CristalArm) (Active: True)'
     playerAbility: {fileID: 2966370538525935677}
     isActive: 1
-  - name: 'PlayerAbilities (SlimeArm) (Active: False)'
+  - name: 'PlayerAbilities (SlimeArm) (Active: True)'
     playerAbility: {fileID: 1008479993094344304}
-    isActive: 0
+    isActive: 1
   aimColliderLayerMask:
     serializedVersion: 2
     m_Bits: 577
@@ -6733,7 +6735,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6842839868901000665}
   m_LocalRotation: {x: 0.6365343, y: 0.35158557, z: -0.5570515, w: 0.4011301}
-  m_LocalPosition: {x: 0.14500003, y: -0.17200005, z: 0.45499992}
+  m_LocalPosition: {x: 0.1522, y: -0.172, z: 0.4006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3039792196782971181}
@@ -8236,6 +8238,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5356253129817776433, guid: 3a08d931890cf0e45990a668e4efc0e9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c65b080599871c74c83fd3d80b194c21, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a08d931890cf0e45990a668e4efc0e9, type: 3}
 --- !u!1 &2005050697395976456 stripped
