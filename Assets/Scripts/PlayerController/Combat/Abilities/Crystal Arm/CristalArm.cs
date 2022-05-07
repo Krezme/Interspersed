@@ -264,7 +264,10 @@ public class CristalArm : PlayerAbility
             if (isNextLocked) {
                 NextMode();
             }else {
-                SetIsElectric(false);
+                if (statistics.isElectric == true)
+                {
+                    SetIsElectric(false);
+                }
                 ShotgunSwapTrue.PlayRandomClip();
                 cystalArmAnimator.SetBool("Shotgun", true);
                 crosshair.value = 0;
