@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuCanvas, optionsMenuCanvas, controlsMenuCanvas;
+    public GameObject pauseMenuCanvas, optionsMenuCanvas, controlsMenuCanvas, wannaQuitCanvas;
     public GameObject hudCanvas;
     public OnPlayerInput playerInput;
 
@@ -27,6 +27,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject optionBackButton;
     public GameObject controlsBackButton;
+    public GameObject yesButton;
 
 
     // Start is called before the first frame update
@@ -104,12 +105,20 @@ public class PauseMenu : MonoBehaviour
         pauseMenuCanvas.SetActive(false);
     }
 
+    public void WannaQuitGame()
+    {
+        EventSystem.current.SetSelectedGameObject(yesButton);
+        wannaQuitCanvas.SetActive(true);
+        pauseMenuCanvas.SetActive(false);
+    }
+
     public void BackToPauseMenu()
     {
         EventSystem.current.SetSelectedGameObject(resumeButton);
         pauseMenuCanvas.SetActive(true);
         controlsMenuCanvas.SetActive(false);
         optionsMenuCanvas.SetActive(false);
+        wannaQuitCanvas.SetActive(false);
     }
 
 }
