@@ -116,6 +116,8 @@ public class PlayerStatisticsManager : MonoBehaviour
 
     public bool isInvincible;
 
+
+    public float lowHealthActivatePercentage;
     public AudioSource lowHealthSFX;
 
 
@@ -133,12 +135,12 @@ public class PlayerStatisticsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentStatistics.resourcesStatistics.health <= (maxStatistics.resourcesStatistics.health / 100) * lowHealthActivatePercentage)
+        {
+            lowHealthSFX.volume += (1 - (currentStatistics.resourcesStatistics.health / ((maxStatistics.resourcesStatistics.health / 100) * lowHealthActivatePercentage))); //! Raising & lowering SFX LowHealth audio source volume depending on health
+        }
         CrystalEnergyRecharge(currentStatistics.resourcesStatistics.energyRechargeStatistics.crystalEnergyRechargeOverOneSecond * Time.deltaTime);
         SlimeEnergyRecharge(currentStatistics.resourcesStatistics.energyRechargeStatistics.slimeEnergyRechargeOverOneSecond * Time.deltaTime);
-        /* if (currentStatistics.resourcesStatistics.health < (maxStatistics.resourcesStatistics.health / 100) * 50)
-        {
-            lowHealthSFX.volume = 1-(currentStatistics.resourcesStatistics.health / (maxStatistics.resourcesStatistics.health / 100) * 50); //! Raising & lowering SFX LowHealth audio source volume depending on health
-        } */
     }
 
     public void SetSlidersValues()
