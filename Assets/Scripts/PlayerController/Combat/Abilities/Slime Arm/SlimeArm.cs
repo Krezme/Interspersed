@@ -419,4 +419,13 @@ public class SlimeArm : PlayerAbility
             armAbilities[i].Validate();
         }
     }
+
+    public override void RestartAbility()
+    {
+        base.RestartAbility();
+        try {
+            LetGoOffTheObject();
+        }catch (System.Exception) {}
+        RestartGrabbedState();
+    }
 }

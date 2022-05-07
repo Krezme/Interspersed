@@ -56,6 +56,8 @@ public Light ElectricGlow;
     [HideInInspector]
     public bool isAbilityActive;
 
+    private bool hasChanged; // when the abilit changes
+
     public void ChangeArm() {
         for (int i = 0; i < playerAbilitiesRef.Length; i++) {
             playerAbilitiesRef[i].playerAbility.MorthToTarget(); // ! This is PlaceHolder FUNCTIONALITY NEEDS TO BE CHANGED ONLY FOR MID-TERM-REVIEW
@@ -71,31 +73,32 @@ public Light ElectricGlow;
         // ? New way of chaning arms
         playerAbilitiesRef[selectedAbility].playerAbility.Ability();
 
+        if (hasChanged) {
+            for (int i = 0; i < playerAbilitiesRef.Length; i++) {
+                if (i != selectedAbility) {
+                    playerAbilitiesRef[i].playerAbility.RestartAbility();
+                }
+            }
+            hasChanged = false;
+        }
+
         if (selectedAbility == 0)
-            {
-                CrystalGlow.GetComponent<Light>().enabled = true;
-                SlimeGlow.GetComponent<Light>().enabled = false;
-                ElectricGlow.GetComponent<Light>().enabled = false;
-            }
-            else
-            {
-                CrystalGlow.GetComponent<Light>().enabled = false;
-                SlimeGlow.GetComponent<Light>().enabled = true;
-                ElectricGlow.GetComponent<Light>().enabled = false;
-            }
-            /*
-        if ((selectedAbility == 0) && (isAbilityActive == true))
-            {
-                CrystalGlow.GetComponent<Light>().enabled = false;
-                SlimeGlow.GetComponent<Light>().enabled = false;
-                ElectricGlow.GetComponent<Light>().enabled = true;
-            }
-            else
-            {
-                CrystalGlow.GetComponent<Light>().enabled = false;
-                SlimeGlow.GetComponent<Light>().enabled = false;
-                ElectricGlow.GetComponent<Light>().enabled = true;
-            }*/
+        {
+            CrystalGlow.GetComponent<Light>().enabled = true;
+            SlimeGlow.GetComponent<Light>().enabled = false;
+            ElectricGlow.GetComponent<Light>().enabled = false;
+        }
+        else
+        {
+            CrystalGlow.GetComponent<Light>().enabled = false;
+            SlimeGlow.GetComponent<Light>().enabled = true;
+            ElectricGlow.GetComponent<Light>().enabled = false;
+        }
+    }
+
+    public void SelectAbility(int newSelectedAbility) {
+        selectedAbility = newSelectedAbility;
+        hasChanged = true;
     }
 
     public void EnableAbility(int index) {

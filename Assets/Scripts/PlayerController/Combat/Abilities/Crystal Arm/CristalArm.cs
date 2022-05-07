@@ -264,6 +264,10 @@ public class CristalArm : PlayerAbility
             }else {
                 SetIsElectric(false);
                 ShotgunSwapTrue.PlayRandomClip();
+                crosshair.value = 0;
+                timePassed = -1;
+                IsHold = false;
+                ChargingSource.Stop();
             }
         }
     }
@@ -379,6 +383,21 @@ public class CristalArm : PlayerAbility
         }
     }
 
+    void RestartArmState() {
+        if (statistics.isElectric == true)
+        {
+            SetIsElectric(false);
+        }
+        crosshair.value = 0;
+        timePassed = -1;
+        IsHold = false;
+        ChargingSource.Stop();
+        if ((int)crystalArmModes == Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Max()){ // if the current item is the last item possible
+            DefaultMode(); //set it to first item
+        }
+        //crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min();
+    }
+
     public void EnableAbility(int index) {
         Debug.Log("Activating??");
         armAbilities[index].isActive = true;
@@ -392,6 +411,12 @@ public class CristalArm : PlayerAbility
         for (int i = 0; i < armAbilities.Length; i++) {
             armAbilities[i].Validate();
         }
+    }
+
+    public override void RestartAbility()
+    {
+        base.RestartAbility();
+        RestartArmState();
     }
 }
 

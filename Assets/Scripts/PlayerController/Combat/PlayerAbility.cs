@@ -113,4 +113,9 @@ public class PlayerAbility : MonoBehaviour
     /// This function is for any abilities apart from the once that require aiming and shooting
     /// </summary>
     public virtual void AditionalAbilities() {}
+
+    /// <summary>
+    /// This will restart the ability when the arm is not active
+    /// </summary>
+    public virtual void RestartAbility() {}
 }

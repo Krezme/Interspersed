@@ -309,7 +309,7 @@ public class OnPlayerInput : MonoBehaviour
     /// </summary>
     /// <param name="armIndex"></param>
     private void PlayerArmInput(int armIndex) {
-        PlayerAbilitiesController.instance.selectedAbility = armIndex;
+        PlayerAbilitiesController.instance.SelectAbility(armIndex);
         PlayerAbilitiesController.instance.ChangeArm();
     }
 
