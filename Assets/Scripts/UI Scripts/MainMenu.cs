@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsCanvas;
     public GameObject mainMenuCanvas;
     public GameObject controlsCanvas;
+    public GameObject wannaQuitCanvas;
     public GameObject confirmStartNewGame;
 
     public GameObject cutScene1;
@@ -18,7 +19,7 @@ public class MainMenu : MonoBehaviour
     public GameObject cutScene4;
     public GameObject cutScene5;
 
-    public GameObject startButton, controlsBackButton, optionsBackButton;
+    public GameObject startButton, controlsBackButton, optionsBackButton, yesButton;
 
     public GameObject next1, next2, next3, next4, next5;
 
@@ -36,6 +37,10 @@ public class MainMenu : MonoBehaviour
         }
         if (confirmStartNewGame != null) {
         confirmStartNewGame.SetActive(false);
+        }
+        if (wannaQuitCanvas != null)
+        {
+            wannaQuitCanvas.SetActive(false);
         }
     }
 
@@ -81,6 +86,13 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("ImprovedLMALevel");
     }
 
+    public void WannaQuitGame()
+    {
+        EventSystem.current.SetSelectedGameObject(yesButton);
+        wannaQuitCanvas.SetActive(true);
+        mainMenuCanvas.SetActive(false);
+    }
+
     public void ExitGame()
     {
         Application.Quit();
@@ -110,6 +122,7 @@ public class MainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(startButton);
         optionsCanvas.SetActive(false);
         controlsCanvas.SetActive(false);
+        wannaQuitCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
     }
 
