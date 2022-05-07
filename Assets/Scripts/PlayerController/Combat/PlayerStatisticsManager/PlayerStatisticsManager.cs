@@ -116,6 +116,9 @@ public class PlayerStatisticsManager : MonoBehaviour
 
     public bool isInvincible;
 
+    public AudioSource lowHealthSFX;
+
+
     public void ToggleIsInvincible (bool state) {
         isInvincible = state;
     }
@@ -132,6 +135,10 @@ public class PlayerStatisticsManager : MonoBehaviour
     {
         CrystalEnergyRecharge(currentStatistics.resourcesStatistics.energyRechargeStatistics.crystalEnergyRechargeOverOneSecond * Time.deltaTime);
         SlimeEnergyRecharge(currentStatistics.resourcesStatistics.energyRechargeStatistics.slimeEnergyRechargeOverOneSecond * Time.deltaTime);
+        /* if (currentStatistics.resourcesStatistics.health < (maxStatistics.resourcesStatistics.health / 100) * 50)
+        {
+            lowHealthSFX.volume = 1-(currentStatistics.resourcesStatistics.health / (maxStatistics.resourcesStatistics.health / 100) * 50); //! Raising & lowering SFX LowHealth audio source volume depending on health
+        } */
     }
 
     public void SetSlidersValues()
