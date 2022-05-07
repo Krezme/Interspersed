@@ -55,6 +55,8 @@ public class CristalArm : PlayerAbility
 
     public Slider crosshair;
 
+    public Animator cystalArmAnimator;
+
     private float timePassed = -1;
 
     private float cooldownBetweenShots;
@@ -264,6 +266,7 @@ public class CristalArm : PlayerAbility
             }else {
                 SetIsElectric(false);
                 ShotgunSwapTrue.PlayRandomClip();
+                cystalArmAnimator.SetBool("Shotgun", true);
                 crosshair.value = 0;
                 timePassed = -1;
                 IsHold = false;
@@ -274,6 +277,7 @@ public class CristalArm : PlayerAbility
 
     void DefaultMode() {
         crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min(); //set it to first item
+        cystalArmAnimator.SetBool("Shotgun", false);
         if (armAbilities[2].isActive) {
             ShotgunSwapFalse.PlayRandomClip();
         }
@@ -394,6 +398,7 @@ public class CristalArm : PlayerAbility
         ChargingSource.Stop();
         if ((int)crystalArmModes == Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Max()){ // if the current item is the last item possible
             DefaultMode(); //set it to first item
+            cystalArmAnimator.SetTrigger("EmergencyReturn");
         }
         //crystalArmModes = (CrystalArmModes)Enum.GetValues(typeof(CrystalArmModes)).Cast<int>().Min();
     }
