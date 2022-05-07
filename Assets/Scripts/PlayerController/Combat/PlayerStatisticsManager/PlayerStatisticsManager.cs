@@ -137,7 +137,16 @@ public class PlayerStatisticsManager : MonoBehaviour
     {
         if (currentStatistics.resourcesStatistics.health <= (maxStatistics.resourcesStatistics.health / 100) * lowHealthActivatePercentage)
         {
-            lowHealthSFX.volume += (1 - (currentStatistics.resourcesStatistics.health / ((maxStatistics.resourcesStatistics.health / 100) * lowHealthActivatePercentage))); //! Raising & lowering SFX LowHealth audio source volume depending on health
+            lowHealthSFX.volume = (1 - (currentStatistics.resourcesStatistics.health / ((maxStatistics.resourcesStatistics.health / 100) * lowHealthActivatePercentage))); // Raising & lowering SFX LowHealth audio source volume depending on health
+            if (HealthVignette.instance != null) {
+                HealthVignette.instance.image.color = new Color(HealthVignette.instance.image.color.r,HealthVignette.instance.image.color.g,HealthVignette.instance.image.color.b,(1 - (currentStatistics.resourcesStatistics.health / ((maxStatistics.resourcesStatistics.health / 100) * lowHealthActivatePercentage))));
+            }
+        }
+        else {
+            lowHealthSFX.volume = 0; // Raising & lowering SFX LowHealth audio source volume depending on health
+            if (HealthVignette.instance != null) {
+                HealthVignette.instance.image.color = new Color(HealthVignette.instance.image.color.r,HealthVignette.instance.image.color.g,HealthVignette.instance.image.color.b,0);
+            }
         }
         CrystalEnergyRecharge(currentStatistics.resourcesStatistics.energyRechargeStatistics.crystalEnergyRechargeOverOneSecond * Time.deltaTime);
         SlimeEnergyRecharge(currentStatistics.resourcesStatistics.energyRechargeStatistics.slimeEnergyRechargeOverOneSecond * Time.deltaTime);
