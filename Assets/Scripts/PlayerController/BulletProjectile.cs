@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -89,6 +89,10 @@ public class BulletProjectile : MonoBehaviour
             else if (other.tag == "SlimeObsticle" && statistics.isShotgunProjectile) {
                 Destroy(other.gameObject);
             }
+            /* else if (other.gameObject.layer == LayerMask.NameToLayer("Explosive_Barrel")) 
+            {
+                other.gameObject.GetComponent<PhysicsInstanitateOnImpact>().Explode(gameObject.transform.rotation, gameObject.transform.position);
+            } */
             else if (other.tag == "EventTriggers") {
             }
             else if (other.tag == "TreeBranch") {

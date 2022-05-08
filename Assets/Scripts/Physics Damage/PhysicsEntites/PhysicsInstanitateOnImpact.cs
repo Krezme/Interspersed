@@ -40,6 +40,10 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
         Vector3 pos = contact.point;
 
+        Explode(rot, pos);
+    }
+
+    public void Explode(Quaternion rot, Vector3 pos) {
 
         //if the force of this object is higher than the force required on impact
         try {
@@ -60,7 +64,4 @@ public class PhysicsInstanitateOnImpact : MonoBehaviour
             }
         }catch (System.Exception) {}
     }
-
-
-
 }
