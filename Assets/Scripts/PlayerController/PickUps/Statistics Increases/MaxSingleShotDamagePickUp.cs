@@ -9,6 +9,7 @@ public class MaxSingleShotDamagePickUp : MonoBehaviour
     public int eventIntex;
     public string pupUpText = "Max Single Shot Damage";
     public Text displayText;
+    public GameObject toEnable;
 
     public GameObject SFXMaxStatisticsPickup;
 
@@ -23,6 +24,7 @@ public class MaxSingleShotDamagePickUp : MonoBehaviour
                     Instantiate(SFXMaxStatisticsPickup);
                 } 
                 catch (System.Exception) {}
+                toEnable.SetActive(true);
                 displayText.text = ("+" + chargeShotsDamage[0] + " " + pupUpText);
                 Destroy(this.gameObject);
             }

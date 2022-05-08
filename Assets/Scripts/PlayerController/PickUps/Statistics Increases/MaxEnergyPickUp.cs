@@ -9,6 +9,7 @@ public class MaxEnergyPickUp : MonoBehaviour
     public int eventIntex;
     public string pupUpText = "Max Energy";
     public Text displayText;
+    public GameObject toEnable;
 
     public GameObject SFXMaxStatisticsPickup;
 
@@ -22,6 +23,7 @@ public class MaxEnergyPickUp : MonoBehaviour
                     Instantiate(SFXMaxStatisticsPickup);
                 } 
                 catch (System.Exception) {}
+                toEnable.SetActive(true);
                 displayText.text = ("+" + maxEnergy + " " + pupUpText);
                 Destroy(this.gameObject);
             }

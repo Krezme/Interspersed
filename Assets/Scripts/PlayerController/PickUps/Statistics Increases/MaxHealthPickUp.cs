@@ -9,6 +9,7 @@ public class MaxHealthPickUp : MonoBehaviour
     public int eventIntex;
     public string pupUpText = "Max Health";
     public Text displayText;
+    public GameObject toEnable;
 
     public GameObject SFXMaxStatisticsPickup;
 
@@ -21,6 +22,7 @@ public class MaxHealthPickUp : MonoBehaviour
                     Instantiate(SFXMaxStatisticsPickup);
                 } 
                 catch (System.Exception) {}
+                toEnable.SetActive(true);
                 displayText.text = ("+" + maxHealth + " " + pupUpText);
                 Destroy(this.gameObject);
             }
