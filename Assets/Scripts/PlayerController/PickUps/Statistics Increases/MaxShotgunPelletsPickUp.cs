@@ -17,6 +17,13 @@ public class MaxShotgunPelletsPickUp : MonoBehaviour
         if (other.gameObject.tag == "Player") {
             if (other.gameObject.TryGetComponent<PlayerStatisticsManager>(out PlayerStatisticsManager playerStatisticsManager)) { 
                 PlayerStatisticsManager.instance.maxStatistics.combatStatistics.crystalArmShotgunStats.projectileCount += shotgunProjectileCount;
+                float tempHealth = PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.health;
+                float tempCrystalEnergy = PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.cystalEnergy;
+                float tempSlimeEnergy = PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy;
+                PlayerStatisticsManager.instance.ResetPlayerStatistics();
+                PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.health = tempHealth;
+                PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.cystalEnergy = tempCrystalEnergy;
+                PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy = tempSlimeEnergy;
                 SaveData.instance.SetEventToComplete(eventIntex);
                 try {
                     Instantiate(SFXMaxStatisticsPickup);

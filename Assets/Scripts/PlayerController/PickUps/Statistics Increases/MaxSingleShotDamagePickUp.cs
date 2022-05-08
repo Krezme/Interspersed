@@ -19,6 +19,13 @@ public class MaxSingleShotDamagePickUp : MonoBehaviour
                 for (int i = 0; i < PlayerStatisticsManager.instance.maxStatistics.combatStatistics.crystalArmStats.chargeShotsDamage.Length; i++) {
                     PlayerStatisticsManager.instance.maxStatistics.combatStatistics.crystalArmStats.chargeShotsDamage[i] += chargeShotsDamage[i];
                 }
+                float tempHealth = PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.health;
+                float tempCrystalEnergy = PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.cystalEnergy;
+                float tempSlimeEnergy = PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy;
+                PlayerStatisticsManager.instance.ResetPlayerStatistics();
+                PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.health = tempHealth;
+                PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.cystalEnergy = tempCrystalEnergy;
+                PlayerStatisticsManager.instance.currentStatistics.resourcesStatistics.slimeEnergy = tempSlimeEnergy;
                 SaveData.instance.SetEventToComplete(eventIntex);
                 try {
                     Instantiate(SFXMaxStatisticsPickup);
