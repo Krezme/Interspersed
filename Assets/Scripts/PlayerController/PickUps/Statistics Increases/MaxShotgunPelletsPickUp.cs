@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MaxShotgunPelletsPickUp : MonoBehaviour
 {
     public int shotgunProjectileCount;
     public int eventIntex;
+    public string pupUpText = "Max Shotgun Pellets";
+    public Text displayText;
 
     public GameObject SFXMaxStatisticsPickup;
 
@@ -18,6 +21,7 @@ public class MaxShotgunPelletsPickUp : MonoBehaviour
                     Instantiate(SFXMaxStatisticsPickup);
                 } 
                 catch (System.Exception) {}
+                displayText.text = ("+" + shotgunProjectileCount + " " + pupUpText);
                 Destroy(this.gameObject);
             }
         }

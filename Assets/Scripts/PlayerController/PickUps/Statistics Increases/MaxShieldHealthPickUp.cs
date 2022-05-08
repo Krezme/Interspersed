@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MaxShieldHealthPickUp : MonoBehaviour
 {
     public float shieldHealth;
     public int eventIntex;
+    public string pupUpText = "Max Shield Health";
+    public Text displayText;
 
     public GameObject SFXMaxStatisticsPickup;
 
@@ -18,6 +21,7 @@ public class MaxShieldHealthPickUp : MonoBehaviour
                     Instantiate(SFXMaxStatisticsPickup);
                 } 
                 catch (System.Exception) {}
+                displayText.text = ("+" + shieldHealth + " " + pupUpText);
                 Destroy(this.gameObject);
             }
         }

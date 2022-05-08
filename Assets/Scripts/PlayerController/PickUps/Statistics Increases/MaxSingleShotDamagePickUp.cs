@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MaxSingleShotDamagePickUp : MonoBehaviour
 {
     public float[] chargeShotsDamage;
     public int eventIntex;
+    public string pupUpText = "Max Single Shot Damage";
+    public Text displayText;
 
     public GameObject SFXMaxStatisticsPickup;
 
@@ -20,6 +23,7 @@ public class MaxSingleShotDamagePickUp : MonoBehaviour
                     Instantiate(SFXMaxStatisticsPickup);
                 } 
                 catch (System.Exception) {}
+                displayText.text = ("+" + chargeShotsDamage[0] + " " + pupUpText);
                 Destroy(this.gameObject);
             }
         }
