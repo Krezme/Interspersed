@@ -38,6 +38,8 @@ public class BulletProjectile : MonoBehaviour
 
     public RandomAudioPlayer BulletImpact; //Rhys - Adds functionality for bullet to play impact sound, also opens up the possibility of different surface impact sounds
 
+    public GameObject SFXPopSound;
+
     private void Start()
     {
         bulletRigidbody.velocity = transform.forward * statistics.speed;
@@ -87,6 +89,10 @@ public class BulletProjectile : MonoBehaviour
                 }
             }
             else if (other.tag == "SlimeObsticle" && statistics.isShotgunProjectile) {
+                try {
+                    Instantiate(SFXPopSound, transform.position, Quaternion.identity);
+                } 
+                catch (System.Exception) {}
                 Destroy(other.gameObject);
             }
             /* else if (other.gameObject.layer == LayerMask.NameToLayer("Explosive_Barrel")) 
