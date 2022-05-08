@@ -6,6 +6,11 @@ using Fungus;
 public class EnableIfWaveEventHasEnded : MonoBehaviour
 {
     public GameObject gameObjectToEnable;
+
+    public GameObject gameObjectToEnable2;
+
+    public GameObject gameObjectToDisable;
+
     public WaveEventManager waveEventManager;
     [Header("Fungus flowchart")]
     public Flowchart flowchart;
@@ -18,6 +23,18 @@ public class EnableIfWaveEventHasEnded : MonoBehaviour
     {
         if (waveEventManager.hasEnded && !enabledOnce) {
             gameObjectToEnable.SetActive(true);
+
+            try
+            {
+                gameObjectToEnable2.SetActive(true);
+                gameObjectToDisable.SetActive(false);
+            }
+            catch{}
+
+
+
+
+
             if (flowchart != null) {
                 flowchart.ExecuteBlock(blockName);
             }
